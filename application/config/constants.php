@@ -13,7 +13,7 @@
 | always be used to set the mode correctly.
 |
 */
-define('BASE_URL', "http://www.icmyazilim.com/crm/");
+define('BASE_URL', "http://127.0.0.1:8080/Proforma/");
 define('ASSETS', BASE_URL . 'public/');
 define('FILE_READ_MODE', 0644);
 define('FILE_WRITE_MODE', 0666);
