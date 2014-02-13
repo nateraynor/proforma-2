@@ -67,15 +67,7 @@
 <body>
 
 <div id="container">
-<<<<<<< HEAD
-<<<<<<< HEAD
-	<h1>Welcome to CodeIgniter! Osman</h1>
-=======
-	<h1>Welcome to CodeIgniter! deneme</h1>
->>>>>>> 7e7e482f29f6f2be397e7f019d0a3713f9c7ef5f
-=======
-	<h1>Welcome to CodeIgniter! deneme</h1>
->>>>>>> 7e7e482f29f6f2be397e7f019d0a3713f9c7ef5f
+	<h1>Welcome to CodeIgniter! deneme duygu</h1>
 
 	<div id="body">
 		<p>The page you are looking at is being generated dynamically by CodeIgniter.</p>
