@@ -159,59 +159,6 @@
 
 				</li>
 
-				<li class="<?php echo $menu == 'actions' ? "active" : ''; ?>">
-
-					<a href="javascript:;">
-
-					<i class="fa fa-credit-card"></i>
-
-					<span class="title">İşlemler</span>
-
-					<span class="arrow "></span>
-
-					</a>
-
-					<ul class="sub-menu">
-
-						<li>
-
-							<a href="<?php echo base_url() ?>actions">İşlem Listesi</a>
-
-						</li>
-
-						<li>
-
-							<a href="<?php echo base_url() ?>actionStatuses">İşlem Durumları</a>
-
-						</li>
-
-						<li>
-
-							<a href="<?php echo base_url() ?>actions/actionCard">İşlem Kartı</a>
-
-						</li>
-
-						<li>
-
-							<a href="<?php echo base_url() ?>actions/action/genel_islemler">İşlem Ekle</a>
-
-						</li>
-
-					</ul>
-
-				</li>
-
-				<li class="<?php echo $menu == 'companies' ? "active" : ''; ?>">
-
-					<a href="<?php echo base_url() ?>companies">
-
-					<i class="fa fa-building"></i>
-
-					<span class="title">Şirketler</span>
-
-					</a>
-
-				</li>
 
 				<li class="<?php echo $menu == 'reports' ? "active" : ''; ?>">
 
