@@ -18,8 +18,6 @@ class Category_model extends CI_Model {
 
  		$result = $this->db->query("SELECT * FROM category");
 
-
-
  		return $result->result_array();
 
  	}
@@ -84,8 +82,8 @@ class Category_model extends CI_Model {
 
  	public function addCategory($data) {
 
- 
- 		$result = $this->db->query( "INSERT INTO category SET category_name = " .$this->db->escape($data['category_name']) . " , category_parent_id = '" . (int)$category_parent_id . "' , category_status = '" . (int)$data['category_status'] ."'");
+
+ 		$result = $this->db->query( "INSERT INTO category SET category_name = " .$this->db->escape($data['category_name']) . " , category_parent_id = '" . (int)$data['category_parent_id'] . "' , category_status = '" . (int)$data['category_status'] ."'");
 
  		return $result;
 
@@ -95,7 +93,7 @@ class Category_model extends CI_Model {
 
  	public function updateCategory($data , $category_id){
 
- 		$result = $this->db->query("UPDATE category SET category_name = " . $this->db->escape($data['category_name']) . " , category_id = '" . (int)$category_id . "' , category_parent_id = '" . (int)$category_parent_id . "' category_status = '" .(int)$data['category_status'] . "' WHERE category_id = '" . (int)$category_id ."'");
+ 		$result = $this->db->query("UPDATE category SET category_name = " . $this->db->escape($data['category_name']) . ", category_parent_id = '" . (int)$data['category_parent_id'] . "' ,category_status = '" .(int)$data['category_status'] . "' WHERE category_id = '" . (int)$category_id ."'");
 
  		return $result;
  	}

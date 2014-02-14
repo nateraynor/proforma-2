@@ -62,9 +62,11 @@
 										<div class="col-md-6">
 											<div class="form-group">
 												<label class="control-label">Üst Kategori Adı</label>
-													<select class="form-control select2me" name="category_status" data-placeholder="Seçiniz...">
-														<option value="<?php $category['category_parent_id']  ?>" <?php echo isset($category['category_parent_id']) ? 'selected ' : '' ;?>><?php echo $category['category_name']; ?></option>
-													
+													<select class="form-control select2me" name="category_parent_id" data-placeholder="Seçiniz...">
+														<option value="0"></option>
+														<?php foreach ($categorys as $parentCategory): ?>
+															<option value="<?php echo $parentCategory['category_id'] ?>" <?php echo isset($category['category_parent_id']) && $category['category_parent_id'] == $parentCategory['category_id'] ? 'selected' : '';?>><?php echo $parentCategory['category_name'] ;?></option>
+														<?php endforeach ?>												
 													</select>
 											</div>
 										</div>

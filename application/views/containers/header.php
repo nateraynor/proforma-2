@@ -162,6 +162,17 @@
 							<a href="<?php echo base_url() ?>categorys/category">Ürün Kategori Ekle</a>
 
 						</li>
+						<li>
+
+							<a href="<?php echo base_url() ?>brands">Ürün Marka Listesi</a>
+
+						</li>
+						<li>
+
+							<a href="<?php echo base_url() ?>brands/brand">Ürün Marka Ekle</a>
+
+						</li>
+
 					
 
 					</ul>

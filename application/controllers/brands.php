@@ -2,7 +2,7 @@
 
 
 
-class Categorys extends CI_Controller {
+class Brands extends CI_Controller {
 
 	var $errors = array();
 
@@ -21,21 +21,19 @@ class Categorys extends CI_Controller {
 
     	public function index() {
 
-		$this->load->model('category_model');
+		$this->load->model('brand_model');
 
 
 		$filters = array();
 
 		
-		$data['categorys'] = $this->category_model->getCategory($filters);
+		$data['brands'] = $this->brand_model->getBrand($filters);
 
-		$data['menu'] = 'categorys';
+		$data['menu'] = 'brands';
 
 		$data['page'] = 'advancedtables';
 
-		$data['subview'] = 'categorys/category_list';
-
-		$data['parentcategorys'] = $this->category_model->getCategory($filters);
+		$data['subview'] = 'brands/brand_list';
 		
 		$data['errors'] = $this->errors;
 
@@ -43,9 +41,9 @@ class Categorys extends CI_Controller {
 
 	}	
 
-	public function category($category_id = -1) {
+	public function brand($brand_id = -1) {
 
-		$this->load->model('category_model');
+		$this->load->model('brand_model');
 
 		$filters = array();
 
@@ -55,27 +53,27 @@ class Categorys extends CI_Controller {
 
 			$result = false;
 
-			if ($category_id == -1) {
+			if ($brand_id == -1) {
 
-				$result = $this->category_model->addCategory($this->input->post());
+				$result = $this->brand_model->addBrand($this->input->post());
 
 				if ($result) {
 
-					$this->session->set_flashdata('success', 'Ürün Kategorisi başarıyla eklendi');
+					$this->session->set_flashdata('success', 'Ürün Marka başarıyla eklendi');
 
-					redirect('categorys');
+					redirect('brands');
 
 				}
 
 			} else {
 
-				$result = $this->category_model->updateCategory($this->input->post(), $category_id);
+				$result = $this->brand_model->updateBrand($this->input->post(), $brand_id);
 
 				if ($result) {
 
-					$this->session->set_flashdata('success', 'Ürün Kategorisi başarıyla güncellendi');
+					$this->session->set_flashdata('success', 'Ürün Marka başarıyla güncellendi');
 
-					redirect('categorys');
+					redirect('brands');
 
 				}
 
@@ -85,11 +83,11 @@ class Categorys extends CI_Controller {
 
 
 
-		if ($category_id != -1)
-			$data['category'] = $this->category_model->getCategorys($category_id);
+		if ($brand_id != -1)
+			$data['brand'] = $this->brand_model->getBrands($brand_id);
 		
 
-		$data['category_id'] = $category_id;
+		$data['brand_id'] = $_id;
 
 		$data['menu'] = 'categorys';
 
@@ -97,7 +95,7 @@ class Categorys extends CI_Controller {
 
 		$data['subview'] = 'categorys/category';
 
-		$data['categorys'] = $this->category_model->getCategory($filters);
+		$data['categorys'] = $this->brand_model->getCategory($filters);
 
 		$this->load->view('layouts/default', $data);
 
@@ -107,7 +105,7 @@ class Categorys extends CI_Controller {
 
 	public function deleteCategory($category_id) {
 
-		$this->load->model('category_model');
+		$this->load->model('brand_model');
 
 
 
