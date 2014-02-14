@@ -17,7 +17,7 @@ class Login_model extends CI_Model {
     function sign_in($data) {
 
 
-    	$result = $this->db->query("SELECT * FROM user WHERE user_username = " . $this->db->escape($data['username_']) . " AND user_password = " . $this->db->escape($data['password_']) . " LIMIT 1")->row(0, 'array');
+    	$result = $this->db->query("SELECT * FROM user WHERE user_username = " . $this->db->escape($data['username_']) . " AND user_password = " . $this->db->escape(md5($data['password_'])) . " LIMIT 1")->row(0, 'array');
     
 		return $result;
 

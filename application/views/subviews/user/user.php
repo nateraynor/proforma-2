@@ -54,6 +54,18 @@
 								<div class="row">
 									<div class="col-md-6">
 										<div class="form-group">
+											<label class="control-label">Kullanıcı Ad</label>
+											<input type="text" name="user_name" class="form-control" placeholder="Kullanıcı Ad - Soyad" value="<?php echo isset($user['user_name']) ? $user['user_name'] : ''; ?>">
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label class="control-label">Kullanıcı Soyad</label>
+											<input type="text" name="user_surname" class="form-control" placeholder="Kullanıcı Soyad" value="<?php echo isset($user['user_surname']) ? $user['user_surname'] : ''; ?>">
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
 											<label class="control-label">Kullanıcı Rumuz</label>
 											<input type="text" name="user_username" class="form-control" placeholder="Kullanıcı Rumuz" value="<?php echo isset($user['user_username']) ? $user['user_username'] : ''; ?>">
 										</div>
@@ -66,10 +78,11 @@
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
-											<label class="control-label">Kullanıcı Ad - Soyad</label>
-											<input type="text" name="user_name" class="form-control" placeholder="Kullanıcı Ad - Soyad" value="<?php echo isset($user['user_name']) ? $user['user_name'] : ''; ?>">
+											<label class="control-label">Kullanıcı Şifre</label>
+											<input type="text" name="user_password" class="form-control" placeholder="Kullanıcı Şifre" value="">
 										</div>
 									</div>
+								
 									<!--<div class="col-md-6">
 										<div class="form-group">
 											<label class="control-label">Yetkili Sayfalar</label>
@@ -98,8 +111,8 @@
 										<div class="form-group">
 											<label class="control-label">Kullanıcı Durum</label>
 											<select name="user_status" class="form-control" placeholder="Kullanıcı Durum">
-												<option value="0">Pasif</option>
 												<option value="1" <?php echo isset($user['user_status']) && $user['user_status'] == 1 ? 'selected' : ''; ?>>Aktif</option>
+												<option value="0" <?php echo isset($user['user_status']) && $user['user_status'] == 0 ? 'selected' : ''; ?>>Pasif</option>
 											</select>
 										</div>
 									</div>

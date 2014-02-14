@@ -148,17 +148,6 @@
 
 						</li>
 
-						<li>
-
-							<a href="<?php echo base_url() ?>customerGroups">Müşteri Grupları</a>
-
-						</li>
-
-						<li>
-
-							<a href="<?php echo base_url() ?>customerStatuses">Müşteri Durumları</a>
-
-						</li>
 
 						<li>
 

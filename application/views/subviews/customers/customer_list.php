@@ -74,28 +74,44 @@
 						<table class="table table-striped table-bordered table-hover table-full-width sample_2">
 						<thead>
 						<tr>
-							<?php foreach ($columns as $column): ?>
-								<th><?php echo $column['column_name']; ?></th>
-							<?php endforeach ?>
+							<th>Müşteri No</th>
+							<th>Müşteri Adı</th>
+							<th>Müşteri Soyadı</th>
+							<th>Müşteri E-posta</th>
+							<th>Müşteri Şirket</th>
+							<th>Müşteri Telefon</th>
+							<th>Müşteri Adres</th>
+							<th>Müşteri Durum</th>
+							<th>Müşteri Eklenme Tarihi</th>
+							<th>Müşteri Güncellenme Tarihi</th>
 							<th>İşlemler</th>
 						</tr>
 						</thead>
 						<tbody>
-							<?php foreach ($customers as $customer_columns): ?>
+							<?php foreach ($customers as $customer): ?>
+
 								<tr>
-									<?php foreach ($customer_columns as $key => $value): ?>
-										<td>
-										<?php if (substr($key, -3) == '_id' && $key != 'customer_id'): ?>
-											<?php echo $this->customer_model->getCustomerColumnValue($key, $value); ?>
-										<?php else: ?>
-											<?php echo $value; ?>
-										<?php endif ?>
-										</td>
-									<?php endforeach ?>
+									<td><?php echo $customer['customer_id'] ;?></td>
+									<td><?php echo $customer['customer_name']; ?></td>
+									<td><?php echo $customer['customer_surname']; ?></td>
+									<td><?php echo $customer['customer_email']; ?></td>
+									<td><?php echo $customer['customer_company']; ?></td>
+									<td><?php echo $customer['customer_phone']; ?></td>
+									<td><?php echo $customer['customer_address']; ?></td>
 									<td>
-										<a href="<?php echo base_url() . 'customers/customerActions/' . $customer_columns['customer_id']; ?>" class="btn default btn-xs red"><i class="fa fa-credit-card"></i> İşlemler</a>
-										<a href="<?php echo base_url() . 'customers/customer/' . $customer_columns['customer_id']; ?>" class="btn default btn-xs yellow"><i class="fa fa-edit"></i> Güncelle</a>
-										<a href="#" location="<?php echo base_url() . 'customers/deletecustomer/' . $customer_columns['customer_id']; ?>" class="btn default btn-xs black validate-delete"><i class="fa fa-trash-o"></i> Sil</a>
+										<?php if($customer['customer_status'] == 1 ): ?>
+											<?php echo 'Aktif'; ?>
+										<?php else :?>
+											<?php echo 'Pasif'; ?>
+										<?php endif ;?>
+									</td>
+									<td><?php echo $customer['customer_date_added'] ?></td>
+									<td><?php echo $customer['customer_date_updated'] ?></td>
+
+									<td>
+										
+										<a href="<?php echo base_url() . 'customers/customer/' . $customer['customer_id']; ?>" class="btn default btn-xs yellow"><i class="fa fa-edit"></i> Güncelle</a>
+										<a href="#" location="<?php echo base_url() . 'customers/deletecustomer/' . $customer['customer_id']; ?>" class="btn default btn-xs black validate-delete"><i class="fa fa-trash-o"></i> Sil</a>
 									</td>
 								</tr>
 							<?php endforeach ?>
