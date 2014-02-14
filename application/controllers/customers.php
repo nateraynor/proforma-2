@@ -28,7 +28,6 @@ class Customers extends CI_Controller {
 
 		$this->load->model('customer_model');
 
-		$this->load->model('config_model');
 
 
 
@@ -56,7 +55,6 @@ class Customers extends CI_Controller {
 
 		$this->load->model('customer_model');
 
-		$this->load->model('config_model');
 
 
 

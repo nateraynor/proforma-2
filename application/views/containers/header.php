@@ -128,6 +128,46 @@
 
 				</li>
 
+				<li class="<?php echo $menu == 'products' ? "active" : ''; ?>">
+
+					<a href="javascript:;">
+
+					<i class="fa fa-group"></i>
+
+					<span class="title">Ürünler</span>
+
+					<span class="arrow "></span>
+
+					</a>
+
+					<ul class="sub-menu">
+
+						<li>
+
+							<a href="<?php echo base_url() ?>products">Ürün Listesi</a>
+
+						</li>
+						<li>
+
+							<a href="<?php echo base_url() ?>products/product">Ürün Ekle</a>
+
+						</li>
+						<li>
+
+							<a href="<?php echo base_url() ?>categorys">Ürün Kategori Listesi</a>
+
+						</li>
+						<li>
+
+							<a href="<?php echo base_url() ?>categorys/category">Ürün Kategori Ekle</a>
+
+						</li>
+					
+
+					</ul>
+
+				</li>
+
 				<li class="<?php echo $menu == 'customers' ? "active" : ''; ?>">
 
 					<a href="javascript:;">

@@ -104,7 +104,6 @@
 												<input type="text" name="customer_address" class="form-control" col-type="varchar" placeholder="Adres" value="<?php echo isset($customer['customer_address']) ? $customer['customer_address'] : '' ;?>">
 											</div>
 										</div>
-										<!--Burdaa kaldım-->
 										<div class="col-md-6">
 											<div class="form-group">
 												<label class="control-label">Durumu</label>
