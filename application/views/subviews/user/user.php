@@ -55,31 +55,31 @@
 									<div class="col-md-6">
 										<div class="form-group">
 											<label class="control-label">Kullanıcı Ad</label>
-											<input type="text" name="user_name" class="form-control" placeholder="Kullanıcı Ad - Soyad" value="<?php echo isset($user['user_name']) ? $user['user_name'] : ''; ?>">
+											<input type="text" name="user_name" class="form-control" placeholder="Kullanıcı Ad" value="<?php echo isset($user['user_name']) ? $user['user_name'] : ''; ?>" required >
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
 											<label class="control-label">Kullanıcı Soyad</label>
-											<input type="text" name="user_surname" class="form-control" placeholder="Kullanıcı Soyad" value="<?php echo isset($user['user_surname']) ? $user['user_surname'] : ''; ?>">
+											<input type="text" name="user_surname" class="form-control" placeholder="Kullanıcı Soyad" value="<?php echo isset($user['user_surname']) ? $user['user_surname'] : ''; ?>" required>
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
 											<label class="control-label">Kullanıcı Rumuz</label>
-											<input type="text" name="user_username" class="form-control" placeholder="Kullanıcı Rumuz" value="<?php echo isset($user['user_username']) ? $user['user_username'] : ''; ?>">
+											<input type="text" name="user_username" class="form-control" placeholder="Kullanıcı Rumuz" value="<?php echo isset($user['user_username']) ? $user['user_username'] : ''; ?>" required>
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
 											<label class="control-label">Kullanıcı E-posta</label>
-											<input type="text" name="user_email" class="form-control" placeholder="Kullanıcı E-posta" value="<?php echo isset($user['user_email']) ? $user['user_email'] : ''; ?>">
+											<input type="text" name="user_email" class="form-control" placeholder="Kullanıcı E-posta" value="<?php echo isset($user['user_email']) ? $user['user_email'] : ''; ?>" required >
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
 											<label class="control-label">Kullanıcı Şifre</label>
-											<input type="text" name="user_password" class="form-control" placeholder="Kullanıcı Şifre" value="">
+											<input type="password" name="user_password" class="form-control" placeholder="Kullanıcı Şifre" value="" >
 										</div>
 									</div>
 								

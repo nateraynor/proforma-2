@@ -53,7 +53,8 @@
 								<tr>
 									<th>Kullanıcı No</th>
 									<th>Kullanıcı Rumuz</th>
-									<th>Kullanıcı Ad - Soyad</th>
+									<th>Kullanıcı Ad</th>
+									<th>Kullanıcı Soyad</th>
 									<th>Kullanıcı E-Posta</th>
 									<th>Kullanıcı Durumu</th>
 									<th class="sorting_disabled">İşlemler</th>
@@ -65,6 +66,7 @@
 									<td><?php echo $user['user_id'] ?></td>
 									<td><?php echo $user['user_username'] ?></td>
 									<td><?php echo $user['user_name'] ?></td>
+									<td><?php echo $user['user_surname'] ?></td>
 									<td><?php echo $user['user_email'] ?></td>
 									<td><?php echo $user['user_status'] == 1 ? 'Aktif' : 'Pasif' ;?></td>
 									<td>

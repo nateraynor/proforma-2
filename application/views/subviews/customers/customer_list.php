@@ -89,7 +89,6 @@
 						</thead>
 						<tbody>
 							<?php foreach ($customers as $customer): ?>
-
 								<tr>
 									<td><?php echo $customer['customer_id'] ;?></td>
 									<td><?php echo $customer['customer_name']; ?></td>
@@ -107,7 +106,6 @@
 									</td>
 									<td><?php echo $customer['customer_date_added'] ?></td>
 									<td><?php echo $customer['customer_date_updated'] ?></td>
-
 									<td>
 										
 										<a href="<?php echo base_url() . 'customers/customer/' . $customer['customer_id']; ?>" class="btn default btn-xs yellow"><i class="fa fa-edit"></i> Güncelle</a>

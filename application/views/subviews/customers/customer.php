@@ -109,7 +109,6 @@
 											<div class="form-group">
 												<label class="control-label">Durumu</label>
 													<select class="form-control select2me" name="customer_status" data-placeholder="Seçiniz...">
-
 														<option value="1" <?php echo isset($customer['customer_status']) && $customer['customer_status'] == 1 ? 'selected ' : '' ;?>>Aktif</option>
 														<option value="0" <?php echo isset($customer['customer_status']) && $customer['customer_status'] == 0 ? ' selected' : '' ;?>>Pasif</option>
 													</select>
