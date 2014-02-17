@@ -27,13 +27,15 @@ class Brands extends CI_Controller {
 		$filters = array();
 
 		
-		$data['brands'] = $this->brand_model->getBrand($filters);
+		$data['brands'] = $this->brand_model->getBrands($filters);
 
 		$data['menu'] = 'brands';
 
 		$data['page'] = 'advancedtables';
 
 		$data['subview'] = 'brands/brand_list';
+
+		//$data['parentcategorys'] = $this->category_model->getCategory($filters);
 		
 		$data['errors'] = $this->errors;
 
@@ -73,7 +75,7 @@ class Brands extends CI_Controller {
 
 					$this->session->set_flashdata('success', 'Ürün Marka başarıyla güncellendi');
 
-					redirect('brands');
+					redirect('categorys');
 
 				}
 
@@ -84,18 +86,18 @@ class Brands extends CI_Controller {
 
 
 		if ($brand_id != -1)
-			$data['brand'] = $this->brand_model->getBrands($brand_id);
+			$data['brand'] = $this->category_model->getBrand($brand_id);
 		
 
-		$data['brand_id'] = $_id;
+		$data['brand_id'] = $brand_id;
 
-		$data['menu'] = 'categorys';
+		$data['menu'] = 'brands';
 
 		$data['page'] = 'forms';
 
-		$data['subview'] = 'categorys/category';
+		$data['subview'] = 'brands/brand';
 
-		$data['categorys'] = $this->brand_model->getCategory($filters);
+		//$data['categorys'] = $this->category_model->getCategory($filters);
 
 		$this->load->view('layouts/default', $data);
 
@@ -103,42 +105,34 @@ class Brands extends CI_Controller {
 
 
 
-	public function deleteCategory($category_id) {
+	public function deleteBrand($brand_id) {
 
 		$this->load->model('brand_model');
 
 
 
-		$result = $this->category_model->deleteCategory($category_id);
+		$result = $this->brand_model->deleteBrand($brand_id);
 
 
 
 		if ($result)
 
-			$this->session->set_flashdata('success', 'Ürün Kategorisi başarıyla silindi!');
+			$this->session->set_flashdata('success', 'Ürün Marka başarıyla silindi!');
 
 		else
 
-			$this->session->set_flashdata('error', 'Ürün Kategorisi silinemedi!');
+			$this->session->set_flashdata('error', 'Ürün Marka silinemedi!');
 
 
 
-		redirect('categorys');
+		redirect('brands');
 
 	}
 
 
 	public function validate($data) {
 
-		$errors = array();
-
-
-
-		if (isset($data['category_name']) && strlen(trim($data['category_name'])) < 3)
-
-			$errors[] = 'Müşteri adı alanı minimum 3 karakter olmalıdır';
-
-		
+		$errors = array();		
 
 		if (!empty($errors)) {
 

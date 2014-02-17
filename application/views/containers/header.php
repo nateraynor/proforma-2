@@ -63,7 +63,6 @@
 					<span class="title">Anasayfa</span>
 					</a>
 				</li>
-<<<<<<< HEAD
 
 				<li class="<?php echo $menu == 'products' ? "active" : ''; ?>">
 
@@ -116,8 +115,6 @@
 
 				</li>
 
-=======
->>>>>>> e31979462ee214d32396550c7d894f0ab7020db5
 				<li class="<?php echo $menu == 'customers' ? "active" : ''; ?>">
 					<a href="javascript:;">
 					<i class="fa fa-group"></i>
