@@ -29,7 +29,7 @@ class Brands extends CI_Controller {
 		
 		$data['brands'] = $this->brand_model->getBrands($filters);
 
-		$data['menu'] = 'brands';
+		$data['menu'] = 'products';
 
 		$data['page'] = 'advancedtables';
 
@@ -91,7 +91,7 @@ class Brands extends CI_Controller {
 
 		$data['brand_id'] = $brand_id;
 
-		$data['menu'] = 'brands';
+		$data['menu'] = 'products';
 
 		$data['page'] = 'forms';
 
