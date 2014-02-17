@@ -56,6 +56,8 @@ jQuery(document).ready(function() {
 <script src="<?php echo ASSETS ?>plugins/bootstrap-markdown/lib/markdown.js" type="text/javascript"></script>
 <script src="<?php echo ASSETS ?>plugins/bootstrap-maxlength/bootstrap-maxlength.min.js" type="text/javascript"></script>
 <script src="<?php echo ASSETS ?>plugins/bootstrap-touchspin/bootstrap.touchspin.js" type="text/javascript"></script>
+<script src="<?php echo ASSETS ?>plugins/bootbox/bootbox.min.js" type="text/javascript"></script>
+<script src="<?php echo ASSETS ?>scripts/ui-bootbox.js" type="text/javascript"></script>
 <script src="<?php echo ASSETS ?>scripts/app.js"></script>
 <script src="<?php echo ASSETS ?>scripts/form-components.js"></script>
 <script src="<?php echo ASSETS ?>scripts/custom-forms.js"></script>
@@ -63,6 +65,7 @@ jQuery(document).ready(function() {
 jQuery(document).ready(function() {
    App.init();
    FormComponents.init();
+   UIBootbox.init();
 });
 </script>
 <?php elseif ($page == 'dashboard'): ?>
