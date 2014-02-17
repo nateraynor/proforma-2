@@ -10,7 +10,7 @@ class Categorys extends CI_Controller {
 		$this->load->model('category_model');
 		$filters = array();
 		$data['categorys'] = $this->category_model->getCategory($filters);
-		$data['menu'] = 'categorys';
+		$data['menu'] = 'products';
 		$data['page'] = 'advancedtables';
 		$data['subview'] = 'categorys/category_list';
 		$data['parentcategorys'] = $this->category_model->getCategory($filters);
@@ -39,7 +39,7 @@ class Categorys extends CI_Controller {
 		if ($category_id != -1)
 			$data['category'] = $this->category_model->getCategorys($category_id);
 		$data['category_id'] = $category_id;
-		$data['menu'] = 'categorys';
+		$data['menu'] = 'products';
 		$data['page'] = 'forms';
 		$data['subview'] = 'categorys/category';
 		$data['categorys'] = $this->category_model->getCategory($filters);
