@@ -75,7 +75,7 @@ class Brands extends CI_Controller {
 
 					$this->session->set_flashdata('success', 'Ürün Marka başarıyla güncellendi');
 
-					redirect('categorys');
+					redirect('brands');
 
 				}
 
@@ -86,7 +86,7 @@ class Brands extends CI_Controller {
 
 
 		if ($brand_id != -1)
-			$data['brand'] = $this->category_model->getBrand($brand_id);
+			$data['brand'] = $this->brand_model->getBrand($brand_id);
 		
 
 		$data['brand_id'] = $brand_id;
@@ -96,8 +96,6 @@ class Brands extends CI_Controller {
 		$data['page'] = 'forms';
 
 		$data['subview'] = 'brands/brand';
-
-		//$data['categorys'] = $this->category_model->getCategory($filters);
 
 		$this->load->view('layouts/default', $data);
 

@@ -71,38 +71,19 @@ class Brand_model extends CI_Model {
 
 
 
- 	public function getBrand($category_id) {
+ 	public function getBrand($brand_id) {
 
- 		$result = $this->db->query("SELECT * FROM category WHERE category_id = '" . (int)$category_id . "' LIMIT 1");
+ 		$result = $this->db->query("SELECT * FROM brand WHERE brand_id = '" . (int)$brand_id . "' LIMIT 1");
 
  		return $result->row(0, 'array');
 
  	}
 
 
- 	public function addCategory($data) {
+ 	public function addBrand($data) {
 
 
- 		$result = $this->db->query( "INSERT INTO category SET category_name = " .$this->db->escape($data['category_name']) . " , category_parent_id = '" . (int)$data['category_parent_id'] . "' , category_status = '" . (int)$data['category_status'] ."'");
-
- 		return $result;
-
- 	}
-
-
-
- 	public function updateCategory($data , $category_id){
-
- 		$result = $this->db->query("UPDATE category SET category_name = " . $this->db->escape($data['category_name']) . ", category_parent_id = '" . (int)$data['category_parent_id'] . "' ,category_status = '" .(int)$data['category_status'] . "' WHERE category_id = '" . (int)$category_id ."'");
-
- 		return $result;
- 	}
-
-
-
- 	public function deleteCategory($category_id) {
-
- 		$result = $this->db->query("DELETE FROM category WHERE category_id = '" . (int)$category_id . "' LIMIT 1");
+ 		$result = $this->db->query( "INSERT INTO brand SET brand_name = " .$this->db->escape($data['brand_name']) . " , brand_status = '" . (int)$data['brand_status'] ."'");
 
  		return $result;
 
@@ -110,9 +91,28 @@ class Brand_model extends CI_Model {
 
 
 
- 	public function getTotalCategory() {
+ 	public function updateBrand($data , $brand_id){
 
- 		$result = $this->db->query("SELECT COUNT(*) AS 'total' FROM category");
+ 		$result = $this->db->query("UPDATE brand SET brand_name = " . $this->db->escape($data['brand_name']) . ", brand_status = '" .(int)$data['brand_status'] . "' WHERE brand_id = '" . (int)$brand_id ."'");
+
+ 		return $result;
+ 	}
+
+
+
+ 	public function deleteBrand($brand_id) {
+
+ 		$result = $this->db->query("DELETE FROM brand WHERE brand_id = '" . (int)$brand_id . "' LIMIT 1");
+
+ 		return $result;
+
+ 	}
+
+
+
+ 	public function getTotalBrand() {
+
+ 		$result = $this->db->query("SELECT COUNT(*) AS 'total' FROM brand");
 
 
 
