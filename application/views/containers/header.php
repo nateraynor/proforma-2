@@ -38,7 +38,6 @@
 					<li>
 						<a href="javascript:;" id="trigger_fullscreen"><i class="fa fa-move"></i> Tam Ekran</a>
 					</li>
-
 					<li>
 						<a href="<?php echo base_url() ?>login/logout"><i class="fa fa-key"></i> Çıkış</a>
 					</li>
@@ -63,58 +62,34 @@
 					<span class="title">Anasayfa</span>
 					</a>
 				</li>
-
 				<li class="<?php echo $menu == 'products' ? "active" : ''; ?>">
-
 					<a href="javascript:;">
-
 					<i class="fa fa-group"></i>
-
 					<span class="title">Ürünler</span>
-
 					<span class="arrow "></span>
-
 					</a>
-
 					<ul class="sub-menu">
-
 						<li>
-
 							<a href="<?php echo base_url() ?>products">Ürün Listesi</a>
-
 						</li>
 						<li>
-
 							<a href="<?php echo base_url() ?>products/product">Ürün Ekle</a>
-
 						</li>
 						<li>
-
 							<a href="<?php echo base_url() ?>categorys">Ürün Kategori Listesi</a>
-
 						</li>
 						<li>
-
 							<a href="<?php echo base_url() ?>categorys/category">Ürün Kategori Ekle</a>
-
 						</li>
 						<li>
-
 							<a href="<?php echo base_url() ?>brands">Ürün Marka Listesi</a>
-
 						</li>
 						<li>
-
 							<a href="<?php echo base_url() ?>brands/brand">Ürün Marka Ekle</a>
-
 						</li>
-
-					
 
 					</ul>
-
 				</li>
-
 				<li class="<?php echo $menu == 'customers' ? "active" : ''; ?>">
 					<a href="javascript:;">
 					<i class="fa fa-group"></i>
@@ -125,13 +100,11 @@
 						<li>
 							<a href="<?php echo base_url() ?>customers">Müşteri Listesi</a>
 						</li>
-
 						<li>
 							<a href="<?php echo base_url() ?>customers/customer">Müşteri Ekle</a>
 						</li>
 					</ul>
 				</li>
-
 				<li class="<?php echo $menu == 'reports' ? "active" : ''; ?>">
 					<a href="<?php echo base_url() ?>reports">
 					<i class="fa fa-bar-chart-o"></i>
@@ -144,11 +117,16 @@
 					<span class="title">Kullanıcılar</span>
 					</a>
 				</li>
-				<li class="last">
-					<a href="<?php echo base_url() ?>settings">
+				<li class="last <?php echo $menu == 'settings' ? 'active' : '' ?>">
+					<a href="javascript:;">
 					<i class="fa fa-cogs"></i>
 					<span class="title">Ayarlar</span>
+					<span class="arrow "></span>
 					</a>
+					<ul class="sub-menu">
+						<li><a href="<?php echo base_url() ?>settings/templates">Şablonlar</a></li>
+						<li><a href="<?php echo base_url() ?>settings/settings">Genel Ayarlar</a></li>
+					</ul>
 				</li>
 			</ul>
 			<!-- END SIDEBAR MENU -->
