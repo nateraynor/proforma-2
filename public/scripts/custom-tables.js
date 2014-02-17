@@ -4,7 +4,6 @@ $(document).ready(function() {
 	});
 	$('.column-toggler').click(function() {
 		var column_name = $(this).attr('data-column-value');
-
 		$.ajax({
 			type: "POST",
 			url: base_url + 'home/updateColumnDisplayAjax/' + column_name,
@@ -15,7 +14,6 @@ $(document).ready(function() {
 		});
 	});
 });
-
 function setDisplay(element) {
 	var oTable = $('.sample_2').dataTable();
 	var iCol = parseInt($(element).attr("data-column"));

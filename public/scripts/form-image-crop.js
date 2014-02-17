@@ -1,12 +1,9 @@
 var FormImageCrop = function () {
-
     var demo1 = function() {
         $('#demo1').Jcrop();
     }
-
     var demo2 = function() {
         var jcrop_api;
-
         $('#demo2').Jcrop({
           onChange:   showCoords,
           onSelect:   showCoords,
@@ -14,7 +11,6 @@ var FormImageCrop = function () {
         },function(){
           jcrop_api = this;
         });
-
         $('#coords').on('change','input',function(e){
           var x1 = $('#x1').val(),
               x2 = $('#x2').val(),
@@ -22,7 +18,6 @@ var FormImageCrop = function () {
               y2 = $('#y2').val();
           jcrop_api.setSelect([x1,y1,x2,y2]);
         });
-
         // Simple event handler, called from onChange and onSelect
         // event handlers, as per the Jcrop invocation above
         function showCoords(c)
@@ -34,13 +29,11 @@ var FormImageCrop = function () {
             $('#w').val(c.w);
             $('#h').val(c.h);
         };
-
         function clearCoords()
         {
             $('#coords input').val('');
         };
     }
-
     var demo3 = function() {
         // Create variables (in this scope) to hold the API and image size
         var jcrop_api,
@@ -50,12 +43,10 @@ var FormImageCrop = function () {
             $preview = $('#preview-pane'),
             $pcnt = $('#preview-pane .preview-container'),
             $pimg = $('#preview-pane .preview-container img'),
-
             xsize = $pcnt.width(),
             ysize = $pcnt.height();
-        
-            console.log('init',[xsize,ysize]);
 
+            console.log('init',[xsize,ysize]);
         $('#demo3').Jcrop({
           onChange: updatePreview,
           onSelect: updatePreview,
@@ -70,14 +61,12 @@ var FormImageCrop = function () {
           // Move the preview into the jcrop container for css positioning
           $preview.appendTo(jcrop_api.ui.holder);
         });
-
         function updatePreview(c)
         {
           if (parseInt(c.w) > 0)
           {
             var rx = xsize / c.w;
             var ry = ysize / c.h;
-
             $pimg.css({
               width: Math.round(rx * boundx) + 'px',
               height: Math.round(ry * boundy) + 'px',
@@ -87,10 +76,8 @@ var FormImageCrop = function () {
           }
         };
     }
-
     var demo4 = function() {
         var jcrop_api;
-
         $('#demo4').Jcrop({
           bgFade:     true,
           bgOpacity: .2,
@@ -98,14 +85,12 @@ var FormImageCrop = function () {
         },function(){
           jcrop_api = this;
         });
-
         $('#fadetog').change(function(){
           jcrop_api.setOptions({
             bgFade: this.checked
           });
         }).attr('checked', true);
         App.updateUniform('#fadetog');
-
         $('#shadetog').change(function(){
           if (this.checked) $('#shadetxt').slideDown();
             else $('#shadetxt').slideUp();
@@ -113,7 +98,6 @@ var FormImageCrop = function () {
             shade: this.checked
           });
         }).attr('checked', false);
-
         // Define page sections
         var sections = {
           bgc_buttons: 'Change bgColor',
@@ -147,13 +131,11 @@ var FormImageCrop = function () {
         // Create fieldset targets for buttons
         for(i in sections)
           insertSection(i,sections[i]);
-
         function create_btn(c) {
           var $o = $('<button />').addClass('btn small');
           if (c) $o.append(c);
           return $o;
         }
-
         var a_count = 1;
         // Create animation buttons
         for(i in ac) {
@@ -163,7 +145,6 @@ var FormImageCrop = function () {
               ' '
             );
         }
-
         $('#anim_buttons .btn-group').append(
           create_btn('Bye!').click(function(e){
             $(e.target).addClass('active');
@@ -177,7 +158,6 @@ var FormImageCrop = function () {
             return false;
           })
         );
-
         // Create bgOpacity buttons
         for(i in bgo) {
           $('#bgo_buttons .btn-group').append(
@@ -224,49 +204,39 @@ var FormImageCrop = function () {
             return false;
           };
         };
-
         $('#bgo_buttons .btn:first,#bgc_buttons .btn:last').addClass('active');
         $('#interface').show();
     }
-
     var demo5 = function() {
         // The variable jcrop_api will hold a reference to the
         // Jcrop API once Jcrop is instantiated.
         var jcrop_api;
-
         // In this example, since Jcrop may be attached or detached
         // at the whim of the user, I've wrapped the call into a function
         initJcrop();
-        
+
         // The function is pretty simple
         function initJcrop()//{{{
         {
           // Hide any interface elements that require Jcrop
           // (This is for the local user interface portion.)
           $('.requiresjcrop').hide();
-
           // Invoke Jcrop in typical fashion
           $('#demo5').Jcrop({
             onRelease: releaseCheck
           },function(){
-
             jcrop_api = this;
             jcrop_api.animateTo([100,100,400,300]);
-
             // Setup and dipslay the interface for "enabled"
             $('#can_click,#can_move,#can_size').attr('checked','checked');
             App.updateUniform('#can_click,#can_move,#can_size');
-
             $('#ar_lock,#size_lock,#bg_swap').attr('checked',false);
             App.updateUniform('#ar_lock,#size_lock,#bg_swap');
-            
+
             $('.requiresjcrop').show();
-
           });
-
         };
         //}}}
-
         // Use the API to find cropping dimensions
         // Then generate a random selection
         // This function is used by setSelect and animateTo buttons
@@ -280,7 +250,6 @@ var FormImageCrop = function () {
             Math.round(Math.random() * dim[1])
           ];
         };
-
         // This function is bound to the onRelease handler...
         // In certain circumstances (such as if you set minSize
         // and aspectRatio together), you can inadvertently lose
@@ -294,7 +263,6 @@ var FormImageCrop = function () {
           $('#can_click').attr('checked',false);
           App.updateUniform('#can_click');
         };
-
         // Attach interface buttons
         // This may appear to be a lot of code but it's simple stuff
         $('#setSelect').click(function(e) {
@@ -339,12 +307,10 @@ var FormImageCrop = function () {
           $('#rehook').show();
           return false;
         });
-
         // Hook up the three image-swapping buttons
         $('#img1').click(function(e) {
           $(this).addClass('active').closest('.btn-group')
             .find('button.active').not(this).removeClass('active');
-
           jcrop_api.setImage('assets/plugins/jcrop/demos/demo_files/sago.jpg');
           jcrop_api.setOptions({ bgOpacity: .6 });
           return false;
@@ -352,7 +318,6 @@ var FormImageCrop = function () {
         $('#img2').click(function(e) {
           $(this).addClass('active').closest('.btn-group')
             .find('button.active').not(this).removeClass('active');
-
           jcrop_api.setImage('assets/plugins/jcrop/demos/demo_files/pool.jpg');
           jcrop_api.setOptions({ bgOpacity: .6 });
           return false;
@@ -360,7 +325,6 @@ var FormImageCrop = function () {
         $('#img3').click(function(e) {
           $(this).addClass('active').closest('.btn-group')
             .find('button.active').not(this).removeClass('active');
-
           jcrop_api.setImage('assets/plugins/jcrop/demos/demo_files/sago.jpg',function(){
             this.setOptions({
               bgOpacity: 1,
@@ -370,13 +334,10 @@ var FormImageCrop = function () {
           });
           return false;
         });
-
         // The checkboxes simply set options based on it's checked value
         // Options are changed by passing a new options object
-
         // Also, to prevent strange behavior, they are initially checked
         // This matches the default initial state of Jcrop
-
         $('#can_click').change(function(e) {
           jcrop_api.setOptions({ allowSelect: !!this.checked });
           jcrop_api.focus();
@@ -404,12 +365,9 @@ var FormImageCrop = function () {
           });
           jcrop_api.focus();
         });
-
     }
-
     var demo6 = function() {
         var api;
-
         $('#demo6').Jcrop({
           // start off with jcrop-light class
           bgOpacity: 0.5,
@@ -421,7 +379,6 @@ var FormImageCrop = function () {
           api.setOptions({ bgFade: true });
           api.ui.selection.addClass('jcrop-selection');
         });
-
         $('#buttonbar').on('click','button',function(e){
           var $t = $(this), $g = $t.closest('.btn-group');
           $g.find('button.active').removeClass('active');
@@ -435,11 +392,9 @@ var FormImageCrop = function () {
                 case 'jcrop-light':
                   api.setOptions({ bgColor: 'white', bgOpacity: 0.5 });
                   break;
-
                 case 'jcrop-dark':
                   api.setOptions({ bgColor: 'black', bgOpacity: 0.4 });
                   break;
-
                 case 'jcrop-normal':
                   api.setOptions({
                     bgColor: $.Jcrop.defaults.bgColor,
@@ -452,23 +407,19 @@ var FormImageCrop = function () {
           });
         });
     }
-
     var demo7 = function() {
         // I did JSON.stringify(jcrop_api.tellSelect()) on a crop I liked:
         var c = {"x":13,"y":7,"x2":487,"y2":107,"w":474,"h":100};
-
         $('#demo7').Jcrop({
           bgFade: true,
           setSelect: [c.x,c.y,c.x2,c.y2]
         });
     }
-
     var demo8 = function() {
         $('#demo8').Jcrop({
           aspectRatio: 1,
           onSelect: updateCoords
         });
-
         function updateCoords(c)
           {
             $('#crop_x').val(c.x);
@@ -476,42 +427,36 @@ var FormImageCrop = function () {
             $('#crop_w').val(c.w);
             $('#crop_h').val(c.h);
           };
-
           $('#demo8_form').submit(function(){
             if (parseInt($('#crop_w').val())) return true;
             alert('Please select a crop region then press submit.');
             return false;
             });
-
     }
-
     var handleResponsive = function() {
       if ($(window).width() <= 1024 && $(window).width() >= 678) {
         $('.responsive-1024').each(function(){
           $(this).attr("data-class", $(this).attr("class"));
           $(this).attr("class", 'responsive-1024 col-md-12');
-        }); 
+        });
       } else {
         $('.responsive-1024').each(function(){
           if ($(this).attr("data-class")) {
-            $(this).attr("class", $(this).attr("data-class"));  
+            $(this).attr("class", $(this).attr("data-class"));
             $(this).removeAttr("data-class");
           }
         });
       }
     }
-
     return {
         //main function to initiate the module
         init: function () {
-            
+
             if (!jQuery().Jcrop) {;
                 return;
             }
-
             App.addResponsiveHandler(handleResponsive);
             handleResponsive();
-
             demo1();
             demo2();
             demo3();
@@ -521,7 +466,5 @@ var FormImageCrop = function () {
             demo7();
             demo8();
         }
-
     };
-
 }();

@@ -12,9 +12,7 @@
  * @since		Version 1.0
  * @filesource
  */
-
 // ------------------------------------------------------------------------
-
 /**
  * Postgre Forge Class
  *
@@ -23,7 +21,6 @@
  * @link		http://codeigniter.com/user_guide/database/
  */
 class CI_DB_postgre_forge extends CI_DB_forge {
-
 	/**
 	 * Create database
 	 *
@@ -35,9 +32,7 @@ class CI_DB_postgre_forge extends CI_DB_forge {
 	{
 		return "CREATE DATABASE ".$name;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Drop database
 	 *
@@ -49,9 +44,7 @@ class CI_DB_postgre_forge extends CI_DB_forge {
 	{
 		return "DROP DATABASE ".$name;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Create Table
 	 *
@@ -66,7 +59,6 @@ class CI_DB_postgre_forge extends CI_DB_forge {
 	function _create_table($table, $fields, $primary_keys, $keys, $if_not_exists)
 	{
 		$sql = 'CREATE TABLE ';
-
 		if ($if_not_exists === TRUE)
 		{
 			if ($this->db->table_exists($table))
@@ -74,10 +66,8 @@ class CI_DB_postgre_forge extends CI_DB_forge {
 				return "SELECT * FROM $table"; // Needs to return innocous but valid SQL statement
 			}
 		}
-
 		$sql .= $this->db->_escape_identifiers($table)." (";
 		$current_field_count = 0;
-
 		foreach ($fields as $field=>$attributes)
 		{
 			// Numeric field names aren't allowed in databases, so if the key is
@@ -90,11 +80,8 @@ class CI_DB_postgre_forge extends CI_DB_forge {
 			else
 			{
 				$attributes = array_change_key_case($attributes, CASE_UPPER);
-
 				$sql .= "\n\t".$this->db->_protect_identifiers($field);
-
 				$is_unsigned = (array_key_exists('UNSIGNED', $attributes) && $attributes['UNSIGNED'] === TRUE);
-
 				// Convert datatypes to be PostgreSQL-compatible
 				switch (strtoupper($attributes['TYPE']))
 				{
@@ -126,9 +113,8 @@ class CI_DB_postgre_forge extends CI_DB_forge {
 						$attributes['TYPE'] = 'BYTEA';
 						break;
 				}
-
 				// If this is an auto-incrementing primary key, use the serial data type instead
-				if (in_array($field, $primary_keys) && array_key_exists('AUTO_INCREMENT', $attributes) 
+				if (in_array($field, $primary_keys) && array_key_exists('AUTO_INCREMENT', $attributes)
 					&& $attributes['AUTO_INCREMENT'] === TRUE)
 				{
 					$sql .= ' SERIAL';
@@ -137,18 +123,15 @@ class CI_DB_postgre_forge extends CI_DB_forge {
 				{
 					$sql .=  ' '.$attributes['TYPE'];
 				}
-
 				// Modified to prevent constraints with integer data types
 				if (array_key_exists('CONSTRAINT', $attributes) && strpos($attributes['TYPE'], 'INT') === false)
 				{
 					$sql .= '('.$attributes['CONSTRAINT'].')';
 				}
-
 				if (array_key_exists('DEFAULT', $attributes))
 				{
 					$sql .= ' DEFAULT \''.$attributes['DEFAULT'].'\'';
 				}
-
 				if (array_key_exists('NULL', $attributes) && $attributes['NULL'] === TRUE)
 				{
 					$sql .= ' NULL';
@@ -157,21 +140,18 @@ class CI_DB_postgre_forge extends CI_DB_forge {
 				{
 					$sql .= ' NOT NULL';
 				}
-
 				// Added new attribute to create unqite fields. Also works with MySQL
 				if (array_key_exists('UNIQUE', $attributes) && $attributes['UNIQUE'] === TRUE)
 				{
 					$sql .= ' UNIQUE';
 				}
 			}
-
 			// don't add a comma on the end of the last field
 			if (++$current_field_count < count($fields))
 			{
 				$sql .= ',';
 			}
 		}
-
 		if (count($primary_keys) > 0)
 		{
 			// Something seems to break when passing an array to _protect_identifiers()
@@ -179,12 +159,9 @@ class CI_DB_postgre_forge extends CI_DB_forge {
 			{
 				$primary_keys[$index] = $this->db->_protect_identifiers($key);
 			}
-
 			$sql .= ",\n\tPRIMARY KEY (" . implode(', ', $primary_keys) . ")";
 		}
-
 		$sql .= "\n);";
-
 		if (is_array($keys) && count($keys) > 0)
 		{
 			foreach ($keys as $key)
@@ -197,19 +174,15 @@ class CI_DB_postgre_forge extends CI_DB_forge {
 				{
 					$key = array($this->db->_protect_identifiers($key));
 				}
-
 				foreach ($key as $field)
 				{
 					$sql .= "CREATE INDEX " . $table . "_" . str_replace(array('"', "'"), '', $field) . "_index ON $table ($field); ";
 				}
 			}
 		}
-
 		return $sql;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Drop Table
 	 *
@@ -220,9 +193,7 @@ class CI_DB_postgre_forge extends CI_DB_forge {
 	{
 		return "DROP TABLE IF EXISTS ".$this->db->_escape_identifiers($table)." CASCADE";
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Alter table query
 	 *
@@ -242,20 +213,16 @@ class CI_DB_postgre_forge extends CI_DB_forge {
 	function _alter_table($alter_type, $table, $column_name, $column_definition = '', $default_value = '', $null = '', $after_field = '')
 	{
 		$sql = 'ALTER TABLE '.$this->db->_protect_identifiers($table)." $alter_type ".$this->db->_protect_identifiers($column_name);
-
 		// DROP has everything it needs now.
 		if ($alter_type == 'DROP')
 		{
 			return $sql;
 		}
-
 		$sql .= " $column_definition";
-
 		if ($default_value != '')
 		{
 			$sql .= " DEFAULT \"$default_value\"";
 		}
-
 		if ($null === NULL)
 		{
 			$sql .= ' NULL';
@@ -264,18 +231,13 @@ class CI_DB_postgre_forge extends CI_DB_forge {
 		{
 			$sql .= ' NOT NULL';
 		}
-
 		if ($after_field != '')
 		{
 			$sql .= ' AFTER ' . $this->db->_protect_identifiers($after_field);
 		}
-
 		return $sql;
-
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Rename a table
 	 *
@@ -292,8 +254,6 @@ class CI_DB_postgre_forge extends CI_DB_forge {
 		return $sql;
 	}
 
-
 }
-
 /* End of file postgre_forge.php */
 /* Location: ./system/database/drivers/postgre/postgre_forge.php */

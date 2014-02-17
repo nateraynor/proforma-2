@@ -12,9 +12,7 @@
  * @since		Version 1.0
  * @filesource
  */
-
 // ------------------------------------------------------------------------
-
 /**
  * CodeIgniter Number Helpers
  *
@@ -24,9 +22,7 @@
  * @author		ExpressionEngine Dev Team
  * @link		http://codeigniter.com/user_guide/helpers/number_helper.html
  */
-
 // ------------------------------------------------------------------------
-
 /**
  * Formats a numbers as bytes, based on size, and adds the appropriate suffix
  *
@@ -40,7 +36,6 @@ if ( ! function_exists('byte_format'))
 	{
 		$CI =& get_instance();
 		$CI->lang->load('number');
-
 		if ($num >= 1000000000000)
 		{
 			$num = round($num / 1099511627776, $precision);
@@ -66,11 +61,9 @@ if ( ! function_exists('byte_format'))
 			$unit = $CI->lang->line('bytes');
 			return number_format($num).' '.$unit;
 		}
-
 		return number_format($num, $precision).' '.$unit;
 	}
 }
-
 
 /* End of file number_helper.php */
 /* Location: ./system/helpers/number_helper.php */

@@ -22,19 +22,14 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 			This sample page demonstrates editor with loaded <a href="#fullToolbar">full toolbar</a> (all registered buttons) and, if
 			current editor's configuration modifies default settings, also editor with <a href="#currentToolbar">modified toolbar</a>.
 		</p>
-
 		<p>Since CKEditor 4 there are two ways to configure toolbar buttons.</p>
-
 		<h2 class="samples">By <a href="http://docs.ckeditor.com/#!/api/CKEDITOR.config-cfg-toolbar">config.toolbar</a></h2>
-
 		<p>
 			You can explicitly define which buttons are displayed in which groups and in which order.
 			This is the more precise setting, but less flexible. If newly added plugin adds its
 			own button you'll have to add it manually to your <code>config.toolbar</code> setting as well.
 		</p>
-
 		<p>To add a CKEditor instance with custom toolbar setting, insert the following JavaScript call to your code:</p>
-
 		<pre class="samples">
 CKEDITOR.replace( <em>'textarea_id'</em>, {
 	<strong>toolbar:</strong> [
@@ -44,9 +39,7 @@ CKEDITOR.replace( <em>'textarea_id'</em>, {
 		{ name: 'basicstyles', items: [ 'Bold', 'Italic' ] }
 	]
 });</pre>
-
 		<h2 class="samples">By <a href="http://docs.ckeditor.com/#!/api/CKEDITOR.config-cfg-toolbarGroups">config.toolbarGroups</a></h2>
-
 		<p>
 			You can define which groups of buttons (like e.g. <code>basicstyles</code>, <code>clipboard</code>
 			and <code>forms</code>) are displayed and in which order. Registered buttons are associated
@@ -54,9 +47,7 @@ CKEDITOR.replace( <em>'textarea_id'</em>, {
 			This setting's advantage is that you don't have to modify toolbar configuration
 			when adding/removing plugins which register their own buttons.
 		</p>
-
 		<p>To add a CKEditor instance with custom toolbar groups setting, insert the following JavaScript call to your code:</p>
-
 		<pre class="samples">
 CKEDITOR.replace( <em>'textarea_id'</em>, {
 	<strong>toolbarGroups:</strong> [
@@ -66,18 +57,15 @@ CKEDITOR.replace( <em>'textarea_id'</em>, {
  		{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
  		{ name: 'links' }
 	]
-
 	// NOTE: Remember to leave 'toolbar' property with the default value (null).
 });</pre>
 	</div>
-
 	<div id="currentToolbar" style="display: none">
 		<h2 class="samples">Current toolbar configuration</h2>
 		<p>Below you can see editor with current toolbar definition.</p>
 		<textarea cols="80" id="editorCurrent" name="editorCurrent" rows="10">&lt;p&gt;This is some &lt;strong&gt;sample text&lt;/strong&gt;. You are using &lt;a href="http://ckeditor.com/"&gt;CKEditor&lt;/a&gt;.&lt;/p&gt;</textarea>
 		<pre id="editorCurrentCfg" class="samples"></pre>
 	</div>
-
 	<div id="fullToolbar">
 		<h2 class="samples">Full toolbar configuration</h2>
 		<p>Below you can see editor with full toolbar, generated automatically by the editor.</p>
@@ -88,23 +76,17 @@ CKEDITOR.replace( <em>'textarea_id'</em>, {
 		<textarea cols="80" id="editorFull" name="editorFull" rows="10">&lt;p&gt;This is some &lt;strong&gt;sample text&lt;/strong&gt;. You are using &lt;a href="http://ckeditor.com/"&gt;CKEditor&lt;/a&gt;.&lt;/p&gt;</textarea>
 		<pre id="editorFullCfg" class="samples"></pre>
 	</div>
-
 	<script>
-
 (function() {
 	'use strict';
-
 	var buttonsNames;
-
 	CKEDITOR.config.extraPlugins = 'toolbar';
-
 	CKEDITOR.on( 'instanceReady', function( evt ) {
 		var editor = evt.editor,
 			editorCurrent = editor.name == 'editorCurrent',
 			defaultToolbar = !( editor.config.toolbar || editor.config.toolbarGroups || editor.config.removeButtons ),
 			pre = CKEDITOR.document.getById( editor.name + 'Cfg' ),
 			output = '';
-
 		if ( editorCurrent ) {
 			// If default toolbar configuration has been modified, show "current toolbar" section.
 			if ( !defaultToolbar )
@@ -112,10 +94,8 @@ CKEDITOR.replace( <em>'textarea_id'</em>, {
 			else
 				return;
 		}
-
 		if ( !buttonsNames )
 			buttonsNames = createButtonsNamesHash( editor.ui.items );
-
 		// Toolbar isn't set explicitly, so it was created automatically from toolbarGroups.
 		if ( !editor.config.toolbar ) {
 			output +=
@@ -130,12 +110,10 @@ CKEDITOR.replace( <em>'textarea_id'</em>, {
 			output += '// Toolbar configuration.\n' +
 				dumpToolbarConfiguration( editor );
 		}
-
 		// Recreate to avoid old IE from loosing whitespaces on filling <pre> content.
 		var preOutput = pre.getOuterHtml().replace( /(?=<\/)/, output );
 		CKEDITOR.dom.element.createFromHtml( preOutput ).replace( pre );
 	} );
-
 	CKEDITOR.replace( 'editorCurrent', { height: 100 } );
 	CKEDITOR.replace( 'editorFull', {
 		// Reset toolbar settings, so full toolbar will be generated automatically.
@@ -144,23 +122,18 @@ CKEDITOR.replace( <em>'textarea_id'</em>, {
 		removeButtons: null,
 		height: 100
 	} );
-
 	function dumpToolbarConfiguration( editor, printGroups ) {
 		var output = [],
 			toolbar = editor.toolbar;
-
 		for ( var i = 0; i < toolbar.length; ++i ) {
 			var group = dumpToolbarGroup( toolbar[ i ], printGroups );
 			if ( group )
 				output.push( group );
 		}
-
 		return 'config.toolbar' + ( printGroups ? 'Groups' : '' ) + ' = [\n\t' + output.join( ',\n\t' ) + '\n];';
 	}
-
 	function dumpToolbarGroup( group, printGroups ) {
 		var output = [];
-
 		if ( typeof group == 'string' )
 			return '\'' + group + '\'';
 		if ( CKEDITOR.tools.isArray( group ) )
@@ -168,26 +141,19 @@ CKEDITOR.replace( <em>'textarea_id'</em>, {
 		// Skip group when printing entire toolbar configuration and there are no items in this group.
 		if ( !printGroups && !group.items )
 			return;
-
 		if ( group.name )
 			output.push( 'name: \'' + group.name + '\'' );
-
 		if ( group.groups )
 			output.push( 'groups: ' + dumpToolbarItems( group.groups ) );
-
 		if ( !printGroups )
 			output.push( 'items: ' + dumpToolbarItems( group.items ) );
-
 		return '{ ' + output.join( ', ' ) + ' }';
 	}
-
 	function dumpToolbarItems( items ) {
 		if ( typeof items == 'string' )
 			return '\'' + items + '\'';
-
 		var names = [],
 			i, item;
-
 		for ( var i = 0; i < items.length; ++i ) {
 			item = items[ i ];
 			if ( typeof item == 'string' )
@@ -199,25 +165,19 @@ CKEDITOR.replace( <em>'textarea_id'</em>, {
 					names.push( buttonsNames[ item.name ] );
 			}
 		}
-
 		return '[ \'' + names.join( '\', \'' ) + '\' ]';
 	}
-
 	// Creates { 'lowercased': 'LowerCased' } buttons names hash.
 	function createButtonsNamesHash( items ) {
 		var hash = {},
 			name;
-
 		for ( name in items ) {
 			hash[ items[ name ].name ] = name;
 		}
-
 		return hash;
 	}
-
 })();
 	</script>
-
 	<div id="footer">
 		<hr>
 		<p>

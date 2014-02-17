@@ -12,9 +12,7 @@
  * @since		Version 1.0
  * @filesource
  */
-
 // ------------------------------------------------------------------------
-
 /**
  * Database Result Class
  *
@@ -27,7 +25,6 @@
  * @link		http://codeigniter.com/user_guide/database/
  */
 class CI_DB_result {
-
 	var $conn_id				= NULL;
 	var $result_id				= NULL;
 	var $result_array			= array();
@@ -36,7 +33,6 @@ class CI_DB_result {
 	var $current_row			= 0;
 	var $num_rows				= 0;
 	var $row_data				= NULL;
-
 
 	/**
 	 * Query result.  Acts as a wrapper function for the following functions.
@@ -51,9 +47,7 @@ class CI_DB_result {
 		else if ($type == 'object') return $this->result_object();
 		else return $this->custom_result_object($type);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Custom query result.
 	 *
@@ -66,34 +60,26 @@ class CI_DB_result {
 		{
 			return $this->custom_result_object[$class_name];
 		}
-
 		if ($this->result_id === FALSE OR $this->num_rows() == 0)
 		{
 			return array();
 		}
-
 		// add the data to the object
 		$this->_data_seek(0);
 		$result_object = array();
-
 		while ($row = $this->_fetch_object())
 		{
 			$object = new $class_name();
-
 			foreach ($row as $key => $value)
 			{
 				$object->$key = $value;
 			}
-
 			$result_object[] = $object;
 		}
-
 		// return the array
 		return $this->custom_result_object[$class_name] = $result_object;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Query result.  "object" version.
 	 *
@@ -106,7 +92,6 @@ class CI_DB_result {
 		{
 			return $this->result_object;
 		}
-
 		// In the event that query caching is on the result_id variable
 		// will return FALSE since there isn't a valid SQL resource so
 		// we'll simply return an empty array.
@@ -114,18 +99,14 @@ class CI_DB_result {
 		{
 			return array();
 		}
-
 		$this->_data_seek(0);
 		while ($row = $this->_fetch_object())
 		{
 			$this->result_object[] = $row;
 		}
-
 		return $this->result_object;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Query result.  "array" version.
 	 *
@@ -138,7 +119,6 @@ class CI_DB_result {
 		{
 			return $this->result_array;
 		}
-
 		// In the event that query caching is on the result_id variable
 		// will return FALSE since there isn't a valid SQL resource so
 		// we'll simply return an empty array.
@@ -146,18 +126,14 @@ class CI_DB_result {
 		{
 			return array();
 		}
-
 		$this->_data_seek(0);
 		while ($row = $this->_fetch_assoc())
 		{
 			$this->result_array[] = $row;
 		}
-
 		return $this->result_array;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Query result.  Acts as a wrapper function for the following functions.
 	 *
@@ -175,7 +151,6 @@ class CI_DB_result {
 			{
 				$this->row_data = $this->row_array(0);
 			}
-
 			// array_key_exists() instead of isset() to allow for MySQL NULL values
 			if (array_key_exists($n, $this->row_data))
 			{
@@ -184,14 +159,11 @@ class CI_DB_result {
 			// reset the $n variable if the result was not achieved
 			$n = 0;
 		}
-
 		if ($type == 'object') return $this->row_object($n);
 		else if ($type == 'array') return $this->row_array($n);
 		else return $this->custom_row_object($n, $type);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Assigns an item into a particular column slot
 	 *
@@ -205,25 +177,20 @@ class CI_DB_result {
 		{
 			$this->row_data = $this->row_array(0);
 		}
-
 		if (is_array($key))
 		{
 			foreach ($key as $k => $v)
 			{
 				$this->row_data[$k] = $v;
 			}
-
 			return;
 		}
-
 		if ($key != '' AND ! is_null($value))
 		{
 			$this->row_data[$key] = $value;
 		}
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Returns a single result row - custom object version
 	 *
@@ -233,20 +200,16 @@ class CI_DB_result {
 	public function custom_row_object($n, $type)
 	{
 		$result = $this->custom_result_object($type);
-
 		if (count($result) == 0)
 		{
 			return $result;
 		}
-
 		if ($n != $this->current_row AND isset($result[$n]))
 		{
 			$this->current_row = $n;
 		}
-
 		return $result[$this->current_row];
 	}
-
 	/**
 	 * Returns a single result row - object version
 	 *
@@ -256,22 +219,17 @@ class CI_DB_result {
 	public function row_object($n = 0)
 	{
 		$result = $this->result_object();
-
 		if (count($result) == 0)
 		{
 			return $result;
 		}
-
 		if ($n != $this->current_row AND isset($result[$n]))
 		{
 			$this->current_row = $n;
 		}
-
 		return $result[$this->current_row];
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Returns a single result row - array version
 	 *
@@ -281,23 +239,18 @@ class CI_DB_result {
 	public function row_array($n = 0)
 	{
 		$result = $this->result_array();
-
 		if (count($result) == 0)
 		{
 			return $result;
 		}
-
 		if ($n != $this->current_row AND isset($result[$n]))
 		{
 			$this->current_row = $n;
 		}
-
 		return $result[$this->current_row];
 	}
 
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Returns the "first" row
 	 *
@@ -307,16 +260,13 @@ class CI_DB_result {
 	public function first_row($type = 'object')
 	{
 		$result = $this->result($type);
-
 		if (count($result) == 0)
 		{
 			return $result;
 		}
 		return $result[0];
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Returns the "last" row
 	 *
@@ -326,16 +276,13 @@ class CI_DB_result {
 	public function last_row($type = 'object')
 	{
 		$result = $this->result($type);
-
 		if (count($result) == 0)
 		{
 			return $result;
 		}
 		return $result[count($result) -1];
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Returns the "next" row
 	 *
@@ -345,22 +292,17 @@ class CI_DB_result {
 	public function next_row($type = 'object')
 	{
 		$result = $this->result($type);
-
 		if (count($result) == 0)
 		{
 			return $result;
 		}
-
 		if (isset($result[$this->current_row + 1]))
 		{
 			++$this->current_row;
 		}
-
 		return $result[$this->current_row];
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Returns the "previous" row
 	 *
@@ -370,21 +312,17 @@ class CI_DB_result {
 	public function previous_row($type = 'object')
 	{
 		$result = $this->result($type);
-
 		if (count($result) == 0)
 		{
 			return $result;
 		}
-
 		if (isset($result[$this->current_row - 1]))
 		{
 			--$this->current_row;
 		}
 		return $result[$this->current_row];
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * The following functions are normally overloaded by the identically named
 	 * methods in the platform-specific driver -- except when query caching
@@ -402,9 +340,7 @@ class CI_DB_result {
 	protected function _data_seek() { return TRUE; }
 	protected function _fetch_assoc() { return array(); }
 	protected function _fetch_object() { return array(); }
-
 }
 // END DB_result class
-
 /* End of file DB_result.php */
 /* Location: ./system/database/DB_result.php */

@@ -12,9 +12,7 @@
  * @since		Version 1.0
  * @filesource
  */
-
 // ------------------------------------------------------------------------
-
 /**
  * CodeIgniter Path Helpers
  *
@@ -24,9 +22,7 @@
  * @author		ExpressionEngine Dev Team
  * @link		http://codeigniter.com/user_guide/helpers/xml_helper.html
  */
-
 // ------------------------------------------------------------------------
-
 /**
  * Set Realpath
  *
@@ -44,16 +40,13 @@ if ( ! function_exists('set_realpath'))
 		{
 			show_error('The path you submitted must be a local server path, not a URL');
 		}
-
 		// Resolve the path
 		if (function_exists('realpath') AND @realpath($path) !== FALSE)
 		{
 			$path = realpath($path).'/';
 		}
-
 		// Add a trailing slash
 		$path = preg_replace("#([^/])/*$#", "\\1/", $path);
-
 		// Make sure the path exists
 		if ($check_existance == TRUE)
 		{
@@ -62,11 +55,9 @@ if ( ! function_exists('set_realpath'))
 				show_error('Not a valid path: '.$path);
 			}
 		}
-
 		return $path;
 	}
 }
-
 
 /* End of file path_helper.php */
 /* Location: ./system/helpers/path_helper.php */

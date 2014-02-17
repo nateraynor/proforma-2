@@ -12,9 +12,7 @@
  * @since		Version 1.0
  * @filesource
  */
-
 // ------------------------------------------------------------------------
-
 /**
  * SQLite Result Class
  *
@@ -25,7 +23,6 @@
  * @link		http://codeigniter.com/user_guide/database/
  */
 class CI_DB_sqlite_result extends CI_DB_result {
-
 	/**
 	 * Number of rows in the result set
 	 *
@@ -36,9 +33,7 @@ class CI_DB_sqlite_result extends CI_DB_result {
 	{
 		return @sqlite_num_rows($this->result_id);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Number of fields in the result set
 	 *
@@ -49,9 +44,7 @@ class CI_DB_sqlite_result extends CI_DB_result {
 	{
 		return @sqlite_num_fields($this->result_id);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Fetch Field Names
 	 *
@@ -67,12 +60,9 @@ class CI_DB_sqlite_result extends CI_DB_result {
 		{
 			$field_names[] = sqlite_field_name($this->result_id, $i);
 		}
-
 		return $field_names;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Field data
 	 *
@@ -92,15 +82,11 @@ class CI_DB_sqlite_result extends CI_DB_result {
 			$F->max_length	= 0;
 			$F->primary_key = 0;
 			$F->default		= '';
-
 			$retval[] = $F;
 		}
-
 		return $retval;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Free the result
 	 *
@@ -110,9 +96,7 @@ class CI_DB_sqlite_result extends CI_DB_result {
 	{
 		// Not implemented in SQLite
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Data Seek
 	 *
@@ -127,9 +111,7 @@ class CI_DB_sqlite_result extends CI_DB_result {
 	{
 		return sqlite_seek($this->result_id, $n);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Result - associative array
 	 *
@@ -142,9 +124,7 @@ class CI_DB_sqlite_result extends CI_DB_result {
 	{
 		return sqlite_fetch_array($this->result_id);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Result - object
 	 *
@@ -171,9 +151,7 @@ class CI_DB_sqlite_result extends CI_DB_result {
 			}
 		}
 	}
-
 }
-
 
 /* End of file sqlite_result.php */
 /* Location: ./system/database/drivers/sqlite/sqlite_result.php */

@@ -12,9 +12,7 @@
  * @since		Version 1.0
  * @filesource
  */
-
 // ------------------------------------------------------------------------
-
 /**
  * CodeIgniter Directory Helpers
  *
@@ -24,9 +22,7 @@
  * @author		ExpressionEngine Dev Team
  * @link		http://codeigniter.com/user_guide/helpers/directory_helper.html
  */
-
 // ------------------------------------------------------------------------
-
 /**
  * Create a Directory Map
  *
@@ -48,7 +44,6 @@ if ( ! function_exists('directory_map'))
 			$filedata	= array();
 			$new_depth	= $directory_depth - 1;
 			$source_dir	= rtrim($source_dir, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
-
 			while (FALSE !== ($file = readdir($fp)))
 			{
 				// Remove '.', '..', and hidden files [optional]
@@ -56,7 +51,6 @@ if ( ! function_exists('directory_map'))
 				{
 					continue;
 				}
-
 				if (($directory_depth < 1 OR $new_depth > 0) && @is_dir($source_dir.$file))
 				{
 					$filedata[$file] = directory_map($source_dir.$file.DIRECTORY_SEPARATOR, $new_depth, $hidden);
@@ -66,15 +60,12 @@ if ( ! function_exists('directory_map'))
 					$filedata[] = $file;
 				}
 			}
-
 			closedir($fp);
 			return $filedata;
 		}
-
 		return FALSE;
 	}
 }
-
 
 /* End of file directory_helper.php */
 /* Location: ./system/helpers/directory_helper.php */

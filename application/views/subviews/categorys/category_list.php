@@ -61,7 +61,7 @@
 					<div class="portlet-body">
 						<div class="table-toolbar">
 							<div class="btn-group">
-								<a class="btn red" href="<?php echo base_url() ?>categorys/category">Ekle <i class="fa fa-plus"></i></a>
+								<a class="btn red" href="<?php echo base_url() ?>categories/category">Ekle <i class="fa fa-plus"></i></a>
 							</div>
 							<div class="btn-group pull-right">
 								<button class="btn dropdown-toggle" data-toggle="dropdown">Araçlar <i class="fa fa-angle-down"></i></button>
@@ -82,17 +82,16 @@
 						</tr>
 						</thead>
 						<tbody>
-
-							<?php foreach ($categorys as $category): ?>
+							<?php foreach ($categories as $category): ?>
 								<tr>
 									<td><?php echo $category['category_id'] ;?></td>
 									<td><?php echo $category['category_name']; ?></td>
 									<td>
 										<?php if($category['category_parent_id'] != 0): ?>
-											<?php foreach ($parentcategorys as $parentcategory): ?>
+											<?php foreach ($parentcategories as $parentcategory): ?>
 												<?php if($parentcategory['category_id'] == $category['category_parent_id']): ?>
 													<?php echo $parentcategory['category_name']; ?>
-												<?php endif; ?>																						
+												<?php endif; ?>
 											<?php endforeach ?>
 										<?php else: ?>
 											<?php echo 'Üst Kategori Bulunmamaktadır.' ?>
@@ -106,8 +105,8 @@
 										<?php endif ;?>
 									</td>
 									<td>
-										<a href="<?php echo base_url() . 'categorys/category/' . $category['category_id']; ?>" class="btn default btn-xs yellow"><i class="fa fa-edit"></i> Güncelle</a>
-										<a href="#" location="<?php echo base_url() . 'categorys/deleteCategory/' . $category['category_id']; ?>" class="btn default btn-xs black validate-delete"><i class="fa fa-trash-o"></i> Sil</a>
+										<a href="<?php echo base_url() . 'categories/category/' . $category['category_id']; ?>" class="btn default btn-xs yellow"><i class="fa fa-edit"></i> Güncelle</a>
+										<a href="#" location="<?php echo base_url() . 'categories/deleteCategory/' . $category['category_id']; ?>" class="btn default btn-xs black validate-delete"><i class="fa fa-trash-o"></i> Sil</a>
 									</td>
 								</tr>
 							<?php endforeach ?>

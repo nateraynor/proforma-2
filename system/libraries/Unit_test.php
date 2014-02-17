@@ -12,9 +12,7 @@
  * @since		Version 1.3.1
  * @filesource
  */
-
 // ------------------------------------------------------------------------
-
 /**
  * Unit Testing Class
  *
@@ -27,14 +25,12 @@
  * @link		http://codeigniter.com/user_guide/libraries/uri.html
  */
 class CI_Unit_test {
-
 	var $active					= TRUE;
 	var $results				= array();
 	var $strict					= FALSE;
 	var $_template				= NULL;
 	var $_template_rows			= NULL;
 	var $_test_items_visible	= array();
-
 	public function __construct()
 	{
 		// These are the default items visible when a test is run.
@@ -47,12 +43,9 @@ class CI_Unit_test {
 							'line',
 							'notes'
 						);
-
 		log_message('debug', "Unit Testing Class Initialized");
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Run the tests
 	 *
@@ -69,9 +62,7 @@ class CI_Unit_test {
 			$this->_test_items_visible = $items;
 		}
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Run the tests
 	 *
@@ -89,7 +80,6 @@ class CI_Unit_test {
 		{
 			return FALSE;
 		}
-
 		if (in_array($expected, array('is_object', 'is_string', 'is_bool', 'is_true', 'is_false', 'is_int', 'is_numeric', 'is_float', 'is_double', 'is_array', 'is_null'), TRUE))
 		{
 			$expected = str_replace('is_float', 'is_double', $expected);
@@ -102,12 +92,9 @@ class CI_Unit_test {
 				$result = ($test === $expected) ? TRUE : FALSE;
 			else
 				$result = ($test == $expected) ? TRUE : FALSE;
-
 			$extype = gettype($expected);
 		}
-
 		$back = $this->_backtrace();
-
 		$report[] = array (
 							'test_name'			=> $test_name,
 							'test_datatype'		=> gettype($test),
@@ -117,14 +104,10 @@ class CI_Unit_test {
 							'line'				=> $back['line'],
 							'notes'				=> $notes
 						);
-
 		$this->results[] = $report;
-
 		return($this->report($this->result($report)));
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Generate a report
 	 *
@@ -139,17 +122,13 @@ class CI_Unit_test {
 		{
 			$result = $this->result();
 		}
-
 		$CI =& get_instance();
 		$CI->load->language('unit_test');
-
 		$this->_parse_template();
-
 		$r = '';
 		foreach ($result as $res)
 		{
 			$table = '';
-
 			foreach ($res as $key => $val)
 			{
 				if ($key == $CI->lang->line('ut_result'))
@@ -163,21 +142,16 @@ class CI_Unit_test {
 						$val = '<span style="color: #C00;">'.$val.'</span>';
 					}
 				}
-
 				$temp = $this->_template_rows;
 				$temp = str_replace('{item}', $key, $temp);
 				$temp = str_replace('{result}', $val, $temp);
 				$table .= $temp;
 			}
-
 			$r .= str_replace('{rows}', $table, $this->_template);
 		}
-
 		return $r;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Use strict comparison
 	 *
@@ -191,9 +165,7 @@ class CI_Unit_test {
 	{
 		$this->strict = ($state == FALSE) ? FALSE : TRUE;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Make Unit testing active
 	 *
@@ -207,9 +179,7 @@ class CI_Unit_test {
 	{
 		$this->active = ($state == FALSE) ? FALSE : TRUE;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Result Array
 	 *
@@ -222,12 +192,10 @@ class CI_Unit_test {
 	{
 		$CI =& get_instance();
 		$CI->load->language('unit_test');
-
 		if (count($results) == 0)
 		{
 			$results = $this->results;
 		}
-
 		$retval = array();
 		foreach ($results as $result)
 		{
@@ -238,7 +206,6 @@ class CI_Unit_test {
 				{
 					continue;
 				}
-
 				if (is_array($val))
 				{
 					foreach ($val as $k => $v)
@@ -259,15 +226,11 @@ class CI_Unit_test {
 					$temp[$CI->lang->line('ut_'.$key)] = $val;
 				}
 			}
-
 			$retval[] = $temp;
 		}
-
 		return $retval;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Set the template
 	 *
@@ -281,9 +244,7 @@ class CI_Unit_test {
 	{
 		$this->_template = $template;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Generate a backtrace
 	 *
@@ -297,17 +258,13 @@ class CI_Unit_test {
 		if (function_exists('debug_backtrace'))
 		{
 			$back = debug_backtrace();
-
 			$file = ( ! isset($back['1']['file'])) ? '' : $back['1']['file'];
 			$line = ( ! isset($back['1']['line'])) ? '' : $back['1']['line'];
-
 			return array('file' => $file, 'line' => $line);
 		}
 		return array('file' => 'Unknown', 'line' => 'Unknown');
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Get Default Template
 	 *
@@ -319,15 +276,12 @@ class CI_Unit_test {
 		$this->_template = "\n".'<table style="width:100%; font-size:small; margin:10px 0; border-collapse:collapse; border:1px solid #CCC;">';
 		$this->_template .= '{rows}';
 		$this->_template .= "\n".'</table>';
-
 		$this->_template_rows = "\n\t".'<tr>';
 		$this->_template_rows .= "\n\t\t".'<th style="text-align: left; border-bottom:1px solid #CCC;">{item}</th>';
 		$this->_template_rows .= "\n\t\t".'<td style="border-bottom:1px solid #CCC;">{result}</td>';
 		$this->_template_rows .= "\n\t".'</tr>';
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Parse Template
 	 *
@@ -342,26 +296,21 @@ class CI_Unit_test {
 		{
 			return;
 		}
-
 		if (is_null($this->_template))
 		{
 			$this->_default_template();
 			return;
 		}
-
 		if ( ! preg_match("/\{rows\}(.*?)\{\/rows\}/si", $this->_template, $match))
 		{
 			$this->_default_template();
 			return;
 		}
-
 		$this->_template_rows = $match['1'];
 		$this->_template = str_replace($match['0'], '{rows}', $this->_template);
 	}
-
 }
 // END Unit_test Class
-
 /**
  * Helper functions to test boolean true/false
  *
@@ -377,7 +326,6 @@ function is_false($test)
 {
 	return (is_bool($test) AND $test === FALSE) ? TRUE : FALSE;
 }
-
 
 /* End of file Unit_test.php */
 /* Location: ./system/libraries/Unit_test.php */

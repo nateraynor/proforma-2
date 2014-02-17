@@ -12,9 +12,7 @@
  * @since		Version 1.0
  * @filesource
  */
-
 // ------------------------------------------------------------------------
-
 /**
  * MS SQL Database Adapter Class
  *
@@ -29,16 +27,12 @@
  * @link		http://codeigniter.com/user_guide/database/
  */
 class CI_DB_mssql_driver extends CI_DB {
-
 	var $dbdriver = 'mssql';
-
 	// The character used for escaping
 	var $_escape_char = '';
-
 	// clause and character used for LIKE escape sequences
 	var $_like_escape_str = " ESCAPE '%s' ";
 	var $_like_escape_chr = '!';
-
 	/**
 	 * The syntax to count rows is slightly different across different
 	 * database engines, so this string appears in each driver and is
@@ -46,7 +40,6 @@ class CI_DB_mssql_driver extends CI_DB {
 	 */
 	var $_count_string = "SELECT COUNT(*) AS ";
 	var $_random_keyword = ' ASC'; // not currently supported
-
 	/**
 	 * Non-persistent database connection
 	 *
@@ -59,12 +52,9 @@ class CI_DB_mssql_driver extends CI_DB {
 		{
 			$this->hostname .= ','.$this->port;
 		}
-
 		return @mssql_connect($this->hostname, $this->username, $this->password);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Persistent database connection
 	 *
@@ -77,12 +67,9 @@ class CI_DB_mssql_driver extends CI_DB {
 		{
 			$this->hostname .= ','.$this->port;
 		}
-
 		return @mssql_pconnect($this->hostname, $this->username, $this->password);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Reconnect
 	 *
@@ -96,9 +83,7 @@ class CI_DB_mssql_driver extends CI_DB {
 	{
 		// not implemented in MSSQL
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Select the database
 	 *
@@ -111,9 +96,7 @@ class CI_DB_mssql_driver extends CI_DB {
 		// contains reserved characters
 		return @mssql_select_db('['.$this->database.']', $this->conn_id);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Set client character set
 	 *
@@ -127,9 +110,7 @@ class CI_DB_mssql_driver extends CI_DB {
 		// @todo - add support if needed
 		return TRUE;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Execute the query
 	 *
@@ -142,9 +123,7 @@ class CI_DB_mssql_driver extends CI_DB {
 		$sql = $this->_prep_query($sql);
 		return @mssql_query($sql, $this->conn_id);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Prep the query
 	 *
@@ -158,9 +137,7 @@ class CI_DB_mssql_driver extends CI_DB {
 	{
 		return $sql;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Begin Transaction
 	 *
@@ -173,24 +150,19 @@ class CI_DB_mssql_driver extends CI_DB {
 		{
 			return TRUE;
 		}
-
 		// When transactions are nested we only begin/commit/rollback the outermost ones
 		if ($this->_trans_depth > 0)
 		{
 			return TRUE;
 		}
-
 		// Reset the transaction failure flag.
 		// If the $test_mode flag is set to TRUE transactions will be rolled back
 		// even if the queries produce a successful result.
 		$this->_trans_failure = ($test_mode === TRUE) ? TRUE : FALSE;
-
 		$this->simple_query('BEGIN TRAN');
 		return TRUE;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Commit Transaction
 	 *
@@ -203,19 +175,15 @@ class CI_DB_mssql_driver extends CI_DB {
 		{
 			return TRUE;
 		}
-
 		// When transactions are nested we only begin/commit/rollback the outermost ones
 		if ($this->_trans_depth > 0)
 		{
 			return TRUE;
 		}
-
 		$this->simple_query('COMMIT TRAN');
 		return TRUE;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Rollback Transaction
 	 *
@@ -228,19 +196,15 @@ class CI_DB_mssql_driver extends CI_DB {
 		{
 			return TRUE;
 		}
-
 		// When transactions are nested we only begin/commit/rollback the outermost ones
 		if ($this->_trans_depth > 0)
 		{
 			return TRUE;
 		}
-
 		$this->simple_query('ROLLBACK TRAN');
 		return TRUE;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Escape String
 	 *
@@ -257,13 +221,10 @@ class CI_DB_mssql_driver extends CI_DB {
 			{
 				$str[$key] = $this->escape_str($val, $like);
 			}
-
 			return $str;
 		}
-
 		// Escape single quotes
 		$str = str_replace("'", "''", remove_invisible_characters($str));
-
 		// escape LIKE condition wildcards
 		if ($like === TRUE)
 		{
@@ -273,12 +234,9 @@ class CI_DB_mssql_driver extends CI_DB {
 				$str
 			);
 		}
-
 		return $str;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Affected Rows
 	 *
@@ -289,9 +247,7 @@ class CI_DB_mssql_driver extends CI_DB {
 	{
 		return @mssql_rows_affected($this->conn_id);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	* Insert ID
 	*
@@ -308,9 +264,7 @@ class CI_DB_mssql_driver extends CI_DB {
 		$row = $query->row();
 		return $row->last_id;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	* Parse major version
 	*
@@ -326,9 +280,7 @@ class CI_DB_mssql_driver extends CI_DB {
 		preg_match('/([0-9]+)\.([0-9]+)\.([0-9]+)/', $version, $ver_info);
 		return $ver_info[1]; // return the major version b/c that's all we're interested in.
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	* Version number query string
 	*
@@ -339,9 +291,7 @@ class CI_DB_mssql_driver extends CI_DB {
 	{
 		return "SELECT @@VERSION AS ver";
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * "Count All" query
 	 *
@@ -358,21 +308,16 @@ class CI_DB_mssql_driver extends CI_DB {
 		{
 			return 0;
 		}
-
 		$query = $this->query($this->_count_string . $this->_protect_identifiers('numrows') . " FROM " . $this->_protect_identifiers($table, TRUE, NULL, FALSE));
-
 		if ($query->num_rows() == 0)
 		{
 			return 0;
 		}
-
 		$row = $query->row();
 		$this->_reset_select();
 		return (int) $row->numrows;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * List table query
 	 *
@@ -385,19 +330,15 @@ class CI_DB_mssql_driver extends CI_DB {
 	function _list_tables($prefix_limit = FALSE)
 	{
 		$sql = "SELECT name FROM sysobjects WHERE type = 'U' ORDER BY name";
-
 		// for future compatibility
 		if ($prefix_limit !== FALSE AND $this->dbprefix != '')
 		{
 			//$sql .= " LIKE '".$this->escape_like_str($this->dbprefix)."%' ".sprintf($this->_like_escape_str, $this->_like_escape_chr);
 			return FALSE; // not currently supported
 		}
-
 		return $sql;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * List column query
 	 *
@@ -411,9 +352,7 @@ class CI_DB_mssql_driver extends CI_DB {
 	{
 		return "SELECT * FROM INFORMATION_SCHEMA.Columns WHERE TABLE_NAME = '".$table."'";
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Field data query
 	 *
@@ -427,9 +366,7 @@ class CI_DB_mssql_driver extends CI_DB {
 	{
 		return "SELECT TOP 1 * FROM ".$table;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * The error message string
 	 *
@@ -440,9 +377,7 @@ class CI_DB_mssql_driver extends CI_DB {
 	{
 		return mssql_get_last_message();
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * The error message number
 	 *
@@ -454,9 +389,7 @@ class CI_DB_mssql_driver extends CI_DB {
 		// Are error numbers supported?
 		return '';
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Escape the SQL Identifiers
 	 *
@@ -472,18 +405,15 @@ class CI_DB_mssql_driver extends CI_DB {
 		{
 			return $item;
 		}
-
 		foreach ($this->_reserved_identifiers as $id)
 		{
 			if (strpos($item, '.'.$id) !== FALSE)
 			{
 				$str = $this->_escape_char. str_replace('.', $this->_escape_char.'.', $item);
-
 				// remove duplicates if the user already included the escape
 				return preg_replace('/['.$this->_escape_char.']+/', $this->_escape_char, $str);
 			}
 		}
-
 		if (strpos($item, '.') !== FALSE)
 		{
 			$str = $this->_escape_char.str_replace('.', $this->_escape_char.'.'.$this->_escape_char, $item).$this->_escape_char;
@@ -492,13 +422,10 @@ class CI_DB_mssql_driver extends CI_DB {
 		{
 			$str = $this->_escape_char.$item.$this->_escape_char;
 		}
-
 		// remove duplicates if the user already included the escape
 		return preg_replace('/['.$this->_escape_char.']+/', $this->_escape_char, $str);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * From Tables
 	 *
@@ -515,12 +442,9 @@ class CI_DB_mssql_driver extends CI_DB {
 		{
 			$tables = array($tables);
 		}
-
 		return implode(', ', $tables);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Insert statement
 	 *
@@ -536,9 +460,7 @@ class CI_DB_mssql_driver extends CI_DB {
 	{
 		return "INSERT INTO ".$table." (".implode(', ', $keys).") VALUES (".implode(', ', $values).")";
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Update statement
 	 *
@@ -558,23 +480,15 @@ class CI_DB_mssql_driver extends CI_DB {
 		{
 			$valstr[] = $key." = ".$val;
 		}
-
 		$limit = ( ! $limit) ? '' : ' LIMIT '.$limit;
-
 		$orderby = (count($orderby) >= 1)?' ORDER BY '.implode(", ", $orderby):'';
-
 		$sql = "UPDATE ".$table." SET ".implode(', ', $valstr);
-
 		$sql .= ($where != '' AND count($where) >=1) ? " WHERE ".implode(" ", $where) : '';
-
 		$sql .= $orderby.$limit;
-
 		return $sql;
 	}
 
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Truncate statement
 	 *
@@ -590,9 +504,7 @@ class CI_DB_mssql_driver extends CI_DB {
 	{
 		return "TRUNCATE ".$table;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Delete statement
 	 *
@@ -607,26 +519,20 @@ class CI_DB_mssql_driver extends CI_DB {
 	function _delete($table, $where = array(), $like = array(), $limit = FALSE)
 	{
 		$conditions = '';
-
 		if (count($where) > 0 OR count($like) > 0)
 		{
 			$conditions = "\nWHERE ";
 			$conditions .= implode("\n", $this->ar_where);
-
 			if (count($where) > 0 && count($like) > 0)
 			{
 				$conditions .= " AND ";
 			}
 			$conditions .= implode("\n", $like);
 		}
-
 		$limit = ( ! $limit) ? '' : ' LIMIT '.$limit;
-
 		return "DELETE FROM ".$table.$conditions.$limit;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Limit string
 	 *
@@ -641,12 +547,9 @@ class CI_DB_mssql_driver extends CI_DB {
 	function _limit($sql, $limit, $offset)
 	{
 		$i = $limit + $offset;
-
 		return preg_replace('/(^\SELECT (DISTINCT)?)/i','\\1 TOP '.$i.' ', $sql);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Close DB Connection
 	 *
@@ -658,10 +561,7 @@ class CI_DB_mssql_driver extends CI_DB {
 	{
 		@mssql_close($conn_id);
 	}
-
 }
-
-
 
 /* End of file mssql_driver.php */
 /* Location: ./system/database/drivers/mssql/mssql_driver.php */

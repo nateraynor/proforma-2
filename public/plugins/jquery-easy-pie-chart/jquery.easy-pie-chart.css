@@ -2,7 +2,6 @@
     position: relative;
     text-align: center;
 }
-
 .easyPieChart canvas {
     position: absolute;
     top: 0;

@@ -11,7 +11,6 @@
 					<li>
 						<a href="#">Ayarlar</a>
 					</li>
-
 				</ul>
 			</div>
 		</div>

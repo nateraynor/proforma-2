@@ -1,6 +1,5 @@
 !function($, wysi) {
     "use strict";
-
     var tpl = {
         "font-styles": function(locale, options) {
             var size = (options && options.size) ? ' btn-'+options.size : '';
@@ -19,7 +18,6 @@
               "</ul>" +
             "</li>";
         },
-
         "emphasis": function(locale, options) {
             var size = (options && options.size) ? ' btn-'+options.size : '';
             return "<li>" +
@@ -30,7 +28,6 @@
               "</div>" +
             "</li>";
         },
-
         "lists": function(locale, options) {
             var size = (options && options.size) ? ' btn-'+options.size : '';
             return "<li>" +
@@ -42,7 +39,6 @@
               "</div>" +
             "</li>";
         },
-
         "link": function(locale, options) {
             var size = (options && options.size) ? ' btn-'+options.size : '';
             return "<li>" +
@@ -67,7 +63,6 @@
               "<a class='btn default" + size + "' data-wysihtml5-command='createLink' title='" + locale.link.insert + "' tabindex='-1'><i class='fa fa-share'></i></a>" +
             "</li>";
         },
-
         "image": function(locale, options) {
             var size = (options && options.size) ? ' btn-'+options.size : '';
             return "<li>" +
@@ -91,7 +86,6 @@
               "<a class='btn default" + size + "' data-wysihtml5-command='insertImage' title='" + locale.image.insert + "' tabindex='-1'><i class='fa fa-picture-o'></i></a>" +
             "</li>";
         },
-
         "html": function(locale, options) {
             var size = (options && options.size) ? ' btn-'+options.size : '';
             return "<li>" +
@@ -100,7 +94,6 @@
               "</div>" +
             "</li>";
         },
-
         "color": function(locale, options) {
             var size = (options && options.size) ? ' btn-'+options.size : '';
             return "<li class='dropdown'>" +
@@ -123,11 +116,9 @@
             "</li>";
         }
     };
-
     var templates = function(key, locale, options) {
         return tpl[key](locale, options);
     };
-
 
     var Wysihtml5 = function(el, options) {
         this.el = el;
@@ -137,9 +128,7 @@
         }
         this.toolbar = this.createToolbar(el, toolbarOpts);
         this.editor =  this.createEditor(options);
-
         window.editor = this.editor;
-
         $('iframe.wysihtml5-sandbox').each(function(i, el){
             $(el.contentWindow).off('focus.wysihtml5').on({
                 'focus.wysihtml5' : function(){
@@ -148,21 +137,16 @@
             });
         });
     };
-
     Wysihtml5.prototype = {
-
         constructor: Wysihtml5,
-
         createEditor: function(options) {
             options = options || {};
-            
+
             // Add the toolbar to a clone of the options object so multiple instances
             // of the WYISYWG don't break because "toolbar" is already defined
             options = $.extend(true, {}, options);
             options.toolbar = this.toolbar[0];
-
             var editor = new wysi.Editor(this.el[0], options);
-
             if(options && options.events) {
                 for(var eventName in options.events) {
                     editor.on(eventName, options.events[eventName]);
@@ -170,7 +154,6 @@
             }
             return editor;
         },
-
         createToolbar: function(el, options) {
             var self = this;
             var toolbar = $("<ul/>", {
@@ -180,7 +163,6 @@
             var culture = options.locale || defaultOptions.locale || "en";
             for(var key in defaultOptions) {
                 var value = false;
-
                 if(options[key] !== undefined) {
                     if(options[key] === true) {
                         value = true;
@@ -188,54 +170,43 @@
                 } else {
                     value = defaultOptions[key];
                 }
-
                 if(value === true) {
                     toolbar.append(templates(key, locale[culture], options));
-
                     if(key === "html") {
                         this.initHtml(toolbar);
                     }
-
                     if(key === "link") {
                         this.initInsertLink(toolbar);
                     }
-
                     if(key === "image") {
                         this.initInsertImage(toolbar);
                     }
                 }
             }
-
             if(options.toolbar) {
                 for(key in options.toolbar) {
                     toolbar.append(options.toolbar[key]);
                 }
             }
-
             toolbar.find("a[data-wysihtml5-command='formatBlock']").click(function(e) {
                 var target = e.target || e.srcElement;
                 var el = $(target);
                 self.toolbar.find('.current-font').text(el.html());
             });
-
             toolbar.find("a[data-wysihtml5-command='foreColor']").click(function(e) {
                 var target = e.target || e.srcElement;
                 var el = $(target);
                 self.toolbar.find('.current-color').text(el.html());
             });
-
             this.el.before(toolbar);
-
             return toolbar;
         },
-
         initHtml: function(toolbar) {
             var changeViewSelector = "a[data-wysihtml5-action='change_view']";
             toolbar.find(changeViewSelector).click(function(e) {
                 toolbar.find('a.btn').not(changeViewSelector).toggleClass('disabled');
             });
         },
-
         initInsertImage: function(toolbar) {
             var self = this;
             var insertImageModal = toolbar.find('.bootstrap-wysihtml5-insert-image-modal');
@@ -243,7 +214,6 @@
             var insertButton = insertImageModal.find('a.btn-primary');
             var initialValue = urlInput.val();
             var caretBookmark;
-
             var insertImage = function() {
                 var url = urlInput.val();
                 urlInput.val(initialValue);
@@ -254,27 +224,21 @@
                 }
                 self.editor.composer.commands.exec("insertImage", url);
             };
-
             urlInput.keypress(function(e) {
                 if(e.which == 13) {
                     insertImage();
                     insertImageModal.modal('hide');
                 }
             });
-
             insertButton.click(insertImage);
-
             insertImageModal.on('shown', function() {
                 urlInput.focus();
             });
-
             insertImageModal.on('hide', function() {
                 self.editor.currentView.element.focus();
             });
-
             toolbar.find('a[data-wysihtml5-command=insertImage]').click(function() {
                 var activeButton = $(this).hasClass("wysihtml5-command-active");
-
                 if (!activeButton) {
                     self.editor.currentView.element.focus(false);
                     caretBookmark = self.editor.composer.selection.getBookmark();
@@ -289,7 +253,6 @@
                 }
             });
         },
-
         initInsertLink: function(toolbar) {
             var self = this;
             var insertLinkModal = toolbar.find('.bootstrap-wysihtml5-insert-link-modal');
@@ -298,7 +261,6 @@
             var insertButton = insertLinkModal.find('a.btn-primary');
             var initialValue = urlInput.val();
             var caretBookmark;
-
             var insertLink = function() {
                 var url = urlInput.val();
                 urlInput.val(initialValue);
@@ -307,7 +269,6 @@
                   self.editor.composer.selection.setBookmark(caretBookmark);
                   caretBookmark = null;
                 }
-
                 var newWindow = targetInput.prop("checked");
                 self.editor.composer.commands.exec("createLink", {
                     'href' : url,
@@ -316,27 +277,21 @@
                 });
             };
             var pressedEnter = false;
-
             urlInput.keypress(function(e) {
                 if(e.which == 13) {
                     insertLink();
                     insertLinkModal.modal('hide');
                 }
             });
-
             insertButton.click(insertLink);
-
             insertLinkModal.on('shown', function() {
                 urlInput.focus();
             });
-
             insertLinkModal.on('hide', function() {
                 self.editor.currentView.element.focus();
             });
-
             toolbar.find('a[data-wysihtml5-command=createLink]').click(function() {
                 var activeButton = $(this).hasClass("wysihtml5-command-active");
-
                 if (!activeButton) {
                     self.editor.currentView.element.focus(false);
                     caretBookmark = self.editor.composer.selection.getBookmark();
@@ -353,7 +308,6 @@
             });
         }
     };
-
     // these define our public api
     var methods = {
         resetDefaults: function() {
@@ -380,7 +334,6 @@
             return methods.shallowExtend.apply(that, [options]);
         }
     };
-
     $.fn.wysihtml5 = function ( method ) {
         if ( methods[method] ) {
             return methods[method].apply( this, Array.prototype.slice.call( arguments, 1 ));
@@ -388,11 +341,9 @@
             return methods.init.apply( this, arguments );
         } else {
             $.error( 'Method ' +  method + ' does not exist on jQuery.wysihtml5' );
-        }    
+        }
     };
-
     $.fn.wysihtml5.Constructor = Wysihtml5;
-
     var defaultOptions = $.fn.wysihtml5.defaultOptions = {
         "font-styles": true,
         "color": false,
@@ -462,11 +413,9 @@
         stylesheets: ["./wysiwyg-color.css"], // (path_to_project/lib/css/wysiwyg-color.css)
         locale: "en"
     };
-
     if (typeof $.fn.wysihtml5.defaultOptionsCache === 'undefined') {
         $.fn.wysihtml5.defaultOptionsCache = $.extend(true, {}, $.fn.wysihtml5.defaultOptions);
     }
-
     var locale = $.fn.wysihtml5.locale = {
         en: {
             font_styles: {
@@ -516,5 +465,4 @@
             }
         }
     };
-
 }(window.jQuery, window.wysihtml5);

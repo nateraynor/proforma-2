@@ -1,26 +1,21 @@
 var UIGeneral = function () {
-
     var handlePulsate = function () {
         if (!jQuery().pulsate) {
             return;
         }
-
         if (App.isIE8() == true) {
             return; // pulsate plugin does not support IE8 and below
         }
-
         if (jQuery().pulsate) {
             jQuery('#pulsate-regular').pulsate({
                 color: "#bf1c56"
             });
-
             jQuery('#pulsate-once').click(function () {
                 $('#pulsate-once-target').pulsate({
                     color: "#399bc3",
                     repeat: false
                 });
             });
-
             jQuery('#pulsate-crazy').click(function () {
                 $('#pulsate-crazy-target').pulsate({
                     color: "#fdbe41",
@@ -32,12 +27,10 @@ var UIGeneral = function () {
             });
         }
     }
-
     var handleGritterNotifications = function () {
         if (!jQuery.gritter) {
             return;
         }
-
         $('#gritter-sticky').click(function () {
             var unique_id = $.gritter.add({
                 // (string | mandatory) the heading of the notification
@@ -55,9 +48,7 @@ var UIGeneral = function () {
             });
             return false;
         });
-
         $('#gritter-regular').click(function () {
-
             $.gritter.add({
                 // (string | mandatory) the heading of the notification
                 title: 'This is a regular notice!',
@@ -70,13 +61,9 @@ var UIGeneral = function () {
                 // (int | optional) the time you want it to be alive for before fading out
                 time: ''
             });
-
             return false;
-
         });
-
         $('#gritter-max').click(function () {
-
             $.gritter.add({
                 // (string | mandatory) the heading of the notification
                 title: 'This is a notice with a max of 3 on screen at one time!',
@@ -96,7 +83,6 @@ var UIGeneral = function () {
             });
             return false;
         });
-
         $('#gritter-without-image').click(function () {
             $.gritter.add({
                 // (string | mandatory) the heading of the notification
@@ -104,12 +90,9 @@ var UIGeneral = function () {
                 // (string | mandatory) the text inside the notification
                 text: 'This will fade out after a certain amount of time. Vivamus eget tincidunt velit. Cum sociis natoque penatibus et <a href="#">some link sample</a> montes, nascetur ridiculus mus.'
             });
-
             return false;
         });
-
         $('#gritter-light').click(function () {
-
             $.gritter.add({
                 // (string | mandatory) the heading of the notification
                 title: 'This is a light notification',
@@ -117,18 +100,13 @@ var UIGeneral = function () {
                 text: 'Just add a "gritter-light" class_name to your $.gritter.add or globally to $.gritter.options.class_name',
                 class_name: 'gritter-light'
             });
-
             return false;
         });
-
         $("#gritter-remove-all").click(function () {
-
             $.gritter.removeAll();
             return false;
-
         });
     }
-
     var handleDynamicPagination = function() {
         $('#dynamic_pager_demo1').bootpag({
             paginationClass: 'pagination',
@@ -139,19 +117,17 @@ var UIGeneral = function () {
         }).on("page", function(event, num){
             $("#dynamic_pager_content1").html("Page " + num + " content here"); // or some ajax content loading...
         });
-
         $('#dynamic_pager_demo2').bootpag({
             paginationClass: 'pagination pagination-sm',
             next: '<i class="fa fa-angle-right"></i>',
             prev: '<i class="fa fa-angle-left"></i>',
             total: 24,
             page: 1,
-            maxVisible: 6 
+            maxVisible: 6
         }).on('page', function(event, num){
             $("#dynamic_pager_content2").html("Page " + num + " content here"); // or some ajax content loading...
         });
     }
-
     return {
         //main function to initiate the module
         init: function () {
@@ -159,7 +135,5 @@ var UIGeneral = function () {
             handleGritterNotifications();
             handleDynamicPagination();
         }
-
     };
-
 }();

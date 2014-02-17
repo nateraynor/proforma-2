@@ -12,9 +12,7 @@
  * @since		Version 1.0
  * @filesource
  */
-
 // ------------------------------------------------------------------------
-
 /**
  * CodeIgniter File Helpers
  *
@@ -24,9 +22,7 @@
  * @author		ExpressionEngine Dev Team
  * @link		http://codeigniter.com/user_guide/helpers/file_helpers.html
  */
-
 // ------------------------------------------------------------------------
-
 /**
  * Read File
  *
@@ -44,34 +40,26 @@ if ( ! function_exists('read_file'))
 		{
 			return FALSE;
 		}
-
 		if (function_exists('file_get_contents'))
 		{
 			return file_get_contents($file);
 		}
-
 		if ( ! $fp = @fopen($file, FOPEN_READ))
 		{
 			return FALSE;
 		}
-
 		flock($fp, LOCK_SH);
-
 		$data = '';
 		if (filesize($file) > 0)
 		{
 			$data =& fread($fp, filesize($file));
 		}
-
 		flock($fp, LOCK_UN);
 		fclose($fp);
-
 		return $data;
 	}
 }
-
 // ------------------------------------------------------------------------
-
 /**
  * Write File
  *
@@ -91,18 +79,14 @@ if ( ! function_exists('write_file'))
 		{
 			return FALSE;
 		}
-
 		flock($fp, LOCK_EX);
 		fwrite($fp, $data);
 		flock($fp, LOCK_UN);
 		fclose($fp);
-
 		return TRUE;
 	}
 }
-
 // ------------------------------------------------------------------------
-
 /**
  * Delete Files
  *
@@ -122,12 +106,10 @@ if ( ! function_exists('delete_files'))
 	{
 		// Trim the trailing slash
 		$path = rtrim($path, DIRECTORY_SEPARATOR);
-
 		if ( ! $current_dir = @opendir($path))
 		{
 			return FALSE;
 		}
-
 		while (FALSE !== ($filename = @readdir($current_dir)))
 		{
 			if ($filename != "." and $filename != "..")
@@ -147,18 +129,14 @@ if ( ! function_exists('delete_files'))
 			}
 		}
 		@closedir($current_dir);
-
 		if ($del_dir == TRUE AND $level > 0)
 		{
 			return @rmdir($path);
 		}
-
 		return TRUE;
 	}
 }
-
 // ------------------------------------------------------------------------
-
 /**
  * Get Filenames
  *
@@ -176,7 +154,6 @@ if ( ! function_exists('get_filenames'))
 	function get_filenames($source_dir, $include_path = FALSE, $_recursion = FALSE)
 	{
 		static $_filedata = array();
-
 		if ($fp = @opendir($source_dir))
 		{
 			// reset the array and make sure $source_dir has a trailing slash on the initial call
@@ -185,7 +162,6 @@ if ( ! function_exists('get_filenames'))
 				$_filedata = array();
 				$source_dir = rtrim(realpath($source_dir), DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
 			}
-
 			while (FALSE !== ($file = readdir($fp)))
 			{
 				if (@is_dir($source_dir.$file) && strncmp($file, '.', 1) !== 0)
@@ -205,9 +181,7 @@ if ( ! function_exists('get_filenames'))
 		}
 	}
 }
-
 // --------------------------------------------------------------------
-
 /**
  * Get Directory File Information
  *
@@ -228,7 +202,6 @@ if ( ! function_exists('get_dir_file_info'))
 	{
 		static $_filedata = array();
 		$relative_path = $source_dir;
-
 		if ($fp = @opendir($source_dir))
 		{
 			// reset the array and make sure $source_dir has a trailing slash on the initial call
@@ -237,7 +210,6 @@ if ( ! function_exists('get_dir_file_info'))
 				$_filedata = array();
 				$source_dir = rtrim(realpath($source_dir), DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
 			}
-
 			// foreach (scandir($source_dir, 1) as $file) // In addition to being PHP5+, scandir() is simply not as fast
 			while (FALSE !== ($file = readdir($fp)))
 			{
@@ -251,7 +223,6 @@ if ( ! function_exists('get_dir_file_info'))
 					$_filedata[$file]['relative_path'] = $relative_path;
 				}
 			}
-
 			return $_filedata;
 		}
 		else
@@ -260,9 +231,7 @@ if ( ! function_exists('get_dir_file_info'))
 		}
 	}
 }
-
 // --------------------------------------------------------------------
-
 /**
 * Get File Info
 *
@@ -280,17 +249,14 @@ if ( ! function_exists('get_file_info'))
 {
 	function get_file_info($file, $returned_values = array('name', 'server_path', 'size', 'date'))
 	{
-
 		if ( ! file_exists($file))
 		{
 			return FALSE;
 		}
-
 		if (is_string($returned_values))
 		{
 			$returned_values = explode(',', $returned_values);
 		}
-
 		foreach ($returned_values as $key)
 		{
 			switch ($key)
@@ -322,13 +288,10 @@ if ( ! function_exists('get_file_info'))
 					break;
 			}
 		}
-
 		return $fileinfo;
 	}
 }
-
 // --------------------------------------------------------------------
-
 /**
  * Get Mime by Extension
  *
@@ -347,9 +310,7 @@ if ( ! function_exists('get_mime_by_extension'))
 	function get_mime_by_extension($file)
 	{
 		$extension = strtolower(substr(strrchr($file, '.'), 1));
-
 		global $mimes;
-
 		if ( ! is_array($mimes))
 		{
 			if (defined('ENVIRONMENT') AND is_file(APPPATH.'config/'.ENVIRONMENT.'/mimes.php'))
@@ -360,13 +321,11 @@ if ( ! function_exists('get_mime_by_extension'))
 			{
 				include(APPPATH.'config/mimes.php');
 			}
-
 			if ( ! is_array($mimes))
 			{
 				return FALSE;
 			}
 		}
-
 		if (array_key_exists($extension, $mimes))
 		{
 			if (is_array($mimes[$extension]))
@@ -385,9 +344,7 @@ if ( ! function_exists('get_mime_by_extension'))
 		}
 	}
 }
-
 // --------------------------------------------------------------------
-
 /**
  * Symbolic Permissions
  *
@@ -434,28 +391,22 @@ if ( ! function_exists('symbolic_permissions'))
 		{
 			$symbolic = 'u'; // Unknown
 		}
-
 		// Owner
 		$symbolic .= (($perms & 0x0100) ? 'r' : '-');
 		$symbolic .= (($perms & 0x0080) ? 'w' : '-');
 		$symbolic .= (($perms & 0x0040) ? (($perms & 0x0800) ? 's' : 'x' ) : (($perms & 0x0800) ? 'S' : '-'));
-
 		// Group
 		$symbolic .= (($perms & 0x0020) ? 'r' : '-');
 		$symbolic .= (($perms & 0x0010) ? 'w' : '-');
 		$symbolic .= (($perms & 0x0008) ? (($perms & 0x0400) ? 's' : 'x' ) : (($perms & 0x0400) ? 'S' : '-'));
-
 		// World
 		$symbolic .= (($perms & 0x0004) ? 'r' : '-');
 		$symbolic .= (($perms & 0x0002) ? 'w' : '-');
 		$symbolic .= (($perms & 0x0001) ? (($perms & 0x0200) ? 't' : 'x' ) : (($perms & 0x0200) ? 'T' : '-'));
-
 		return $symbolic;
 	}
 }
-
 // --------------------------------------------------------------------
-
 /**
  * Octal Permissions
  *
@@ -473,7 +424,6 @@ if ( ! function_exists('octal_permissions'))
 		return substr(sprintf('%o', $perms), -3);
 	}
 }
-
 
 /* End of file file_helper.php */
 /* Location: ./system/helpers/file_helper.php */

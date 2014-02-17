@@ -1,20 +1,15 @@
 var TableEditable = function () {
-
     return {
-
         //main function to initiate the module
         init: function () {
             function restoreRow(oTable, nRow) {
                 var aData = oTable.fnGetData(nRow);
                 var jqTds = $('>td', nRow);
-
                 for (var i = 0, iLen = jqTds.length; i < iLen; i++) {
                     oTable.fnUpdate(aData[i], nRow, i, false);
                 }
-
                 oTable.fnDraw();
             }
-
             function editRow(oTable, nRow) {
                 var aData = oTable.fnGetData(nRow);
                 var jqTds = $('>td', nRow);
@@ -25,7 +20,6 @@ var TableEditable = function () {
                 jqTds[4].innerHTML = '<a class="edit" href="">Save</a>';
                 jqTds[5].innerHTML = '<a class="cancel" href="">Cancel</a>';
             }
-
             function saveRow(oTable, nRow) {
                 var jqInputs = $('input', nRow);
                 oTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
@@ -36,7 +30,6 @@ var TableEditable = function () {
                 oTable.fnUpdate('<a class="delete" href="">Delete</a>', nRow, 5, false);
                 oTable.fnDraw();
             }
-
             function cancelEditRow(oTable, nRow) {
                 var jqInputs = $('input', nRow);
                 oTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
@@ -46,7 +39,6 @@ var TableEditable = function () {
                 oTable.fnUpdate('<a class="edit" href="">Edit</a>', nRow, 4, false);
                 oTable.fnDraw();
             }
-
             var oTable = $('#sample_editable_1').dataTable({
                 "aLengthMenu": [
                     [5, 15, 20, -1],
@@ -54,7 +46,7 @@ var TableEditable = function () {
                 ],
                 // set the initial value
                 "iDisplayLength": 5,
-                
+
                 "sPaginationType": "bootstrap",
                 "oLanguage": {
                     "sLengthMenu": "_MENU_ records",
@@ -69,15 +61,12 @@ var TableEditable = function () {
                     }
                 ]
             });
-
             jQuery('#sample_editable_1_wrapper .dataTables_filter input').addClass("form-control input-medium"); // modify table search input
             jQuery('#sample_editable_1_wrapper .dataTables_length select').addClass("form-control input-small"); // modify table per page dropdown
             jQuery('#sample_editable_1_wrapper .dataTables_length select').select2({
                 showSearchInput : false //hide search box with special css class
             }); // initialize select2 dropdown
-
             var nEditing = null;
-
             $('#sample_editable_1_new').click(function (e) {
                 e.preventDefault();
                 var aiNew = oTable.fnAddData(['', '', '', '',
@@ -87,19 +76,15 @@ var TableEditable = function () {
                 editRow(oTable, nRow);
                 nEditing = nRow;
             });
-
             $('#sample_editable_1 a.delete').live('click', function (e) {
                 e.preventDefault();
-
                 if (confirm("Are you sure to delete this row ?") == false) {
                     return;
                 }
-
                 var nRow = $(this).parents('tr')[0];
                 oTable.fnDeleteRow(nRow);
                 alert("Deleted! Do not forget to do some ajax to sync with backend :)");
             });
-
             $('#sample_editable_1 a.cancel').live('click', function (e) {
                 e.preventDefault();
                 if ($(this).attr("data-mode") == "new") {
@@ -110,13 +95,10 @@ var TableEditable = function () {
                     nEditing = null;
                 }
             });
-
             $('#sample_editable_1 a.edit').live('click', function (e) {
                 e.preventDefault();
-
                 /* Get the row as a parent of the link that was clicked on */
                 var nRow = $(this).parents('tr')[0];
-
                 if (nEditing !== null && nEditing != nRow) {
                     /* Currently editing - but not this row - restore the old before continuing to edit mode */
                     restoreRow(oTable, nEditing);
@@ -134,7 +116,5 @@ var TableEditable = function () {
                 }
             });
         }
-
     };
-
 }();

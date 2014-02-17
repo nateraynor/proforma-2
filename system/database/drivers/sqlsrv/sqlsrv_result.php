@@ -12,9 +12,7 @@
  * @since		Version 1.0
  * @filesource
  */
-
 // ------------------------------------------------------------------------
-
 /**
  * SQLSRV Result Class
  *
@@ -25,7 +23,6 @@
  * @link		http://codeigniter.com/user_guide/database/
  */
 class CI_DB_sqlsrv_result extends CI_DB_result {
-
 	/**
 	 * Number of rows in the result set
 	 *
@@ -36,9 +33,7 @@ class CI_DB_sqlsrv_result extends CI_DB_result {
 	{
 		return @sqlsrv_num_rows($this->result_id);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Number of fields in the result set
 	 *
@@ -49,9 +44,7 @@ class CI_DB_sqlsrv_result extends CI_DB_result {
 	{
 		return @sqlsrv_num_fields($this->result_id);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Fetch Field Names
 	 *
@@ -67,12 +60,10 @@ class CI_DB_sqlsrv_result extends CI_DB_result {
 		{
 			$field_names[] = $field['Name'];
 		}
-		
+
 		return $field_names;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Field data
 	 *
@@ -92,15 +83,13 @@ class CI_DB_sqlsrv_result extends CI_DB_result {
 			$F->max_length	= $field['Size'];
 			$F->primary_key = 0;
 			$F->default		= '';
-			
+
 			$retval[] = $F;
 		}
-		
+
 		return $retval;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Free the result
 	 *
@@ -114,9 +103,7 @@ class CI_DB_sqlsrv_result extends CI_DB_result {
 			$this->result_id = FALSE;
 		}
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Data Seek
 	 *
@@ -131,9 +118,7 @@ class CI_DB_sqlsrv_result extends CI_DB_result {
 	{
 		// Not implemented
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Result - associative array
 	 *
@@ -146,9 +131,7 @@ class CI_DB_sqlsrv_result extends CI_DB_result {
 	{
 		return sqlsrv_fetch_array($this->result_id, SQLSRV_FETCH_ASSOC);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Result - object
 	 *
@@ -161,9 +144,7 @@ class CI_DB_sqlsrv_result extends CI_DB_result {
 	{
 		return sqlsrv_fetch_object($this->result_id);
 	}
-
 }
-
 
 /* End of file mssql_result.php */
 /* Location: ./system/database/drivers/mssql/mssql_result.php */

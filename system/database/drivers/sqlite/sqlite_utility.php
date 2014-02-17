@@ -12,9 +12,7 @@
  * @since		Version 1.0
  * @filesource
  */
-
 // ------------------------------------------------------------------------
-
 /**
  * SQLite Utility Class
  *
@@ -23,7 +21,6 @@
  * @link		http://codeigniter.com/user_guide/database/
  */
 class CI_DB_sqlite_utility extends CI_DB_utility {
-
 	/**
 	 * List databases
 	 *
@@ -43,9 +40,7 @@ class CI_DB_sqlite_utility extends CI_DB_utility {
 		}
 		return array();
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Optimize table query
 	 *
@@ -59,9 +54,7 @@ class CI_DB_sqlite_utility extends CI_DB_utility {
 	{
 		return FALSE;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Repair table query
 	 *
@@ -75,9 +68,7 @@ class CI_DB_sqlite_utility extends CI_DB_utility {
 	{
 		return FALSE;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * SQLite Export
 	 *
@@ -91,6 +82,5 @@ class CI_DB_sqlite_utility extends CI_DB_utility {
 		return $this->db->display_error('db_unsuported_feature');
 	}
 }
-
 /* End of file sqlite_utility.php */
 /* Location: ./system/database/drivers/sqlite/sqlite_utility.php */

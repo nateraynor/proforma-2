@@ -12,9 +12,7 @@
  * @since		Version 2.0
  * @filesource
  */
-
 // ------------------------------------------------------------------------
-
 /**
  * CodeIgniter Dummy Caching Class
  *
@@ -24,9 +22,7 @@
  * @author		ExpressionEngine Dev Team
  * @link
  */
-
 class CI_Cache_dummy extends CI_Driver {
-
 	/**
 	 * Get
 	 *
@@ -39,9 +35,7 @@ class CI_Cache_dummy extends CI_Driver {
 	{
 		return FALSE;
 	}
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Cache Save
 	 *
@@ -55,9 +49,7 @@ class CI_Cache_dummy extends CI_Driver {
 	{
 		return TRUE;
 	}
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Delete from Cache
 	 *
@@ -68,9 +60,7 @@ class CI_Cache_dummy extends CI_Driver {
 	{
 		return TRUE;
 	}
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Clean the cache
 	 *
@@ -80,9 +70,7 @@ class CI_Cache_dummy extends CI_Driver {
 	{
 		return TRUE;
 	}
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Cache Info
 	 *
@@ -93,9 +81,7 @@ class CI_Cache_dummy extends CI_Driver {
 	 {
 		 return FALSE;
 	 }
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Get Cache Metadata
 	 *
@@ -106,9 +92,7 @@ class CI_Cache_dummy extends CI_Driver {
 	{
 		return FALSE;
 	}
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Is this caching driver supported on the system?
 	 * Of course this one is.
@@ -119,11 +103,8 @@ class CI_Cache_dummy extends CI_Driver {
 	{
 		return TRUE;
 	}
-
 	// ------------------------------------------------------------------------
-
 }
 // End Class
-
 /* End of file Cache_dummy.php */
 /* Location: ./system/libraries/Cache/drivers/Cache_dummy.php */

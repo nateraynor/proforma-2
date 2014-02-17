@@ -12,9 +12,7 @@
  * @since		Version 1.0
  * @filesource
  */
-
 // ------------------------------------------------------------------------
-
 /**
  * CodeIgniter Config Class
  *
@@ -27,7 +25,6 @@
  * @link		http://codeigniter.com/user_guide/libraries/config.html
  */
 class CI_Config {
-
 	/**
 	 * List of all loaded config values
 	 *
@@ -46,7 +43,6 @@ class CI_Config {
 	 * @var array
 	 */
 	var $_config_paths = array(APPPATH);
-
 	/**
 	 * Constructor
 	 *
@@ -62,7 +58,6 @@ class CI_Config {
 	{
 		$this->config =& get_config();
 		log_message('debug', "Config Class Initialized");
-
 		// Set the base_url automatically if none was provided
 		if ($this->config['base_url'] == '')
 		{
@@ -72,18 +67,14 @@ class CI_Config {
 				$base_url .= '://'. $_SERVER['HTTP_HOST'];
 				$base_url .= str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']);
 			}
-
 			else
 			{
 				$base_url = 'http://localhost/';
 			}
-
 			$this->set_item('base_url', $base_url);
 		}
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Load Config File
 	 *
@@ -98,37 +89,30 @@ class CI_Config {
 		$file = ($file == '') ? 'config' : str_replace('.php', '', $file);
 		$found = FALSE;
 		$loaded = FALSE;
-
 		$check_locations = defined('ENVIRONMENT')
 			? array(ENVIRONMENT.'/'.$file, $file)
 			: array($file);
-
 		foreach ($this->_config_paths as $path)
 		{
 			foreach ($check_locations as $location)
 			{
 				$file_path = $path.'config/'.$location.'.php';
-
 				if (in_array($file_path, $this->is_loaded, TRUE))
 				{
 					$loaded = TRUE;
 					continue 2;
 				}
-
 				if (file_exists($file_path))
 				{
 					$found = TRUE;
 					break;
 				}
 			}
-
 			if ($found === FALSE)
 			{
 				continue;
 			}
-
 			include($file_path);
-
 			if ( ! isset($config) OR ! is_array($config))
 			{
 				if ($fail_gracefully === TRUE)
@@ -137,7 +121,6 @@ class CI_Config {
 				}
 				show_error('Your '.$file_path.' file does not appear to contain a valid configuration array.');
 			}
-
 			if ($use_sections === TRUE)
 			{
 				if (isset($this->config[$file]))
@@ -153,15 +136,12 @@ class CI_Config {
 			{
 				$this->config = array_merge($this->config, $config);
 			}
-
 			$this->is_loaded[] = $file_path;
 			unset($config);
-
 			$loaded = TRUE;
 			log_message('debug', 'Config file loaded: '.$file_path);
 			break;
 		}
-
 		if ($loaded === FALSE)
 		{
 			if ($fail_gracefully === TRUE)
@@ -170,12 +150,9 @@ class CI_Config {
 			}
 			show_error('The configuration file '.$file.'.php does not exist.');
 		}
-
 		return TRUE;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Fetch a config file item
 	 *
@@ -194,7 +171,6 @@ class CI_Config {
 			{
 				return FALSE;
 			}
-
 			$pref = $this->config[$item];
 		}
 		else
@@ -203,20 +179,15 @@ class CI_Config {
 			{
 				return FALSE;
 			}
-
 			if ( ! isset($this->config[$index][$item]))
 			{
 				return FALSE;
 			}
-
 			$pref = $this->config[$index][$item];
 		}
-
 		return $pref;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Fetch a config file item - adds slash after item (if item is not empty)
 	 *
@@ -235,12 +206,9 @@ class CI_Config {
 		{
 			return '';
 		}
-
 		return rtrim($this->config[$item], '/').'/';
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Site URL
 	 * Returns base_url . index_page [. uri_string]
@@ -255,7 +223,6 @@ class CI_Config {
 		{
 			return $this->slash_item('base_url').$this->item('index_page');
 		}
-
 		if ($this->item('enable_query_strings') == FALSE)
 		{
 			$suffix = ($this->item('url_suffix') == FALSE) ? '' : $this->item('url_suffix');
@@ -266,9 +233,7 @@ class CI_Config {
 			return $this->slash_item('base_url').$this->item('index_page').'?'.$this->_uri_string($uri);
 		}
 	}
-
 	// -------------------------------------------------------------
-
 	/**
 	 * Base URL
 	 * Returns base_url [. uri_string]
@@ -281,9 +246,7 @@ class CI_Config {
 	{
 		return $this->slash_item('base_url').ltrim($this->_uri_string($uri), '/');
 	}
-
 	// -------------------------------------------------------------
-
 	/**
 	 * Build URI string for use in Config::site_url() and Config::base_url()
 	 *
@@ -318,9 +281,7 @@ class CI_Config {
 		}
 	    return $uri;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * System URL
 	 *
@@ -332,9 +293,7 @@ class CI_Config {
 		$x = explode("/", preg_replace("|/*(.+?)/*$|", "\\1", BASEPATH));
 		return $this->slash_item('base_url').end($x).'/';
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Set a config file item
 	 *
@@ -347,9 +306,7 @@ class CI_Config {
 	{
 		$this->config[$item] = $value;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Assign to Config
 	 *
@@ -372,8 +329,6 @@ class CI_Config {
 		}
 	}
 }
-
 // END CI_Config class
-
 /* End of file Config.php */
 /* Location: ./system/core/Config.php */

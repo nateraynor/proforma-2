@@ -12,9 +12,7 @@
  * @since		Version 1.0
  * @filesource
  */
-
 // ------------------------------------------------------------------------
-
 /**
  * CodeIgniter Smiley Helpers
  *
@@ -24,9 +22,7 @@
  * @author		ExpressionEngine Dev Team
  * @link		http://codeigniter.com/user_guide/helpers/smiley_helper.html
  */
-
 // ------------------------------------------------------------------------
-
 /**
  * Smiley Javascript
  *
@@ -43,20 +39,15 @@ if ( ! function_exists('smiley_js'))
 	function smiley_js($alias = '', $field_id = '', $inline = TRUE)
 	{
 		static $do_setup = TRUE;
-
 		$r = '';
-
 		if ($alias != '' && ! is_array($alias))
 		{
 			$alias = array($alias => $field_id);
 		}
-
 		if ($do_setup === TRUE)
 		{
 				$do_setup = FALSE;
-
 				$m = array();
-
 				if (is_array($alias))
 				{
 					foreach ($alias as $name => $id)
@@ -64,28 +55,20 @@ if ( ! function_exists('smiley_js'))
 						$m[] = '"'.$name.'" : "'.$id.'"';
 					}
 				}
-
 				$m = '{'.implode(',', $m).'}';
-
 				$r .= <<<EOF
 				var smiley_map = {$m};
-
 				function insert_smiley(smiley, field_id) {
 					var el = document.getElementById(field_id), newStart;
-
 					if ( ! el && smiley_map[field_id]) {
 						el = document.getElementById(smiley_map[field_id]);
-
 						if ( ! el)
 							return false;
 					}
-
 					el.focus();
 					smiley = " " + smiley;
-
 					if ('selectionStart' in el) {
 						newStart = el.selectionStart + smiley.length;
-
 						el.value = el.value.substr(0, el.selectionStart) +
 										smiley +
 										el.value.substr(el.selectionEnd, el.value.length);
@@ -107,7 +90,6 @@ EOF;
 				}
 			}
 		}
-
 		if ($inline)
 		{
 			return '<script type="text/javascript" charset="utf-8">/*<![CDATA[ */'.$r.'// ]]></script>';
@@ -118,9 +100,7 @@ EOF;
 		}
 	}
 }
-
 // ------------------------------------------------------------------------
-
 /**
  * Get Clickable Smileys
  *
@@ -136,12 +116,10 @@ if ( ! function_exists('get_clickable_smileys'))
 	function get_clickable_smileys($image_url, $alias = '', $smileys = NULL)
 	{
 		// For backward compatibility with js_insert_smiley
-
 		if (is_array($alias))
 		{
 			$smileys = $alias;
 		}
-
 		if ( ! is_array($smileys))
 		{
 			if (FALSE === ($smileys = _get_smiley_array()))
@@ -149,10 +127,8 @@ if ( ! function_exists('get_clickable_smileys'))
 				return $smileys;
 			}
 		}
-
 		// Add a trailing slash to the file path if needed
 		$image_url = rtrim($image_url, '/').'/';
-
 		$used = array();
 		foreach ($smileys as $key => $val)
 		{
@@ -164,18 +140,13 @@ if ( ! function_exists('get_clickable_smileys'))
 			{
 				continue;
 			}
-
 			$link[] = "<a href=\"javascript:void(0);\" onclick=\"insert_smiley('".$key."', '".$alias."')\"><img src=\"".$image_url.$smileys[$key][0]."\" width=\"".$smileys[$key][1]."\" height=\"".$smileys[$key][2]."\" alt=\"".$smileys[$key][3]."\" style=\"border:0;\" /></a>";
-
 			$used[$smileys[$key][0]] = TRUE;
 		}
-
 		return $link;
 	}
 }
-
 // ------------------------------------------------------------------------
-
 /**
  * Parse Smileys
  *
@@ -194,7 +165,6 @@ if ( ! function_exists('parse_smileys'))
 		{
 			return $str;
 		}
-
 		if ( ! is_array($smileys))
 		{
 			if (FALSE === ($smileys = _get_smiley_array()))
@@ -202,21 +172,16 @@ if ( ! function_exists('parse_smileys'))
 				return $str;
 			}
 		}
-
 		// Add a trailing slash to the file path if needed
 		$image_url = preg_replace("/(.+?)\/*$/", "\\1/",  $image_url);
-
 		foreach ($smileys as $key => $val)
 		{
 			$str = str_replace($key, "<img src=\"".$image_url.$smileys[$key][0]."\" width=\"".$smileys[$key][1]."\" height=\"".$smileys[$key][2]."\" alt=\"".$smileys[$key][3]."\" style=\"border:0;\" />", $str);
 		}
-
 		return $str;
 	}
 }
-
 // ------------------------------------------------------------------------
-
 /**
  * Get Smiley Array
  *
@@ -237,18 +202,15 @@ if ( ! function_exists('_get_smiley_array'))
 		{
 			include(APPPATH.'config/smileys.php');
 		}
-		
+
 		if (isset($smileys) AND is_array($smileys))
 		{
 			return $smileys;
 		}
-
 		return FALSE;
 	}
 }
-
 // ------------------------------------------------------------------------
-
 /**
  * JS Insert Smiley
  *
@@ -275,7 +237,6 @@ if ( ! function_exists('js_insert_smiley'))
 EOF;
 	}
 }
-
 
 /* End of file smiley_helper.php */
 /* Location: ./system/helpers/smiley_helper.php */

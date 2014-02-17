@@ -1,17 +1,14 @@
 var FormFileUpload = function () {
 
-
     return {
         //main function to initiate the module
         init: function () {
-
              // Initialize the jQuery File Upload widget:
             $('#fileupload').fileupload({
                 // Uncomment the following to send cross-domain cookies:
-                //xhrFields: {withCredentials: true},                
+                //xhrFields: {withCredentials: true},
                 url: 'assets/plugins/jquery-file-upload/server/php/'
             });
-
             // Enable iframe cross-domain access via redirect option:
             $('#fileupload').fileupload(
                 'option',
@@ -21,7 +18,6 @@ var FormFileUpload = function () {
                     '/cors/result.html?%s'
                 )
             );
-
             // Demo settings:
             $('#fileupload').fileupload('option', {
                 url: $('#fileupload').fileupload('option', 'url'),
@@ -33,7 +29,6 @@ var FormFileUpload = function () {
                 maxFileSize: 5000000,
                 acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
             });
-
                 // Upload server status check for browsers with CORS support:
             if ($.support.cors) {
                 $.ajax({
@@ -46,9 +41,8 @@ var FormFileUpload = function () {
                         .appendTo('#fileupload');
                 });
             }
-            
-            ////////////////////
 
+            ////////////////////
             // Initialize the jQuery File Upload widget:
             $('#fileupload').fileupload({
                 // Uncomment the following to send cross-domain cookies:
@@ -56,11 +50,8 @@ var FormFileUpload = function () {
                 autoUpload: false,
                 url: 'assets/plugins/jquery-file-upload/server/php/'
             });
-
-            // initialize uniform checkboxes  
+            // initialize uniform checkboxes
             App.initUniform('.fileupload-toggle-checkbox');
         }
-
     };
-
 }();

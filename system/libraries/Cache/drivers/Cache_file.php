@@ -10,25 +10,20 @@
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 2.0
- * @filesource	
+ * @filesource
  */
-
 // ------------------------------------------------------------------------
-
 /**
- * CodeIgniter Memcached Caching Class 
+ * CodeIgniter Memcached Caching Class
  *
  * @package		CodeIgniter
  * @subpackage	Libraries
  * @category	Core
  * @author		ExpressionEngine Dev Team
- * @link		
+ * @link
  */
-
 class CI_Cache_file extends CI_Driver {
-
 	protected $_cache_path;
-
 	/**
 	 * Constructor
 	 */
@@ -36,14 +31,12 @@ class CI_Cache_file extends CI_Driver {
 	{
 		$CI =& get_instance();
 		$CI->load->helper('file');
-		
+
 		$path = $CI->config->item('cache_path');
-	
+
 		$this->_cache_path = ($path == '') ? APPPATH.'cache/' : $path;
 	}
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Fetch from cache
 	 *
@@ -56,49 +49,44 @@ class CI_Cache_file extends CI_Driver {
 		{
 			return FALSE;
 		}
-		
+
 		$data = read_file($this->_cache_path.$id);
 		$data = unserialize($data);
-		
+
 		if (time() >  $data['time'] + $data['ttl'])
 		{
 			unlink($this->_cache_path.$id);
 			return FALSE;
 		}
-		
+
 		return $data['data'];
 	}
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Save into cache
 	 *
 	 * @param 	string		unique key
 	 * @param 	mixed		data to store
-	 * @param 	int			length of time (in seconds) the cache is valid 
+	 * @param 	int			length of time (in seconds) the cache is valid
 	 *						- Default is 60 seconds
 	 * @return 	boolean		true on success/false on failure
 	 */
 	public function save($id, $data, $ttl = 60)
-	{		
+	{
 		$contents = array(
 				'time'		=> time(),
-				'ttl'		=> $ttl,			
+				'ttl'		=> $ttl,
 				'data'		=> $data
 			);
-		
+
 		if (write_file($this->_cache_path.$id, serialize($contents)))
 		{
 			@chmod($this->_cache_path.$id, 0777);
-			return TRUE;			
+			return TRUE;
 		}
-
 		return FALSE;
 	}
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Delete from Cache
 	 *
@@ -109,21 +97,17 @@ class CI_Cache_file extends CI_Driver {
 	{
 		return unlink($this->_cache_path.$id);
 	}
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Clean the Cache
 	 *
 	 * @return 	boolean		false on failure/true on success
-	 */	
+	 */
 	public function clean()
 	{
 		return delete_files($this->_cache_path);
 	}
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Cache Info
 	 *
@@ -136,9 +120,7 @@ class CI_Cache_file extends CI_Driver {
 	{
 		return get_dir_file_info($this->_cache_path);
 	}
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Get Cache Metadata
 	 *
@@ -151,45 +133,36 @@ class CI_Cache_file extends CI_Driver {
 		{
 			return FALSE;
 		}
-
 		$data = read_file($this->_cache_path.$id);
 		$data = unserialize($data);
-
 		if (is_array($data))
 		{
 			$mtime = filemtime($this->_cache_path.$id);
-
 			if ( ! isset($data['ttl']))
 			{
 				return FALSE;
 			}
-
 			return array(
 				'expire'	=> $mtime + $data['ttl'],
 				'mtime'		=> $mtime
 			);
 		}
-
 		return FALSE;
 	}
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Is supported
 	 *
 	 * In the file driver, check to see that the cache directory is indeed writable
-	 * 
+	 *
 	 * @return boolean
 	 */
 	public function is_supported()
 	{
 		return is_really_writable($this->_cache_path);
 	}
-
 	// ------------------------------------------------------------------------
 }
 // End Class
-
 /* End of file Cache_file.php */
 /* Location: ./system/libraries/Cache/drivers/Cache_file.php */

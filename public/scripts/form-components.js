@@ -1,25 +1,21 @@
 var FormComponents = function () {
-
     var handleBootstrapSwitch = function() {
         $('.radio1').on('switch-change', function () {
             $('.radio1').bootstrapSwitch('toggleRadioState');
         });
-        
+
         // or
         $('.radio1').on('switch-change', function () {
             $('.radio1').bootstrapSwitch('toggleRadioStateAllowUncheck');
         });
-
         // or
         $('.radio1').on('switch-change', function () {
             $('.radio1').bootstrapSwitch('toggleRadioStateAllowUncheck', false);
         });
     }
-
     var handleBootstrapTouchSpin = function() {
-
         $("#touchspin_demo1").TouchSpin({
-            inputGroupClass: 'input-medium',            
+            inputGroupClass: 'input-medium',
             spinUpClass: 'green',
             spinDownClass: 'green',
             min: -1000000000,
@@ -27,8 +23,8 @@ var FormComponents = function () {
             stepinterval: 50,
             maxboostedstep: 10000000,
             prefix: '$'
-        }); 
-        
+        });
+
         $("#touchspin_demo2").TouchSpin({
             inputGroupClass: 'input-medium',
             spinUpClass: 'blue',
@@ -40,19 +36,17 @@ var FormComponents = function () {
             boostat: 5,
             maxboostedstep: 10,
             postfix: '%'
-        });         
+        });
     }
-
     var handleBootstrapMaxlength = function() {
         $('#maxlength_defaultconfig').maxlength({
             limitReachedClass: "label label-danger",
         })
-    
+
         $('#maxlength_thresholdconfig').maxlength({
             limitReachedClass: "label label-danger",
             threshold: 20
         });
-
         $('#maxlength_alloptions').maxlength({
             alwaysShow: true,
             warningClass: "label label-success",
@@ -62,38 +56,32 @@ var FormComponents = function () {
             postText: ' chars available.',
             validate: true
         });
-
         $('#maxlength_textarea').maxlength({
             limitReachedClass: "label label-danger",
             alwaysShow: true
         });
-
         $('#maxlength_placement').maxlength({
             limitReachedClass: "label label-danger",
             alwaysShow: true,
             placement: App.isRTL() ? 'top-right' : 'top-left'
         });
     }
-
     var handleSpinners = function () {
         $('#spinner1').spinner();
         $('#spinner2').spinner({disabled: true});
         $('#spinner3').spinner({value:0, min: 0, max: 10});
         $('#spinner4').spinner({value:0, step: 5, min: 0, max: 200});
     }
-
     var handleWysihtml5 = function () {
         if (!jQuery().wysihtml5) {
             return;
         }
-
         if ($('.wysihtml5').size() > 0) {
             $('.wysihtml5').wysihtml5({
                 "stylesheets": ["assets/plugins/bootstrap-wysihtml5/wysiwyg-color.css"]
             });
         }
     }
-
     var handleTagsInput = function () {
         if (!jQuery().tagsInput) {
             return;
@@ -108,9 +96,7 @@ var FormComponents = function () {
             width: 300
         });
     }
-
     var handleDatePickers = function () {
-
         if (jQuery().datepicker) {
             $('.date-picker').datepicker({
                 rtl: App.isRTL(),
@@ -119,9 +105,7 @@ var FormComponents = function () {
             $('body').removeClass("modal-open"); // fix bug when inline picker is used in modal
         }
     }
-
     var handleTimePickers = function () {
-
         if (jQuery().timepicker) {
             $('.timepicker-default').timepicker({
                 autoclose: true
@@ -134,12 +118,10 @@ var FormComponents = function () {
             });
         }
     }
-
     var handleDateRangePickers = function () {
         if (!jQuery().daterangepicker) {
             return;
         }
-
         $('#defaultrange').daterangepicker({
                 opens: (App.isRTL() ? 'left' : 'right'),
                 format: 'MM/DD/YYYY',
@@ -153,8 +135,7 @@ var FormComponents = function () {
                 console.log("Callback has been called!");
                 $('#defaultrange input').val(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
             }
-        );        
-
+        );
         $('#reportrange').daterangepicker({
                 opens: (App.isRTL() ? 'left' : 'right'),
                 startDate: moment().subtract('days', 29),
@@ -200,16 +181,13 @@ var FormComponents = function () {
         //Set the initial state of the picker label
         $('#reportrange span').html(moment().subtract('days', 29).format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
     }
-
     var handleDatetimePicker = function () {
-
         $(".form_datetime").datetimepicker({
             autoclose: true,
             isRTL: App.isRTL(),
             format: "yyyy-mm-dd hh:ii:ss",
             pickerPosition: (App.isRTL() ? "bottom-right" : "bottom-left")
         });
-
         $(".form_advance_datetime").datetimepicker({
             isRTL: App.isRTL(),
             format: "dd MM yyyy - hh:ii",
@@ -219,7 +197,6 @@ var FormComponents = function () {
             pickerPosition: (App.isRTL() ? "bottom-right" : "bottom-left"),
             minuteStep: 10
         });
-
         $(".form_meridian_datetime").datetimepicker({
             isRTL: App.isRTL(),
             format: "dd MM yyyy - HH:ii P",
@@ -228,43 +205,33 @@ var FormComponents = function () {
             pickerPosition: (App.isRTL() ? "bottom-right" : "bottom-left"),
             todayBtn: true
         });
-
         $('body').removeClass("modal-open"); // fix bug when inline picker is used in modal
     }
-
     var handleClockfaceTimePickers = function () {
-
         if (!jQuery().clockface) {
             return;
         }
-
         $('.clockface_1').clockface();
-
         $('#clockface_2').clockface({
             format: 'HH:mm',
             trigger: 'manual'
         });
-
         $('#clockface_2_toggle').click(function (e) {
             e.stopPropagation();
             $('#clockface_2').clockface('toggle');
         });
-
         $('#clockface_2_modal').clockface({
             format: 'HH:mm',
             trigger: 'manual'
         });
-
         $('#clockface_2_modal_toggle').click(function (e) {
             e.stopPropagation();
             $('#clockface_2_modal').clockface('toggle');
         });
-
         $('.clockface_3').clockface({
             format: 'H:mm'
         }).clockface('show', '14:30');
     }
-
     var handleColorPicker = function () {
         if (!jQuery().colorpicker) {
             return;
@@ -274,19 +241,15 @@ var FormComponents = function () {
         });
         $('.colorpicker-rgba').colorpicker();
     }
-
     var handleSelect2 = function () {
-
         $('#select2_sample1').select2({
             placeholder: "Select an option",
             allowClear: true
         });
-
         $('#select2_sample2').select2({
             placeholder: "Select a State",
             allowClear: true
         });
-
         $("#select2_sample3").select2({
             placeholder: "Select...",
             allowClear: true,
@@ -308,7 +271,6 @@ var FormComponents = function () {
                 query.callback(data);
             }
         });
-
         function format(state) {
             if (!state.id) return state.text; // optgroup
             return "<img class='flag' src='assets/img/flags/" + state.id.toLowerCase() + ".png'/>&nbsp;&nbsp;" + state.text;
@@ -322,11 +284,9 @@ var FormComponents = function () {
                 return m;
             }
         });
-
         $("#select2_sample5").select2({
             tags: ["red", "green", "blue", "yellow", "pink"]
         });
-
 
         function movieFormatResult(movie) {
             var markup = "<table class='movie-result'><tr>";
@@ -342,11 +302,9 @@ var FormComponents = function () {
             markup += "</td></tr></table>"
             return markup;
         }
-
         function movieFormatSelection(movie) {
             return movie.title;
         }
-
         $("#select2_sample6").select2({
             placeholder: "Search for a movie",
             minimumInputLength: 1,
@@ -391,19 +349,15 @@ var FormComponents = function () {
             } // we do not want to escape markup since we are displaying html in results
         });
     }
-
     var handleSelect2Modal = function () {
-
         $('#select2_sample_modal_1').select2({
             placeholder: "Select an option",
             allowClear: true
         });
-
         $('#select2_sample_modal_2').select2({
             placeholder: "Select a State",
             allowClear: true
         });
-
         $("#select2_sample_modal_3").select2({
             allowClear: true,
             minimumInputLength: 1,
@@ -424,7 +378,6 @@ var FormComponents = function () {
                 query.callback(data);
             }
         });
-
         function format(state) {
             if (!state.id) return state.text; // optgroup
             return "<img class='flag' src='assets/img/flags/" + state.id.toLowerCase() + ".png'/>&nbsp;&nbsp;" + state.text;
@@ -437,11 +390,9 @@ var FormComponents = function () {
                 return m;
             }
         });
-
         $("#select2_sample_modal_5").select2({
             tags: ["red", "green", "blue", "yellow", "pink"]
         });
-
 
         function movieFormatResult(movie) {
             var markup = "<table class='movie-result'><tr>";
@@ -457,11 +408,9 @@ var FormComponents = function () {
             markup += "</td></tr></table>"
             return markup;
         }
-
         function movieFormatSelection(movie) {
             return movie.title;
         }
-
         $("#select2_sample_modal_6").select2({
             placeholder: "Search for a movie",
             minimumInputLength: 1,
@@ -506,13 +455,11 @@ var FormComponents = function () {
             } // we do not want to escape markup since we are displaying html in results
         });
     }
-
     var handleMultiSelect = function () {
         $('#my_multi_select1').multiSelect();
         $('#my_multi_select2').multiSelect({
             selectableOptgroup: true
         });
-
         $('#my_multi_select3').multiSelect({
             selectableHeader: "<input type='text' class='form-control search-input' autocomplete='off' placeholder='search...'>",
             selectionHeader: "<input type='text' class='form-control search-input' autocomplete='off' placeholder='search...'>",
@@ -522,7 +469,6 @@ var FormComponents = function () {
                     $selectionSearch = that.$selectionUl.prev(),
                     selectableSearchString = '#' + that.$container.attr('id') + ' .ms-elem-selectable:not(.ms-selected)',
                     selectionSearchString = '#' + that.$container.attr('id') + ' .ms-elem-selection.ms-selected';
-
                 that.qs1 = $selectableSearch.quicksearch(selectableSearchString)
                     .on('keydown', function (e) {
                         if (e.which === 40) {
@@ -530,7 +476,6 @@ var FormComponents = function () {
                             return false;
                         }
                     });
-
                 that.qs2 = $selectionSearch.quicksearch(selectionSearchString)
                     .on('keydown', function (e) {
                         if (e.which == 40) {
@@ -549,15 +494,13 @@ var FormComponents = function () {
             }
         });
     }
-
     var handleInputMasks = function () {
         $.extend($.inputmask.defaults, {
             'autounmask': true
         });
-
         $("#mask_date").inputmask("d/m/y", {
             autoUnmask: true
-        }); //direct mask        
+        }); //direct mask
         $("#mask_date1").inputmask("d/m/y", {
             "placeholder": "*"
         }); //change the placeholder
@@ -581,7 +524,6 @@ var FormComponents = function () {
         $("#mask_currency").inputmask('€ 999.999.999,99', {
             numericInput: true
         }); //123456  =>  € ___.__1.234,56
-
         $("#mask_currency2").inputmask('€ 999,999,999.99', {
             numericInput: true,
             rightAlignNumerics: false,
@@ -592,18 +534,15 @@ var FormComponents = function () {
             clearMaskOnLostFocus: true
         }); //default
     }
-
     var handleIPAddressInput = function () {
         $('#input_ipv4').ipAddress();
         $('#input_ipv6').ipAddress({
             v: 6
         });
     }
-
     var handlePasswordStrengthChecker = function () {
         var initialized = false;
         var input = $("#password_strength");
-
         input.keydown(function () {
             if (initialized === false) {
                 // set base options
@@ -613,27 +552,21 @@ var FormComponents = function () {
                     verdicts: ["Weak", "Normal", "Medium", "Strong", "Very Strong"],
                     scores: [17, 26, 40, 50, 60]
                 });
-
                 // add your own rule to calculate the password strength
                 input.pwstrength("addRule", "demoRule", function (options, word, score) {
                     return word.match(/[a-z].[0-9]/) && score;
                 }, 10, true);
-
-                // set as initialized 
+                // set as initialized
                 initialized = true;
             }
         });
     }
-
     var handleUsernameAvailabilityChecker1 = function () {
         var input = $("#username1_input");
-
         $("#username1_checker").click(function (e) {
             var pop = $(this);
-
             if (input.val() === "") {
                 input.closest('.form-group').removeClass('has-success').addClass('has-error');
-
                 pop.popover('destroy');
                 pop.popover({
                     'placement': (App.isRTL() ? 'left' : 'right'),
@@ -643,34 +576,26 @@ var FormComponents = function () {
                 });
                 // add error class to the popover
                 pop.data('bs.popover').tip().addClass('error');
-                // set last poped popover to be closed on click(see App.js => handlePopovers function)     
+                // set last poped popover to be closed on click(see App.js => handlePopovers function)
                 App.setLastPopedPopover(pop);
                 pop.popover('show');
                 e.stopPropagation(); // prevent closing the popover
-
                 return;
             }
-
             var btn = $(this);
-
             btn.attr('disabled', true);
-
             input.attr("readonly", true).
             attr("disabled", true).
             addClass("spinner");
-
             $.post('demo/username_checker.php', {
                 username: input.val()
             }, function (res) {
                 btn.attr('disabled', false);
-
                 input.attr("readonly", false).
                 attr("disabled", false).
                 removeClass("spinner");
-
                 if (res.status == 'OK') {
                     input.closest('.form-group').removeClass('has-error').addClass('has-success');
-
                     pop.popover('destroy');
                     pop.popover({
                         'html': true,
@@ -682,7 +607,6 @@ var FormComponents = function () {
                     pop.data('bs.popover').tip().removeClass('error').addClass('success');
                 } else {
                     input.closest('.form-group').removeClass('has-success').addClass('has-error');
-
                     pop.popover('destroy');
                     pop.popover({
                         'html': true,
@@ -694,31 +618,24 @@ var FormComponents = function () {
                     pop.data('bs.popover').tip().removeClass('success').addClass('error');
                     App.setLastPopedPopover(pop);
                 }
-
             }, 'json');
-
         });
     }
-
     var handleUsernameAvailabilityChecker2 = function () {
         $("#username2_input").change(function () {
             var input = $(this);
-
             if (input.val() === "") {
                 return;
             }
-
             input.attr("readonly", true).
             attr("disabled", true).
             addClass("spinner");
-
             $.post('demo/username_checker.php', {
                 username: input.val()
             }, function (res) {
                 input.attr("readonly", false).
                 attr("disabled", false).
                 removeClass("spinner");
-
                 // change popover font color based on the result
                 if (res.status == 'OK') {
                     input.closest('.form-group').removeClass('has-error').addClass('has-success');
@@ -729,7 +646,6 @@ var FormComponents = function () {
                     input.closest('.form-group').removeClass('has-success').addClass('has-error');
                     $('.icon-ok', input.closest('.form-group')).remove();
                     input.before('<i class="icon-exclamation-sign"></i>');
-
                     input.popover('destroy');
                     input.popover({
                         'html': true,
@@ -739,15 +655,11 @@ var FormComponents = function () {
                     });
                     input.popover('show');
                     input.data('bs.popover').tip().removeClass('success').addClass('error');
-
                     App.setLastPopedPopover(input);
                 }
-
             }, 'json');
-
         });
     }
-
     return {
         //main function to initiate the module
         init: function () {
@@ -773,5 +685,4 @@ var FormComponents = function () {
             handleUsernameAvailabilityChecker2();
         }
     };
-
 }();

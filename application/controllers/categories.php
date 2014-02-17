@@ -1,5 +1,5 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class Categorys extends CI_Controller {
+class Categories extends CI_Controller {
 	var $errors = array();
 	public function __construct() {
     	parent::__construct();
@@ -9,11 +9,11 @@ class Categorys extends CI_Controller {
     public function index() {
 		$this->load->model('category_model');
 		$filters = array();
-		$data['categorys'] = $this->category_model->getCategory($filters);
+		$data['categories'] = $this->category_model->getCategory($filters);
 		$data['menu'] = 'products';
 		$data['page'] = 'advancedtables';
-		$data['subview'] = 'categorys/category_list';
-		$data['parentcategorys'] = $this->category_model->getCategory($filters);
+		$data['subview'] = 'categories/category_list';
+		$data['parentcategories'] = $this->category_model->getCategory($filters);
 		$data['errors'] = $this->errors;
 		$this->load->view('layouts/default', $data);
 	}
@@ -26,23 +26,23 @@ class Categorys extends CI_Controller {
 				$result = $this->category_model->addCategory($this->input->post());
 				if ($result) {
 					$this->session->set_flashdata('success', 'Ürün Kategorisi başarıyla eklendi');
-					redirect('categorys');
+					redirect('categories');
 				}
 			} else {
 				$result = $this->category_model->updateCategory($this->input->post(), $category_id);
 				if ($result) {
 					$this->session->set_flashdata('success', 'Ürün Kategorisi başarıyla güncellendi');
-					redirect('categorys');
+					redirect('categories');
 				}
 			}
 		}
 		if ($category_id != -1)
-			$data['category'] = $this->category_model->getCategorys($category_id);
+			$data['category'] = $this->category_model->getCategories($category_id);
 		$data['category_id'] = $category_id;
 		$data['menu'] = 'products';
 		$data['page'] = 'forms';
-		$data['subview'] = 'categorys/category';
-		$data['categorys'] = $this->category_model->getCategory($filters);
+		$data['subview'] = 'categories/category';
+		$data['categories'] = $this->category_model->getCategory($filters);
 		$this->load->view('layouts/default', $data);
 	}
 	public function deleteCategory($category_id) {
@@ -52,7 +52,7 @@ class Categorys extends CI_Controller {
 			$this->session->set_flashdata('success', 'Ürün Kategorisi başarıyla silindi!');
 		else
 			$this->session->set_flashdata('error', 'Ürün Kategorisi silinemedi!');
-		redirect('categorys');
+		redirect('categories');
 	}
 	public function validate($data) {
 		$errors = array();

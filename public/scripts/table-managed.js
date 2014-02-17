@@ -1,14 +1,11 @@
 var TableManaged = function () {
-
     return {
-
         //main function to initiate the module
         init: function () {
-            
+
             if (!jQuery().dataTable) {
                 return;
             }
-
             // begin first table
             $('#sample_1').dataTable({
                 "aoColumns": [
@@ -39,7 +36,6 @@ var TableManaged = function () {
                     }
                 ]
             });
-
             jQuery('#sample_1 .group-checkable').change(function () {
                 var set = jQuery(this).attr("data-set");
                 var checked = jQuery(this).is(":checked");
@@ -50,19 +46,16 @@ var TableManaged = function () {
                     } else {
                         $(this).attr("checked", false);
                         $(this).parents('tr').removeClass("active");
-                    }                    
+                    }
                 });
                 jQuery.uniform.update(set);
             });
-
             jQuery('#sample_1 tbody tr .checkboxes').change(function(){
                  $(this).parents('tr').toggleClass("active");
             });
-
             jQuery('#sample_1_wrapper .dataTables_filter input').addClass("form-control input-medium"); // modify table search input
             jQuery('#sample_1_wrapper .dataTables_length select').addClass("form-control input-xsmall"); // modify table per page dropdown
             //jQuery('#sample_1_wrapper .dataTables_length select').select2(); // initialize select2 dropdown
-
             // begin second table
             $('#sample_2').dataTable({
                 "aLengthMenu": [
@@ -85,7 +78,6 @@ var TableManaged = function () {
                     }
                 ]
             });
-
             jQuery('#sample_2 .group-checkable').change(function () {
                 var set = jQuery(this).attr("data-set");
                 var checked = jQuery(this).is(":checked");
@@ -98,11 +90,9 @@ var TableManaged = function () {
                 });
                 jQuery.uniform.update(set);
             });
-
             jQuery('#sample_2_wrapper .dataTables_filter input').addClass("form-control input-small"); // modify table search input
             jQuery('#sample_2_wrapper .dataTables_length select').addClass("form-control input-xsmall"); // modify table per page dropdown
             jQuery('#sample_2_wrapper .dataTables_length select').select2(); // initialize select2 dropdown
-
             // begin: third table
             $('#sample_3').dataTable({
                 "aLengthMenu": [
@@ -125,7 +115,6 @@ var TableManaged = function () {
                     }
                 ]
             });
-
             jQuery('#sample_3 .group-checkable').change(function () {
                 var set = jQuery(this).attr("data-set");
                 var checked = jQuery(this).is(":checked");
@@ -138,13 +127,9 @@ var TableManaged = function () {
                 });
                 jQuery.uniform.update(set);
             });
-
             jQuery('#sample_3_wrapper .dataTables_filter input').addClass("form-control input-small"); // modify table search input
             jQuery('#sample_3_wrapper .dataTables_length select').addClass("form-control input-xsmall"); // modify table per page dropdown
             jQuery('#sample_3_wrapper .dataTables_length select').select2(); // initialize select2 dropdown
-
         }
-
     };
-
 }();

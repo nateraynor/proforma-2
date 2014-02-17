@@ -9,7 +9,6 @@ $(document).ready(function(){
 		var html = $('div.active').children('.template').html();
 		var template_id = $('div.active').find('.template-id').val();
 		var template_name = $('div.active').find('.template-name').val();
-
 		$.ajax({
 			type: "POST",
 			url: base_url + 'settings/saveTemplate/' + template_id,

@@ -6,10 +6,8 @@
  * Dual licensed under the MIT or GPL Version 2 licenses.
  * http://jquery.org/license
  */
-
 (function( jQuery, undefined ){
 	var stepHooks = "backgroundColor borderBottomColor borderLeftColor borderRightColor borderTopColor color outlineColor".split(" "),
-
 		// plusequals test for += 100 -= 100
 		rplusequals = /^([\-+])=\s*(\d+\.?\d*)/,
 		// a set of RE's that can match strings and generate color tuples.
@@ -63,7 +61,6 @@
 					];
 				}
 			}],
-
 		// jQuery.Color( )
 		color = jQuery.Color = function( color, green, blue, alpha ) {
 			return new jQuery.Color.fn.parse( color, green, blue, alpha );
@@ -132,19 +129,14 @@
 		},
 		rgbaspace = spaces.rgba.props,
 		support = color.support = {},
-
 		// colors = jQuery.Color.names
 		colors,
-
 		// local aliases of functions called often
 		each = jQuery.each;
-
 	spaces.hsla.props.alpha = rgbaspace.alpha;
-
 	function clamp( value, prop, alwaysAllowEmpty ) {
 		var type = propTypes[ prop.type ] || {},
 			allowEmpty = prop.empty || alwaysAllowEmpty;
-
 		if ( allowEmpty && value == null ) {
 			return null;
 		}
@@ -164,17 +156,13 @@
 			// -10 -> 350
 			return value < 0 ? type.mod + value : value;
 		}
-
 		// for now all property types without mod have min and max
 		return type.min > value ? type.min : type.max < value ? type.max : value;
 	}
-
 	function stringParse( string ) {
 		var inst = color(),
 			rgba = inst._rgba = [];
-
 		string = string.toLowerCase();
-
 		each( stringParsers, function( i, parser ) {
 			var match = parser.re.exec( string ),
 				values = match && parser.parse( match ),
@@ -182,23 +170,18 @@
 				spaceName = parser.space || "rgba",
 				cache = spaces[ spaceName ].cache;
 
-
 			if ( values ) {
 				parsed = inst[ spaceName ]( values );
-
 				// if this was an rgba parse the assignment might happen twice
 				// oh well....
 				inst[ cache ] = parsed[ cache ];
 				rgba = inst._rgba = parsed._rgba;
-
 				// exit each( stringParsers ) here because we matched
 				return false;
 			}
 		});
-
 		// Found a stringParser that handled it
 		if ( rgba.length !== 0 ) {
-
 			// if this came from a parsed string, force "transparent" when alpha is 0
 			// chrome, (and maybe others) return "transparent" as rgba(0,0,0,0)
 			if ( Math.max.apply( Math, rgba ) === 0 ) {
@@ -206,13 +189,11 @@
 			}
 			return inst;
 		}
-
 		// named colors / default - filter back through parse function
 		if ( string = colors[ string ] ) {
 			return string;
 		}
 	}
-
 	color.fn = color.prototype = {
 		constructor: color,
 		parse: function( red, green, blue, alpha ) {
@@ -224,29 +205,24 @@
 				red = red instanceof jQuery ? red.css( green ) : jQuery( red ).css( green );
 				green = undefined;
 			}
-
 			var inst = this,
 				type = jQuery.type( red ),
 				rgba = this._rgba = [],
 				source;
-
 			// more than 1 argument specified - assume ( red, green, blue, alpha )
 			if ( green !== undefined ) {
 				red = [ red, green, blue, alpha ];
 				type = "array";
 			}
-
 			if ( type === "string" ) {
 				return this.parse( stringParse( red ) || colors._default );
 			}
-
 			if ( type === "array" ) {
 				each( rgbaspace, function( key, prop ) {
 					rgba[ prop.idx ] = clamp( red[ prop.idx ], prop );
 				});
 				return this;
 			}
-
 			if ( type === "object" ) {
 				if ( red instanceof color ) {
 					each( spaces, function( spaceName, space ) {
@@ -258,10 +234,8 @@
 					each( spaces, function( spaceName, space ) {
 						each( space.props, function( key, prop ) {
 							var cache = space.cache;
-
 							// if the cache doesn't exist, and we know how to convert
 							if ( !inst[ cache ] && space.to ) {
-
 								// if the value was null, we don't need to copy it
 								// if the key was alpha, we don't need to copy it either
 								if ( red[ key ] == null || key === "alpha") {
@@ -269,7 +243,6 @@
 								}
 								inst[ cache ] = space.to( inst._rgba );
 							}
-
 							// this is the only case where we allow nulls for ALL properties.
 							// call clamp with alwaysAllowEmpty
 							inst[ cache ][ prop.idx ] = clamp( red[ key ], prop, true );
@@ -283,7 +256,6 @@
 			var is = color( compare ),
 				same = true,
 				myself = this;
-
 			each( spaces, function( _, space ) {
 				var isCache = is[ space.cache ],
 					localCache;
@@ -316,14 +288,12 @@
 				space = spaces[ spaceName ],
 				start = this[ space.cache ] || space.to( this._rgba ),
 				result = start.slice();
-
 			end = end[ space.cache ];
 			each( space.props, function( key, prop ) {
 				var index = prop.idx,
 					startValue = start[ index ],
 					endValue = end[ index ],
 					type = propTypes[ prop.type ] || {};
-
 				// if null, don't override start value
 				if ( endValue === null ) {
 					return;
@@ -349,11 +319,9 @@
 			if ( this._rgba[ 3 ] === 1 ) {
 				return this;
 			}
-
 			var rgb = this._rgba.slice(),
 				a = rgb.pop(),
 				blend = color( opaque )._rgba;
-
 			return color( jQuery.map( rgb, function( v, i ) {
 				return ( 1 - a ) * blend[ i ] + a * v;
 			}));
@@ -363,12 +331,10 @@
 				rgba = jQuery.map( this._rgba, function( v, i ) {
 					return v == null ? ( i > 2 ? 1 : 0 ) : v;
 				});
-
 			if ( rgba[ 3 ] === 1 ) {
 				rgba.pop();
 				prefix = "rgb(";
 			}
-
 			return prefix + rgba.join(",") + ")";
 		},
 		toHslaString: function() {
@@ -377,14 +343,12 @@
 					if ( v == null ) {
 						v = i > 2 ? 1 : 0;
 					}
-
 					// catch 1 and 2
 					if ( i && i < 3 ) {
 						v = Math.round( v * 100 ) + "%";
 					}
 					return v;
 				});
-
 			if ( hsla[ 3 ] === 1 ) {
 				hsla.pop();
 				prefix = "hsl(";
@@ -394,13 +358,10 @@
 		toHexString: function( includeAlpha ) {
 			var rgba = this._rgba.slice(),
 				alpha = rgba.pop();
-
 			if ( includeAlpha ) {
 				rgba.push( ~~( alpha * 255 ) );
 			}
-
 			return "#" + jQuery.map( rgba, function( v, i ) {
-
 				// default to 0 when nulls exist
 				v = ( v || 0 ).toString( 16 );
 				return v.length === 1 ? "0" + v : v;
@@ -411,10 +372,8 @@
 		}
 	};
 	color.fn.parse.prototype = color.fn;
-
 	// hsla conversions adapted from:
 	// http://www.google.com/codesearch/p#OAMlx_jo-ck/src/third_party/WebKit/Source/WebCore/inspector/front-end/Color.js&d=7&l=193
-
 	function hue2rgb( p, q, h ) {
 		h = ( h + 1 ) % 1;
 		if ( h * 6 < 1 ) {
@@ -428,7 +387,6 @@
 		}
 		return p;
 	}
-
 	spaces.hsla.to = function ( rgba ) {
 		if ( rgba[ 0 ] == null || rgba[ 1 ] == null || rgba[ 2 ] == null ) {
 			return [ null, null, null, rgba[ 3 ] ];
@@ -443,7 +401,6 @@
 			add = max + min,
 			l = add * 0.5,
 			h, s;
-
 		if ( min === max ) {
 			h = 0;
 		} else if ( r === max ) {
@@ -453,7 +410,6 @@
 		} else {
 			h = ( 60 * ( r - g ) / diff ) + 240;
 		}
-
 		if ( l === 0 || l === 1 ) {
 			s = l;
 		} else if ( l <= 0.5 ) {
@@ -463,7 +419,6 @@
 		}
 		return [ Math.round(h) % 360, s, l, a == null ? 1 : a ];
 	};
-
 	spaces.hsla.from = function ( hsla ) {
 		if ( hsla[ 0 ] == null || hsla[ 1 ] == null || hsla[ 2 ] == null ) {
 			return [ null, null, null, hsla[ 3 ] ];
@@ -475,7 +430,6 @@
 			q = l <= 0.5 ? l * ( 1 + s ) : l + s - l * s,
 			p = 2 * l - q,
 			r, g, b;
-
 		return [
 			Math.round( hue2rgb( p, q, h + ( 1 / 3 ) ) * 255 ),
 			Math.round( hue2rgb( p, q, h ) * 255 ),
@@ -484,16 +438,13 @@
 		];
 	};
 
-
 	each( spaces, function( spaceName, space ) {
 		var props = space.props,
 			cache = space.cache,
 			to = space.to,
 			from = space.from;
-
 		// makes rgba() and hsla()
 		color.fn[ spaceName ] = function( value ) {
-
 			// generate a cache for this space if it doesn't exist
 			if ( to && !this[ cache ] ) {
 				this[ cache ] = to( this._rgba );
@@ -501,12 +452,10 @@
 			if ( value === undefined ) {
 				return this[ cache ].slice();
 			}
-
 			var type = jQuery.type( value ),
 				arr = ( type === "array" || type === "object" ) ? value : arguments,
 				local = this[ cache ].slice(),
 				ret;
-
 			each( props, function( key, prop ) {
 				var val = arr[ type === "object" ? key : prop.idx ];
 				if ( val == null ) {
@@ -514,7 +463,6 @@
 				}
 				local[ prop.idx ] = clamp( val, prop );
 			});
-
 			if ( from ) {
 				ret = color( from( local ) );
 				ret[ cache ] = local;
@@ -523,7 +471,6 @@
 				return color( local );
 			}
 		};
-
 		// makes red() green() blue() alpha() hue() saturation() lightness()
 		each( props, function( key, prop ) {
 			// alpha is included in more than one space
@@ -536,11 +483,9 @@
 					local = this[ fn ](),
 					cur = local[ prop.idx ],
 					match;
-
 				if ( vtype === "undefined" ) {
 					return cur;
 				}
-
 				if ( vtype === "function" ) {
 					value = value.call( this, cur );
 					vtype = jQuery.type( value );
@@ -559,13 +504,11 @@
 			};
 		});
 	});
-
 	// add .fx.step functions
 	each( stepHooks, function( i, hook ) {
 		jQuery.cssHooks[ hook ] = {
 			set: function( elem, value ) {
 				var parsed, backgroundColor, curElem;
-
 				if ( jQuery.type( value ) !== 'string' || ( parsed = stringParse( value ) ) )
 				{
 					value = color( parsed || value );
@@ -578,12 +521,10 @@
 							( curElem = curElem.parentNode ) &&
 							curElem.style
 						);
-
 						value = value.blend( backgroundColor && backgroundColor !== "transparent" ?
 							backgroundColor :
 							"_default" );
 					}
-
 					value = value.toRgbaString();
 				}
 				elem.style[ hook ] = value;
@@ -598,16 +539,13 @@
 			jQuery.cssHooks[ hook ].set( fx.elem, fx.start.transition( fx.end, fx.pos ) );
 		};
 	});
-
 	// detect rgba support
 	jQuery(function() {
 		var div = document.createElement( "div" ),
 			div_style = div.style;
-
 		div_style.cssText = "background-color:rgba(1,1,1,.5)";
 		support.rgba = div_style.backgroundColor.indexOf( "rgba" ) > -1;
 	});
-
 	// Some named colors to work with
 	// From Interface by Stefan Petre
 	// http://interface.eyecon.ro/

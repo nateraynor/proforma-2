@@ -1,7 +1,5 @@
 var FormEditable = function () {
-
     $.mockjaxSettings.responseTime = 500;
-
     var log = function (settings, response) {
         var s = [],
             str;
@@ -19,7 +17,6 @@ var FormEditable = function () {
             s.push(a + ' = ' + str);
         }
         s.push('RESPONSE: status = ' + response.status);
-
         if (response.responseText) {
             if ($.isArray(response.responseText)) {
                 s.push('[');
@@ -34,17 +31,14 @@ var FormEditable = function () {
         s.push('--------------------------------------\n');
         $('#console').val(s.join('\n') + $('#console').val());
     }
-
     var initAjaxMock = function () {
         //ajax mocks
-
         $.mockjax({
             url: '/post',
             response: function (settings) {
                 log(settings, this);
             }
         });
-
         $.mockjax({
             url: '/error',
             status: 400,
@@ -54,7 +48,6 @@ var FormEditable = function () {
                 log(settings, this);
             }
         });
-
         $.mockjax({
             url: '/status',
             status: 500,
@@ -63,7 +56,6 @@ var FormEditable = function () {
                 log(settings, this);
             }
         });
-
         $.mockjax({
             url: '/groups',
             response: function (settings) {
@@ -90,11 +82,8 @@ var FormEditable = function () {
                 log(settings, this);
             }
         });
-
     }
-
     var initEditables = function () {
-
         //set editable mode based on URL parameter
         if (App.getURLParameter('mode') == 'inline') {
             $.fn.editable.defaults.mode = 'inline';
@@ -104,12 +93,10 @@ var FormEditable = function () {
             $('#inline').attr("checked", false);
             jQuery.uniform.update('#inline');
         }
-
-        //global settings 
+        //global settings
         $.fn.editable.defaults.inputclass = 'form-control';
         $.fn.editable.defaults.url = '/post';
-
-        //editables element samples 
+        //editables element samples
         $('#username').editable({
             url: '/post',
             type: 'text',
@@ -117,13 +104,11 @@ var FormEditable = function () {
             name: 'username',
             title: 'Enter username'
         });
-
         $('#firstname').editable({
             validate: function (value) {
                 if ($.trim(value) == '') return 'This field is required';
             }
         });
-
         $('#sex').editable({
             prepend: "not selected",
             inputclass: 'form-control',
@@ -144,7 +129,6 @@ var FormEditable = function () {
                     elem = $.grep(sourceData, function (o) {
                         return o.value == value;
                     });
-
                 if (elem.length) {
                     $(this).text(elem[0].text).css("color", colors[value]);
                 } else {
@@ -152,28 +136,22 @@ var FormEditable = function () {
                 }
             }
         });
-
         $('#status').editable();
-
         $('#group').editable({
             showbuttons: false
         });
-
         $('#vacation').editable({
-            rtl : App.isRTL() 
+            rtl : App.isRTL()
         });
-
         $('#dob').editable({
             inputclass: 'form-control',
         });
-
         $('#event').editable({
             placement: (App.isRTL() ? 'left' : 'right'),
             combodate: {
                 firstItem: 'name'
             }
         });
-
         $('#meeting_start').editable({
             format: 'yyyy-mm-dd hh:ii',
             viewformat: 'dd/mm/yyyy hh:ii',
@@ -186,25 +164,20 @@ var FormEditable = function () {
                 weekStart: 1
             }
         });
-
         $('#comments').editable({
             showbuttons: 'bottom'
         });
-
         $('#note').editable({
             showbuttons : (App.isRTL() ? 'left' : 'right')
         });
-
         $('#pencil').click(function (e) {
             e.stopPropagation();
             e.preventDefault();
             $('#note').editable('toggle');
         });
-
         $('#state').editable({
             source: ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Dakota", "North Carolina", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"]
         });
-
         $('#fruits').editable({
             pk: 1,
             limit: 3,
@@ -226,11 +199,9 @@ var FormEditable = function () {
                 }
             ]
         });
-
         $('#fruits').on('shown', function(e, reason) {
             App.initUniform();
         });
-
         $('#tags').editable({
             inputclass: 'form-control input-medium',
             select2: {
@@ -238,7 +209,6 @@ var FormEditable = function () {
                 tokenSeparators: [",", " "]
             }
         });
-
         var countries = [];
         $.each({
             "BD": "Bangladesh",
@@ -499,12 +469,10 @@ var FormEditable = function () {
                 text: v
             });
         });
-
         $('#country').editable({
             inputclass: 'form-control input-medium',
             source: countries
         });
-
         $('#address').editable({
             url: '/post',
             value: {
@@ -525,23 +493,19 @@ var FormEditable = function () {
             }
         });
     }
-
     return {
         //main function to initiate the module
         init: function () {
-
             // inii ajax simulation
             initAjaxMock();
-
             // init editable elements
             initEditables();
-            
+
             // init editable toggler
             $('#enable').click(function () {
                 $('#user .editable').editable('toggleDisabled');
             });
-
-            // init 
+            // init
             $('#inline').on('change', function (e) {
                 if ($(this).is(':checked')) {
                     window.location.href = 'form_editable.html?mode=inline';
@@ -549,7 +513,6 @@ var FormEditable = function () {
                     window.location.href = 'form_editable.html';
                 }
             });
-
             // handle editable elements on hidden event fired
             $('#user .editable').on('hidden', function (e, reason) {
                 if (reason === 'save' || reason === 'nochange') {
@@ -564,9 +527,6 @@ var FormEditable = function () {
                 }
             });
 
-
         }
-
     };
-
 }();

@@ -10,41 +10,35 @@
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 2.0
- * @filesource	
+ * @filesource
  */
-
 // ------------------------------------------------------------------------
-
 /**
- * CodeIgniter APC Caching Class 
+ * CodeIgniter APC Caching Class
  *
  * @package		CodeIgniter
  * @subpackage	Libraries
  * @category	Core
  * @author		ExpressionEngine Dev Team
- * @link		
+ * @link
  */
-
 class CI_Cache_apc extends CI_Driver {
-
 	/**
-	 * Get 
+	 * Get
 	 *
-	 * Look for a value in the cache.  If it exists, return the data 
+	 * Look for a value in the cache.  If it exists, return the data
 	 * if not, return FALSE
 	 *
-	 * @param 	string	
+	 * @param 	string
 	 * @return 	mixed		value that is stored/FALSE on failure
 	 */
 	public function get($id)
 	{
 		$data = apc_fetch($id);
-
 		return (is_array($data)) ? $data[0] : FALSE;
 	}
+	// ------------------------------------------------------------------------
 
-	// ------------------------------------------------------------------------	
-	
 	/**
 	 * Cache Save
 	 *
@@ -58,9 +52,8 @@ class CI_Cache_apc extends CI_Driver {
 	{
 		return apc_store($id, array($data, time(), $ttl), $ttl);
 	}
-	
-	// ------------------------------------------------------------------------
 
+	// ------------------------------------------------------------------------
 	/**
 	 * Delete from Cache
 	 *
@@ -71,9 +64,7 @@ class CI_Cache_apc extends CI_Driver {
 	{
 		return apc_delete($id);
 	}
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Clean the cache
 	 *
@@ -83,22 +74,18 @@ class CI_Cache_apc extends CI_Driver {
 	{
 		return apc_clear_cache('user');
 	}
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Cache Info
 	 *
 	 * @param 	string		user/filehits
-	 * @return 	mixed		array on success, false on failure	
+	 * @return 	mixed		array on success, false on failure
 	 */
 	 public function cache_info($type = NULL)
 	 {
 		 return apc_cache_info($type);
 	 }
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Get Cache Metadata
 	 *
@@ -108,23 +95,18 @@ class CI_Cache_apc extends CI_Driver {
 	public function get_metadata($id)
 	{
 		$stored = apc_fetch($id);
-
 		if (count($stored) !== 3)
 		{
 			return FALSE;
 		}
-
 		list($data, $time, $ttl) = $stored;
-
 		return array(
 			'expire'	=> $time + $ttl,
 			'mtime'		=> $time,
 			'data'		=> $data
 		);
 	}
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * is_supported()
 	 *
@@ -137,15 +119,12 @@ class CI_Cache_apc extends CI_Driver {
 			log_message('error', 'The APC PHP extension must be loaded to use APC Cache.');
 			return FALSE;
 		}
-		
+
 		return TRUE;
 	}
-
 	// ------------------------------------------------------------------------
 
-	
 }
 // End Class
-
 /* End of file Cache_apc.php */
 /* Location: ./system/libraries/Cache/drivers/Cache_apc.php */

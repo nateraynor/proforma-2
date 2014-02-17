@@ -1,12 +1,10 @@
 
 var UIjQueryUISliders = function () {
-
     return {
         //main function to initiate the module
         init: function () {
             // basic
             $(".slider-basic").slider(); // basic sliders
-
              // vertical range sliders
             $("#slider-range").slider({
                 isRTL: App.isRTL(),
@@ -16,7 +14,7 @@ var UIjQueryUISliders = function () {
                     $("#slider-range-amount").text("$" + ui.values[0] + " - $" + ui.values[1]);
                 }
             });
-            
+
             // snap inc
             $("#slider-snap-inc").slider({
                 isRTL: App.isRTL(),
@@ -28,9 +26,7 @@ var UIjQueryUISliders = function () {
                     $("#slider-snap-inc-amount").text("$" + ui.value);
                 }
             });
-
             $("#slider-snap-inc-amount").text("$" + $("#slider-snap-inc").slider("value"));
-
             // range slider
             $("#slider-range").slider({
                 isRTL: App.isRTL(),
@@ -42,11 +38,8 @@ var UIjQueryUISliders = function () {
                     $("#slider-range-amount").text("$" + ui.values[0] + " - $" + ui.values[1]);
                 }
             });
-
             $("#slider-range-amount").text("$" + $("#slider-range").slider("values", 0) + " - $" + $("#slider-range").slider("values", 1));
-
             //range max
-
             $("#slider-range-max").slider({
                 isRTL: App.isRTL(),
                 range: "max",
@@ -57,9 +50,7 @@ var UIjQueryUISliders = function () {
                     $("#slider-range-max-amount").text(ui.value);
                 }
             });
-
             $("#slider-range-max-amount").text($("#slider-range-max").slider("value"));
-
             // range min
             $("#slider-range-min").slider({
                 isRTL: App.isRTL(),
@@ -71,9 +62,7 @@ var UIjQueryUISliders = function () {
                     $("#slider-range-min-amount").text("$" + ui.value);
                 }
             });
-
             $("#slider-range-min-amount").text("$" + $("#slider-range-min").slider("value"));
-
             // vertical slider
             $("#slider-vertical").slider({
                 isRTL: App.isRTL(),
@@ -87,7 +76,6 @@ var UIjQueryUISliders = function () {
                 }
             });
             $("#slider-vertical-amount").text($("#slider-vertical").slider("value"));
-
             // vertical range sliders
             $("#slider-range-vertical").slider({
                 isRTL: App.isRTL(),
@@ -98,11 +86,7 @@ var UIjQueryUISliders = function () {
                     $("#slider-range-vertical-amount").text("$" + ui.values[0] + " - $" + ui.values[1]);
                 }
             });
-
             $("#slider-range-vertical-amount").text("$" + $("#slider-range-vertical").slider("values", 0) + " - $" + $("#slider-range-vertical").slider("values", 1));
-
         }
-
     };
-
 }();

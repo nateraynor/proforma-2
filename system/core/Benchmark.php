@@ -12,9 +12,7 @@
  * @since		Version 1.0
  * @filesource
  */
-
 // ------------------------------------------------------------------------
-
 /**
  * CodeIgniter Benchmark Class
  *
@@ -28,16 +26,13 @@
  * @link		http://codeigniter.com/user_guide/libraries/benchmark.html
  */
 class CI_Benchmark {
-
 	/**
 	 * List of all benchmark markers and when they were added
 	 *
 	 * @var array
 	 */
 	var $marker = array();
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Set a benchmark marker
 	 *
@@ -52,9 +47,7 @@ class CI_Benchmark {
 	{
 		$this->marker[$name] = microtime();
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Calculates the time difference between two marked points.
 	 *
@@ -75,25 +68,19 @@ class CI_Benchmark {
 		{
 			return '{elapsed_time}';
 		}
-
 		if ( ! isset($this->marker[$point1]))
 		{
 			return '';
 		}
-
 		if ( ! isset($this->marker[$point2]))
 		{
 			$this->marker[$point2] = microtime();
 		}
-
 		list($sm, $ss) = explode(' ', $this->marker[$point1]);
 		list($em, $es) = explode(' ', $this->marker[$point2]);
-
 		return number_format(($em + $es) - ($sm + $ss), $decimals);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Memory Usage
 	 *
@@ -109,10 +96,7 @@ class CI_Benchmark {
 	{
 		return '{memory_usage}';
 	}
-
 }
-
 // END CI_Benchmark class
-
 /* End of file Benchmark.php */
 /* Location: ./system/core/Benchmark.php */

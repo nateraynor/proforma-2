@@ -12,9 +12,7 @@
  * @since		Version 1.0
  * @filesource
  */
-
 // ------------------------------------------------------------------------
-
 /**
  * CodeIgniter Email Helpers
  *
@@ -24,9 +22,7 @@
  * @author		ExpressionEngine Dev Team
  * @link		http://codeigniter.com/user_guide/helpers/email_helper.html
  */
-
 // ------------------------------------------------------------------------
-
 /**
  * Validate email address
  *
@@ -40,9 +36,7 @@ if ( ! function_exists('valid_email'))
 		return ( ! preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $address)) ? FALSE : TRUE;
 	}
 }
-
 // ------------------------------------------------------------------------
-
 /**
  * Send an email
  *
@@ -56,7 +50,6 @@ if ( ! function_exists('send_email'))
 		return mail($recipient, $subject, $message);
 	}
 }
-
 
 /* End of file email_helper.php */
 /* Location: ./system/helpers/email_helper.php */

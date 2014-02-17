@@ -12,9 +12,7 @@
  * @since		Version 1.0
  * @filesource
  */
-
 // ------------------------------------------------------------------------
-
 /**
  * CUBRID Utility Class
  *
@@ -23,7 +21,6 @@
  * @link		http://codeigniter.com/user_guide/database/
  */
 class CI_DB_cubrid_utility extends CI_DB_utility {
-
 	/**
 	 * List databases
 	 *
@@ -46,9 +43,7 @@ class CI_DB_cubrid_utility extends CI_DB_utility {
 			return FALSE;
 		}
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Optimize table query
 	 *
@@ -66,9 +61,7 @@ class CI_DB_cubrid_utility extends CI_DB_utility {
 		// database administration tool. See the link above for more info.
 		return FALSE;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Repair table query
 	 *
@@ -86,7 +79,6 @@ class CI_DB_cubrid_utility extends CI_DB_utility {
 		// database administration tool. See the link above for more info.
 		return FALSE;
 	}
-
 	// --------------------------------------------------------------------
 	/**
 	 * CUBRID Export
@@ -103,6 +95,5 @@ class CI_DB_cubrid_utility extends CI_DB_utility {
 		return $this->db->display_error('db_unsuported_feature');
 	}
 }
-
 /* End of file cubrid_utility.php */
 /* Location: ./system/database/drivers/cubrid/cubrid_utility.php */

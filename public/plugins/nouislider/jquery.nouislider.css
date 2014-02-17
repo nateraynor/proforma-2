@@ -17,7 +17,6 @@
     -ms-user-select: none;
 		cursor: default;
 	}
-
 /*	Main slider bar;
  *		Standard styles no longer incorrectly force a
  *		width or height on the slider.
@@ -30,7 +29,6 @@
 		border: 1px solid #bfbfbf;
 		z-index: 1;
 	}
-
 /*	Handles + active state;
  *		The :after pseudo-element wont inherit
  *		box-sizing, so it needs to applied manually.
@@ -54,7 +52,6 @@
 		height: 100%;
 		border: 1px solid #DDD;
 	}
-
 /*	Styling-only classes;
  *		Structured to prevent double declarations
  *		for various states of the slider.
@@ -65,7 +62,6 @@
 	.noUi-background {
 		background: #DDD;
 	}
-
 /*	Functional styles for handle positioning;
  *		Note that the origins have z-index 0, the base has
  *		z-index 1; This fixes a bug where borders become invisible.
@@ -83,7 +79,6 @@
 	.noUi-z-index {
 		z-index: 10;
 	}
-
 /*	Adaptations for the vertical slider;
  *		Some standard styles have been extended to keep
  *		exceptions for the vertical slider as minimal as possible.
@@ -98,7 +93,6 @@
 	.noUi-vertical .noUi-handle  {
 		margin: -23px 0 0 -3px;
 	}
-
 /*	Various alternate slider states;
  *		Support for transition is widely available,
  *		Only IE7, IE8 and IE9 will ignore these rules.

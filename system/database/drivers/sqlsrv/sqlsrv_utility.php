@@ -12,9 +12,7 @@
  * @since		Version 1.0
  * @filesource
  */
-
 // ------------------------------------------------------------------------
-
 /**
  * SQLSRV Utility Class
  *
@@ -23,7 +21,6 @@
  * @link		http://codeigniter.com/user_guide/database/
  */
 class CI_DB_sqlsrv_utility extends CI_DB_utility {
-
 	/**
 	 * List databases
 	 *
@@ -34,9 +31,7 @@ class CI_DB_sqlsrv_utility extends CI_DB_utility {
 	{
 		return "EXEC sp_helpdb"; // Can also be: EXEC sp_databases
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Optimize table query
 	 *
@@ -50,9 +45,7 @@ class CI_DB_sqlsrv_utility extends CI_DB_utility {
 	{
 		return FALSE; // Is this supported in MS SQL?
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Repair table query
 	 *
@@ -66,9 +59,7 @@ class CI_DB_sqlsrv_utility extends CI_DB_utility {
 	{
 		return FALSE; // Is this supported in MS SQL?
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * MSSQL Export
 	 *
@@ -81,8 +72,6 @@ class CI_DB_sqlsrv_utility extends CI_DB_utility {
 		// Currently unsupported
 		return $this->db->display_error('db_unsuported_feature');
 	}
-
 }
-
 /* End of file mssql_utility.php */
 /* Location: ./system/database/drivers/mssql/mssql_utility.php */

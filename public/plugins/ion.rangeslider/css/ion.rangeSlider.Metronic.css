@@ -2,10 +2,8 @@
 // css version 1.5.11
 // by Denis Ineshin | ionden.com
 // ===================================================================================================================*/
-
 /* =====================================================================================================================
 // Skin details */
-
 .irs-line-mid,
 .irs-line-left,
 .irs-line-right,
@@ -13,11 +11,9 @@
 .irs-slider {
     background:#E5E5E5;
 }
-
 .irs-diapason {
     background: #ffb848;
 }
-
 .irs {
     height: 40px;
 }
@@ -36,11 +32,9 @@
     .irs-line-right {
         height: 8px;
     }
-
 .irs-diapason {
     height: 8px; top: 25px;
 }
-
 .irs-slider {
     width: 13px;
     height: 24px;
@@ -49,9 +43,8 @@
     background:#777;
 }
 #irs-active-slider, .irs-slider:hover {
-    
-}
 
+}
 .irs-min, .irs-max {
    color: #999;
     font-size: 10px;
@@ -64,7 +57,6 @@
 .lt-ie9 .irs-min, .lt-ie9 .irs-max {
     background: #ccc;
 }
-
 .irs-from, .irs-to, .irs-single {
     color: #fff;
     font-size: 10px; line-height: 1.333;
@@ -76,7 +68,6 @@
 .lt-ie9 .irs-from, .lt-ie9 .irs-to, .lt-ie9 .irs-single {
     background: #999;
 }
-
 .irs-grid-pol {
     background: #99a4ac;
 }

@@ -1,5 +1,4 @@
 <?php
-
 $lang['imglib_source_image_required'] = "You must specify a source image in your preferences.";
 $lang['imglib_gd_required'] = "The GD image library is required for this feature.";
 $lang['imglib_gd_required_for_props'] = "Your server must support the GD image library in order to determine the image properties.";
@@ -18,7 +17,6 @@ $lang['imglib_invalid_path'] = "The path to the image is not correct.";
 $lang['imglib_copy_failed'] = "The image copy routine failed.";
 $lang['imglib_missing_font'] = "Unable to find a font to use.";
 $lang['imglib_save_failed'] = "Unable to save the image.  Please make sure the image and file directory are writable.";
-
 
 /* End of file imglib_lang.php */
 /* Location: ./system/language/english/imglib_lang.php */

@@ -12,9 +12,7 @@
  * @since		Version 2.1.2
  * @filesource
  */
-
 // ------------------------------------------------------------------------
-
 /**
  * PDO Utility Class
  *
@@ -23,7 +21,6 @@
  * @link		http://codeigniter.com/database/
  */
 class CI_DB_pdo_utility extends CI_DB_utility {
-
 	/**
 	 * List databases
 	 *
@@ -39,9 +36,7 @@ class CI_DB_pdo_utility extends CI_DB_utility {
 		}
 		return FALSE;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Optimize table query
 	 *
@@ -60,9 +55,7 @@ class CI_DB_pdo_utility extends CI_DB_utility {
 		}
 		return FALSE;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Repair table query
 	 *
@@ -81,9 +74,7 @@ class CI_DB_pdo_utility extends CI_DB_utility {
 		}
 		return FALSE;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * PDO Export
 	 *
@@ -96,8 +87,6 @@ class CI_DB_pdo_utility extends CI_DB_utility {
 		// Currently unsupported
 		return $this->db->display_error('db_unsuported_feature');
 	}
-
 }
-
 /* End of file pdo_utility.php */
 /* Location: ./system/database/drivers/pdo/pdo_utility.php */

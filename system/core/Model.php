@@ -12,9 +12,7 @@
  * @since		Version 1.0
  * @filesource
  */
-
 // ------------------------------------------------------------------------
-
 /**
  * CodeIgniter Model Class
  *
@@ -25,7 +23,6 @@
  * @link		http://codeigniter.com/user_guide/libraries/config.html
  */
 class CI_Model {
-
 	/**
 	 * Constructor
 	 *
@@ -35,7 +32,6 @@ class CI_Model {
 	{
 		log_message('debug', "Model Class Initialized");
 	}
-
 	/**
 	 * __get
 	 *
@@ -52,6 +48,5 @@ class CI_Model {
 	}
 }
 // END Model Class
-
 /* End of file Model.php */
 /* Location: ./system/core/Model.php */

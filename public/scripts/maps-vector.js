@@ -1,5 +1,4 @@
 var MapsVector = function () {
-
     var setMap = function (name) {
         var data = {
             map: 'world_en',
@@ -29,7 +28,6 @@ var MapsVector = function () {
                 alert(message);
             }
         };
-
         data.map = name + '_en';
         var map = jQuery('#vmap_' + name);
         if (!map) {
@@ -39,7 +37,6 @@ var MapsVector = function () {
         map.vectorMap(data);
     }
 
-
     return {
         //main function to initiate map samples
         init: function () {
@@ -48,8 +45,7 @@ var MapsVector = function () {
             setMap("europe");
             setMap("russia");
             setMap("germany");
-
-            // redraw maps on window or content resized 
+            // redraw maps on window or content resized
             App.addResponsiveHandler(function(){
                 setMap("world");
                 setMap("usa");
@@ -58,7 +54,5 @@ var MapsVector = function () {
                 setMap("germany");
             });
         }
-
     };
-
 }();

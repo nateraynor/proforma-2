@@ -26,7 +26,6 @@
 | 6. Models
 |
 */
-
 /*
 | -------------------------------------------------------------------
 |  Auto-load Packges
@@ -36,9 +35,7 @@
 |  $autoload['packages'] = array(APPPATH.'third_party', '/usr/local/shared');
 |
 */
-
 $autoload['packages'] = array();
-
 
 /*
 | -------------------------------------------------------------------
@@ -51,9 +48,7 @@ $autoload['packages'] = array();
 |
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
-
 $autoload['libraries'] = array('database','session');
-
 
 /*
 | -------------------------------------------------------------------
@@ -63,9 +58,7 @@ $autoload['libraries'] = array('database','session');
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-
 $autoload['helper'] = array('url');
-
 
 /*
 | -------------------------------------------------------------------
@@ -79,9 +72,7 @@ $autoload['helper'] = array('url');
 | config files.  Otherwise, leave it blank.
 |
 */
-
 $autoload['config'] = array();
-
 
 /*
 | -------------------------------------------------------------------
@@ -95,9 +86,7 @@ $autoload['config'] = array();
 | "codeigniter_lang.php" would be referenced as array('codeigniter');
 |
 */
-
 $autoload['language'] = array();
-
 
 /*
 | -------------------------------------------------------------------
@@ -108,9 +97,7 @@ $autoload['language'] = array();
 |	$autoload['model'] = array('model1', 'model2');
 |
 */
-
 $autoload['model'] = array('login_model');
-
 
 /* End of file autoload.php */
 /* Location: ./application/config/autoload.php */

@@ -1,28 +1,21 @@
 var UITree = function () {
-
     return {
         //main function to initiate the module
         init: function () {
-
             var DataSourceTree = function (options) {
                 this._data  = options.data;
                 this._delay = options.delay;
             };
-
             DataSourceTree.prototype = {
-
                 data: function (options, callback) {
                     var self = this;
-
                     setTimeout(function () {
                         var data = $.extend(true, [], self._data);
-
                         callback({ data: data });
-
                     }, this._delay)
                 }
             };
-            
+
             // INITIALIZING TREE
             var treeDataSource = new DataSourceTree({
                 data: [
@@ -33,7 +26,6 @@ var UITree = function () {
                 ],
                 delay: 400
             });
-
             var treeDataSource2 = new DataSourceTree({
                 data: [
                     { name: 'System Logs <div class="tree-actions"></div>', type: 'folder', additionalParameters: { id: 'F11' } },
@@ -43,7 +35,6 @@ var UITree = function () {
                 ],
                 delay: 400
             });
-
             var treeDataSource3 = new DataSourceTree({
                 data: [
                     { name: 'Resources <div class="tree-actions"></div>', type: 'folder', additionalParameters: { id: 'F11' } },
@@ -53,7 +44,6 @@ var UITree = function () {
                 ],
                 delay: 400
             });
-
             var treeDataSource4 = new DataSourceTree({
                 data: [
                     { name: 'Projects<div class="tree-actions"><i class="fa fa-plus"></i><i class="fa fa-trash-o"></i><i class="fa fa-refresh"></i></div>', type: 'folder', additionalParameters: { id: 'F11' } },
@@ -64,7 +54,6 @@ var UITree = function () {
                 ],
                 delay: 400
             });
-
             var treeDataSource5 = new DataSourceTree({
                 data: [
                     { name: 'Projects<div class="tree-actions"><i class="fa fa-plus"></i><i class="fa fa-trash-o"></i><i class="fa fa-refresh"></i></div>', type: 'folder', additionalParameters: { id: 'F11' } },
@@ -74,8 +63,7 @@ var UITree = function () {
                     { name: '<i class="fa fa-suitcase"></i> Portfolio <div class="tree-actions"><i class="fa fa-plus"></i><i class="fa fa-trash-o"></i><i class="fa fa-refresh"></i></div>', type: 'item', additionalParameters: { id: 'I12' } }
                 ],
                 delay: 400
-            });  
-
+            });
             var treeDataSource6 = new DataSourceTree({
                 data: [
                     { name: 'Projects<div class="tree-actions"><i class="fa fa-plus"></i><i class="fa fa-trash-o"></i><i class="fa fa-refresh"></i></div>', type: 'folder', additionalParameters: { id: 'F11' } },
@@ -85,43 +73,35 @@ var UITree = function () {
                     { name: '<i class="fa fa-suitcase"></i> Portfolio <div class="tree-actions"><i class="fa fa-plus"></i><i class="fa fa-trash-o"></i><i class="fa fa-refresh"></i></div>', type: 'item', additionalParameters: { id: 'I12' } }
                 ],
                 delay: 400
-            });    
-
+            });
             $('#MyTree').tree({
                 dataSource: treeDataSource,
                 loadingHTML: '<img src="assets/img/input-spinner.gif"/>',
             });
 
-
             $('#MyTree2').tree({
                 dataSource: treeDataSource2,
                 loadingHTML: '<img src="assets/img/input-spinner.gif"/>',
             });
-
             $('#MyTree3').tree({
                 dataSource: treeDataSource3,
                 loadingHTML: '<img src="assets/img/input-spinner.gif"/>',
             });
-
             $('#MyTree4').tree({
                 selectable: false,
                 dataSource: treeDataSource4,
                 loadingHTML: '<img src="assets/img/input-spinner.gif"/>',
             });
-
             $('#MyTree5').tree({
                 selectable: false,
                 dataSource: treeDataSource5,
                 loadingHTML: '<img src="assets/img/input-spinner.gif"/>',
             });
-
             $('#MyTree6').tree({
                 selectable: false,
                 dataSource: treeDataSource6,
                 loadingHTML: '<img src="assets/img/input-spinner.gif"/>',
             });
         }
-
     };
-
 }();

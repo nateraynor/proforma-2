@@ -81,7 +81,6 @@
 						</tr>
 						</thead>
 						<tbody>
-
 							<?php foreach ($brands as $brand): ?>
 								<tr>
 									<td><?php echo $brand['brand_id'] ;?></td>

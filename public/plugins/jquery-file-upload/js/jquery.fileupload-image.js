@@ -8,10 +8,8 @@
  * Licensed under the MIT license:
  * http://www.opensource.org/licenses/MIT
  */
-
 /*jslint nomen: true, unparam: true, regexp: true */
 /*global define, window, document, DataView, Blob, Uint8Array */
-
 (function (factory) {
     'use strict';
     if (typeof define === 'function' && define.amd) {
@@ -34,7 +32,6 @@
     }
 }(function ($, loadImage) {
     'use strict';
-
     // Prepend to the default processQueue:
     $.blueimp.fileupload.prototype.options.processQueue.unshift(
         {
@@ -94,11 +91,9 @@
             disabled: '@disableImagePreview'
         }
     );
-
     // The File Upload Resize plugin extends the fileupload widget
     // with image resize functionality:
     $.widget('blueimp.fileupload', $.blueimp.fileupload, {
-
         options: {
             // The regular expression for the types of images to load:
             // matched against the file type:
@@ -127,9 +122,7 @@
             // Define if preview images should be resized as canvas elements:
             previewCanvas: true
         },
-
         processActions: {
-
             // Loads the image given via data.files and data.index
             // as img element if the browser supports canvas.
             // Accepts the options fileTypes (regular expression)
@@ -159,7 +152,6 @@
                 }
                 return dfd.promise();
             },
-
             // Resizes the image given as data.canvas or data.img
             // and updates data.canvas or data.img with the resized image.
             // Accepts the options maxWidth, maxHeight, minWidth,
@@ -201,7 +193,6 @@
                 }
                 return data;
             },
-
             // Saves the processed image given as data.canvas
             // inplace at data.index of data.files:
             saveImage: function (data, options) {
@@ -244,7 +235,6 @@
                 }
                 return dfd.promise();
             },
-
             loadImageMetaData: function (data, options) {
                 if (options.disabled) {
                     return data;
@@ -257,7 +247,6 @@
                 }, options);
                 return dfd.promise();
             },
-
             saveImageMetaData: function (data, options) {
                 if (!(data.imageHead && data.canvas &&
                         data.canvas.toBlob && !options.disabled)) {
@@ -274,7 +263,6 @@
                 data.files[data.index] = blob;
                 return data;
             },
-
             // Sets the resized version of the image as a property of the
             // file object, must be called after "saveImage":
             setImage: function (data, options) {
@@ -284,9 +272,6 @@
                 }
                 return data;
             }
-
         }
-
     });
-
 }));

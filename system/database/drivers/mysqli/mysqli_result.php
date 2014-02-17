@@ -12,9 +12,7 @@
  * @since		Version 1.0
  * @filesource
  */
-
 // ------------------------------------------------------------------------
-
 /**
  * MySQLi Result Class
  *
@@ -25,7 +23,6 @@
  * @link		http://codeigniter.com/user_guide/database/
  */
 class CI_DB_mysqli_result extends CI_DB_result {
-
 	/**
 	 * Number of rows in the result set
 	 *
@@ -36,9 +33,7 @@ class CI_DB_mysqli_result extends CI_DB_result {
 	{
 		return @mysqli_num_rows($this->result_id);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Number of fields in the result set
 	 *
@@ -49,9 +44,7 @@ class CI_DB_mysqli_result extends CI_DB_result {
 	{
 		return @mysqli_num_fields($this->result_id);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Fetch Field Names
 	 *
@@ -67,12 +60,9 @@ class CI_DB_mysqli_result extends CI_DB_result {
 		{
 			$field_names[] = $field->name;
 		}
-
 		return $field_names;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Field data
 	 *
@@ -87,25 +77,20 @@ class CI_DB_mysqli_result extends CI_DB_result {
 		while ($field = mysqli_fetch_object($this->result_id))
 		{
 			preg_match('/([a-zA-Z]+)(\(\d+\))?/', $field->Type, $matches);
-
 			$type = (array_key_exists(1, $matches)) ? $matches[1] : NULL;
 			$length = (array_key_exists(2, $matches)) ? preg_replace('/[^\d]/', '', $matches[2]) : NULL;
-
 			$F				= new stdClass();
 			$F->name		= $field->Field;
 			$F->type		= $type;
 			$F->default		= $field->Default;
 			$F->max_length	= $length;
 			$F->primary_key = ( $field->Key == 'PRI' ? 1 : 0 );
-
 			$retval[] = $F;
 		}
-
 		return $retval;
 	}
-	
-	// --------------------------------------------------------------------
 
+	// --------------------------------------------------------------------
 	/**
 	 * Free the result
 	 *
@@ -119,9 +104,7 @@ class CI_DB_mysqli_result extends CI_DB_result {
 			$this->result_id = FALSE;
 		}
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Data Seek
 	 *
@@ -136,9 +119,7 @@ class CI_DB_mysqli_result extends CI_DB_result {
 	{
 		return mysqli_data_seek($this->result_id, $n);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Result - associative array
 	 *
@@ -151,9 +132,7 @@ class CI_DB_mysqli_result extends CI_DB_result {
 	{
 		return mysqli_fetch_assoc($this->result_id);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Result - object
 	 *
@@ -166,9 +145,7 @@ class CI_DB_mysqli_result extends CI_DB_result {
 	{
 		return mysqli_fetch_object($this->result_id);
 	}
-
 }
-
 
 /* End of file mysqli_result.php */
 /* Location: ./system/database/drivers/mysqli/mysqli_result.php */

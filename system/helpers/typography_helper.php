@@ -12,9 +12,7 @@
  * @since		Version 1.0
  * @filesource
  */
-
 // ------------------------------------------------------------------------
-
 /**
  * CodeIgniter Typography Helpers
  *
@@ -24,9 +22,7 @@
  * @author		ExpressionEngine Dev Team
  * @link		http://codeigniter.com/user_guide/helpers/typography_helper.html
  */
-
 // ------------------------------------------------------------------------
-
 /**
  * Convert newlines to HTML line breaks except within PRE tags
  *
@@ -39,15 +35,11 @@ if ( ! function_exists('nl2br_except_pre'))
 	function nl2br_except_pre($str)
 	{
 		$CI =& get_instance();
-
 		$CI->load->library('typography');
-
 		return $CI->typography->nl2br_except_pre($str);
 	}
 }
-
 // ------------------------------------------------------------------------
-
 /**
  * Auto Typography Wrapper Function
  *
@@ -68,9 +60,7 @@ if ( ! function_exists('auto_typography'))
 	}
 }
 
-
 // --------------------------------------------------------------------
-
 /**
  * HTML Entities Decode
  *
@@ -88,6 +78,5 @@ if ( ! function_exists('entity_decode'))
 		return $SEC->entity_decode($str, $charset);
 	}
 }
-
 /* End of file typography_helper.php */
 /* Location: ./system/helpers/typography_helper.php */

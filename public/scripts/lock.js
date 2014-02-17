@@ -1,9 +1,7 @@
 var Lock = function () {
-
     return {
         //main function to initiate the module
         init: function () {
-
              $.backstretch([
 		        "assets/img/bg/1.jpg",
 		        "assets/img/bg/2.jpg",
@@ -14,7 +12,5 @@ var Lock = function () {
 		          duration: 8000
 		      });
         }
-
     };
-
 }();

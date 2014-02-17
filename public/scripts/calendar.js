@@ -1,25 +1,19 @@
 var Calendar = function () {
 
-
     return {
         //main function to initiate the module
         init: function () {
             Calendar.initCalendar();
         },
-
         initCalendar: function () {
-
             if (!jQuery().fullCalendar) {
                 return;
             }
-
             var date = new Date();
             var d = date.getDate();
             var m = date.getMonth();
             var y = date.getFullYear();
-
             var h = {};
-
             if (App.isRTL()) {
                  if ($('#calendar').parents(".portlet").width() <= 720) {
                     $('#calendar').addClass("mobile");
@@ -35,7 +29,7 @@ var Calendar = function () {
                         center: '',
                         left: 'agendaDay, agendaWeek, month, today, prev,next'
                     };
-                }                
+                }
             } else {
                  if ($('#calendar').parents(".portlet").width() <= 720) {
                     $('#calendar').addClass("mobile");
@@ -53,7 +47,6 @@ var Calendar = function () {
                     };
                 }
             }
-           
 
             var initDrag = function (el) {
                 // create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
@@ -70,23 +63,19 @@ var Calendar = function () {
                     revertDuration: 0 //  original position after the drag
                 });
             }
-
             var addEvent = function (title) {
                 title = title.length == 0 ? "Untitled Event" : title;
                 var html = $('<div class="external-event label label-default">' + title + '</div>');
                 jQuery('#event_box').append(html);
                 initDrag(html);
             }
-
             $('#external-events div.external-event').each(function () {
                 initDrag($(this))
             });
-
             $('#event_add').unbind('click').click(function () {
                 var title = $('#event_title').val();
                 addEvent(title);
             });
-
             //predefined events
             $('#event_box').html("");
             addEvent("My Event 1");
@@ -95,7 +84,6 @@ var Calendar = function () {
             addEvent("My Event 4");
             addEvent("My Event 5");
             addEvent("My Event 6");
-
             $('#calendar').fullCalendar('destroy'); // destroy the calendar
             $('#calendar').fullCalendar({ //re-initialize the calendar
                 header: h,
@@ -103,21 +91,17 @@ var Calendar = function () {
                 editable: true,
                 droppable: true, // this allows things to be dropped onto the calendar !!!
                 drop: function (date, allDay) { // this function is called when something is dropped
-
                     // retrieve the dropped element's stored Event Object
                     var originalEventObject = $(this).data('eventObject');
                     // we need to copy it, so that multiple events don't have a reference to the same object
                     var copiedEventObject = $.extend({}, originalEventObject);
-
                     // assign it the date that was reported
                     copiedEventObject.start = date;
                     copiedEventObject.allDay = allDay;
                     copiedEventObject.className = $(this).attr("data-class");
-
                     // render the event on the calendar
                     // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
                     $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
-
                     // is the "remove after drop" checkbox checked?
                     if ($('#drop-remove').is(':checked')) {
                         // if so, remove the element from the "Draggable Events" list
@@ -125,7 +109,7 @@ var Calendar = function () {
                     }
                 },
                 events: [{
-                        title: 'All Day Event',                        
+                        title: 'All Day Event',
                         start: new Date(y, m, 1),
                         backgroundColor: App.getLayoutColorCode('yellow')
                     }, {
@@ -168,9 +152,6 @@ var Calendar = function () {
                     }
                 ]
             });
-
         }
-
     };
-
 }();

@@ -76,10 +76,10 @@
 							<a href="<?php echo base_url() ?>products/product">Ürün Ekle</a>
 						</li>
 						<li>
-							<a href="<?php echo base_url() ?>categorys">Ürün Kategori Listesi</a>
+							<a href="<?php echo base_url() ?>categories">Ürün Kategori Listesi</a>
 						</li>
 						<li>
-							<a href="<?php echo base_url() ?>categorys/category">Ürün Kategori Ekle</a>
+							<a href="<?php echo base_url() ?>categories/category">Ürün Kategori Ekle</a>
 						</li>
 						<li>
 							<a href="<?php echo base_url() ?>brands">Ürün Marka Listesi</a>
@@ -87,7 +87,6 @@
 						<li>
 							<a href="<?php echo base_url() ?>brands/brand">Ürün Marka Ekle</a>
 						</li>
-
 					</ul>
 				</li>
 				<li class="<?php echo $menu == 'customers' ? "active" : ''; ?>">

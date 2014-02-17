@@ -9,7 +9,6 @@
 | and the array values are used to set the actual name of the item.
 |
 */
-
 $platforms = array (
 					'windows nt 6.0'	=> 'Windows Longhorn',
 					'windows nt 5.2'	=> 'Windows 2003',
@@ -44,7 +43,6 @@ $platforms = array (
 					'unix'				=> 'Unknown Unix OS'
 				);
 
-
 // The order of this array should NOT be changed. Many browsers return
 // multiple browser types so we want to identify the sub-type first.
 $browsers = array(
@@ -71,7 +69,6 @@ $browsers = array(
 					'amaya'				=> 'Amaya',
 					'IBrowse'			=> 'IBrowse'
 				);
-
 $mobiles = array(
 					// legacy array, old values commented out
 					'mobileexplorer'	=> 'Mobile Explorer',
@@ -88,7 +85,6 @@ $mobiles = array(
 //					'ericsson'			=> 'Ericsson',
 //					'blackberry'		=> 'BlackBerry',
 //					'motorola'			=> 'Motorola'
-
 					// Phones and Manufacturers
 					'motorola'			=> "Motorola",
 					'nokia'				=> "Nokia",
@@ -124,7 +120,6 @@ $mobiles = array(
 					'spv'				=> "SPV",
 					'zte'				=> "ZTE",
 					'sendo'				=> "Sendo",
-
 					// Operating Systems
 					'symbian'				=> "Symbian",
 					'SymbianOS'				=> "SymbianOS",
@@ -132,7 +127,6 @@ $mobiles = array(
 					'palm'					=> "Palm",
 					'series60'				=> "Symbian S60",
 					'windows ce'			=> "Windows CE",
-
 					// Browsers
 					'obigo'					=> "Obigo",
 					'netfront'				=> "Netfront Browser",
@@ -140,7 +134,6 @@ $mobiles = array(
 					'mobilexplorer'			=> "Mobile Explorer",
 					'operamini'				=> "Opera Mini",
 					'opera mini'			=> "Opera Mini",
-
 					// Other
 					'digital paths'			=> "Digital Paths",
 					'avantgo'				=> "AvantGo",
@@ -149,7 +142,6 @@ $mobiles = array(
 					'vodafone'				=> "Vodafone",
 					'docomo'				=> "NTT DoCoMo",
 					'o2'					=> "O2",
-
 					// Fallback
 					'mobile'				=> "Generic Mobile",
 					'wireless'				=> "Generic Mobile",
@@ -161,7 +153,6 @@ $mobiles = array(
 					'smartphone'			=> "Generic Mobile",
 					'cellphone'				=> "Generic Mobile"
 				);
-
 // There are hundreds of bots but these are the most common.
 $robots = array(
 					'googlebot'			=> 'Googlebot',
@@ -173,6 +164,5 @@ $robots = array(
 					'infoseek'			=> 'InfoSeek Robot 1.0',
 					'lycos'				=> 'Lycos'
 				);
-
 /* End of file user_agents.php */
 /* Location: ./application/config/user_agents.php */

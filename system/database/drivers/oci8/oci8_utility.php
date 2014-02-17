@@ -12,9 +12,7 @@
  * @since		Version 1.0
  * @filesource
  */
-
 // ------------------------------------------------------------------------
-
 /**
  * Oracle Utility Class
  *
@@ -23,7 +21,6 @@
  * @link		http://codeigniter.com/user_guide/database/
  */
 class CI_DB_oci8_utility extends CI_DB_utility {
-
 	/**
 	 * List databases
 	 *
@@ -34,9 +31,7 @@ class CI_DB_oci8_utility extends CI_DB_utility {
 	{
 		return FALSE;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Optimize table query
 	 *
@@ -50,9 +45,7 @@ class CI_DB_oci8_utility extends CI_DB_utility {
 	{
 		return FALSE; // Is this supported in Oracle?
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Repair table query
 	 *
@@ -66,9 +59,7 @@ class CI_DB_oci8_utility extends CI_DB_utility {
 	{
 		return FALSE; // Is this supported in Oracle?
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Oracle Export
 	 *
@@ -82,6 +73,5 @@ class CI_DB_oci8_utility extends CI_DB_utility {
 		return $this->db->display_error('db_unsuported_feature');
 	}
 }
-
 /* End of file oci8_utility.php */
 /* Location: ./system/database/drivers/oci8/oci8_utility.php */

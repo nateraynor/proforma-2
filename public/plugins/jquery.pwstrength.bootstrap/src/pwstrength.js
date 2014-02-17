@@ -1,6 +1,5 @@
 /*jslint vars: false, browser: true, nomen: true, regexp: true */
 /*global jQuery */
-
 /*
 * jQuery Password Strength plugin for Twitter Bootstrap
 *
@@ -11,10 +10,8 @@
 * Dual licensed under the MIT and GPL licenses.
 *
 */
-
 (function ($) {
     "use strict";
-
     var options = {
             errors: [],
             // Options
@@ -115,12 +112,10 @@
                 }
             }
         },
-
         setProgressBar = function ($el, score) {
             var options = $el.data("pwstrength"),
                 progressbar = options.progressbar,
                 $verdict;
-
             if (options.showVerdictInline) {
                 $verdict = progressbar.find(".progress-bar");
             } else {
@@ -136,7 +131,6 @@
                     }
                 }
             }
-
             if (score < options.scores[0]) {
                 progressbar.find(".progress-bar").css("width", "5%").addClass("progress-bar-danger").removeClass("progress-bar-warning").removeClass("progress-bar-success");
                 if (options.showVerdicts) {
@@ -165,13 +159,11 @@
                 }
             }
         },
-
         calculateScore = function ($el) {
             var self = this,
                 word = $el.val(),
                 totalScore = 0,
                 options = $el.data("pwstrength");
-
             $.each(options.rules, function (rule, active) {
                 if (active === true) {
                     var score = options.ruleScores[rule],
@@ -184,23 +176,18 @@
             setProgressBar($el, totalScore);
             return totalScore;
         },
-
         progressWidget = function () {
             return '<div class="progress"><div class="progress-bar"></div></div>';
         },
-
         methods = {
             init: function (settings) {
                 var self = this,
                     allOptions = $.extend(options, settings);
-
                 return this.each(function (idx, el) {
                     var $el = $(el),
                         progressbar,
                         verdict;
-
                     $el.data("pwstrength", allOptions);
-
                     $el.on("keyup", function (event) {
                         var options = $el.data("pwstrength");
                         options.errors = [];
@@ -209,7 +196,6 @@
                             options.onKeyUp(event);
                         }
                     });
-
                     progressbar = $(progressWidget());
                     if (allOptions.viewports.progress) {
                         $(allOptions.viewports.progress).append(progressbar);
@@ -218,7 +204,6 @@
                     }
                     progressbar.find(".progress-bar").css("width", "0%");
                     $el.data("pwstrength").progressbar = progressbar;
-
                     if (!options.showVerdictInline && allOptions.showVerdicts) {
                         verdict = $('<span class="password-verdict">' + allOptions.verdicts[0] + '</span>');
                         if (allOptions.viewports.verdict) {
@@ -227,13 +212,11 @@
                             verdict.insertAfter($el);
                         }
                     }
-
                     if ($.isFunction(allOptions.onLoad)) {
                         allOptions.onLoad();
                     }
                 });
             },
-
             destroy: function () {
                 this.each(function (idx, el) {
                     var $el = $(el);
@@ -243,7 +226,6 @@
                     $el.removeData("pwstrength");
                 });
             },
-
             forceUpdate: function () {
                 var self = this;
                 this.each(function (idx, el) {
@@ -253,7 +235,6 @@
                     calculateScore.call(self, $el);
                 });
             },
-
             outputErrorList: function () {
                 this.each(function (idx, el) {
                     var output = '<ul class="error-list">',
@@ -262,7 +243,6 @@
                         viewports = $el.data("pwstrength").viewports,
                         verdict;
                     $el.parent().find("ul.error-list").remove();
-
                     if (errors.length > 0) {
                         $.each(errors, function (i, item) {
                             output += '<li>' + item + '</li>';
@@ -281,7 +261,6 @@
                     }
                 });
             },
-
             addRule: function (name, method, score, active) {
                 this.each(function (idx, el) {
                     var options = $(el).data("pwstrength");
@@ -290,20 +269,17 @@
                     options.validationRules[name] = method;
                 });
             },
-
             changeScore: function (rule, score) {
                 this.each(function (idx, el) {
                     $(el).data("pwstrength").ruleScores[rule] = score;
                 });
             },
-
             ruleActive: function (rule, active) {
                 this.each(function (idx, el) {
                     $(el).data("pwstrength").rules[rule] = active;
                 });
             }
         };
-
     $.fn.pwstrength = function (method) {
         var result;
         if (methods[method]) {

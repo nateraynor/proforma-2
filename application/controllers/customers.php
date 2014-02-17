@@ -6,10 +6,8 @@ class Customers extends CI_Controller {
         if (!isset($this->session->userdata['user_id']))
         	redirect('login');
     }
-
 	public function index() {
 		$this->load->model('customer_model');
-
 		$filters = array();
 		$data['customers'] = $this->customer_model->getCustomers($filters);
 		$data['menu'] = 'customers';
@@ -19,7 +17,6 @@ class Customers extends CI_Controller {
 	}
 	public function customer($customer_id = -1) {
 		$this->load->model('customer_model');
-
 		if ($this->input->post() && $this->validate($this->input->post())) {
 			$result = false;
 			if ($customer_id == -1) {
@@ -38,7 +35,6 @@ class Customers extends CI_Controller {
 		}
 		if ($customer_id != -1)
 			$data['customer'] = $this->customer_model->getCustomer($customer_id);
-
 		$data['customer_id'] = $customer_id;
 		$data['menu'] = 'customers';
 		$data['page'] = 'forms';
@@ -54,14 +50,12 @@ class Customers extends CI_Controller {
 			$this->session->set_flashdata('error', 'Müşteri kaydı silinemedi!');
 		redirect('customers');
 	}
-
 	public function excelOutput() {
 		$this->load->library('excel');
 		$this->load->model('customer_model');
 		$results = $this->customer_model->getCustomersForExcel();
         $this->excel->to_excel($results, 'users-excel', 'Kullanıcılar');
 	}
-
 	public function validate($data) {
 		$errors = array();
 		if (isset($data['customer_name']) && strlen(trim($data['customer_name'])) < 3)

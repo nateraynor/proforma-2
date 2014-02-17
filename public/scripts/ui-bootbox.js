@@ -8,7 +8,6 @@ var UIBootbox = function () {
                         window.location.href = location;
                     }
                 });
-
                 return false;
             });
         }

@@ -12,9 +12,7 @@
  * @since		Version 1.0
  * @filesource
  */
-
 // ------------------------------------------------------------------------
-
 /**
  * MySQL Utility Class
  *
@@ -23,7 +21,6 @@
  * @link		http://codeigniter.com/user_guide/database/
  */
 class CI_DB_mysql_utility extends CI_DB_utility {
-
 	/**
 	 * List databases
 	 *
@@ -34,9 +31,7 @@ class CI_DB_mysql_utility extends CI_DB_utility {
 	{
 		return "SHOW DATABASES";
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Optimize table query
 	 *
@@ -50,9 +45,7 @@ class CI_DB_mysql_utility extends CI_DB_utility {
 	{
 		return "OPTIMIZE TABLE ".$this->db->_escape_identifiers($table);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Repair table query
 	 *
@@ -66,7 +59,6 @@ class CI_DB_mysql_utility extends CI_DB_utility {
 	{
 		return "REPAIR TABLE ".$this->db->_escape_identifiers($table);
 	}
-
 	// --------------------------------------------------------------------
 	/**
 	 * MySQL Export
@@ -81,10 +73,8 @@ class CI_DB_mysql_utility extends CI_DB_utility {
 		{
 			return FALSE;
 		}
-
 		// Extract the prefs for simplicity
 		extract($params);
-
 		// Build the output
 		$output = '';
 		foreach ((array)$tables as $table)
@@ -94,24 +84,19 @@ class CI_DB_mysql_utility extends CI_DB_utility {
 			{
 				continue;
 			}
-
 			// Get the table schema
 			$query = $this->db->query("SHOW CREATE TABLE `".$this->db->database.'`.`'.$table.'`');
-
 			// No result means the table name was invalid
 			if ($query === FALSE)
 			{
 				continue;
 			}
-
 			// Write out the table schema
 			$output .= '#'.$newline.'# TABLE STRUCTURE FOR: '.$table.$newline.'#'.$newline.$newline;
-
 			if ($add_drop == TRUE)
 			{
 				$output .= 'DROP TABLE IF EXISTS '.$table.';'.$newline.$newline;
 			}
-
 			$i = 0;
 			$result = $query->result_array();
 			foreach ($result[0] as $val)
@@ -121,25 +106,20 @@ class CI_DB_mysql_utility extends CI_DB_utility {
 					$output .= $val.';'.$newline.$newline;
 				}
 			}
-
 			// If inserts are not needed we're done...
 			if ($add_insert == FALSE)
 			{
 				continue;
 			}
-
 			// Grab all the data from the current table
 			$query = $this->db->query("SELECT * FROM $table");
-
 			if ($query->num_rows() == 0)
 			{
 				continue;
 			}
-
 			// Fetch the field names and determine if the field is an
 			// integer type.  We use this info to decide whether to
 			// surround the data with quotes or not
-
 			$i = 0;
 			$field_str = '';
 			$is_int = array();
@@ -151,21 +131,17 @@ class CI_DB_mysql_utility extends CI_DB_utility {
 										array('tinyint', 'smallint', 'mediumint', 'int', 'bigint'), //, 'timestamp'),
 										TRUE)
 										) ? TRUE : FALSE;
-
 				// Create a string of field names
 				$field_str .= '`'.$field->name.'`, ';
 				$i++;
 			}
-
 			// Trim off the end comma
 			$field_str = preg_replace( "/, $/" , "" , $field_str);
-
 
 			// Build the insert string
 			foreach ($query->result_array() as $row)
 			{
 				$val_str = '';
-
 				$i = 0;
 				foreach ($row as $v)
 				{
@@ -186,25 +162,19 @@ class CI_DB_mysql_utility extends CI_DB_utility {
 							$val_str .= $v;
 						}
 					}
-
 					// Append a comma
 					$val_str .= ', ';
 					$i++;
 				}
-
 				// Remove the comma at the end of the string
 				$val_str = preg_replace( "/, $/" , "" , $val_str);
-
 				// Build the INSERT string
 				$output .= 'INSERT INTO '.$table.' ('.$field_str.') VALUES ('.$val_str.');'.$newline;
 			}
-
 			$output .= $newline.$newline;
 		}
-
 		return $output;
 	}
 }
-
 /* End of file mysql_utility.php */
 /* Location: ./system/database/drivers/mysql/mysql_utility.php */

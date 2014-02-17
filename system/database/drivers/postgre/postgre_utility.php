@@ -12,9 +12,7 @@
  * @since		Version 1.0
  * @filesource
  */
-
 // ------------------------------------------------------------------------
-
 /**
  * Postgre Utility Class
  *
@@ -23,7 +21,6 @@
  * @link		http://codeigniter.com/user_guide/database/
  */
 class CI_DB_postgre_utility extends CI_DB_utility {
-
 	/**
 	 * List databases
 	 *
@@ -34,9 +31,7 @@ class CI_DB_postgre_utility extends CI_DB_utility {
 	{
 		return "SELECT datname FROM pg_database";
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Optimize table query
 	 *
@@ -50,9 +45,7 @@ class CI_DB_postgre_utility extends CI_DB_utility {
 	{
 		return FALSE;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Repair table query
 	 *
@@ -66,9 +59,7 @@ class CI_DB_postgre_utility extends CI_DB_utility {
 	{
 		return FALSE;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Postgre Export
 	 *
@@ -82,7 +73,6 @@ class CI_DB_postgre_utility extends CI_DB_utility {
 		return $this->db->display_error('db_unsuported_feature');
 	}
 }
-
 
 /* End of file postgre_utility.php */
 /* Location: ./system/database/drivers/postgre/postgre_utility.php */

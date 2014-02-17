@@ -8,10 +8,8 @@
  * Licensed under the MIT license:
  * http://www.opensource.org/licenses/MIT
  */
-
 /*jslint nomen: true, unparam: true */
 /*global define, window */
-
 (function (factory) {
     'use strict';
     if (typeof define === 'function' && define.amd) {
@@ -28,13 +26,10 @@
     }
 }(function ($) {
     'use strict';
-
     var originalAdd = $.blueimp.fileupload.prototype.options.add;
-
     // The File Upload Processing plugin extends the fileupload widget
     // with file processing functionality:
     $.widget('blueimp.fileupload', $.blueimp.fileupload, {
-
         options: {
             // The list of processing actions:
             processQueue: [
@@ -53,7 +48,6 @@
                 originalAdd.call(this, e, data);
             }
         },
-
         processActions: {
             /*
             log: function (data, options) {
@@ -63,7 +57,6 @@
             }
             */
         },
-
         _processFile: function (data) {
             var that = this,
                 dfd = $.Deferred().resolveWith(that, [data]),
@@ -90,7 +83,6 @@
                 });
             return chain;
         },
-
         // Replaces the settings of each processQueue item that
         // are strings starting with an "@", using the remaining
         // substring as key for the option map,
@@ -111,18 +103,15 @@
                     } else {
                         settings[key] = value;
                     }
-
                 });
                 processQueue.push(settings);
             });
             options.processQueue = processQueue;
         },
-
         // Returns the number of files currently in the processsing queue:
         processing: function () {
             return this._processing;
         },
-
         // Processes the files given as files property of the data parameter,
         // returns a Promise object that allows to bind callbacks:
         process: function (data) {
@@ -151,14 +140,11 @@
             }
             return this._processingQueue;
         },
-
         _create: function () {
             this._super();
             this._processing = 0;
             this._processingQueue = $.Deferred().resolveWith(this)
                 .promise();
         }
-
     });
-
 }));

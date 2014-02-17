@@ -1,9 +1,8 @@
 /***
 Default theme
 ***/
-
 /***
-Reset and overrides  
+Reset and overrides
 ***/
 body {
   background-color: #3d3d3d !important;
@@ -26,71 +25,58 @@ Page header
 .header .navbar-nav li.dropdown .dropdown-toggle i {
   color: #8a8a8a !important;
 }
-
 /***
 Header Search
 ***/
-
 .header .search-form .form-control{
   color: #999;
-  background-color: #3d3d3d;  
+  background-color: #3d3d3d;
 }
-
-.header .search-form .submit {  
+.header .search-form .submit {
   background: url(../../img/search-icon.png);
 }
-
 /***
 Hor menu
 ***/
 .header .hor-menu ul.nav li a {
   color: #999;
 }
-
 .header .hor-menu ul.nav li.open > a,
 .header .hor-menu ul.nav li > a:hover,
 .header .hor-menu ul.nav li > a:focus {
   color: #fff;
   background: #383838;
 }
-
 .header .hor-menu .dropdown-menu li:hover > a,
 .header .hor-menu ul.nav li.active > a,
 .header .hor-menu ul.nav li.active > a:hover {
   color: #fff;
-  background: #e02222 !important; 
+  background: #e02222 !important;
 }
-
 .header .hor-menu ul.nav li.current > a,
 .header .hor-menu ul.nav li.current > a:hover {
   color: #fff;
-  background: #e02222 !important; 
+  background: #e02222 !important;
 }
-
-.header .hor-menu .dropdown-menu {  
+.header .hor-menu .dropdown-menu {
     background: #383838;
 }
-.header .hor-menu .dropdown-menu li > a {    
+.header .hor-menu .dropdown-menu li > a {
     color: #999;
 }
-
 .header .hor-menu .hor-menu-search-form-toggler.off {
    background: #383838 url(../../img/hor-menu-search-close.png) no-repeat center;
 }
-
-.header .hor-menu .search-form {  
-  background:#383838; 
+.header .hor-menu .search-form {
+  background:#383838;
 }
-
 .header .hor-menu .search-form form input {
   color: #999;
 }
-
 .header .hor-menu .search-form .btn {
   color: #999;
   background: url(../../img/search-icon.png) no-repeat center;
 }
-
 .header .hor-menu .search-form form input::-webkit-input-placeholder { /* WebKit browsers */
     color: #999;
 }
@@ -103,7 +89,6 @@ Hor menu
 .header .hor-menu .search-form form input:-ms-input-placeholder { /* Internet Explorer 10+ */
     color: #999;
 }
-
 /***
 Page sidebar
 ***/
@@ -214,7 +199,7 @@ Sidebar toggler
   background-color: #3d3d3d;
 }
 /***
-Footer 
+Footer
 ***/
 .footer .footer-inner {
   color: #999999;
@@ -247,7 +232,7 @@ Footer Layouts (new in v1.3)
 }
 /* end:fixed footer */
 /***
-Gritter Notifications 
+Gritter Notifications
 ***/
 .gritter-top {
   background: url(../../plugins/gritter/images/gritter.png) no-repeat left -30px !important;
@@ -265,7 +250,6 @@ Gritter Notifications
 .gritter-title {
   text-shadow: none !important;
   /* Not supported by IE :( */
-
 }
 /* for the light (white) version of the gritter notice */
 .gritter-light .gritter-item,
@@ -308,7 +292,7 @@ Gritter Notifications
   }
   .page-boxed.page-sidebar-reversed.page-sidebar-fixed .page-sidebar {
     border-right: 1px solid #5e5e5e;
-    border-left: 0; 
+    border-left: 0;
   }
   .page-boxed.page-sidebar-fixed.page-footer-fixed .footer {
     background-color: #2e2e2e !important;

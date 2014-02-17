@@ -12,9 +12,7 @@
  * @since		Version 2.1.2
  * @filesource
  */
-
 // ------------------------------------------------------------------------
-
 /**
  * PDO Result Class
  *
@@ -25,9 +23,7 @@
  * @link		http://codeigniter.com/user_guide/database/
  */
 class CI_DB_pdo_result extends CI_DB_result {
-
 	public $num_rows;
-
 	/**
 	 * Number of rows in the result set
 	 *
@@ -43,14 +39,11 @@ class CI_DB_pdo_result extends CI_DB_result {
 		{
 			return $this->num_rows;
 		}
-
 		$this->num_rows = count($this->result_id->fetchAll());
 		$this->result_id->execute();
 		return $this->num_rows;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Number of fields in the result set
 	 *
@@ -61,9 +54,7 @@ class CI_DB_pdo_result extends CI_DB_result {
 	{
 		return $this->result_id->columnCount();
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Fetch Field Names
 	 *
@@ -80,9 +71,7 @@ class CI_DB_pdo_result extends CI_DB_result {
 		}
 		return FALSE;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Field data
 	 *
@@ -94,14 +83,14 @@ class CI_DB_pdo_result extends CI_DB_result {
 	function field_data()
 	{
 		$data = array();
-	
+
 		try
 		{
 			for($i = 0; $i < $this->num_fields(); $i++)
 			{
 				$data[] = $this->result_id->getColumnMeta($i);
 			}
-			
+
 			return $data;
 		}
 		catch (Exception $e)
@@ -113,9 +102,7 @@ class CI_DB_pdo_result extends CI_DB_result {
 			return FALSE;
 		}
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Free the result
 	 *
@@ -128,9 +115,7 @@ class CI_DB_pdo_result extends CI_DB_result {
 			$this->result_id = FALSE;
 		}
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Data Seek
 	 *
@@ -145,9 +130,7 @@ class CI_DB_pdo_result extends CI_DB_result {
 	{
 		return FALSE;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Result - associative array
 	 *
@@ -160,9 +143,7 @@ class CI_DB_pdo_result extends CI_DB_result {
 	{
 		return $this->result_id->fetch(PDO::FETCH_ASSOC);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Result - object
 	 *
@@ -172,12 +153,10 @@ class CI_DB_pdo_result extends CI_DB_result {
 	 * @return	object
 	 */
 	function _fetch_object()
-	{	
+	{
 		return $this->result_id->fetchObject();
 	}
-
 }
-
 
 /* End of file pdo_result.php */
 /* Location: ./system/database/drivers/pdo/pdo_result.php */

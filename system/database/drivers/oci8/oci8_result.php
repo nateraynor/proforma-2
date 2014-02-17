@@ -12,9 +12,7 @@
  * @since		Version 1.0
  * @filesource
  */
-
 // ------------------------------------------------------------------------
-
 /**
  * oci8 Result Class
  *
@@ -25,11 +23,9 @@
  * @link		http://codeigniter.com/user_guide/database/
  */
 class CI_DB_oci8_result extends CI_DB_result {
-
 	public $stmt_id;
 	public $curs_id;
 	public $limit_used;
-
 	/**
 	 * Number of rows in the result set.
 	 *
@@ -44,18 +40,14 @@ class CI_DB_oci8_result extends CI_DB_result {
 		{
 			$this->num_rows = count($this->result_array());
 			@oci_execute($this->stmt_id);
-
 			if ($this->curs_id)
 			{
 				@oci_execute($this->curs_id);
 			}
 		}
-
 		return $this->num_rows;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Number of fields in the result set
 	 *
@@ -65,18 +57,14 @@ class CI_DB_oci8_result extends CI_DB_result {
 	public function num_fields()
 	{
 		$count = @oci_num_fields($this->stmt_id);
-
 		// if we used a limit we subtract it
 		if ($this->limit_used)
 		{
 			$count = $count - 1;
 		}
-
 		return $count;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Fetch Field Names
 	 *
@@ -94,9 +82,7 @@ class CI_DB_oci8_result extends CI_DB_result {
 		}
 		return $field_names;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Field data
 	 *
@@ -114,15 +100,11 @@ class CI_DB_oci8_result extends CI_DB_result {
 			$F->name		= oci_field_name($this->stmt_id, $c);
 			$F->type		= oci_field_type($this->stmt_id, $c);
 			$F->max_length		= oci_field_size($this->stmt_id, $c);
-
 			$retval[] = $F;
 		}
-
 		return $retval;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Free the result
 	 *
@@ -136,9 +118,7 @@ class CI_DB_oci8_result extends CI_DB_result {
 			$this->result_id = FALSE;
 		}
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Result - associative array
 	 *
@@ -152,9 +132,7 @@ class CI_DB_oci8_result extends CI_DB_result {
 		$id = ($this->curs_id) ? $this->curs_id : $this->stmt_id;
 		return oci_fetch_assoc($id);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Result - object
 	 *
@@ -168,9 +146,7 @@ class CI_DB_oci8_result extends CI_DB_result {
 		$id = ($this->curs_id) ? $this->curs_id : $this->stmt_id;
 		return @oci_fetch_object($id);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Query result.  "array" version.
 	 *
@@ -183,18 +159,14 @@ class CI_DB_oci8_result extends CI_DB_result {
 		{
 			return $this->result_array;
 		}
-
 		$row = NULL;
 		while ($row = $this->_fetch_assoc())
 		{
 			$this->result_array[] = $row;
 		}
-
 		return $this->result_array;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Data Seek
 	 *
@@ -209,9 +181,7 @@ class CI_DB_oci8_result extends CI_DB_result {
 	{
 		return FALSE; // Not needed
 	}
-
 }
-
 
 /* End of file oci8_result.php */
 /* Location: ./system/database/drivers/oci8/oci8_result.php */

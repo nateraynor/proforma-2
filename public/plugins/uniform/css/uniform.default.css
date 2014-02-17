@@ -1,5 +1,4 @@
 /*
-
 Uniform Theme: Uniform Default
 Version: 1.8
 By: Josh Pyles
@@ -7,7 +6,6 @@ License: MIT License
 ---
 For use with the Uniform plugin:
 http://uniformjs.com/
-
 */
 /* General settings */
 div.selector, div.selector span, div.checker span, div.radio span, div.uploader, div.uploader span.action, div.button, div.button span {
@@ -26,12 +24,10 @@ div.selector, div.checker, div.button, div.radio, div.uploader {
 div.selector, div.selector *, div.radio, div.radio *, div.checker, div.checker *, div.uploader, div.uploader *, div.button, div.button * {
   margin: 0;
   padding: 0; }
-
 .highContrastDetect {
   background: url("../images/bg-input.png") repeat-x 0 0;
   width: 0px;
   height: 0px; }
-
 /* Input & Textarea */
 input.uniform-input,
 select.uniform-multiselect,
@@ -43,7 +39,6 @@ textarea.uniform {
   select.uniform-multiselect.active,
   textarea.uniform.active {
     background: url("../images/bg-input-focus.png") repeat-x 0 0; }
-
 /* Remove default webkit and possible mozilla .search styles.
  * Keeping this as :active to remove browser styles */
 div.checker input,
@@ -51,7 +46,6 @@ input[type="search"],
 input[type="search"]:active {
   -moz-appearance: none;
   -webkit-appearance: none; }
-
 /* Select */
 div.selector {
   background-position: 0 -130px;
@@ -103,7 +97,6 @@ div.selector {
     background-position: 0 -234px; }
     div.selector.disabled span, div.selector.disabled.active span {
       background-position: right -104px; }
-
 /* Checkbox */
 div.checker {
   position: relative; }
@@ -145,7 +138,6 @@ div.checker {
     background-position: -152px -260px; }
     div.checker.disabled span.checked, div.checker.disabled.active span.checked {
       background-position: -171px -260px; }
-
 /* Radio */
 div.radio {
   position: relative; }
@@ -188,7 +180,6 @@ div.radio {
     background-position: -144px -279px; }
     div.radio.disabled span.checked, div.radio.disabled.active span.checked {
       background-position: -162px -279px; }
-
 /* Uploader */
 div.uploader {
   background-position: 0 -297px;
@@ -244,7 +235,6 @@ div.uploader {
     background-position: 0 -325px; }
     div.uploader.disabled span.action, div.uploader.disabled.active span.action {
       background-position: right -381px; }
-
 /* Buttons */
 div.button {
   background-position: 0 -641px;
@@ -287,7 +277,6 @@ div.button {
     div.button.disabled span, div.button.disabled.active span {
       background-position: right -611px;
       cursor: default; }
-
 /* INPUT & TEXTAREA */
 input.uniform-input,
 select.uniform-multiselect,
@@ -312,7 +301,6 @@ textarea.uniform {
     -moz-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
     border-color: #999; }
-
 /* PRESENTATION */
 /* Buttons */
 div.button span {
@@ -325,7 +313,6 @@ div.button.hover span, div.button.focus span {
   color: #555; }
 div.button.disabled span, div.button.disabled.active span {
   color: #bbb; }
-
 /* Select */
 div.selector {
   font-size: 12px; }
@@ -337,15 +324,12 @@ div.selector {
     font-size: 12px; }
   div.selector.disabled span, div.selector.disabled.active span {
     color: #bbb; }
-
 /* Checker */
 div.checker {
   margin-right: 5px; }
-
 /* Radio */
 div.radio {
   margin-right: 3px; }
-
 /* Uploader */
 div.uploader span.action {
   text-shadow: white 0px 1px 0px;
@@ -361,6 +345,5 @@ div.uploader.disabled span.action, div.uploader.disabled.active span.action {
 div.uploader.disabled span.filename, div.uploader.disabled.active span.filename {
   border-color: #ddd;
   color: #aaa; }
-
 input.uniform-input, input.uniform-input:focus {
   background-color: #fff; }

@@ -12,9 +12,7 @@
  * @since		Version 2.0
  * @filesource
  */
-
 // ------------------------------------------------------------------------
-
 /**
  * Utf8 Class
  *
@@ -27,7 +25,6 @@
  * @link		http://codeigniter.com/user_guide/libraries/utf8.html
  */
 class CI_Utf8 {
-
 	/**
 	 * Constructor
 	 *
@@ -37,9 +34,7 @@ class CI_Utf8 {
 	function __construct()
 	{
 		log_message('debug', "Utf8 Class Initialized");
-
 		global $CFG;
-
 		if (
 			preg_match('/./u', 'é') === 1					// PCRE must support UTF-8
 			AND function_exists('iconv')					// iconv must be installed
@@ -48,9 +43,7 @@ class CI_Utf8 {
 			)
 		{
 			log_message('debug', "UTF-8 Support Enabled");
-
 			define('UTF8_ENABLED', TRUE);
-
 			// set internal encoding for multibyte string functions if necessary
 			// and set a flag so we don't have to repeatedly use extension_loaded()
 			// or function_exists()
@@ -70,9 +63,7 @@ class CI_Utf8 {
 			define('UTF8_ENABLED', FALSE);
 		}
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Clean UTF-8 strings
 	 *
@@ -88,12 +79,9 @@ class CI_Utf8 {
 		{
 			$str = @iconv('UTF-8', 'UTF-8//IGNORE', $str);
 		}
-
 		return $str;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Remove ASCII control characters
 	 *
@@ -109,9 +97,7 @@ class CI_Utf8 {
 	{
 		return remove_invisible_characters($str, FALSE);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Convert to UTF-8
 	 *
@@ -136,12 +122,9 @@ class CI_Utf8 {
 		{
 			return FALSE;
 		}
-
 		return $str;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Is ASCII?
 	 *
@@ -155,11 +138,8 @@ class CI_Utf8 {
 	{
 		return (preg_match('/[^\x00-\x7F]/S', $str) == 0);
 	}
-
 	// --------------------------------------------------------------------
-
 }
 // End Utf8 Class
-
 /* End of file Utf8.php */
 /* Location: ./system/core/Utf8.php */

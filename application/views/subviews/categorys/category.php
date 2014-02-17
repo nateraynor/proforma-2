@@ -3,14 +3,14 @@
 		<div class="row">
 			<div class="col-md-12">
 				<ul class="page-breadcrumb breadcrumb">
-				
+
 					<li>
 						<i class="fa fa-home"></i>
 						<a href="<?php echo base_url() ?>">Anasayfa</a>
 						<i class="fa fa-angle-right"></i>
 					</li>
 					<li>
-						<a href="<?php echo base_url() ?>categorys">Ürün Kategoriler</a>
+						<a href="<?php echo base_url() ?>categories">Ürün Kategoriler</a>
 						<i class="fa fa-angle-right"></i>
 					</li>
 					<li>
@@ -50,7 +50,7 @@
 						</div>
 					</div>
 					<div class="portlet-body form">
-						<form action="<?php echo base_url() . 'categorys/category/' . $category_id; ?>" class="horizontal-form" method="post">
+						<form action="<?php echo base_url() . 'categories/category/' . $category_id; ?>" class="horizontal-form" method="post">
 							<div class="form-body">
 								<div class="row">
 										<div class="col-md-6">
@@ -64,13 +64,13 @@
 												<label class="control-label">Üst Kategori Adı</label>
 													<select class="form-control select2me" name="category_parent_id" data-placeholder="Seçiniz...">
 														<option value="0"></option>
-														<?php foreach ($categorys as $parentCategory): ?>
+														<?php foreach ($categories as $parentCategory): ?>
 															<option value="<?php echo $parentCategory['category_id'] ?>" <?php echo isset($category['category_parent_id']) && $category['category_parent_id'] == $parentCategory['category_id'] ? 'selected' : '';?>><?php echo $parentCategory['category_name'] ;?></option>
-														<?php endforeach ?>												
+														<?php endforeach ?>
 													</select>
 											</div>
 										</div>
-			
+
 										<div class="col-md-6">
 											<div class="form-group">
 												<label class="control-label">Durumu</label>
@@ -83,7 +83,7 @@
 								</div>
 							</div>
 							<div class="form-actions right">
-								<a href="<?php echo base_url() ?>categorys" class="btn default">İptal</a>
+								<a href="<?php echo base_url() ?>categories" class="btn default">İptal</a>
 								<button type="submit" class="btn green"><i class="fa fa-check"></i> Kaydet</button>
 							</div>
 						</form>

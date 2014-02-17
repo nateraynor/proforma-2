@@ -12,9 +12,7 @@
  * @since		Version 1.0
  * @filesource
  */
-
 // ------------------------------------------------------------------------
-
 /**
  * MySQLi Utility Class
  *
@@ -23,7 +21,6 @@
  * @link		http://codeigniter.com/user_guide/database/
  */
 class CI_DB_mysqli_utility extends CI_DB_utility {
-
 	/**
 	 * List databases
 	 *
@@ -34,9 +31,7 @@ class CI_DB_mysqli_utility extends CI_DB_utility {
 	{
 		return "SHOW DATABASES";
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Optimize table query
 	 *
@@ -50,9 +45,7 @@ class CI_DB_mysqli_utility extends CI_DB_utility {
 	{
 		return "OPTIMIZE TABLE ".$this->db->_escape_identifiers($table);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Repair table query
 	 *
@@ -66,9 +59,7 @@ class CI_DB_mysqli_utility extends CI_DB_utility {
 	{
 		return "REPAIR TABLE ".$this->db->_escape_identifiers($table);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * MySQLi Export
 	 *
@@ -82,6 +73,5 @@ class CI_DB_mysqli_utility extends CI_DB_utility {
 		return $this->db->display_error('db_unsuported_feature');
 	}
 }
-
 /* End of file mysqli_utility.php */
 /* Location: ./system/database/drivers/mysqli/mysqli_utility.php */

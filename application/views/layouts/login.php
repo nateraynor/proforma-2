@@ -5,7 +5,6 @@
 <html lang="en" class="no-js">
 <!--<![endif]-->
 <!-- BEGIN HEAD -->
-
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 <head>
 <meta charset="utf-8"/>
@@ -419,11 +418,9 @@ html {
 		</div>
 	</form>
 </div>
-
 <div class="copyright">
 	 <a href="http://icmyazilim.com"></a>2014 &copy; ICM Software.
 </div>
-
 <script src="<?php echo ASSETS; ?>plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
 <script src="<?php echo ASSETS; ?>plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
 <script src="<?php echo ASSETS; ?>plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>

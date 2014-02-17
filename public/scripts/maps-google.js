@@ -1,5 +1,4 @@
 var MapsGoogle = function () {
-
     var mapBasic = function () {
         new GMaps({
             div: '#gmap_basic',
@@ -7,7 +6,6 @@ var MapsGoogle = function () {
             lng: -77.028333
         });
     }
-
     var mapMarker = function () {
         var map = new GMaps({
             div: '#gmap_marker',
@@ -36,7 +34,6 @@ var MapsGoogle = function () {
             }
         });
     }
-
     var mapPolylines = function () {
         var map = new GMaps({
             div: '#gmap_polylines',
@@ -46,7 +43,6 @@ var MapsGoogle = function () {
                 console.log(e);
             }
         });
-
         path = [
             [-12.044012922866312, -77.02470665341184],
             [-12.05449279282314, -77.03024273281858],
@@ -57,7 +53,6 @@ var MapsGoogle = function () {
             [-12.088527520066453, -77.0241058385925],
             [-12.090814532191756, -77.02271108990476]
         ];
-
         map.drawPolyline({
             path: path,
             strokeColor: '#131540',
@@ -65,15 +60,12 @@ var MapsGoogle = function () {
             strokeWeight: 6
         });
     }
-
     var mapGeolocation = function () {
-
         var map = new GMaps({
             div: '#gmap_geo',
             lat: -12.043333,
             lng: -77.028333
         });
-
         GMaps.geolocate({
             success: function (position) {
                 map.setCenter(position.coords.latitude, position.coords.longitude);
@@ -89,15 +81,12 @@ var MapsGoogle = function () {
             }
         });
     }
-
     var mapGeocoding = function () {
-
         var map = new GMaps({
             div: '#gmap_geocoding',
             lat: -12.043333,
             lng: -77.028333
         });
-
         var handleAction = function () {
             var text = $.trim($('#gmap_geocoding_address').val());
             GMaps.geocode({
@@ -115,12 +104,10 @@ var MapsGoogle = function () {
                 }
             });
         }
-
         $('#gmap_geocoding_btn').click(function (e) {
             e.preventDefault();
             handleAction();
         });
-
         $("#gmap_geocoding_address").keypress(function (e) {
             var keycode = (e.keyCode ? e.keyCode : e.which);
             if (keycode == '13') {
@@ -128,23 +115,19 @@ var MapsGoogle = function () {
                 handleAction();
             }
         });
-
     }
-
     var mapPolygone = function () {
         var map = new GMaps({
             div: '#gmap_polygons',
             lat: -12.043333,
             lng: -77.028333
         });
-
         var path = [
             [-12.040397656836609, -77.03373871559225],
             [-12.040248585302038, -77.03993927003302],
             [-12.050047116528843, -77.02448169303511],
             [-12.044804866577001, -77.02154422636042]
         ];
-
         var polygon = map.drawPolygon({
             paths: path,
             strokeColor: '#BBD8E9',
@@ -154,9 +137,7 @@ var MapsGoogle = function () {
             fillOpacity: 0.6
         });
     }
-
     var mapRoutes = function () {
-
         var map = new GMaps({
             div: '#gmap_routes',
             lat: -12.043333,
@@ -184,7 +165,6 @@ var MapsGoogle = function () {
             });
         });
     }
-
     return {
         //main function to initiate map samples
         init: function () {
@@ -196,7 +176,5 @@ var MapsGoogle = function () {
             mapPolygone();
             mapRoutes();
         }
-
     };
-
 }();

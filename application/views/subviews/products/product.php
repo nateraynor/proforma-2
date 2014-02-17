@@ -3,7 +3,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<ul class="page-breadcrumb breadcrumb">
-					
+
 						<li>
 							<i class="fa fa-home"></i>
 							<a href="<?php echo base_url() ?>">Anasayfa</a>
@@ -74,7 +74,6 @@
 																	<input type="text" name="product_name" class="form-control" col-type="varchar" placeholder="Ürün Adı" value="<?php echo isset($product['product_name']) ? $product['product_name'] : ''; ?>" required>
 																</div>
 															</div>
-
 															<div class="col-md-6">
 																<div class="form-group">
 																	<label class="control-label">Ürün Kategori Adı</label>
@@ -82,7 +81,7 @@
 																			<option value="0"></option>
 																			<?php foreach ($categories as $category): ?>
 																				<option value="<?php echo $category['category_id'] ?>" <?php echo isset($product['category_id']) && $product['category_id'] == $category['category_id'] ? 'selected' : '';?>><?php echo $category['category_name'] ;?></option>
-																			<?php endforeach ?>												
+																			<?php endforeach ?>
 																		</select>
 																</div>
 															</div>
@@ -93,7 +92,7 @@
 																			<option value="0"></option>
 																			<?php foreach ($brands as $brand): ?>
 																				<option value="<?php echo $brand['brand_id'] ?>" <?php echo isset($product['brand_id']) && $product['brand_id'] == $brand['brand_id'] ? 'selected' : '';?>><?php echo $brand['brand_name'] ;?></option>
-																			<?php endforeach ?>												
+																			<?php endforeach ?>
 																		</select>
 																</div>
 															</div>
@@ -114,13 +113,11 @@
 																<div class="col-md-6">
 																	<div class="fileupload fileupload-new" data-provides="fileupload">
 																		<div class="fileupload-new thumbnail" style="width: 200px; height: 150px;">
-
 																			<?php if(!isset($product['product_image'])): ?>
 																				<img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=resim+yok" alt=""/>
 																			<?php else: ?>
 																				<img src="<?php echo base_url().'uploads/'.$product['product_image']; ?>">
 																			<?php endif; ?>
-
 																		</div>
 																		<div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;">
 																		</div>
@@ -173,7 +170,6 @@
 							</div>
 						</div>
 					</div>
-
 				</div>
 			</div>
 	</div>

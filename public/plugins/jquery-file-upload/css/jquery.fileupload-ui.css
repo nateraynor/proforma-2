@@ -9,7 +9,6 @@
  * Licensed under the MIT license:
  * http://www.opensource.org/licenses/MIT
  */
-
 .fileinput-button {
   position: relative;
   overflow: hidden;
@@ -50,7 +49,6 @@
 .files video {
   max-width: 300px;
 }
-
 @media (max-width: 767px) {
   .fileupload-buttonbar .toggle,
   .files .toggle,

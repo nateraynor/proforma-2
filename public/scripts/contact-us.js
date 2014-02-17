@@ -1,5 +1,4 @@
 var ContactUs = function () {
-
     return {
         //main function to initiate the module
         init: function () {
@@ -18,10 +17,8 @@ var ContactUs = function () {
 		                content: "<b>Loop, Inc.</b> 795 Park Ave, Suite 120<br>San Francisco, CA 94107"
 		            }
 		        });
-
 			   marker.infoWindow.open(map, marker);
 			});
         }
     };
-
 }();

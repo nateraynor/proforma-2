@@ -12,9 +12,7 @@
  * @since		Version 1.0
  * @filesource
  */
-
 // ------------------------------------------------------------------------
-
 /**
  * CodeIgniter URL Helpers
  *
@@ -24,9 +22,7 @@
  * @author		ExpressionEngine Dev Team
  * @link		http://codeigniter.com/user_guide/helpers/url_helper.html
  */
-
 // ------------------------------------------------------------------------
-
 /**
  * Site URL
  *
@@ -45,12 +41,10 @@ if ( ! function_exists('site_url'))
 		return $CI->config->site_url($uri);
 	}
 }
-
 // ------------------------------------------------------------------------
-
 /**
  * Base URL
- * 
+ *
  * Create a local URL based on your basepath.
  * Segments can be passed in as a string or an array, same as site_url
  * or a URL to a file can be passed in, e.g. to an image file.
@@ -67,9 +61,7 @@ if ( ! function_exists('base_url'))
 		return $CI->config->base_url($uri);
 	}
 }
-
 // ------------------------------------------------------------------------
-
 /**
  * Current URL
  *
@@ -87,7 +79,6 @@ if ( ! function_exists('current_url'))
 		return $CI->config->site_url($CI->uri->uri_string());
 	}
 }
-
 // ------------------------------------------------------------------------
 /**
  * URL String
@@ -105,9 +96,7 @@ if ( ! function_exists('uri_string'))
 		return $CI->uri->uri_string();
 	}
 }
-
 // ------------------------------------------------------------------------
-
 /**
  * Index page
  *
@@ -124,9 +113,7 @@ if ( ! function_exists('index_page'))
 		return $CI->config->item('index_page');
 	}
 }
-
 // ------------------------------------------------------------------------
-
 /**
  * Anchor Link
  *
@@ -143,7 +130,6 @@ if ( ! function_exists('anchor'))
 	function anchor($uri = '', $title = '', $attributes = '')
 	{
 		$title = (string) $title;
-
 		if ( ! is_array($uri))
 		{
 			$site_url = ( ! preg_match('!^\w+://! i', $uri)) ? site_url($uri) : $uri;
@@ -152,23 +138,18 @@ if ( ! function_exists('anchor'))
 		{
 			$site_url = site_url($uri);
 		}
-
 		if ($title == '')
 		{
 			$title = $site_url;
 		}
-
 		if ($attributes != '')
 		{
 			$attributes = _parse_attributes($attributes);
 		}
-
 		return '<a href="'.$site_url.'"'.$attributes.'>'.$title.'</a>';
 	}
 }
-
 // ------------------------------------------------------------------------
-
 /**
  * Anchor Link - Pop-up version
  *
@@ -186,41 +167,32 @@ if ( ! function_exists('anchor_popup'))
 	function anchor_popup($uri = '', $title = '', $attributes = FALSE)
 	{
 		$title = (string) $title;
-
 		$site_url = ( ! preg_match('!^\w+://! i', $uri)) ? site_url($uri) : $uri;
-
 		if ($title == '')
 		{
 			$title = $site_url;
 		}
-
 		if ($attributes === FALSE)
 		{
 			return "<a href='javascript:void(0);' onclick=\"window.open('".$site_url."', '_blank');\">".$title."</a>";
 		}
-
 		if ( ! is_array($attributes))
 		{
 			$attributes = array();
 		}
-
 		foreach (array('width' => '800', 'height' => '600', 'scrollbars' => 'yes', 'status' => 'yes', 'resizable' => 'yes', 'screenx' => '0', 'screeny' => '0', ) as $key => $val)
 		{
 			$atts[$key] = ( ! isset($attributes[$key])) ? $val : $attributes[$key];
 			unset($attributes[$key]);
 		}
-
 		if ($attributes != '')
 		{
 			$attributes = _parse_attributes($attributes);
 		}
-
 		return "<a href='javascript:void(0);' onclick=\"window.open('".$site_url."', '_blank', '"._parse_attributes($atts, TRUE)."');\"$attributes>".$title."</a>";
 	}
 }
-
 // ------------------------------------------------------------------------
-
 /**
  * Mailto Link
  *
@@ -235,20 +207,15 @@ if ( ! function_exists('mailto'))
 	function mailto($email, $title = '', $attributes = '')
 	{
 		$title = (string) $title;
-
 		if ($title == "")
 		{
 			$title = $email;
 		}
-
 		$attributes = _parse_attributes($attributes);
-
 		return '<a href="mailto:'.$email.'"'.$attributes.'>'.$title.'</a>';
 	}
 }
-
 // ------------------------------------------------------------------------
-
 /**
  * Encoded Mailto Link
  *
@@ -265,24 +232,19 @@ if ( ! function_exists('safe_mailto'))
 	function safe_mailto($email, $title = '', $attributes = '')
 	{
 		$title = (string) $title;
-
 		if ($title == "")
 		{
 			$title = $email;
 		}
-
 		for ($i = 0; $i < 16; $i++)
 		{
 			$x[] = substr('<a href="mailto:', $i, 1);
 		}
-
 		for ($i = 0; $i < strlen($email); $i++)
 		{
 			$x[] = "|".ord(substr($email, $i, 1));
 		}
-
 		$x[] = '"';
-
 		if ($attributes != '')
 		{
 			if (is_array($attributes))
@@ -305,14 +267,11 @@ if ( ! function_exists('safe_mailto'))
 				}
 			}
 		}
-
 		$x[] = '>';
-
 		$temp = array();
 		for ($i = 0; $i < strlen($title); $i++)
 		{
 			$ordinal = ord($title[$i]);
-
 			if ($ordinal < 128)
 			{
 				$x[] = "|".$ordinal;
@@ -323,7 +282,6 @@ if ( ! function_exists('safe_mailto'))
 				{
 					$count = ($ordinal < 224) ? 2 : 3;
 				}
-
 				$temp[] = $ordinal;
 				if (count($temp) == $count)
 				{
@@ -334,33 +292,26 @@ if ( ! function_exists('safe_mailto'))
 				}
 			}
 		}
-
 		$x[] = '<'; $x[] = '/'; $x[] = 'a'; $x[] = '>';
-
 		$x = array_reverse($x);
 		ob_start();
-
 	?><script type="text/javascript">
 	//<![CDATA[
 	var l=new Array();
 	<?php
 	$i = 0;
 	foreach ($x as $val){ ?>l[<?php echo $i++; ?>]='<?php echo $val; ?>';<?php } ?>
-
 	for (var i = l.length-1; i >= 0; i=i-1){
 	if (l[i].substring(0, 1) == '|') document.write("&#"+unescape(l[i].substring(1))+";");
 	else document.write(unescape(l[i]));}
 	//]]>
 	</script><?php
-
 		$buffer = ob_get_contents();
 		ob_end_clean();
 		return $buffer;
 	}
 }
-
 // ------------------------------------------------------------------------
-
 /**
  * Auto-linker
  *
@@ -384,7 +335,6 @@ if ( ! function_exists('auto_link'))
 			if (preg_match_all("#(^|\s|\()((http(s?)://)|(www\.))(\w+[^\s\)\<]+)#i", $str, $matches))
 			{
 				$pop = ($popup == TRUE) ? " target=\"_blank\" " : "";
-
 				for ($i = 0; $i < count($matches['0']); $i++)
 				{
 					$period = '';
@@ -393,7 +343,6 @@ if ( ! function_exists('auto_link'))
 						$period = '.';
 						$matches['6'][$i] = substr($matches['6'][$i], 0, -1);
 					}
-
 					$str = str_replace($matches['0'][$i],
 										$matches['1'][$i].'<a href="http'.
 										$matches['4'][$i].'://'.
@@ -406,7 +355,6 @@ if ( ! function_exists('auto_link'))
 				}
 			}
 		}
-
 		if ($type != 'url')
 		{
 			if (preg_match_all("/([a-zA-Z0-9_\.\-\+]+)@([a-zA-Z0-9\-]+)\.([a-zA-Z0-9\-\.]*)/i", $str, $matches))
@@ -419,18 +367,14 @@ if ( ! function_exists('auto_link'))
 						$period = '.';
 						$matches['3'][$i] = substr($matches['3'][$i], 0, -1);
 					}
-
 					$str = str_replace($matches['0'][$i], safe_mailto($matches['1'][$i].'@'.$matches['2'][$i].'.'.$matches['3'][$i]).$period, $str);
 				}
 			}
 		}
-
 		return $str;
 	}
 }
-
 // ------------------------------------------------------------------------
-
 /**
  * Prep URL
  *
@@ -448,25 +392,20 @@ if ( ! function_exists('prep_url'))
 		{
 			return '';
 		}
-
 		$url = parse_url($str);
-
 		if ( ! $url OR ! isset($url['scheme']))
 		{
 			$str = 'http://'.$str;
 		}
-
 		return $str;
 	}
 }
-
 // ------------------------------------------------------------------------
-
 /**
  * Create URL Title
  *
  * Takes a "title" string as input and creates a
- * human-friendly URL string with a "separator" string 
+ * human-friendly URL string with a "separator" string
  * as the word separator.
  *
  * @access	public
@@ -478,7 +417,7 @@ if ( ! function_exists('url_title'))
 {
 	function url_title($str, $separator = '-', $lowercase = FALSE)
 	{
-		if ($separator == 'dash') 
+		if ($separator == 'dash')
 		{
 		    $separator = '-';
 		}
@@ -486,34 +425,27 @@ if ( ! function_exists('url_title'))
 		{
 		    $separator = '_';
 		}
-		
-		$q_separator = preg_quote($separator);
 
+		$q_separator = preg_quote($separator);
 		$trans = array(
 			'&.+?;'                 => '',
 			'[^a-z0-9 _-]'          => '',
 			'\s+'                   => $separator,
 			'('.$q_separator.')+'   => $separator
 		);
-
 		$str = strip_tags($str);
-
 		foreach ($trans as $key => $val)
 		{
 			$str = preg_replace("#".$key."#i", $val, $str);
 		}
-
 		if ($lowercase === TRUE)
 		{
 			$str = strtolower($str);
 		}
-
 		return trim($str, $separator);
 	}
 }
-
 // ------------------------------------------------------------------------
-
 /**
  * Header Redirect
  *
@@ -534,7 +466,6 @@ if ( ! function_exists('redirect'))
 		{
 			$uri = site_url($uri);
 		}
-
 		switch($method)
 		{
 			case 'refresh'	: header("Refresh:0;url=".$uri);
@@ -545,9 +476,7 @@ if ( ! function_exists('redirect'))
 		exit;
 	}
 }
-
 // ------------------------------------------------------------------------
-
 /**
  * Parse out the attributes
  *
@@ -566,7 +495,6 @@ if ( ! function_exists('_parse_attributes'))
 		{
 			return ($attributes != '') ? ' '.$attributes : '';
 		}
-
 		$att = '';
 		foreach ($attributes as $key => $val)
 		{
@@ -579,16 +507,13 @@ if ( ! function_exists('_parse_attributes'))
 				$att .= ' ' . $key . '="' . $val . '"';
 			}
 		}
-
 		if ($javascript == TRUE AND $att != '')
 		{
 			$att = substr($att, 0, -1);
 		}
-
 		return $att;
 	}
 }
-
 
 /* End of file url_helper.php */
 /* Location: ./system/helpers/url_helper.php */

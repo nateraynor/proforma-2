@@ -12,9 +12,7 @@
  * @since		Version 1.0
  * @filesource
  */
-
 // ------------------------------------------------------------------------
-
 /**
  * CodeIgniter Security Helpers
  *
@@ -24,9 +22,7 @@
  * @author		ExpressionEngine Dev Team
  * @link		http://codeigniter.com/user_guide/helpers/security_helper.html
  */
-
 // ------------------------------------------------------------------------
-
 /**
  * XSS Filtering
  *
@@ -43,9 +39,7 @@ if ( ! function_exists('xss_clean'))
 		return $CI->security->xss_clean($str, $is_image);
 	}
 }
-
 // ------------------------------------------------------------------------
-
 /**
  * Sanitize Filename
  *
@@ -61,9 +55,7 @@ if ( ! function_exists('sanitize_filename'))
 		return $CI->security->sanitize_filename($filename);
 	}
 }
-
 // --------------------------------------------------------------------
-
 /**
  * Hash encode a string
  *
@@ -85,9 +77,7 @@ if ( ! function_exists('do_hash'))
 		}
 	}
 }
-
 // ------------------------------------------------------------------------
-
 /**
  * Strip Image Tags
  *
@@ -101,13 +91,10 @@ if ( ! function_exists('strip_image_tags'))
 	{
 		$str = preg_replace("#<img\s+.*?src\s*=\s*[\"'](.+?)[\"'].*?\>#", "\\1", $str);
 		$str = preg_replace("#<img\s+.*?src\s*=\s*(.+?).*?\>#", "\\1", $str);
-
 		return $str;
 	}
 }
-
 // ------------------------------------------------------------------------
-
 /**
  * Convert PHP tags to entities
  *
@@ -122,7 +109,6 @@ if ( ! function_exists('encode_php_tags'))
 		return str_replace(array('<?php', '<?PHP', '<?', '?>'),  array('&lt;?php', '&lt;?PHP', '&lt;?', '?&gt;'), $str);
 	}
 }
-
 
 /* End of file security_helper.php */
 /* Location: ./system/helpers/security_helper.php */

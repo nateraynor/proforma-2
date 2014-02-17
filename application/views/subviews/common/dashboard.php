@@ -77,7 +77,6 @@
 					        <a class="btn red" style="color: white;"><span>
 					        Houston Kuaför
 					    	</span></a>
-
 					    </li>
 						<li>
 							<i class="fa fa-home"></i>

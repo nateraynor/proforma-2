@@ -88,7 +88,6 @@
 						</thead>
 						<tbody>
 
-
 							<?php foreach ($products as $product): ?>
 								<tr>
 						die;
@@ -98,28 +97,25 @@
 										<?php foreach ($categories as $category): ?>
 												<?php if($category['category_id'] == $product['category_id']): ?>
 													<?php echo $category['category_name']; ?>
-												<?php endif; ?>																						
+												<?php endif; ?>
 										<?php endforeach ?>
 									</td>
 									<td>
 										<?php foreach ($brands as $brand): ?>
 											<?php if($brand['brand_id'] == $product['brand_id']) :?>
 												<?php echo $brand['brand_name']; ?>
-											<?php endif; ?>	
+											<?php endif; ?>
 										<?php endforeach ?>
 									</td>
 									<td>
 										<?php echo $product['product_price']; ?>
 									</td>
-
 									<td>
 										<?php echo $product['product_tax_rate']; ?>
 									</td>
-
 									<td>
 										<?php echo $product['product_date_added']; ?>
 									</td>
-
 									<td>
 										<?php echo $product['product_date_updated']; ?>
 									</td>
