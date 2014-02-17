@@ -54,12 +54,14 @@ class Customers extends CI_Controller {
 			$this->session->set_flashdata('error', 'Müşteri kaydı silinemedi!');
 		redirect('customers');
 	}
+
 	public function excelOutput() {
 		$this->load->library('excel');
 		$this->load->model('customer_model');
 		$results = $this->customer_model->getCustomersForExcel();
         $this->excel->to_excel($results, 'users-excel', 'Kullanıcılar');
 	}
+
 	public function validate($data) {
 		$errors = array();
 		if (isset($data['customer_name']) && strlen(trim($data['customer_name'])) < 3)

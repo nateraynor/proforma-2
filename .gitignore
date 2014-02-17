@@ -12,3 +12,5 @@ application/config
 application/config/database.php
 application/config/config.php
 application/config/constants.php
+
+uploads/
