@@ -6,12 +6,21 @@ class Settings extends CI_Controller {
         if (!isset($this->session->userdata['user_id']))
         	redirect('login');
     }
+
     public function templates() {
     	$this->load->model('setting_model');
     	$data['templates'] = $this->setting_model->getTemplates();
         $data['menu'] = 'settings';
         $data['page'] = 'forms';
         $data['subview'] = 'settings/template';
+        $this->load->view('layouts/default', $data);
+    }
+
+    public function companyInfo() {
+
+        $data['menu'] = 'settings';
+        $data['page'] = 'forms';
+        $data['subview'] = 'settings/company';
         $this->load->view('layouts/default', $data);
     }
 
