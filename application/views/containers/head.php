@@ -38,6 +38,7 @@
 <link rel="stylesheet" type="text/css" href="<?php echo ASSETS ?>plugins/bootstrap-switch/static/stylesheets/bootstrap-switch-metro.css"/>
 <link rel="stylesheet" type="text/css" href="<?php echo ASSETS ?>plugins/jquery-tags-input/jquery.tagsinput.css"/>
 <link rel="stylesheet" type="text/css" href="<?php echo ASSETS ?>plugins/bootstrap-markdown/css/bootstrap-markdown.min.css">
+<link href="<?php echo ASSETS ?>plugins/dropzone/css/dropzone.css" rel="stylesheet"/>
 <?php endif; ?>
 <!-- END PAGE LEVEL SCRIPTS -->
 <!-- BEGIN THEME STYLES -->

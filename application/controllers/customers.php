@@ -56,6 +56,7 @@ class Customers extends CI_Controller {
 		$results = $this->customer_model->getCustomersForExcel();
         $this->excel->to_excel($results, 'users-excel', 'Kullanıcılar');
 	}
+
 	public function validate($data) {
 		$errors = array();
 		if (isset($data['customer_name']) && strlen(trim($data['customer_name'])) < 3)

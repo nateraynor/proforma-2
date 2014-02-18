@@ -13,26 +13,9 @@ class Customer_model extends CI_Model {
  	}
 
  	public function getCustomersForExcel() {
- 		$this->load->model('config_model');
+ 		$result = $this->db->query("SELECT customer_id AS 'Müşteri No' FROM customer");
 
- 		$columns = $this->config_model->getColumns('customer');
-
- 		$sql = "SELECT * FROM customer";
-
- 		$result = $this->db->query($sql);
- 		$result = $result->result_array();
-
- 		foreach ($result as $key => $customer_info) {
- 			foreach ($customer_info as $key_sub => $value) {
-	 			$column_info = $this->config_model->getColumnInfo($key_sub);
-
- 				$customer_info[$column_info['name']] = $value;
- 				unset($customer_info[$key_sub]);
- 			}
-			$result[$key] = $customer_info;
- 		}
-
- 		return $result;
+ 		return $result->result_array();
  	}
 
  	public function getCustomersForActionForm() {

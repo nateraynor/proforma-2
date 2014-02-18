@@ -121,13 +121,13 @@
 									<div class="col-md-6">
 										<div class="form-group">
 											<label class="control-label">Teklif Üst Açıklama</label>
-											<textarea name="content" data-provide="markdown" rows="10"></textarea>
+											<textarea id="proposal-content-top" name="content" data-provide="markdown" rows="10"></textarea>
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
 											<label class="control-label">Teklif Alt Açıklama</label>
-											<textarea name="content" data-provide="markdown" rows="10"></textarea>
+											<textarea id="proposal-content-bottom" name="content" data-provide="markdown" rows="10"></textarea>
 										</div>
 									</div>
 									<hr />
@@ -140,13 +140,15 @@
 												<?php endforeach ?>
 											</select>
 										</div>
+										<div class="col-md-6">
+											<h2>test</h2>
+										</div>
 										<div class="clearfix"></div>
 										<?php foreach ($templates as $template): ?>
 											<div class="template col-md-12" id="template-<?php echo $template['template_id'] ?>" style="display: none;">
 											<?php echo $template['template_html']; ?>
 											</div>
 										<?php endforeach ?>
-
 									</div>
 								</div>
 							</div>

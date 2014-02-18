@@ -163,9 +163,21 @@
 										</div>
 									</div>
 									<div class="tab-pane fade" id="product_gallery">
-										<p>
-											Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.
-										</p>
+										<div class="row">
+											<div class="col-md-12">
+												<p>
+													<span class="label label-danger">
+														 NOTE:
+													</span>
+													 &nbsp; This plugins works only on Latest Chrome, Firefox, Safari, Opera & Internet Explorer 10.
+												</p>
+												<form action="<?php echo base_url() ?>products/fileUpload/<?php echo $product_id; ?>" class="dropzone" id="my-dropzone">
+												</form>
+												<div class="gallery">
+
+												</div>
+											</div>
+										</div>
 									</div>
 							</div>
 						</div>

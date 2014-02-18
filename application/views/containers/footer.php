@@ -57,15 +57,18 @@ jQuery(document).ready(function() {
 <script src="<?php echo ASSETS ?>plugins/bootstrap-maxlength/bootstrap-maxlength.min.js" type="text/javascript"></script>
 <script src="<?php echo ASSETS ?>plugins/bootstrap-touchspin/bootstrap.touchspin.js" type="text/javascript"></script>
 <script src="<?php echo ASSETS ?>plugins/bootbox/bootbox.min.js" type="text/javascript"></script>
+<script src="<?php echo ASSETS ?>plugins/dropzone/dropzone.js"></script>
 <script src="<?php echo ASSETS ?>scripts/ui-bootbox.js" type="text/javascript"></script>
 <script src="<?php echo ASSETS ?>scripts/app.js"></script>
 <script src="<?php echo ASSETS ?>scripts/form-components.js"></script>
 <script src="<?php echo ASSETS ?>scripts/custom-forms.js"></script>
+<script src="<?php echo ASSETS ?>scripts/form-dropzone.js"></script>
 <script>
 jQuery(document).ready(function() {
-   App.init();
-   FormComponents.init();
-   UIBootbox.init();
+  App.init();
+  FormComponents.init();
+  UIBootbox.init();
+  FormDropzone.init();
 });
 </script>
 <?php elseif ($page == 'dashboard'): ?>
