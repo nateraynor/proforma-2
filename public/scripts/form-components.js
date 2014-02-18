@@ -456,13 +456,9 @@ var FormComponents = function () {
         });
     }
     var handleMultiSelect = function () {
-        $('#my_multi_select1').multiSelect();
-        $('#my_multi_select2').multiSelect({
-            selectableOptgroup: true
-        });
-        $('#my_multi_select3').multiSelect({
-            selectableHeader: "<input type='text' class='form-control search-input' autocomplete='off' placeholder='search...'>",
-            selectionHeader: "<input type='text' class='form-control search-input' autocomplete='off' placeholder='search...'>",
+        $('#products-select, #customers-select').multiSelect({
+            selectableHeader: "<input type='text' class='form-control search-input' autocomplete='off' placeholder='Ara...'>",
+            selectionHeader: "<input type='text' class='form-control search-input' autocomplete='off' placeholder='Ara...'>",
             afterInit: function (ms) {
                 var that = this,
                     $selectableSearch = that.$selectableUl.prev(),

@@ -1,6 +1,29 @@
 <div class="header navbar navbar-inverse navbar-fixed-top">
 	<div class="header-inner">
 		<a class="navbar-brand" href="<?php echo base_url(); ?>"><img src="<?php echo ASSETS; ?>img/ICM-Mars-Logo-transparent.png" alt="logo" class="img-responsive"/></a>
+		<div class="hor-menu hidden-sm hidden-xs">
+			<ul class="nav navbar-nav">
+				<li class="" style="margin-left: 50px;">
+					<a data-toggle="dropdown" data-hover="dropdown" data-close-others="true" href="#">
+					Hızlı Erişim <i class="fa fa-angle-down"></i>
+					</a>
+					<ul class="dropdown-menu">
+						<li>
+							<a href="<?php echo base_url() ?>products/product">Ürün Ekle</a>
+						</li>
+						<li>
+							<a href="<?php echo base_url() ?>categories/category">Ürün Kategori Ekle</a>
+						</li>
+						<li>
+							<a href="<?php echo base_url() ?>brands/brand">Ürün Marka Ekle</a>
+						</li>
+						<li>
+							<a href="<?php echo base_url() ?>customers/customer">Müşteri Ekle</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
 		<a href="javascript:;" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><img src="<?php echo ASSETS ?>img/menu-toggler.png" alt=""/></a>
 		<ul class="nav navbar-nav pull-right">
 			<li class="dropdown user">
@@ -62,9 +85,15 @@
 					<span class="title">Anasayfa</span>
 					</a>
 				</li>
+				<li class="<?php echo $menu == 'proposals' ? "active" : ''; ?>">
+					<a href="<?php echo base_url() ?>proposals">
+					<i class="fa fa-money"></i>
+					<span class="title">Teklifler</span>
+					</a>
+				</li>
 				<li class="<?php echo $menu == 'products' ? "active" : ''; ?>">
 					<a href="javascript:;">
-					<i class="fa fa-group"></i>
+					<i class="fa fa-barcode"></i>
 					<span class="title">Ürünler</span>
 					<span class="arrow "></span>
 					</a>
@@ -73,36 +102,18 @@
 							<a href="<?php echo base_url() ?>products">Ürün Listesi</a>
 						</li>
 						<li>
-							<a href="<?php echo base_url() ?>products/product">Ürün Ekle</a>
-						</li>
-						<li>
 							<a href="<?php echo base_url() ?>categories">Ürün Kategori Listesi</a>
-						</li>
-						<li>
-							<a href="<?php echo base_url() ?>categories/category">Ürün Kategori Ekle</a>
 						</li>
 						<li>
 							<a href="<?php echo base_url() ?>brands">Ürün Marka Listesi</a>
 						</li>
-						<li>
-							<a href="<?php echo base_url() ?>brands/brand">Ürün Marka Ekle</a>
-						</li>
 					</ul>
 				</li>
 				<li class="<?php echo $menu == 'customers' ? "active" : ''; ?>">
-					<a href="javascript:;">
+					<a href="<?php echo base_url() ?>customers">
 					<i class="fa fa-group"></i>
 					<span class="title">Müşteriler</span>
-					<span class="arrow "></span>
 					</a>
-					<ul class="sub-menu">
-						<li>
-							<a href="<?php echo base_url() ?>customers">Müşteri Listesi</a>
-						</li>
-						<li>
-							<a href="<?php echo base_url() ?>customers/customer">Müşteri Ekle</a>
-						</li>
-					</ul>
 				</li>
 				<li class="<?php echo $menu == 'reports' ? "active" : ''; ?>">
 					<a href="<?php echo base_url() ?>reports">
