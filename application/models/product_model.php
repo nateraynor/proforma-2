@@ -34,7 +34,6 @@ class Product_model extends CI_Model {
  		return $result;
  	}
 
-
  	public function getProduct($product_id) {
  		$result = $this->db->query("SELECT * FROM product p LEFT JOIN product_to_category ptc ON p.product_id = ptc.product_id WHERE p.product_id = '" . (int)$product_id . "' LIMIT 1");
  		return $result->row(0, 'array');
@@ -62,5 +61,11 @@ class Product_model extends CI_Model {
  	public function getTotalProduct() {
  		$result = $this->db->query("SELECT COUNT(*) AS 'total' FROM product");
  		return $result->row(0)->total;
+ 	}
+
+ 	public function addProductFile($file_name, $product_id) {
+ 		$result = $this->db->query("INSERT INTO product_gallery SET product_id = '" . (int)$product_id . "', image_path = " . $this->db->escape($file_name));
+
+ 		return $result;
  	}
 }

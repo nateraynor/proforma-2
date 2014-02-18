@@ -10,6 +10,13 @@ $(document).ready(function(){
 		return false;
 	});
 
+	$('#proposal-template').change(function() {
+		var id = $(this).val();
+
+		$('.template').fadeOut(300);
+		$('#template-' + id).fadeIn(600);
+	});
+
 	$('.save-template').click(function() {
 		var html = $('div.active').children('.template').html();
 		var template_id = $('div.active').find('.template-id').val();

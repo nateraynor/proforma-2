@@ -29,22 +29,27 @@ class Products extends CI_Controller {
 			$data['product'] = $this->product_model->getProduct($product_id);
 		if ($this->input->post() && $this->validate($this->input->post())) {
 		   $result = false;
+
 		   $config['upload_path'] = './uploads/';
 		   $config['allowed_types'] = 'gif|jpg|png|jpeg';
 		   $config['max_size'] = '500';
 		   $config['max_width']  = '1024';
 		   $config['max_height']  = '768';
+
 		   $this->load->library('upload', $config);
+
 			if ($product_id == -1) {
 				if ($_FILES['product_image']['name'] != '' && !$this->upload->do_upload('product_image')){
 					$this->errors[] = $this->upload->display_errors();
 				} else {
 					$insert_data = $this->input->post();
+
 					if($_FILES['product_image']['name'] != '')
 						$upload_data = $this->upload->data();
 					else
-						$upload_data['file_name'] = $product['product_image'];
-					$insert_data['product_image'] = NULL;
+						$upload_data['file_name'] = NULL;
+
+					$insert_data['product_image'] = $upload_data['file_name'];
 					$result = $this->product_model->addProduct($insert_data);
 				}
 				if ($result) {
@@ -56,10 +61,12 @@ class Products extends CI_Controller {
 					$this->errors[] = $this->upload->display_errors();
 				} else {
 					$update_data = $this->input->post();
+
 					if ($_FILES['product_image']['name'] != '')
 						$upload_data = $this->upload->data();
 					else
 						$upload_data['file_name'] = $data['product']['product_image'];
+
 					$update_data['product_image'] = $upload_data['file_name'];
 					$result = $this->product_model->updateProduct($update_data, $product_id);
 				}
@@ -78,6 +85,30 @@ class Products extends CI_Controller {
 		$data['products'] = $this->product_model->getProducts($filters);
 		$this->load->view('layouts/default', $data);
 	}
+
+	public function fileUpload($product_id) {
+		$this->load->model('product_model');
+
+		$config['upload_path'] = './uploads/';
+		$config['allowed_types'] = 'gif|jpg|png|jpeg|doc|xls|xlsx|pdf|ppt|pptx|docx|docm|xlm|xlsm|sql';
+		$config['max_size'] = '500';
+		$config['max_width']  = '1024';
+		$config['max_height']  = '768';
+
+		$this->load->library('upload', $config);
+
+		if (!empty($_FILES)) {
+			$tempFile = $_FILES['file']['tmp_name'];
+			$targetPath = './uploads/';
+			$targetFile = $targetPath . $_FILES['file']['name'];
+			move_uploaded_file($tempFile, $targetFile);
+
+	        $result = $this->product_model->addProductFile($targetFile, $product_id);
+	    }
+
+	    echo $result;
+	}
+
 	public function deleteProduct($product_id) {
 		$this->load->model('product_model');
 		$result = $this->product_model->deleteProduct($product_id);
@@ -87,6 +118,7 @@ class Products extends CI_Controller {
 			$this->session->set_flashdata('error', 'Ürün silinemedi!');
 		redirect('products');
 	}
+
 	public function validate($data) {
 		$errors = array();
 		if (!empty($errors)) {
