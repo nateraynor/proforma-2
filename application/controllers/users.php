@@ -80,6 +80,29 @@ class Users extends CI_Controller {
 			return true;
 		}
 	}
+	public function userChangePassword($user_id){
+		$this->load->model('user_model');
+		$user = $this->user_model->getUser($user_id);
+
+		if($this->input->post()){
+			$data['user'] = $this->input->post();
+	
+			if(md5($data['user']['past_pass']) != $user['user_password']){
+				$this->session->set_flashdata('errorPass', 'Eski Şifreyle uyuşmamaktadır');		
+
+				redirect('users/user/'.$user_id);
+			}else if($data['user']['new_pass'] != $data['user']['repeat_new_pass']){
+				$this->session->set_flashdata('errorPass', 'Eski Şifreyle uyuşmamaktadır');	
+
+				redirect('users/user/'.$user_id);
+			}else{
+				$result = $this->user_model->updateUserPassword($this->input->post(), $user_id);
+				$this->session->set_flashdata('success', 'Kullanıcı şifersi başarıyla güncellendi');
+				redirect('users');
+			}
+
+		}
+	}
 	public function deleteUser($user_id){
 		$this->load->model('user_model');
 		$result = $this->user_model->deleteUser($user_id);

@@ -59,4 +59,9 @@ class User_model extends CI_Model {
         else
             return false;
     }
+    public function updateUserPassword($data, $user_id){
+        $result = $this->db->query("UPDATE user SET user_password = ".$this->db->escape(md5($data['repeat_new_pass'])) ." WHERE user_id = '".(int)$user_id."'");
+        return $result;
+    }
+
 }

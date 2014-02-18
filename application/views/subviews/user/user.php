@@ -119,12 +119,58 @@
 								</div>
 							</div>
 							<div class="form-actions right">
-								<a type="button" class="btn default" href="<?php echo base_url() ?>customerStatuses">İptal</a>
+								<a type="button" class="btn default" href="<?php echo base_url() ?>users">İptal</a>
 								<button type="submit" class="btn green"><i class="fa fa-check"></i> Kaydet</button>
 							</div>
 						</form>
 					</div>
 				</div>
+				<?php if(isset($user)): ?>
+					<?php if ($this->session->flashdata('errorPass')): ?>
+					<div class="alert alert-danger">
+						<button class="close" data-close="alert"></button>
+						<span><?php echo $this->session->flashdata('errorPass') ?></span>
+					</div>
+					<?php endif; ?>
+					<div class="portlet box grey">
+					<div class="portlet-title">
+						<div class="caption">
+							<i class="fa fa-reorder"></i>Kullanıcı Şifre Değişikliği
+						</div>
+					</div>
+					<div class="portlet-body form">
+						<form action="<?php echo base_url() . 'users/userChangePassword/' . $user_id; ?>" enctype="multipart/form-data" method="post" class="horizontal-form">
+							<div class="form-body">
+								<div class="row">
+							
+									<div class="col-md-6">
+										<div class="form-group">
+											<label class="control-label">Eski Şifre</label>
+											<input type="text" name="past_pass" class="form-control" placeholder="Eski Şifre">
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label class="control-label">Yeni Şifre</label>
+											<input type="text" name="new_pass" class="form-control" placeholder="Yeni Şifre">
+										</div>
+									</div>
+									<div class="col-md-6 pull-right">
+										<div class="form-group">
+											<label class="control-label">Tekrar Yeni Şifre</label>
+											<input type="password" name="repeat_new_pass" class="form-control" placeholder="Tekrar Yeni Şifre" >
+										</div>
+									</div>
+				
+							</div>
+							<div class="form-actions right">
+								<a type="button" class="btn default" href="<?php echo base_url() ?>users">İptal</a>
+								<button type="submit" class="btn green"><i class="fa fa-check"></i> Kaydet</button>
+							</div>
+						</form>
+					</div>
+					</div>
+				<?php endif; ?>
 			</div>
 		</div>
 	</div>
