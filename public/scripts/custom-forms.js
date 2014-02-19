@@ -53,4 +53,20 @@ $(document).ready(function(){
 	$('#proposal-discount').change(function() {
 		$('#proposal-total').val(total - (total * $(this).val() / 100));
 	});
+
+	$('.remove-file').click(function(){
+		var file_id = $(this).attr('file');
+		var preview = $(this).parent();
+		$.ajax({
+			type: "POST",
+			url: base_url + 'products/removeFile/' + file_id,
+			success: function(){
+				bootbox.alert("Resim başarıyla silinmiştir.");
+				preview.fadeOut(500);
+	        },
+	       	error:function(){
+				bootbox.alert("<strong style='color: red;'>Dikkat! Resim silinemedi. Lütfen tekrar deneyin.</strong>");
+	        }
+		});
+	});
 });

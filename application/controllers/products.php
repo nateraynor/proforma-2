@@ -25,8 +25,14 @@ class Products extends CI_Controller {
 		$this->load->model('category_model');
 		$this->load->model('brand_model');
 		$filters = array();
-		if ($product_id != -1)
+
+		$data['product_files'] = array();
+
+		if ($product_id != -1) {
 			$data['product'] = $this->product_model->getProduct($product_id);
+			$data['product_files'] = $this->product_model->getProductFiles($product_id);
+		}
+
 		if ($this->input->post() && $this->validate($this->input->post())) {
 		   $result = false;
 
@@ -79,6 +85,7 @@ class Products extends CI_Controller {
 		$data['categories'] = $this->category_model->getCategory($filters);
 		$data['brands']  = $this->brand_model->getBrands($filters);
 		$data['product_id'] = $product_id;
+
 		$data['menu'] = 'products';
 		$data['page'] = 'forms';
 		$data['subview'] = 'products/product';
@@ -100,13 +107,23 @@ class Products extends CI_Controller {
 		if (!empty($_FILES)) {
 			$tempFile = $_FILES['file']['tmp_name'];
 			$targetPath = './uploads/';
-			$targetFile = $targetPath . $_FILES['file']['name'];
+			$targetFile = $targetPath . time() . $_FILES['file']['name'];
 			move_uploaded_file($tempFile, $targetFile);
 
-	        $result = $this->product_model->addProductFile($targetFile, $product_id);
+	        $result = $this->product_model->addProductFile(time() . $_FILES['file']['name'], $product_id);
 	    }
 
 	    echo $result;
+	}
+
+	public function removeFile($file_id) {
+		$this->load->model('product_model');
+
+		$file_path = $this->product_model->removeFile($file_id);
+
+		unlink($file_path);
+
+		return $file_path;
 	}
 
 	public function deleteProduct($product_id) {

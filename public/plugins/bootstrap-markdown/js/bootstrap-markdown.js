@@ -622,6 +622,7 @@
         name: 'groupLink',
         data: [{
           name: 'cmdUrl',
+          btnClass: 'hidden',
           title: 'URL/Link',
           icon: 'glyphicon glyphicon-globe',
           callback: function(e){
@@ -645,6 +646,7 @@
         },{
           name: 'cmdImage',
           title: 'Image',
+          btnClass: 'hidden',
           icon: 'glyphicon glyphicon-picture',
           callback: function(e){
             // Give ![] surround the selection and prepend the image link
@@ -713,8 +715,8 @@
           name: 'cmdPreview',
           toggle: true,
           title: 'Preview',
-          btnText: 'Preview',
-          btnClass: 'btn btn-primary btn-sm',
+          btnText: 'Ön izleme',
+          btnClass: 'btn btn-primary btn-sm hidden',
           icon: 'glyphicon glyphicon-search',
           callback: function(e){
             // Check the preview mode and toggle based on this flag
