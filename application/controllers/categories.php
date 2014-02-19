@@ -47,12 +47,34 @@ class Categories extends CI_Controller {
 	}
 	public function deleteCategory($category_id) {
 		$this->load->model('category_model');
-		$result = $this->category_model->deleteCategory($category_id);
-		if ($result)
-			$this->session->set_flashdata('success', 'Ürün Kategorisi başarıyla silindi!');
-		else
-			$this->session->set_flashdata('error', 'Ürün Kategorisi silinemedi!');
+		$subcategory = $this->category_model->getSubCategory($category_id);
+		$products = $this->category_model->getProducts($category_id);
+		$categories_name = array();
+			foreach ($subcategory as $category) {
+				 $categories_name[] = $category['category_name'];
+			}
+			$names = '';
+			$countnames = count($names);
+			for ($i=0; $i<= $countnames ;$i++) { 
+				$names .= $categories_name[$i];
+					if($i != $countnames)
+						$names .= ', ';
+			}
+		
+		if(!empty($products)){
+			$this->session->set_flashdata('error', 'Kategoriye ait ürün var !');
+		}elseif($subcategory){
+			$this->session->set_flashdata('error', 'Kategoriye ait (' . $names . ') alt kategorileri var !');
+		}else{
+			$result = $this->category_model->deleteCategory($category_id);
+			if ($result)
+				$this->session->set_flashdata('success', 'Ürün Kategorisi başarıyla silindi!');
+			else
+				$this->session->set_flashdata('error', 'Ürün Kategorisi silinemedi!');
+		}
+			
 		redirect('categories');
+	
 	}
 	public function validate($data) {
 		$errors = array();

@@ -57,12 +57,19 @@ class Brands extends CI_Controller {
 	public function deleteBrand($brand_id) {
 		$this->load->model('brand_model');
 
-		$result = $this->brand_model->deleteBrand($brand_id);
+		$products = $this->brand_model->getProducts($brand_id);
 
-		if ($result)
-			$this->session->set_flashdata('success', 'Ürün Marka başarıyla silindi!');
-		else
-			$this->session->set_flashdata('error', 'Ürün Marka silinemedi!');
+		if(!empty($products)){
+			$this->session->set_flashdata('error', ' Markaya ait ürün var !');
+		}else{
+			$result = $this->brand_model->deleteBrand($brand_id);
+
+			if ($result)
+				$this->session->set_flashdata('success', 'Ürün Marka başarıyla silindi!');
+			else
+				$this->session->set_flashdata('error', 'Ürün Marka silinemedi!');
+		}
+			
 
 		redirect('brands');
 	}

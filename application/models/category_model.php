@@ -61,4 +61,17 @@ class Category_model extends CI_Model {
 
  		return $result->row(0)->total;
  	}
+
+ 	public function getProducts($category_id){
+ 		$result = $this->db->query("SELECT * FROM product_to_category WHERE category_id = '" .(int)$category_id . "'");
+
+ 		return $result->result_array();
+
+ 	}
+ 	public function getSubCategory($category_id){
+ 		$result = $this->db->query("SELECT * FROM category WHERE category_parent_id = '" .(int)$category_id ."'");
+
+ 		return $result->result_array();
+
+ 	}
 }

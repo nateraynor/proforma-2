@@ -37,4 +37,11 @@ class Brand_model extends CI_Model {
 
  		return $result->row(0)->total;
  	}
+
+ 	public function getProducts($brand_id){
+ 		$result = $this->db->query("SELECT * FROM product WHERE brand_id = '" .(int)$brand_id . "'");
+
+ 		return $result->result_array();
+
+ 	}
 }
