@@ -49,4 +49,20 @@ class Product_model extends CI_Model {
 
  		return $result;
  	}
+
+ 	public function removeFile($file_id) {
+ 		$file_name = $this->db->query("SELECT image_path FROM product_gallery WHERE image_id = '" . (int)$file_id . "'")->row(0)->image_path;
+
+ 		$this->db->query("DELETE FROM product_gallery WHERE image_id = '" . $file_id . "' LIMIT 1");
+
+ 		$file_path = './uploads/' . $file_name;
+
+ 		return $file_path;
+ 	}
+
+ 	public function getProductFiles($product_id) {
+ 		$result = $this->db->query("SELECT * FROM product_gallery WHERE product_id = '" . (int)$product_id . "'");
+
+ 		return $result->result_array();
+ 	}
 }
