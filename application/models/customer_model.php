@@ -13,7 +13,7 @@ class Customer_model extends CI_Model {
  	}
 
  	public function getCustomersForExcel() {
- 		$result = $this->db->query("SELECT customer_id AS 'Müşteri No' FROM customer");
+ 		$result = $this->db->query("SELECT customer_id as 'Müşteri No', customer_name as 'Müşteri Adı', customer_surname as 'Müşteri Soyadı' , customer_email as 'Müşteri E-posta' , customer_company as 'Müşteri Şirket' , customer_phone as 'Müşteri Telefon' , customer_address as 'Müşteri Adres' , customer_date_added as 'Müşteri Eklenme Tarihi' , customer_date_updated as 'Müşteri Güncelleme Tarihi'  FROM customer");
 
  		return $result->result_array();
  	}

@@ -108,7 +108,12 @@ class Products extends CI_Controller {
 
 	    echo $result;
 	}
-
+	public function excelOutput() {
+		$this->load->library('excel');
+		$this->load->model('product_model');
+		$results = $this->product_model->getProductsForExcel();
+        $this->excel->to_excel($results, 'products-excel', 'Ürünler');
+	}
 	public function deleteProduct($product_id) {
 		$this->load->model('product_model');
 		$result = $this->product_model->deleteProduct($product_id);
@@ -118,7 +123,6 @@ class Products extends CI_Controller {
 			$this->session->set_flashdata('error', 'Ürün silinemedi!');
 		redirect('products');
 	}
-
 	public function validate($data) {
 		$errors = array();
 		if (!empty($errors)) {

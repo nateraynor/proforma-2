@@ -35,4 +35,10 @@ class Proposal_model extends CI_Model {
 
  		return $result->result_array();
  	}
+ 	public function getProposalsForExcel(){
+ 		$result = $this->db->query("SELECT proposal as 'prop' FORM proposal");
+
+ 		return $result->result_array();
+ 	}
+
 }
