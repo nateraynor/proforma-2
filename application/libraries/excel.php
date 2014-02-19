@@ -21,7 +21,7 @@ class excel{
 		echo '<table><tr>';
 		foreach($h as $key) {
 			$key = ucwords($key);
-			echo '<th>'.$key.'</th>';
+			echo '<th style="float: left;">'.$key.'</th>';
 		}
 
 		echo '</tr>';

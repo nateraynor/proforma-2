@@ -67,7 +67,7 @@
 								<button class="btn dropdown-toggle" data-toggle="dropdown">Araçlar <i class="fa fa-angle-down"></i></button>
 								<ul class="dropdown-menu pull-right">
 									<li><a href="javascript:window.print();">Sayfayı Yazdır</a></li>
-									<li><a href="<?php echo base_url() ?>category/excelOutput">Excel Çıktısı</a></li>
+									<li><a href="<?php echo base_url() ?>proposals/excelOutput">Excel Çıktısı</a></li>
 								</ul>
 							</div>
 						</div>

@@ -11,29 +11,10 @@ class Product_model extends CI_Model {
  		return $result->result_array();
  	}
 
- 	public function getCustomersForExcel() {
- 		$this->load->model('config_model');
-
- 		$columns = $this->config_model->getColumns('customer');
-
- 		$sql = "SELECT * FROM customer";
-
- 		$result = $this->db->query($sql);
- 		$result = $result->result_array();
-
- 		foreach ($result as $key => $customer_info) {
- 			foreach ($customer_info as $key_sub => $value) {
-	 			$column_info = $this->config_model->getColumnInfo($key_sub);
-
- 				$customer_info[$column_info['name']] = $value;
- 				unset($customer_info[$key_sub]);
- 			}
-			$result[$key] = $customer_info;
- 		}
-
- 		return $result;
+ 	public function getProductsForExcel() {
+ 		$result = $this->db->query("SELECT p.product_id as 'Ürün No', product_name as 'Ürün Adı' , b.brand_name as 'Ürün Marka' , c.category_name as 'Ürün Kategori' ,product_description as 'Ürün Açıklaması', product_price as 'Ürün Fiyat', product_tax_rate as 'Ürün Vergi Oranı' , product_date_added as 'Ürün Eklenme Tarihi' , product_date_updated as 'Ürün Güncellenme Tarihi' FROM product p LEFT JOIN brand b ON p.brand_id = b.brand_id LEFT JOIN product_to_category ptc ON ptc.product_id = p.product_id LEFT JOIN category c ON ptc.category_id = c.category_id");
+ 		return $result->result_array();
  	}
-
  	public function getProduct($product_id) {
  		$result = $this->db->query("SELECT * FROM product p LEFT JOIN product_to_category ptc ON p.product_id = ptc.product_id WHERE p.product_id = '" . (int)$product_id . "' LIMIT 1");
  		return $result->row(0, 'array');

@@ -35,7 +35,12 @@ class Proposals extends CI_Controller {
 		$data['errors'] = $this->errors;
 		$this->load->view('layouts/default', $data);
 	}
-
+	public function excelOutput() {
+		$this->load->library('excel');
+		$this->load->model('proposal_model');
+		$results = $this->proposal_model->getProposalsForExcel();
+        $this->excel->to_excel($results, 'proposals-excel', 'Teklifler');
+	}
 	public function proposal($proposal_id = -1) {
 		$this->load->model('proposal_model');
 		$filters = array();
