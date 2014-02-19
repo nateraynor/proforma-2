@@ -38,15 +38,40 @@ class Settings extends CI_Controller {
             }
             if ($result) {
                 $this->session->set_flashdata('success', 'Şirket bilgileri başarıyla kayıt edildi');
-                redirect('settings/companyInfo');
+                redirect('settings/generalSetting#company_setting');
             }
         }
+    }
+
+    public function generalSetting(){
+        $this->load->model('setting_model');
+
+        if ($this->input->post()) {
+            $key = $this->input->post('key');
+            $result = $this->setting_model->setSetting($key, $this->input->post());
+
+                if($result){
+                    if($key == 'meta'){
+                        $this->session->set_flashdata('success', 'Meta bilgileri başarıyla kayıt edildi');
+                        redirect('settings/generalSetting');   
+                    }
+                    if($key == 'email'){
+                        $this->session->set_flashdata('success', 'E-posta bilgileri başarıyla kayıt edildi');
+                        redirect('settings/generalSetting#email_setting');
+                    }
+                 }
+        }
+         
+        $data['metaInfo'] = $this->setting_model->getSetting('meta');
+        $data['emailInfo'] = $this->setting_model->getSetting('email');
+        $data['company'] = $this->setting_model->getSetting('company_info');
         $data['errors'] = $this->errors;
         $data['menu'] = 'settings';
         $data['page'] = 'forms';
-        $data['subview'] = 'settings/company';
+        $data['subview'] = 'settings/settings';
         $this->load->view('layouts/default', $data);
     }
+
     public function saveTemplate($template_id) {
         $this->load->model('setting_model');
         $result = $this->setting_model->saveTemplate($this->input->post(), $template_id);

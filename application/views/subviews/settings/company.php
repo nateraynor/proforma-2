@@ -59,7 +59,7 @@
 													<input type="text" name="company_name" class="form-control" col-type="varchar" placeholder="Şirket Adı" value="<?php echo isset($company['company_name']) ? $company['company_name'] : ''; ?>" required>
 												</div>
 											</div>
-											<div class="col-md-6">
+											<div class="col-md-6"meta
 												<div class="form-group">
 													<label class="control-label">Şirket Yetkili Adı</label>
 													<input type="text" name="company_entitled_name" class="form-control" col-type="varchar" placeholder="Şirket Yetkili Adı" value="<?php echo isset($company['company_entitled_name']) ? $company['company_entitled_name'] : ''; ?>" required>
