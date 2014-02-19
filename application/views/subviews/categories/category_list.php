@@ -41,7 +41,7 @@
 				<div class="portlet box grey">
 					<div class="portlet-title">
 						<div class="caption">
-							<i class="fa fa-group"></i>Ürün Kategori Listesi
+							<i class="fa fa-sitemap"></i>Ürün Kategori Listesi
 						</div>
 						<div class="actions">
 							<div class="btn-group">

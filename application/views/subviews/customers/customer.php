@@ -3,22 +3,6 @@
 		<div class="row">
 			<div class="col-md-12">
 				<ul class="page-breadcrumb breadcrumb">
-					<li class="btn-group">
-						<a href="<?php echo base_url() . 'customers/customerActions/' . $customer_id; ?>" class="btn dark">
-						<span>
-							Müşteri İşlemleri
-						</span>
-						</a>
-						<button type="button" class="btn red dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
-						<span>
-							İşlemler
-						</span>
-						<i class="fa fa-angle-down"></i>
-						</button>
-						<ul class="dropdown-menu pull-right" role="menu">
-							<li><a href="javascript:window.print();">Sayfayı Yazdır</a></li>
-						</ul>
-					</li>
 					<li>
 						<i class="fa fa-home"></i>
 						<a href="<?php echo base_url() ?>">Anasayfa</a>
@@ -61,7 +45,7 @@
 			 	<div class="portlet box grey">
 					<div class="portlet-title">
 						<div class="caption">
-							<i class="fa fa-group"></i> Müşteri Ekle
+							<i class="fa fa-reorder"></i> Müşteri
 						</div>
 					</div>
 					<div class="portlet-body form">

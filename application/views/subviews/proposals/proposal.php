@@ -45,7 +45,7 @@
 			 	<div class="portlet box grey">
 					<div class="portlet-title">
 						<div class="caption">
-							<i class="fa fa-group"></i> Teklif
+							<i class="fa fa-reorder"></i> Teklif
 						</div>
 					</div>
 					<div class="portlet-body form">
