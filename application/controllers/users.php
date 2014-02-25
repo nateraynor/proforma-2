@@ -8,6 +8,15 @@ class Users extends CI_Controller {
     }
 	public function index() {
 		$this->load->model('user_model');
+		$this->load->model('setting_model');
+		$allowed_pages = $this->session->userdata['allowed_pages'];
+		if(!empty($allowed_pages) && (!strstr($allowed_pages,'userslist'))){
+			$this->session->set_flashdata('error','Kullanıcılar sayfasına erişim izniniz yoktur!');
+			redirect('home');
+
+		}
+		
+		$data['metaInfo'] = $this->setting_model->getSetting('meta');	
 		$data['users'] = $this->user_model->getUsers();
 		$data['name'] = $this->session->userdata['name'];
 		$data['menu'] = 'users';
@@ -17,13 +26,23 @@ class Users extends CI_Controller {
 	}
 	public function user($user_id = -1) {
 		$this->load->model('user_model');
+		$this->load->model('setting_model');
+
+		$allowed_pages = $this->session->userdata['allowed_pages'];
+		if(!empty($allowed_pages) && (!strstr($allowed_pages,'users/user'))){
+			$this->session->set_flashdata('error','Kullanıcı işlemleri sayfasına erişim izniniz yoktur!');
+			redirect('home');
+
+		}
+
 		$validate_data =  $this->input->post();
 		$validate_data['user_id'] = $user_id;
+
+
 		if ($this->input->post() && $this->validate($validate_data)) {
 			$result = false;
 			if ($user_id == -1) {
 					$result = $this->user_model->addUser($this->input->post());
-
 					$this->session->set_flashdata('warning', 'Kullanıcı başarıyla eklendi');
 					redirect('users');
 				if ($result) {
@@ -37,6 +56,8 @@ class Users extends CI_Controller {
 		}
 		if ($user_id != -1)
 			$data['user'] = $this->user_model->getUser($user_id);
+		
+		$data['metaInfo'] = $this->setting_model->getSetting('meta');	
 		$data['user_id'] = $user_id;
 		$data['menu'] = 'users';
 		$data['errors'] = $this->errors;
@@ -92,12 +113,12 @@ class Users extends CI_Controller {
 
 				redirect('users/user/'.$user_id);
 			}else if($data['user']['new_pass'] != $data['user']['repeat_new_pass']){
-				$this->session->set_flashdata('errorPass', 'Eski Şifreyle uyuşmamaktadır');	
+				$this->session->set_flashdata('errorPass', 'Şifreler uyuşmamaktadır');	
 
 				redirect('users/user/'.$user_id);
 			}else{
 				$result = $this->user_model->updateUserPassword($this->input->post(), $user_id);
-				$this->session->set_flashdata('success', 'Kullanıcı şifersi başarıyla güncellendi');
+				$this->session->set_flashdata('success', 'Kullanıcı şifresi başarıyla güncellendi');
 				redirect('users');
 			}
 

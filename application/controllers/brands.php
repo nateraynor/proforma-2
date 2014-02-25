@@ -11,9 +11,15 @@ class Brands extends CI_Controller {
 
     	public function index() {
 		$this->load->model('brand_model');
-
+		$this->load->model('setting_model');
 		$filters = array();
+		$allowed_pages = $this->session->userdata['allowed_pages'];
+		if(!empty($allowed_pages) && (!strstr($allowed_pages, 'brandslist'))){
+			$this->session->set_flashdata('error','Markalar sayfasına erişim izniniz yoktur !');
+			redirect('home');
+		}
 
+		$data['metaInfo'] = $this->setting_model->getSetting('meta');	
 		$data['brands'] = $this->brand_model->getBrands($filters);
 		$data['menu'] = 'products';
 		$data['page'] = 'advancedtables';
@@ -25,7 +31,15 @@ class Brands extends CI_Controller {
 	}
 	public function brand($brand_id = -1) {
 		$this->load->model('brand_model');
+		$this->load->model('setting_model');
 		$filters = array();
+
+		$allowed_pages = $this->session->userdata['allowed_pages'];
+		if(!empty($allowed_pages) && (!strstr($allowed_pages, 'brands/brand'))){
+			$this->session->set_flashdata('error','Marka işlemlerine erişim izniniz yoktur !');
+			redirect('home');
+		}
+
 
 		if ($this->input->post() && $this->validate($this->input->post())) {
 			$result = false;
@@ -46,7 +60,8 @@ class Brands extends CI_Controller {
 
 		if ($brand_id != -1)
 			$data['brand'] = $this->brand_model->getBrand($brand_id);
-
+		
+		$data['metaInfo'] = $this->setting_model->getSetting('meta');	
 		$data['brand_id'] = $brand_id;
 		$data['menu'] = 'products';
 		$data['page'] = 'forms';

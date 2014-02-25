@@ -39,7 +39,7 @@
 					<div class="portlet box grey">
 						<div class="portlet-title">
 							<div class="caption">
-								<i class="fa fa-sitemap"></i>Kullanıcılar
+								<i class="fa fa-male"></i>Kullanıcılar
 							</div>
 						</div>
 						<div class="portlet-body">

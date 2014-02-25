@@ -13,7 +13,9 @@ class Reports extends CI_Controller {
 
 	public function index() {
 		$this->load->model('report_model');
-
+		$this->load->model('setting_model');
+		
+		$data['metaInfo'] = $this->setting_model->getSetting('meta');	
 		$data['total_actions'] = $this->report_model->getTotalActions();
 		$data['total_customers'] = $this->report_model->getTotalCustomers();
 		$data['total_users'] = $this->report_model->getTotalUsers();

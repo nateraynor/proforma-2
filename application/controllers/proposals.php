@@ -11,7 +11,15 @@ class Proposals extends CI_Controller {
 
 	public function index() {
 		$this->load->model('proposal_model');
+		$this->load->model('setting_model');
+
 		$filters = array();
+
+		$allowed_pages = $this->session->userdata['allowed_pages'];
+		if(!empty($allowed_pages) && (!strstr($allowed_pages, 'proposalslist'))){
+			$this->session->set_flashdata('error','Teklifler sayfasına erişim izniniz yoktur!');
+			redirect('home');
+		}
 
 		$data['proposals'] = array();
 		$proposals = $this->proposal_model->getProposals($filters);
@@ -28,6 +36,7 @@ class Proposals extends CI_Controller {
 			);
 		}
 
+		$data['metaInfo'] = $this->setting_model->getSetting('meta');	
 		$data['menu'] = 'proposals';
 		$data['page'] = 'advancedtables';
 		$data['subview'] = 'proposals/proposal_list';
@@ -43,7 +52,16 @@ class Proposals extends CI_Controller {
 	}
 	public function proposal($proposal_id = -1) {
 		$this->load->model('proposal_model');
+		$this->load->model('product_model');
+		$this->load->model('customer_model');
+		$this->load->model('setting_model');
+
 		$filters = array();
+		$allowed_pages = $this->session->userdata['allowed_pages'];
+		if(!empty($allowed_pages) && (!strstr($allowed_pages, 'proposals/proposal'))){
+			$this->session->set_flashdata('error','Teklif işlemleri sayfasına erişim izniniz yoktur!');
+			redirect('home');
+		}
 
 		if ($this->input->post() && $this->validate($this->input->post())) {
 			$result = false;
@@ -72,10 +90,9 @@ class Proposals extends CI_Controller {
 			$data['proposal_products'] 	= $this->proposal_model->getProposalProducts($proposal_id);
 		}
 
-		$this->load->model('product_model');
-		$this->load->model('customer_model');
-		$this->load->model('setting_model');
+	
 
+		$data['metaInfo'] = $this->setting_model->getSetting('meta');	
 		$data['products'] = $this->product_model->getProducts(array());
 		$data['customers'] = $this->customer_model->getCustomers(array());
 		$data['templates'] = $this->setting_model->getTemplates();
@@ -109,5 +126,7 @@ class Proposals extends CI_Controller {
 			return true;
 		}
 	}
+
+	
 }
 ?>

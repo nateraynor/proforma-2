@@ -10,7 +10,17 @@ class Products extends CI_Controller {
 		$this->load->model('product_model');
 		$this->load->model('category_model');
 		$this->load->model('brand_model');
+		$this->load->model('setting_model');
+
 		$filters = array();
+		$allowed_pages = $this->session->userdata['allowed_pages'];
+		if(!empty($allowed_pages) && (!strstr($allowed_pages,'productslist'))){
+			$this->session->set_flashdata('error','Ürünler sayfasına erişim izniniz yoktur!');
+			redirect('home');
+
+		}
+
+		$data['metaInfo'] = $this->setting_model->getSetting('meta');	
 		$data['products'] = $this->product_model->getProducts($filters);
 		$data['categories'] = $this->category_model->getCategory($filters);
 		$data['brands']  = $this->brand_model->getBrands($filters);
@@ -24,7 +34,15 @@ class Products extends CI_Controller {
 		$this->load->model('product_model');
 		$this->load->model('category_model');
 		$this->load->model('brand_model');
+		$this->load->model('setting_model');
+
 		$filters = array();
+
+		$allowed_pages = $this->session->userdata['allowed_pages'];
+		if (!empty($allowed_pages) && (!strstr($allowed_pages, 'products/product'))) {
+			$this->session->set_flashdata('error','Ürün işlmeleri sayfasına erişim izniniz yoktur!');
+			redirect('home');			
+		}
 
 		$data['product_files'] = array();
 
@@ -85,6 +103,8 @@ class Products extends CI_Controller {
 		$data['categories'] = $this->category_model->getCategory($filters);
 		$data['brands']  = $this->brand_model->getBrands($filters);
 		$data['product_id'] = $product_id;
+		$data['metaInfo'] = $this->setting_model->getSetting('meta');	
+		
 
 		$data['menu'] = 'products';
 		$data['page'] = 'forms';

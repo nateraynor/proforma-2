@@ -12,12 +12,30 @@ class User_model extends CI_Model {
     	return $result->row(0, 'array');
     }
     public function addUser($data) {
-    	$result = $this->db->query("INSERT INTO user SET  user_name = " . $this->db->escape($data['user_name']) . ", user_surname = " . $this->db->escape($data['user_surname']) . " ,user_username = " . $this->db->escape($data['user_username']) . " ,user_email = " . $this->db->escape($data['user_email']) . ", user_password = " . $this->db->escape(md5($data['user_password'])) . " ,user_status = '" . (int)$data['user_status'] . "', user_date_added = now()"); //Allowed pages eklenicek
+
+        $countpages = count($data['user_allowed_pages']);
+        $pages = '';
+            for ($i=0; $i < $countpages ; $i++) { 
+                $pages .= $data['user_allowed_pages'][$i];
+                    if($i < $countpages-1 )
+                        $pages .= ',';
+            }
+
+    	$result = $this->db->query("INSERT INTO user SET  user_name = " . $this->db->escape($data['user_name']) . ", user_surname = " . $this->db->escape($data['user_surname']) . " ,user_username = " . $this->db->escape($data['user_username']) . " ,user_email = " . $this->db->escape($data['user_email']) . ", user_password = " . $this->db->escape(md5($data['user_password'])) . " ,user_status = '" . (int)$data['user_status'] . "', user_date_added = now() , user_allowed_pages = " .$this->db->escape($pages) . " "); //Allowed pages eklenicek
 
         return $result;
     }
     public function updateUser($data, $user_id) {
-    	$result = $this->db->query("UPDATE user SET  user_name = " . $this->db->escape($data['user_name']) . ", user_surname = " . $this->db->escape($data['user_surname']) . ", user_username = " . $this->db->escape($data['user_username']) . ", user_email = " . $this->db->escape($data['user_email']) . ", user_password = " . $this->db->escape(md5($data['user_password'])) . " ,user_status = '" . (int)$data['user_status'] . "', user_date_updated = now()  WHERE user_id = '" . (int)$user_id . "' ");
+
+        $countpages = count($data['user_allowed_pages']);
+        $pages = '';
+            for ($i=0; $i < $countpages ; $i++) { 
+                $pages .= $data['user_allowed_pages'][$i];
+                    if($i < $countpages-1)
+                        $pages .= ',';
+            }
+
+    	$result = $this->db->query("UPDATE user SET  user_name = " . $this->db->escape($data['user_name']) . ", user_surname = " . $this->db->escape($data['user_surname']) . ", user_username = " . $this->db->escape($data['user_username']) . ", user_email = " . $this->db->escape($data['user_email']) . ", user_password = " . $this->db->escape(md5($data['user_password'])) . " ,user_status = '" . (int)$data['user_status'] . "', user_date_updated = now() , user_allowed_pages = " .$this->db->escape($pages) . " WHERE user_id = '" . (int)$user_id . "' ");
         return $result;
 
     }

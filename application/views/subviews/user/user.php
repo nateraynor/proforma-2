@@ -82,7 +82,43 @@
 											<input type="password" name="user_password" class="form-control" placeholder="Kullanıcı Şifre" value="" >
 										</div>
 									</div>
-								
+									<div class="col-md-6">
+										<div class="form-group">
+											<label class="control-label">İzin Verilen Sayfalar</label>
+												<select name="user_allowed_pages[]" id="select2_sample2" class="form-control select2" multiple placeholder="Seçiniz">
+													<?php echo $user['user_allowed_pages']; ?>
+
+													<optgroup label="Ayarlar">
+													<option value="setting/templates" <?php echo isset($user['user_allowed_pages']) && (strstr($user['user_allowed_pages'],'setting/templates'))  ? 'selected' : '';?>>Şablonlar</option>
+													<option value="settings/generalSetting" <?php echo isset($user['user_allowed_pages']) && (strstr($user['user_allowed_pages'],'settings/generalSetting' )) ? 'selected' : ' ' ;?>>Genel Ayarlar</option>
+													</optgroup>
+													<optgroup label="Teklifler">
+													<option value="proposalslist" <?php echo isset($user['user_allowed_pages']) && (strstr($user['user_allowed_pages'],'proposalslist')) ? 'selected' : '' ?>>Teklifler</option>
+													<option value="proposals/proposal" <?php echo isset($user['user_allowed_pages']) && (strstr($user['user_allowed_pages'],'proposals/proposal')) ? 'selected' : ''?>>Teklif İşlemleri</option>
+													</optgroup>
+													<optgroup label="Müşteriler">
+													<option value="customerslist" <?php echo isset($user['user_allowed_pages']) && (strstr($user['user_allowed_pages'],'customerslist')) ? 'selected' : '' ;?>>Müşteriler</option>
+													<option value="customers/customer" <?php echo isset($user['user_allowed_pages']) && (strstr($user['user_allowed_pages'],'customers/customer'))  ? 'selected' : '';?>>Müşteri İşlemleri</option>
+													</optgroup>
+													<optgroup label="Ürünler">
+													<option value="productslist" <?php echo isset($user['user_allowed_pages']) && (strstr($user['user_allowed_pages'],'productslist'))  ? 'selected' : '';?>>Ürünler</option>
+													<option value="products/product" <?php echo isset($user['user_allowed_pages']) && (strstr($user['user_allowed_pages'],'products/product'))  ? 'selected' : '';?>>Ürün İşlemleri</option>
+													</optgroup>
+													<optgroup label="Kategoriler">
+													<option value="categorieslist" <?php echo isset($user['user_allowed_pages']) && (strstr($user['user_allowed_pages'],'categorieslist'))  ? 'selected' : '';?>>Kategoriler</option>
+													<option value="categories/category" <?php echo isset($user['user_allowed_pages']) && (strstr($user['user_allowed_pages'],'categories/category'))  ? 'selected' : '';?> >Kategori İşlemleri</option>
+													</optgroup>
+													<optgroup label="Markalar">
+													<option value="brandslist" <?php echo isset($user['user_allowed_pages']) && (strstr($user['user_allowed_pages'],'brandslist'))  ? 'selected' : '';?>>Markalar</option>
+													<option value="brands/brand" <?php echo isset($user['user_allowed_pages']) && (strstr($user['user_allowed_pages'],'"brands/brand'))  ? 'selected' : '';?>>Marka İşlemleri</option>
+													</optgroup>
+													<optgroup label="Kullanıcılar">
+													<option value="userslist" <?php echo isset($user['user_allowed_pages']) && (strstr($user['user_allowed_pages'],'userslist'))  ? 'selected' : '';?>>Kullanıcılar</option>
+													<option value="users/user" <?php echo isset($user['user_allowed_pages']) && (strstr($user['user_allowed_pages'],'"users/user'))  ? 'selected' : '';?>>Kullanıcı İşlemleri</option>
+													</optgroup>
+												</select>
+										</div>
+									</div>
 									<!--<div class="col-md-6">
 										<div class="form-group">
 											<label class="control-label">Yetkili Sayfalar</label>

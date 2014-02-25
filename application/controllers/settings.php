@@ -8,6 +8,13 @@ class Settings extends CI_Controller {
     }
     public function templates() {
     	$this->load->model('setting_model');
+
+        $allowed_pages = $this->session->userdata['allowed_pages'];
+        if(!empty($allowed_pages) && (!strstr($allowed_pages, 'settings/templates'))){
+            $this->session->set_flashdata('error','Şablonlar sayfasına erişim izniniz yoktur!');
+            redirect('home');
+        }
+
     	$data['templates'] = $this->setting_model->getTemplates();
         $data['menu'] = 'settings';
         $data['page'] = 'forms';
@@ -25,6 +32,7 @@ class Settings extends CI_Controller {
             $config['max_width']  = '1024';
             $config['max_height']  = '768';
             $this->load->library('upload', $config);
+            
             if ($_FILES['company_image']['name'] != '' && !$this->upload->do_upload('company_image')){
                 $this->errors[] = $this->upload->display_errors();
             } else {
@@ -45,6 +53,8 @@ class Settings extends CI_Controller {
 
     public function generalSetting(){
         $this->load->model('setting_model');
+
+       
 
         if ($this->input->post()) {
             $key = $this->input->post('key');

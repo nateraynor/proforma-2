@@ -8,10 +8,11 @@
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 <head>
 <meta charset="utf-8"/>
-<title>ICM Yazılım | CRM</title>
+<title><?php echo isset($metaInfo['title']) ? $metaInfo['title'] : ' ' ;?></title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<meta content="" name="description"/>
+<meta name="description" content="<?php echo isset($metaInfo['description']) ? $metaInfo['description'] : '' ;?>"/>
+<meta name="keywords" content="<?php echo isset($metaInfo['keyword']) ? $metaInfo['keyword'] : '' ;?>"/>
 <meta content="" name="author"/>
 <meta name="MobileOptimized" content="320">
 <!-- BEGIN GLOBAL MANDATORY STYLES -->

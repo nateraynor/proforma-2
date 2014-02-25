@@ -40,5 +40,10 @@ class Proposal_model extends CI_Model {
 
  		return $result->result_array();
  	}
+ 	public function getTotalProposals(){
+		$result = $this->db->query("SELECT COUNT(*) AS 'total' FROM proposal ");
+
+		return $result->row(0)->total;
+	}
 
 }

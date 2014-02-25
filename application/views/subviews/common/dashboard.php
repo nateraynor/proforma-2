@@ -70,6 +70,12 @@
 					</div>
 				</div>
 			</div>-->
+			<?php if ($this->session->flashdata('error')): ?>
+				<div class="alert alert-danger">
+					<button class="close" data-close="alert"></button>
+					<span><?php echo $this->session->flashdata('error') ?></span>
+				</div>
+			<?php endif; ?>
 			<div class="row">
 				<div class="col-md-12">
 					<ul class="page-breadcrumb breadcrumb">
@@ -105,7 +111,7 @@
 					</div>
 				</div>
 				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-					<div class="dashboard-stat green">
+					<div class="dashboard-stat yellow">
 						<div class="visual">
 							<i class="fa fa-barcode"></i>
 						</div>
@@ -137,6 +143,24 @@
 						</div>
 						<a class="more" href="<?php echo base_url() ?>users/user">
 						Kullanıcı Ekle <i class="fa fa-plus"></i>
+						</a>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+					<div class="dashboard-stat green">
+						<div class="visual">
+							<i class="fa fa-money"></i>
+						</div>
+						<div class="details">
+							<div class="number">
+								<?php echo $total_proposals; ?>
+							</div>
+							<div class="desc">
+								Teklifler
+							</div>
+						</div>
+						<a class="more" href="<?php echo base_url() ?>proposals/proposal">
+						Teklif Ekle <i class="fa fa-plus"></i>
 						</a>
 					</div>
 				</div>

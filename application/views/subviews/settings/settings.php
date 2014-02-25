@@ -41,7 +41,7 @@
 				<div class="portlet box grey">
 					<div class="portlet-title">
 						<div class="caption">
-							<i class="fa fa-reorder"></i>Genel Ayarlar
+							<i class="fa fa-cogs"></i>Genel Ayarlar
 						</div>
 						<div class="tools">
 							<a href="javascript:;" class="collapse"></a>

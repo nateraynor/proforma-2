@@ -29,6 +29,14 @@ class Report_model extends CI_Model {
 
         return $total;
     }
+
+    public function getTotalProposals(){
+        $this->load->model('proposal_model');
+
+        $total = $this->proposal_model->getTotalProposals();
+
+        return $total;
+    }
     public function getCustomerStatistics($type) {
     	if ($type == 'monthly') {
     		$month = date('m');

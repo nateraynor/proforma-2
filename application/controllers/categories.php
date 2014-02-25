@@ -8,7 +8,17 @@ class Categories extends CI_Controller {
     }
     public function index() {
 		$this->load->model('category_model');
+		$this->load->model('setting_model');
+
 		$filters = array();
+		
+		$allowed_pages = $this->session->userdata['allowed_pages'];
+		if(!empty($allowed_pages) && (!strstr($allowed_pages, 'categorieslist'))){
+			$this->session->set_flashdata('error','Kategoriler sayfasına erişim izniniz yoktur !');
+			redirect('home');
+		}
+
+		$data['metaInfo'] = $this->setting_model->getSetting('meta');	
 		$data['categories'] = $this->category_model->getCategory($filters);
 		$data['menu'] = 'products';
 		$data['page'] = 'advancedtables';
@@ -19,6 +29,14 @@ class Categories extends CI_Controller {
 	}
 	public function category($category_id = -1) {
 		$this->load->model('category_model');
+		$this->load->model('setting_model');
+
+		$allowed_pages = $this->session->userdata['allowed_pages'];
+		if(!empty($allowed_pages) && (!strstr($allowed_pages, 'categories/category'))){
+			$this->session->set_flashdata('error','Kategori işlemleri sayfasına erişim izniniz yoktur !');
+			redirect('home');
+		}
+
 		$filters = array();
 		if ($this->input->post() && $this->validate($this->input->post())) {
 			$result = false;
@@ -38,6 +56,8 @@ class Categories extends CI_Controller {
 		}
 		if ($category_id != -1)
 			$data['category'] = $this->category_model->getCategories($category_id);
+
+		$data['metaInfo'] = $this->setting_model->getSetting('meta');	
 		$data['category_id'] = $category_id;
 		$data['menu'] = 'products';
 		$data['page'] = 'forms';
