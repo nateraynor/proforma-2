@@ -73,16 +73,6 @@
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
-											<label class="control-label">Ürünler</label>
-											<select name="proposal_products" class="multi-select" multiple="" id="products-select" style="position: absolute; left: -9999px;">
-												<?php foreach ($products as $product): ?>
-													<option value="<?php echo $product['product_id'] ?>" price="<?php echo $product['product_price']; ?>"><?php echo $product['product_name']; ?> <span class="product-price"><?php echo $product['product_price']; ?> TL</span></option>
-												<?php endforeach ?>
-											</select>
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="form-group">
 											<label class="control-label">Müşteriler</label>
 											<select name="proposal_customers" class="multi-select" multiple="" id="customers-select" style="position: absolute; left: -9999px;">
 												<?php foreach ($customers as $customer): ?>
@@ -90,6 +80,41 @@
 												<?php endforeach ?>
 											</select>
 										</div>
+									</div>
+									<div class="col-md-12">
+										<div class="form-group">
+											<label class="control-label">Ürünler</label>
+											<select name="proposal_products" class="multi-select" multiple="" id="products-select" style="position: absolute; left: -9999px;">
+												<?php foreach ($products as $product): ?>
+													<option value="<?php echo $product['product_id'] ?>" price="<?php echo $product['product_price']; ?>"><?php echo $product['product_name']; ?></option>
+												<?php endforeach ?>
+											</select>
+										</div>
+										<div class="form-group col-md-12" style="display: none;" id="product-details-form">
+											<div class="col-md-2">
+												<label class="control-label">Ürün</label>
+												<input id="product-name" readonly="" class="form-control" value="" type="text">
+											</div>
+											<div class="col-md-2">
+												<label class="control-label">Ürün Fiyatı</label>
+												<input id="product-price" readonly="" class="form-control" value="" type="text">
+											</div>
+											<div class="col-md-2">
+												<label class="control-label">Adet</label>
+												<input id="product-quantity" class="form-control" value="1" type="number">
+											</div>
+											<div class="col-md-6">
+												<label class="control-label">Ürün Ekleri</label>
+												<div id="product-files">
+
+												</div>
+											</div>
+										</div>
+										<div class="clearfix"></div>
+										<div class="form-actions right" id="product-details-button" style="display: none;">
+											<a href="#" class="btn green">Ekle</a>
+										</div>
+										<hr />
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
