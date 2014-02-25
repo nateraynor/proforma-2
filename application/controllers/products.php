@@ -6,6 +6,7 @@ class Products extends CI_Controller {
         if (!isset($this->session->userdata['user_id']))
         	redirect('login');
     }
+
     public function index() {
 		$this->load->model('product_model');
 		$this->load->model('category_model');
@@ -30,6 +31,7 @@ class Products extends CI_Controller {
 		$data['errors'] = $this->errors;
 		$this->load->view('layouts/default', $data);
 	}
+
 	public function product($product_id = -1) {
 		$this->load->model('product_model');
 		$this->load->model('category_model');
@@ -109,7 +111,6 @@ class Products extends CI_Controller {
 		$data['menu'] = 'products';
 		$data['page'] = 'forms';
 		$data['subview'] = 'products/product';
-		$data['products'] = $this->product_model->getProducts($filters);
 		$this->load->view('layouts/default', $data);
 	}
 
@@ -162,6 +163,24 @@ class Products extends CI_Controller {
 			$this->session->set_flashdata('error', 'Ürün silinemedi!');
 		redirect('products');
 	}
+
+	public function getProductAjax($product_id) {
+		$this->load->model('product_model');
+		$this->load->model('category_model');
+		$this->load->model('brand_model');
+		$filters = array();
+
+		$data['product_files'] = array();
+
+		if ($product_id != -1) {
+			$data['product'] = $this->product_model->getProduct($product_id);
+			$data['product_files'] = $this->product_model->getProductFiles($product_id);
+			$data['brand'] = $this->brand_model->getBrand($data['product']['brand_id']);
+		}
+
+		echo json_encode($data);
+	}
+
 	public function validate($data) {
 		$errors = array();
 		if (!empty($errors)) {

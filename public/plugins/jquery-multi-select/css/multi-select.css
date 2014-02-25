@@ -1,6 +1,6 @@
 .ms-container{
-  background: transparent url('../img/switch.png') no-repeat 50% 50%;
-  width: 370px;
+  background: transparent url('../img/switch.png') no-repeat 32% 50%;
+  width: 100%;
 }
 .ms-container:after{
   content: ".";
@@ -16,11 +16,18 @@
   background: #fff;
   color: #555555;
   float: left;
-  width: 45%;
+  width: 30%;
 }
 .ms-container .ms-selection{
   float: right;
+  width: 65%;
 }
+
+.ms-container .ms-selection .selected{
+  float: right;
+  width: 65%;
+}
+
 .ms-container .ms-list{
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
