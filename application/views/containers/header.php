@@ -134,9 +134,8 @@
 					<span class="arrow "></span>
 					</a>
 					<ul class="sub-menu">
-						<li><a href="<?php echo base_url() ?>settings/companyInfo">Şirket Bilgileri</a></li>
 						<li><a href="<?php echo base_url() ?>settings/templates">Şablonlar</a></li>
-						<li><a href="<?php echo base_url() ?>settings/settings">Genel Ayarlar</a></li>
+						<li><a href="<?php echo base_url() ?>settings/generalSetting">Genel Ayarlar</a></li>
 					</ul>
 				</li>
 			</ul>

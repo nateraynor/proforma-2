@@ -41,7 +41,7 @@
 				<div class="portlet box grey">
 					<div class="portlet-title">
 						<div class="caption">
-							<i class="fa fa-group"></i>Teklifler
+							<i class="fa fa-money"></i>Teklifler
 						</div>
 						<div class="actions">
 							<div class="btn-group">

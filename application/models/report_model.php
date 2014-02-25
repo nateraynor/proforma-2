@@ -6,20 +6,6 @@ class Report_model extends CI_Model {
         parent::__construct();
     }
 
-    public function getTotalActions() {
-    	$this->load->model('action_model');
-
-    	$action_types = $this->action_model->getActionTypes();
-
-    	$total = 0;
-
-    	foreach ($action_types as $action_type) {
-    		$total += $this->action_model->getTotalActions($action_type['action_name']);
-    	}
-
-    	return $total;
-    }
-
     public function getTotalCustomers() {
     	$this->load->model('customer_model');
 
@@ -36,6 +22,13 @@ class Report_model extends CI_Model {
     	return $total;
     }
 
+    public function getTotalProducts(){
+        $this->load->model('product_model');
+
+        $total = $this->product_model->getTotalProduct();
+
+        return $total;
+    }
     public function getCustomerStatistics($type) {
     	if ($type == 'monthly') {
     		$month = date('m');

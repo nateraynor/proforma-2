@@ -46,7 +46,7 @@
 			 	<div class="portlet box grey">
 					<div class="portlet-title">
 						<div class="caption">
-							<i class="fa fa-group"></i> Kategori Ekle
+							<i class="fa fa-reorder"></i> Kategori
 						</div>
 					</div>
 					<div class="portlet-body form">

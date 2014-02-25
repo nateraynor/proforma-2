@@ -51,12 +51,12 @@ var FormComponents = function () {
             alwaysShow: true,
             warningClass: "label label-success",
             limitReachedClass: "label label-danger",
-            separator: ' out of ',
-            preText: 'You typed ',
-            postText: ' chars available.',
+            separator: ' karakter ',
+            preText: 'Yazdığınız ',
+            postText: ' mevcut karakter.',
             validate: true
         });
-        $('#maxlength_textarea').maxlength({
+        $('.maxlength_textarea').maxlength({
             limitReachedClass: "label label-danger",
             alwaysShow: true
         });

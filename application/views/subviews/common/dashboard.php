@@ -75,12 +75,12 @@
 					<ul class="page-breadcrumb breadcrumb">
 						<li class="btn-group">
 					        <a class="btn red" style="color: white;"><span>
-					        Houston Kuaför
+					        ICM Proforma
 					    	</span></a>
 					    </li>
 						<li>
 							<i class="fa fa-home"></i>
-							<a href="#">Anasayfa</a>
+							<a href="<?php echo base_url(); ?>home">Anasayfa</a>
 						</li>
 					</ul>
 				</div>
@@ -107,18 +107,18 @@
 				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
 					<div class="dashboard-stat green">
 						<div class="visual">
-							<i class="fa fa-credit-card"></i>
+							<i class="fa fa-barcode"></i>
 						</div>
 						<div class="details">
 							<div class="number">
-								<?php echo $total_actions; ?>
+								<?php echo $total_products; ?>
 							</div>
 							<div class="desc">
-								İşlem
+								Ürün
 							</div>
 						</div>
-						<a class="more" href="<?php echo base_url() ?>actions/action/genel_islemler">
-						İşlem Ekle <i class="fa fa-plus"></i>
+						<a class="more" href="<?php echo base_url() ?>products/product">
+						Ürün Ekle <i class="fa fa-plus"></i>
 						</a>
 					</div>
 				</div>
