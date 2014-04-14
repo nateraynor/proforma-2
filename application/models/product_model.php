@@ -7,7 +7,21 @@ class Product_model extends CI_Model {
     }
 
  	public function getProducts($filters) {
- 		$result = $this->db->query("SELECT * FROM product p LEFT JOIN product_to_category ptc ON p.product_id = ptc.product_id");
+ 		$sql = "SELECT * FROM product p LEFT JOIN product_to_category ptc ON p.product_id = ptc.product_id";
+
+ 		if (!empty($filters)) {
+ 			$sql .= " WHERE";
+
+ 			if (isset($filters['filter_name'])) {
+ 				$sql .= " product_name LIKE " . $this->db->escape('%' . $filters['filter_name'] . '%');
+ 			}
+
+ 			if (isset($filters['limit'])) {
+ 				$sql .= ' LIMIT ' . $filters['limit'];
+ 			}
+ 		}
+
+ 		$result = $this->db->query($sql);
  		return $result->result_array();
  	}
 

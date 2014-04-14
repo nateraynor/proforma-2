@@ -3,6 +3,7 @@ class Products extends CI_Controller {
 	var $errors = array();
 	public function __construct() {
     	parent::__construct();
+
         if (!isset($this->session->userdata['user_id']))
         	redirect('login');
     }
@@ -21,7 +22,7 @@ class Products extends CI_Controller {
 
 		}
 
-		$data['metaInfo'] = $this->setting_model->getSetting('meta');	
+		$data['metaInfo'] = $this->setting_model->getSetting('meta');
 		$data['products'] = $this->product_model->getProducts($filters);
 		$data['categories'] = $this->category_model->getCategory($filters);
 		$data['brands']  = $this->brand_model->getBrands($filters);
@@ -43,7 +44,7 @@ class Products extends CI_Controller {
 		$allowed_pages = $this->session->userdata['allowed_pages'];
 		if (!empty($allowed_pages) && (!strstr($allowed_pages, 'products/product'))) {
 			$this->session->set_flashdata('error','Ürün işlmeleri sayfasına erişim izniniz yoktur!');
-			redirect('home');			
+			redirect('home');
 		}
 
 		$data['product_files'] = array();
@@ -102,11 +103,13 @@ class Products extends CI_Controller {
 				}
 			}
 		}
+
+		$data['tax_rates'] = $this->setting_model->getSetting('tax_rates');
 		$data['categories'] = $this->category_model->getCategory($filters);
 		$data['brands']  = $this->brand_model->getBrands($filters);
 		$data['product_id'] = $product_id;
-		$data['metaInfo'] = $this->setting_model->getSetting('meta');	
-		
+		$data['metaInfo'] = $this->setting_model->getSetting('meta');
+
 
 		$data['menu'] = 'products';
 		$data['page'] = 'forms';
@@ -162,6 +165,22 @@ class Products extends CI_Controller {
 		else
 			$this->session->set_flashdata('error', 'Ürün silinemedi!');
 		redirect('products');
+	}
+
+	public function getProductsAjax($value) {
+		$this->load->model('product_model');
+
+		$filters = array(
+			'filter_name' => $value,
+			'limit'		  => 10
+		);
+
+		$products = $this->product_model->getProducts($filters);
+
+		foreach ($products as $product) {
+			echo '<a href="#" class="autocomplete-result" onclick="autocompleteResult(this, ' . $product['product_id'] . ', ' . $product['product_price'] . ', ' . $product['product_tax_rate'] . '); return false;">' . $product['product_name'] . '</a>';
+		}
+
 	}
 
 	public function getProductAjax($product_id) {

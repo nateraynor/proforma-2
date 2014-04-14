@@ -8,7 +8,7 @@ class Login extends CI_Controller {
 
 	public function index() {
 		$this->load->model('setting_model');
-		
+
 		if (isset($this->session->userdata['user_id']))
 			redirect('home');
 		if ($this->input->post() && $this->validate($this->input->post())) {
@@ -21,12 +21,13 @@ class Login extends CI_Controller {
 				$this->session->set_userdata('username', $result['user_username']);
 				$this->session->set_userdata('allowed_pages', $result['user_allowed_pages']);
 				$this->session->set_userdata('name', $result['user_name']);
+				$this->session->set_userdata('surname', $result['user_surname']);
 				$this->session->set_userdata('email', $result['user_email']);
 				redirect('home');
 			}
 		}
-		
-		$data['metaInfo'] = $this->setting_model->getSetting('meta');	
+
+		$data['metaInfo'] = $this->setting_model->getSetting('meta');
 		$data['errors'] = $this->errors;
 		$data['subview'] = 'login/login';
 		$this->load->view('layouts/login', $data);

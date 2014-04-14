@@ -36,7 +36,7 @@ class Proposals extends CI_Controller {
 			);
 		}
 
-		$data['metaInfo'] = $this->setting_model->getSetting('meta');	
+		$data['metaInfo'] = $this->setting_model->getSetting('meta');
 		$data['menu'] = 'proposals';
 		$data['page'] = 'advancedtables';
 		$data['subview'] = 'proposals/proposal_list';
@@ -44,12 +44,32 @@ class Proposals extends CI_Controller {
 		$data['errors'] = $this->errors;
 		$this->load->view('layouts/default', $data);
 	}
+
 	public function excelOutput() {
 		$this->load->library('excel');
 		$this->load->model('proposal_model');
 		$results = $this->proposal_model->getProposalsForExcel();
         $this->excel->to_excel($results, 'proposals-excel', 'Teklifler');
 	}
+
+	public function preview($proposal_id) {
+		$this->load->model('proposal_model');
+		$this->load->model('setting_model');
+
+		$data['proposal'] = $this->proposal_model->getProposal($proposal_id);
+		$data['proposal_customers'] = $this->proposal_model->getProposalCustomers($proposal_id);
+		$data['proposal_notes'] = $this->proposal_model->getProposalNotes($proposal_id);
+		$data['proposal_products'] = $this->proposal_model->getProposalProducts($data['proposal']['proposal_code']);
+		$data['templates'] = $this->setting_model->getTemplates();
+		$data['company_info'] = $this->setting_model->getSetting('company_info');
+		$data['metaInfo'] = $this->setting_model->getSetting('meta');
+		$data['proposal_id'] = $proposal_id;
+		$data['menu'] = 'proposals';
+		$data['page'] = 'forms';
+		$data['subview'] = 'proposals/preview';
+		$this->load->view('layouts/default', $data);
+	}
+
 	public function proposal($proposal_id = -1) {
 		$this->load->model('proposal_model');
 		$this->load->model('product_model');
@@ -58,6 +78,7 @@ class Proposals extends CI_Controller {
 
 		$filters = array();
 		$allowed_pages = $this->session->userdata['allowed_pages'];
+
 		if(!empty($allowed_pages) && (!strstr($allowed_pages, 'proposals/proposal'))){
 			$this->session->set_flashdata('error','Teklif işlemleri sayfasına erişim izniniz yoktur!');
 			redirect('home');
@@ -71,7 +92,7 @@ class Proposals extends CI_Controller {
 
 				if ($result) {
 					$this->session->set_flashdata('success', 'Teklif başarıyla oluşturuldu eklendi');
-					redirect('proposals');
+					redirect('proposals/preview/' . $result);
 				}
 			} else {
 				$result = $this->proposal_model->updateProposal($this->input->post(), $proposal_id);
@@ -90,15 +111,14 @@ class Proposals extends CI_Controller {
 			$data['proposal_products'] 	= $this->proposal_model->getProposalProducts($proposal_id);
 		}
 
-	
-
-		$data['metaInfo'] = $this->setting_model->getSetting('meta');	
-		$data['products'] = $this->product_model->getProducts(array());
+		//$data['products'] = $this->product_model->getProducts(array());
 		$data['customers'] = $this->customer_model->getCustomers(array());
 		$data['templates'] = $this->setting_model->getTemplates();
+		$data['tax_rates'] = $this->setting_model->getSetting('tax_rates');
 
+		$data['metaInfo'] = $this->setting_model->getSetting('meta');
 		$data['proposal_id'] = $proposal_id;
-		$data['menu'] = 'products';
+		$data['menu'] = 'proposals';
 		$data['page'] = 'forms';
 		$data['subview'] = 'proposals/proposal';
 		$this->load->view('layouts/default', $data);
@@ -117,6 +137,14 @@ class Proposals extends CI_Controller {
 		redirect('proposals');
 	}
 
+	public function addProposalProductAjax() {
+		$this->load->model('proposal_model');
+
+		$result = $this->proposal_model->addTemporaryProposalProduct($this->input->post());
+
+		echo $result;
+	}
+
 	public function validate($data) {
 		$errors = array();
 		if (!empty($errors)) {
@@ -127,6 +155,6 @@ class Proposals extends CI_Controller {
 		}
 	}
 
-	
+
 }
 ?>

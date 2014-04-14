@@ -3100,6 +3100,7 @@ Forms
 input.placeholder,
 textarea.placeholder {
   color: #aaa !important;
+  font-size: 10px;
 }
 .help-block {
  margin-top: 5px;
@@ -3384,4 +3385,19 @@ Responsive Flip Scroll Tables
   .flip-scroll tbody tr { border-left: 1px solid #ddd; }
   .flip-scroll th:last-child,
   .flip-scroll td:last-child { border-bottom: 1px solid #ddd; }
+}
+
+.autocomplete-result {
+  display: block;
+  margin-bottom: 3px;
+  font-size: 14px;
+}
+
+.autocomplete-results {
+  display: block;
+  overflow: hidden;
+  position: absolute;
+  z-index: 1000;
+  background-color: #e5e5e5;
+  width: 100%;
 }

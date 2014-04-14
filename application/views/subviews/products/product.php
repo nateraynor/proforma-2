@@ -104,7 +104,13 @@
 														<div class="col-md-6">
 															<div class="form-group">
 																<label class="control-label">Ürün Vergi Oranı</label>
-																<input type="text" name="product_tax_rate" class="form-control" col-type="varchar" placeholder="Ürün Vergi Oranı" value="<?php echo isset($product['product_tax_rate']) ? $product['product_tax_rate'] : ''; ?>" required>
+																<select name="product_tax_rate" class="form-control">
+																<?php if ($tax_rates): ?>
+																<?php foreach ($tax_rates['tax_rate'] as $tax_rate): ?>
+																	<option value="<?php echo $tax_rate['tax_rate_id']; ?>" <?php echo $product['product_tax_rate'] == $tax_rate['tax_rate_id'] ? 'selected' : ''; ?>><?php echo $tax_rate['name'] . " -> %" . $tax_rate['rate']  ?></option>
+																<?php endforeach ?>
+																<?php endif ?>
+																</select>
 															</div>
 														</div>
 														<div class="form-group last">

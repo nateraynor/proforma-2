@@ -40,6 +40,7 @@
 <link rel="stylesheet" type="text/css" href="<?php echo ASSETS ?>plugins/jquery-tags-input/jquery.tagsinput.css"/>
 <link rel="stylesheet" type="text/css" href="<?php echo ASSETS ?>plugins/bootstrap-markdown/css/bootstrap-markdown.min.css">
 <link href="<?php echo ASSETS ?>plugins/dropzone/css/dropzone.css" rel="stylesheet"/>
+<link href="<?php echo ASSETS ?>/css/pages/invoice.css" rel="stylesheet" type="text/css"/>
 <?php endif; ?>
 <!-- END PAGE LEVEL SCRIPTS -->
 <!-- BEGIN THEME STYLES -->
