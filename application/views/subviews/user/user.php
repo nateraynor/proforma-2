@@ -89,8 +89,10 @@
 													<?php echo $user['user_allowed_pages']; ?>
 
 													<optgroup label="Ayarlar">
+													<option value="settings/tax_rates" <?php echo isset($user['user_allowed_pages']) && (strstr($user['user_allowed_pages'],'settings/tax_rates' )) ? 'selected' : ' ' ;?>>Vergi Oranları</option>
 													<option value="setting/templates" <?php echo isset($user['user_allowed_pages']) && (strstr($user['user_allowed_pages'],'setting/templates'))  ? 'selected' : '';?>>Şablonlar</option>
 													<option value="settings/generalSetting" <?php echo isset($user['user_allowed_pages']) && (strstr($user['user_allowed_pages'],'settings/generalSetting' )) ? 'selected' : ' ' ;?>>Genel Ayarlar</option>
+
 													</optgroup>
 													<optgroup label="Teklifler">
 													<option value="proposalslist" <?php echo isset($user['user_allowed_pages']) && (strstr($user['user_allowed_pages'],'proposalslist')) ? 'selected' : '' ?>>Teklifler</option>

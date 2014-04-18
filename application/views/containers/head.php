@@ -25,6 +25,8 @@
 <link rel="stylesheet" type="text/css" href="<?php echo ASSETS ?>plugins/select2/select2_metro.css"/>
 <link rel="stylesheet" href="<?php echo ASSETS; ?>plugins/data-tables/DT_bootstrap.css"/>
 <?php elseif ($page == 'forms'): ?>
+<link href="<?php echo ASSETS ?>plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css" rel="stylesheet" type="text/css"/>
+<link href="<?php echo ASSETS ?>plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" type="text/css"/>
 <link rel="stylesheet" type="text/css" href="<?php echo ASSETS ?>plugins/bootstrap-fileupload/bootstrap-fileupload.css"/>
 <link rel="stylesheet" type="text/css" href="<?php echo ASSETS ?>plugins/gritter/css/jquery.gritter.css"/>
 <link rel="stylesheet" type="text/css" href="<?php echo ASSETS ?>plugins/select2/select2_metro.css"/>

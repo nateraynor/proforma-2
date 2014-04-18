@@ -32,6 +32,8 @@ jQuery(document).ready(function() {
 });
 </script>
 <?php elseif ($page == 'forms'): ?>
+<script src="<?php echo ASSETS ?>plugins/bootstrap-modal/js/bootstrap-modalmanager.js" type="text/javascript"></script>
+<script src="<?php echo ASSETS ?>plugins/bootstrap-modal/js/bootstrap-modal.js" type="text/javascript"></script>
 <script type="text/javascript" src="<?php echo ASSETS ?>plugins/fuelux/js/spinner.min.js"></script>
 <script type="text/javascript" src="<?php echo ASSETS ?>ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="<?php echo ASSETS ?>plugins/bootstrap-fileupload/bootstrap-fileupload.js"></script>
@@ -60,6 +62,8 @@ jQuery(document).ready(function() {
 <script src="<?php echo ASSETS ?>plugins/dropzone/dropzone.js"></script>
 <script src="<?php echo ASSETS ?>scripts/ui-bootbox.js" type="text/javascript"></script>
 <script src="<?php echo ASSETS ?>scripts/app.js"></script>
+<script src="<?php echo ASSETS ?>scripts/ui-extended-modals.js"></script>
+
 <script src="<?php echo ASSETS ?>scripts/form-components.js"></script>
 <script src="<?php echo ASSETS ?>scripts/custom-forms.js"></script>
 <script src="<?php echo ASSETS ?>scripts/form-dropzone.js"></script>
@@ -71,6 +75,7 @@ jQuery(document).ready(function() {
   FormDropzone.init();
 });
 </script>
+
 <?php elseif ($page == 'dashboard'): ?>
 <script src="<?php echo ASSETS; ?>plugins/jqvmap/jqvmap/jquery.vmap.js" type="text/javascript"></script>
 <script src="<?php echo ASSETS; ?>plugins/jqvmap/jqvmap/maps/jquery.vmap.russia.js" type="text/javascript"></script>
@@ -100,7 +105,6 @@ jQuery(document).ready(function() {
   Index.initChat();
   Index.initMiniCharts();
   Index.initDashboardDaterange();
-  Index.initIntro();
   Tasks.initDashboardWidget();
 });
 </script>
@@ -121,3 +125,19 @@ jQuery(document).ready(function() {
 });
 </script>
 <?php endif; ?>
+<script type="text/javascript">
+  $('.calculate').click(function(e){
+    var currency = $(this).parent().siblings('div.col-md-2.values').children('.form-control.code').val();
+    console.log(currency);
+    var result = $(this).parent().siblings('div.col-md-2.rates').children('.form-control.result').val();
+    console.log(result);
+    jQuery.ajax({
+      type: "POST",
+      url: base_url + 'settings/getExchangeRate',
+      data: {currency: currency}
+    }).done(function(get){
+          $('.result').val(get);
+      });
+  });
+
+</script>

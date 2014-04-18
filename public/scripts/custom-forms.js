@@ -52,7 +52,7 @@ $(document).ready(function(){
 
 	$('#add-tax-rate').click(function() {
 		html  = '<div class="row">';
-		html  = '	<div class="form-group">';
+		html += '	<div class="form-group">';
 		html += '		<div class="col-md-3"><input type="text" value="" class="form-control" name="tax_rate[' + tax_rate_row + '][name]"><input type="hidden" value="' + tax_rate_row + '" name="tax_rate[' + tax_rate_row + '][tax_rate_id]"></div>';
 		html += '		<div class="col-md-3"><input type="text" value="" class="form-control" name="tax_rate[' + tax_rate_row + '][rate]" style="margin-bottom: 10px;"></div>';
 		html += '		<div class="col-md-1"><a class="btn red" onclick="removeRow(this); return false;">Kaldır</a></div>';
@@ -63,8 +63,24 @@ $(document).ready(function(){
 		$('#tax-rate-list').append(html);
 		tax_rate_row++;
 	});
+	
+	$('#add-exchange-rate').click(function() {
+		html  = '<div class="row">';
+		html  += '	<div class="form-group">';
 
+		html += '		<div class="col-md-2"><input type="text" value="" class="form-control" name="exchange_rate[' + exchange_rate_row + '][name]"><input type="hidden" value="' + exchange_rate_row + '" name="exchange_rate[' + exchange_rate_row + '][exchange_rate_id]"></div>';
+		html += '		<div class="col-md-2 values"><input type="text" value="" class="form-control code" name="exchange_rate[' + exchange_rate_row + '][code]" style="margin-bottom: 10px;"></div>';
+		html += '		<div class="col-md-1"><a class="btn red" onclick="calculateExchange(this, ' + exchange_rate_row + '); return false;">Hesapla</a></div>';
+		html += '		<div class="col-md-2 rates"><input type="text" value="" id="result-' + exchange_rate_row + '" class="form-control result" name="exchange_rate[' + exchange_rate_row + '][rate]" style="margin-bottom: 10px;"></div>';
+		html += '		<div class="col-md-1"><a class="btn red" onclick="removeRow(this); return false;">Kaldır</a></div>';
+		html += '	</div>';
+		html += '</div>';
+		html += '<div class="clearfix"></div>';
 
+		$('#exchange-rate-list').append(html);
+		exchange_rate_row++;
+	});
+	
 	$('#template-' + $('#proposal-template').val()).fadeIn(800);
 
 	$('.change-pic').click(function(){
@@ -106,35 +122,29 @@ $(document).ready(function(){
 		html +=	'	<div class="form-group">';
 		html +=	'		<div class="col-md-3">';
 		html +=	'			<div class="input-group">';
-		html +=	'				<input class="form-control autocomplete-input" onkeyup="product_autocomplete(this);" placeholder="Ürün" type="text" value="">';
+		html +=	'				<input class="form-control autocomplete-input" onkeyup="product_autocomplete(this);" placeholder="Ürün" type="text" value="" name="proposal_product[' + proposal_product_row + '][product_id]">';
 		html +=	'				<div class="autocomplete-results"></div>';
-		html +=	'				<input type="hidden" class="hidden-id" value="" name="product[' + product_row + '][product_id]">';
-		html +=	'				<span class="input-group-addon"><i class="fa fa-cross"></i></span>';
+		html +=	'				<input type="hidden" class="hidden-id" value="'+ proposal_product_row + '" name="proposal_product[' + proposal_product_row + '][product_id]">';
+		html +=	'				<span class="input-group-addon"><a onclick="removeRow(this).parent(); return false;"><i class="fa fa-times"></i></a></span>';
 		html +=	'			</div>';
 		html +=	'		</div>';
-		html +=	'		<div class="col-md-1"><input class="product-quantity form-control" type="number" name="product[' + product_row + '][quantity]" placeholder="Adet" value=""></div>';
+		html +=	'		<div class="col-md-1"><input class="product-quantity form-control" type="number" name="proposal_product[' + proposal_product_row + '][product_quantity]" placeholder="Adet" value=""></div>';
 		html +=	'		<div class="col-md-2">';
 		html +=	'			<div class="input-group">';
-		html +=	'				<input class="product-price form-control" type="text" value="" name="product[' + product_row + '][price]" placeholder="Birim Fiyat">';
-		html +=	'				<span class="input-group-addon"><i class="fa fa-try"></i></span>';
+		html +=	'				<input class="product-price form-control price" id="price-' + proposal_product_row + '" type="text" value="" name="proposal_product[' + proposal_product_row + '][product_price]" placeholder="Birim Fiyat">';
+		html +=	'				<span class="input-group-addon"><div class="btn-group"><i class="fa fa-try"></i><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="fa fa-angle-down"></i></button><ul class="dropdown-menu" role="menu">' + exchange_rates +'</ul><?php endforeach ;?><?php endif; ?></div></span>';
 		html +=	'			</div>';
 		html +=	'		</div>';
-		html +=	'		<div class="col-md-2"><input class="product-discount form-control" type="text" name="product[' + product_row + '][discount]" value="" placeholder="İndirim"></div>';
+		html +=	'		<div class="col-md-2"><input class="product-discount form-control" type="text" name="proposal_product[' + proposal_product_row + '][product_discount]" value="" placeholder="İndirim"></div>';
 		html +=	'		<div class="col-md-2">';
-		html +=	'			<select class="product-discount-type form-control" name="product[' + product_row + '][discount_type]">';
+		html +=	'			<select class="product-discount-type form-control" name="proposal_product[' + proposal_product_row + '][product_discount_type]">';
 		html +=	'				<option disabled readonly selected="true">İndirim Tipi</option>';
 		html +=	'				<option>%</option>';
 		html +=	'				<option>TRL</option>';
 		html +=	'			</select>';
 		html +=	'		</div>';
 		html +=	'		<div class="col-md-2">';
-		html +=	'			<select class="product-tax-rate form-control" name="product[' + product_row + '][tax_rate]">';
-		html +=	'				<option disabled readonly selected="true">Vergi Oranı</option>';
-		html +=	'				<option>%0</option>';
-		html +=	'				<option>%1</option>';
-		html +=	'				<option>%8</option>';
-		html +=	'				<option>%18</option>';
-		html +=	'			</select>';
+		html +=	'			<select class="product-tax-rate form-control" name="proposal_product[' + proposal_product_row + '][product_tax_rate]"><option disabled readonly selected="true">Vergi Oranı</option>' + tax_rates +'</select>';
 		html +=	'		</div>';
 		html +=	'	</div>';
 		html +=	'</div>';
@@ -163,3 +173,4 @@ $(document).ready(function(){
 		});
 	});
 });
+

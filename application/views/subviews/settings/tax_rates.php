@@ -65,7 +65,7 @@
 											<input type="hidden" value="<?php echo $tax_rate['tax_rate_id'] ?>" name="tax_rate[<?php echo $tax_rate_row ?>][tax_rate_id]">
 										</div>
 										<div class="col-md-3"><input type="text" value="<?php echo $tax_rate['rate'] ?>" class="form-control" name="tax_rate[<?php echo $tax_rate_row ?>][rate]" style="margin-bottom: 10px;"></div>
-										<div class="col-md-1"><a class="btn red" onclick="removeRow(this); return false;">Kaldır</a></div>
+										<div class="col-md-1"><a class="btn red" onclick="removeRow(this).parent(); return false;">Kaldır</a></div>
 									</div>
 								</div>
 								<div class="clearfix"></div>

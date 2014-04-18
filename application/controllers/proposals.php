@@ -25,12 +25,12 @@ class Proposals extends CI_Controller {
 		$proposals = $this->proposal_model->getProposals($filters);
 
 		foreach ($proposals as $proposal) {
-			$customers = $this->proposal_model->getProposalCustomers($proposal_id);
+			//$customers = $this->proposal_model->getProposalCustomers($proposal_id);
 
 			$data['proposals'][] = array(
 				'proposal_id' 	=> $proposal['proposal_id'],
 				'proposal_name'	=> $proposal['proposal_name'],
-				'proposal_customers' => $customers,
+				'proposal_customers' => $proposal['customer_name'],
 				'proposal_total'	 => $proposal['proposal_total'],
 				'proposal_status'	 => $proposal['proposal_status']
 			);
@@ -59,7 +59,7 @@ class Proposals extends CI_Controller {
 		$data['proposal'] = $this->proposal_model->getProposal($proposal_id);
 		$data['proposal_customers'] = $this->proposal_model->getProposalCustomers($proposal_id);
 		$data['proposal_notes'] = $this->proposal_model->getProposalNotes($proposal_id);
-		$data['proposal_products'] = $this->proposal_model->getProposalProducts($data['proposal']['proposal_code']);
+		$data['proposal_products'] = $this->proposal_model->getProposalProducts($proposal_id);
 		$data['templates'] = $this->setting_model->getTemplates();
 		$data['company_info'] = $this->setting_model->getSetting('company_info');
 		$data['metaInfo'] = $this->setting_model->getSetting('meta');
@@ -115,13 +115,30 @@ class Proposals extends CI_Controller {
 		$data['customers'] = $this->customer_model->getCustomers(array());
 		$data['templates'] = $this->setting_model->getTemplates();
 		$data['tax_rates'] = $this->setting_model->getSetting('tax_rates');
-
+		$data['exchange_rates'] = $this->setting_model->getSetting('exchange_rates');
 		$data['metaInfo'] = $this->setting_model->getSetting('meta');
 		$data['proposal_id'] = $proposal_id;
 		$data['menu'] = 'proposals';
 		$data['page'] = 'forms';
 		$data['subview'] = 'proposals/proposal';
 		$this->load->view('layouts/default', $data);
+	}
+
+	public function getExchangeRate(){
+		$this->load->model('setting_model');
+
+		$result_id = $this->input->post('result_id');
+		$value = $this->input->post('value');
+		$exchange_rates = $this->setting_model->getSetting('exchange_rates');
+		foreach ($exchange_rates['exchange_rate'] as $exchange_rate) {
+			if($result_id == $exchange_rate['exchange_rate_id'])
+				echo $exchange_rate['rate'];
+					die;
+		}
+
+		$rate = $this->proposal_model->getExchangeRate($result_id);
+
+		echo $rate;
 	}
 
 	public function deleteProp($proposal_id) {

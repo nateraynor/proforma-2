@@ -84,7 +84,11 @@ class Settings extends CI_Controller {
 
     public function taxRates() {
         $this->load->model('setting_model');
-
+        $allowed_pages = $this->session->userdata['allowed_pages'];
+        if(!empty($allowed_pages) && (!strstr($allowed_pages, 'settings/tax_rates'))){
+            $this->session->set_flashdata('error','Vergi oranları sayfasına erişim izniniz yoktur!');
+            redirect('home');
+        }
         $data['tax_rates'] = $this->setting_model->getSetting('tax_rates');
 
         if ($this->input->post()) {
@@ -105,6 +109,38 @@ class Settings extends CI_Controller {
         $data['subview'] = 'settings/tax_rates';
 
         $this->load->view('layouts/default', $data);
+    }
+
+     public function exchangeRates() {
+        $this->load->model('setting_model');
+    
+        $data['exchange_rates'] = $this->setting_model->getSetting('exchange_rates');
+
+        if ($this->input->post()) {
+            $key = 'exchange_rates';
+            $result = $this->setting_model->setSetting($key, $this->input->post());
+
+            if ($result) {
+                $this->session->set_flashdata('success', 'Döviz Kurları başarıyla kayıt edildi');
+                redirect('settings/exchangeRates');
+            } else {
+                $this->session->set_flashdata('error', 'Döviz Kurları kayıt edilemedi!');
+                redirect('settings/exchangeRates');
+            }
+        }
+
+        $data['menu'] = 'settings';
+        $data['page'] = 'forms';
+        $data['subview'] = 'settings/exchange_rate';
+
+        $this->load->view('layouts/default', $data);
+    }
+
+    public function getExchangeRate() {
+        $currency = $this->input->post('currency');
+        $get = file_get_contents("http://www.freecurrencyconverterapi.com/api/convert?q=" . $currency . "-TRY&compact=y");
+        $result = substr($get,18,6);
+        echo $result;
     }
 
     public function saveTemplate($template_id) {

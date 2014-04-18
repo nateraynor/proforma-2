@@ -90,7 +90,6 @@
 
 							<?php foreach ($products as $product): ?>
 								<tr>
-						die;
 									<td><?php echo $product['product_id'] ;?></td>
 									<td><?php echo $product['product_name']; ?></td>
 									<td>

@@ -32,12 +32,12 @@ class Customer_model extends CI_Model {
 
  	public function addCustomer($data) {
 
- 		$result = $this->db->query( "INSERT INTO customer SET customer_name = " . $this->db->escape($data['customer_name']) . " , customer_surname = " . $this->db->escape($data['customer_surname']) . " ,  customer_email = " . $this->db->escape($data['customer_email']) . " , customer_company = " . $this->db->escape($data['customer_company']) . " , customer_phone = " . $this->db->escape($data['customer_phone']) . " ,  customer_address = " . $this->db->escape($data['customer_address']) . "  , customer_date_added = now() , customer_status = '" . (int)($data['customer_status']) . "'  ");
+ 		$result = $this->db->query( "INSERT INTO customer SET customer_name = " . $this->db->escape($data['customer_name']) . " , customer_surname = " . $this->db->escape($data['customer_surname']) . " ,  customer_email = " . $this->db->escape($data['customer_email']) . " , customer_company = " . $this->db->escape($data['customer_company']) . " , customer_phone = " . $this->db->escape($data['customer_phone']) . " ,  customer_address = " . $this->db->escape($data['customer_address']) . "  , customer_tax_office = " . $this->db->escape($data['customer_tax_office']) . " , customer_tax_no = " . $this->db->escape($data['customer_tax_no']) . "  ,customer_date_added = now() , customer_status = '" . (int)($data['customer_status']) . "'  ");
  		return $result;
  	}
 
  	public function updateCustomer($data , $customer_id){
- 		$result = $this->db->query("UPDATE customer SET customer_name = " . $this->db->escape($data['customer_name']) . " , customer_surname = " . $this->db->escape($data['customer_surname']) . " , customer_email = " . $this->db->escape($data['customer_email']).  " , customer_company = " . $this->db->escape($data['customer_company']) . " , customer_phone = " . $this->db->escape($data['customer_phone']) . " , customer_address = " . $this->db->escape($data['customer_address']) . " , customer_date_updated = now() , customer_status = '" . (int)($data['customer_status']) . "' WHERE customer_id = '" . (int)$customer_id . "' ");
+ 		$result = $this->db->query("UPDATE customer SET customer_name = " . $this->db->escape($data['customer_name']) . " , customer_surname = " . $this->db->escape($data['customer_surname']) . " , customer_email = " . $this->db->escape($data['customer_email']).  " , customer_company = " . $this->db->escape($data['customer_company']) . " , customer_phone = " . $this->db->escape($data['customer_phone']) . " , customer_address = " . $this->db->escape($data['customer_address']) . " , customer_tax_office = " . $this->db->escape($data['customer_tax_office']) . " , customer_tax_no = " . $this->db->escape($data['customer_tax_no']) . "  ,customer_date_updated = now() , customer_status = '" . (int)($data['customer_status']) . "' WHERE customer_id = '" . (int)$customer_id . "' ");
  		return $result;
  	}
 

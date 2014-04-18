@@ -63,12 +63,18 @@
 										<div class="form-group">
 											<label class="control-label">Teklif Durumu</label>
 											<select class="form-control select2me" name="proposal_status" data-placeholder="Seçiniz...">
-												<option value="0">İptal</option>
-												<option value="1">Taslak</option>
-												<option value="2">Gönderildi</option>
-												<option value="3">Onaylandı</option>
-												<option value="4">Değişiklik Yapıldı</option>
-												<option value="4">Red Edildi</option>
+												<option value="0" <?php echo isset($proposal['proposal_status']) && $proposal['proposal_status'] == 0 ? 'selected' : '' 
+														?>>İptal</option>
+												<option value="1" <?php echo isset($proposal['proposal_status']) && $proposal['proposal_status'] == 1 ? 'selected' : '' 
+														?>>Taslak</option>
+												<option value="2" <?php echo isset($proposal['proposal_status']) && $proposal['proposal_status'] == 2 ? 'selected' : '' 
+														?>>Gönderildi</option>
+												<option value="3" <?php echo isset($proposal['proposal_status']) && $proposal['proposal_status'] == 3 ? 'selected' : '' 
+														?>>Onaylandı</option>
+												<option value="4" <?php echo isset($proposal['proposal_status']) && $proposal['proposal_status'] == 4 ? 'selected' : '' 
+														?>>Değişiklik Yapıldı</option>
+												<option value="5" <?php echo isset($proposal['proposal_status']) && $proposal['proposal_status'] == 5 ? 'selected' : '' 
+														?>>Red Edildi</option>
 											</select>
 										</div>
 									</div>
@@ -82,38 +88,56 @@
 											</select>
 										</div>
 									</div>
+									<?php $proposal_product_row = 0 ;?>
+									<?php if(isset($proposal_products)): ?>
+									<?php foreach ($proposal_products as $proposal_product): ?>
 									<div class="col-md-12">
 										<div class="row">
 											<div class="form-group">
 												<div class="col-md-3">
 													<div class="input-group">
-														<input class="form-control autocomplete-input" onkeyup="product_autocomplete(this);" placeholder="Ürün" type="text" value="">
+														<input class="form-control autocomplete-input" onkeyup="product_autocomplete(this);" placeholder="Ürün" type="text" name="proposal_product[<?php echo $proposal_product_row ?>][product_id]" value="<?php echo $proposal_product['product_name']; ?>">
 														<div class="autocomplete-results"></div>
-														<input type="hidden" class="hidden-id" value="" name="product[0][product_id]">
-														<span class="input-group-addon"><i class="fa fa-cross"></i></span>
+														<input type="hidden" class="hidden-id" value="<?php echo $proposal_product['product_id'] ?>" name="proposal_product[<?php echo $proposal_product_row ?>][product_id]">
+														<span class="input-group-addon"><a onclick="removeRow(this).parent(); return false;"><i class="fa fa-times"></i></a></span>
 													</div>
 												</div>
-												<div class="col-md-1"><input class="product-quantity form-control" type="number" name="product[0][quantity]" placeholder="Adet" value=""></div>
+												<div class="col-md-1"><input class="product-quantity form-control" type="number" name="proposal_product[<?php echo $proposal_product_row ?>][product_quantity]" placeholder="Adet" value="<?php echo $proposal_product['product_quantity'] ?>"></div>
 												<div class="col-md-2">
 													<div class="input-group">
-														<input class="product-price form-control" type="text" value="" name="product[0][price]" placeholder="Birim Fiyat">
-														<span class="input-group-addon"><i class="fa fa-try"></i></span>
+														<input class="product-price form-control price" id="price-<?php echo $proposal_product['proposal_product_id'] ?>" type="text" value="<?php echo $proposal_product['product_price'] ?>" name="proposal_product[<?php echo $proposal_product_row ?>][product_price]" placeholder="Birim Fiyat">
+														<span class="input-group-addon">
+																<div class="btn-group">
+																	<i class="fa fa-try"></i>
+																	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="fa fa-angle-down"></i></button>
+																	<ul class="dropdown-menu" role="menu">
+																		<?php if($exchange_rates): ?>
+																			<?php foreach ($exchange_rates['exchange_rate'] as $exchange_rate): ?>
+																				<li>
+																					<a onclick="getExchange(this, <?php echo $exchange_rate['exchange_rate_id']; ?>,<?php echo $exchange_rate['rate']; ?>,<?php echo $proposal_product['proposal_product_id'] ?>); return false;" href="#"><?php echo $exchange_rate['code']; ?></a>
+																				</li>
+																			<?php endforeach ;?>
+																		<?php endif; ?>
+																	</ul>
+																</div>
+														</span>
 													</div>
 												</div>
-												<div class="col-md-2"><input class="product-discount form-control" type="text" name="product[0][discount]" value="" placeholder="İndirim"></div>
+												<div class="col-md-2"><input class="product-discount form-control" type="text" name="proposal_product[<?php echo $proposal_product_row ?>][product_discount]" value="<?php echo $proposal_product['product_discount'] ?>" placeholder="İndirim"></div>
 												<div class="col-md-2">
-													<select class="product-discount-type form-control" name="product[0][discount_type]">
+													<select class="product-discount-type form-control" name="proposal_product[<?php echo $proposal_product_row ?>][product_discount_type]">
 														<option disabled readonly selected="true">İndirim Tipi</option>
-														<option>%</option>
-														<option>TRL</option>
+														<option value="0" <?php echo isset($proposal_product['product_discount_type']) && $proposal_product['product_discount_type'] == 0 ? 'selected' : '' ;?>>%</option>
+														<option value="1" <?php echo isset($proposal_product['product_discount_type']) && $proposal_product['product_discount_type'] == 1 ? 'selected' : '' 
+														?>>TRL</option>
 													</select>
 												</div>
 												<div class="col-md-2">
-													<select class="product-tax-rate form-control" name="product[0][tax_rate]">
+													<select class="product-tax-rate form-control" name="proposal_product[<?php echo $proposal_product_row ?>][product_tax_rate]">
 														<option disabled readonly selected="true">Vergi Oranı</option>
 														<?php if ($tax_rates): ?>
 														<?php foreach ($tax_rates['tax_rate'] as $tax_rate): ?>
-															<option value="<?php echo $tax_rate['tax_rate_id']; ?>"><?php echo $tax_rate['name'] . " -> %" . $tax_rate['rate']  ?></option>
+															<option value="<?php echo $tax_rate['tax_rate_id']; ?>" <?php echo isset($proposal_product['product_tax_rate']) && $proposal_product['product_tax_rate'] == $tax_rate['tax_rate_id']  ? 'selected' : '' ;?>><?php echo $tax_rate['name'] . " -> %" . $tax_rate['rate']  ?></option>
 														<?php endforeach ?>
 														<?php endif ?>
 													</select>
@@ -121,6 +145,11 @@
 											</div>
 										</div>
 									</div>
+									<?php $proposal_product_row++ ;?>
+									<?php endforeach; ?>
+									<?php endif; ?>
+
+
 									<div class="col-md-12">
 										<div class="row">
 											<div class="form-group">
@@ -165,4 +194,27 @@
 </div>
 <script type="text/javascript">
 	var tax_rates_array = array[];
+</script>
+<script type="text/javascript">
+var proposal_product_row = <?php echo $proposal_product_row; ?>;
+</script>
+<script type="text/javascript">
+	function getExchange(element, result_id,rate,price_id) {
+		var value = $(element).parent().parent().parent().parent().siblings('.price').val();
+		var result = Math.round(value / rate * 100) / 100;
+		$('#price-' + price_id).val(result);
+	}
+</script>
+<script type="text/javascript">
+	var exchange_rates = '';
+	<?php foreach ($exchange_rates['exchange_rate'] as $exchange_rate) { ?>
+	exchange_rates += "<?php echo '<li><a onclick=\"getExchange(this, ' . $exchange_rate['exchange_rate_id'] . ', ' . $exchange_rate['rate'] . '); return false;\" href=\"#\">' . $exchange_rate['code'] . '</a></li>'; ?>";
+	<?php } ?>;
+
+</script>
+<script type="text/javascript">
+	var tax_rates = '';
+	<?php foreach ($tax_rates['tax_rate'] as $tax_rate) { ?>
+	tax_rates += "<?php echo '<option>' . $tax_rate['name'] . ' -> ' . $tax_rate['rate'] . '</option>'; ?>";
+	<?php } ?>;
 </script>

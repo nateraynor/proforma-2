@@ -35,7 +35,7 @@ class Product_model extends CI_Model {
  	}
 
  	public function addProduct($data) {
- 		$this->db->query( "INSERT INTO product SET product_name = " .$this->db->escape($data['product_name']) . " , product_description = " .$this->db->escape($data['product_description']) . " , brand_id = '" . (int)$data['brand_id'] . "', product_price = '" .(double)$data['product_price'] ."' , product_image = " . $this->db->escape($data['product_image']) . " , product_tax_rate = '" .(double)$data['product_tax_rate'] .  "' , product_status = '" . (int)$data['product_status'] ."' , product_date_added = now()");
+ 		$this->db->query( "INSERT INTO product SET product_name = " .$this->db->escape($data['product_name']) . " , product_description = " .$this->db->escape($data['product_description']) . " , brand_id = '" . (int)$data['brand_id'] . "', product_price = '" .(double)$data['product_price'] ."' , product_image = " . $this->db->escape($data['product_image']) . " , product_link = " .$this->db->escape($data['product_link']) . "  ,product_tax_rate = '" .(double)$data['product_tax_rate'] .  "' , product_status = '" . (int)$data['product_status'] ."' , product_date_added = now()");
 
  		$product_id = $this->db->insert_id();
  		$result = $this->db->query("INSERT INTO product_to_category SET product_id = '" .(int)$product_id ."' , category_id = '" .(int)$data['category_id'] ."'");
@@ -43,7 +43,7 @@ class Product_model extends CI_Model {
  	}
 
  	public function updateProduct($data , $product_id){
- 		 $this->db->query( "UPDATE product SET 	product_name = " .$this->db->escape($data['product_name']) . " , product_description = " . $this->db->escape($data['product_description']) . " , brand_id = '" . (int)$data['brand_id'] . "', product_price = '" .(double)$data['product_price'] ."' ,product_image = " . $this->db->escape($data['product_image']) . "  , product_tax_rate = '" .(double)$data['product_tax_rate'] .  "' , product_status = '" . (int)$data['product_status'] ."' , product_date_updated = now() WHERE product_id = '" .(int)$product_id ."'");
+ 		 $this->db->query( "UPDATE product SET 	product_name = " .$this->db->escape($data['product_name']) . " , product_description = " . $this->db->escape($data['product_description']) . " , brand_id = '" . (int)$data['brand_id'] . "', product_price = '" .(double)$data['product_price'] ."' ,product_image = " . $this->db->escape($data['product_image']) . "  , product_link = " .$this->db->escape($data['product_link']) . "  , product_tax_rate = '" .(double)$data['product_tax_rate'] .  "' , product_status = '" . (int)$data['product_status'] ."' , product_date_updated = now() WHERE product_id = '" .(int)$product_id ."'");
  		 $result = $this->db->query("UPDATE product_to_category SET category_id = '" . (int)$data['category_id'] ."' WHERE product_id = '" . (int)$product_id."' ");
  		return $result;
  	}

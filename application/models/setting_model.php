@@ -28,4 +28,6 @@ class Setting_model extends CI_Model {
         else
             return array();
     }
+
+
 }
