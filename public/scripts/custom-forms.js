@@ -63,7 +63,7 @@ $(document).ready(function(){
 		$('#tax-rate-list').append(html);
 		tax_rate_row++;
 	});
-	
+
 	$('#add-exchange-rate').click(function() {
 		html  = '<div class="row">';
 		html  += '	<div class="form-group">';
@@ -80,7 +80,7 @@ $(document).ready(function(){
 		$('#exchange-rate-list').append(html);
 		exchange_rate_row++;
 	});
-	
+
 	$('#template-' + $('#proposal-template').val()).fadeIn(800);
 
 	$('.change-pic').click(function(){
@@ -122,7 +122,7 @@ $(document).ready(function(){
 		html +=	'	<div class="form-group">';
 		html +=	'		<div class="col-md-3">';
 		html +=	'			<div class="input-group">';
-		html +=	'				<input class="form-control autocomplete-input" onkeyup="product_autocomplete(this);" placeholder="Ürün" type="text" value="" name="proposal_product[' + proposal_product_row + '][product_id]">';
+		html +=	'				<input class="form-control autocomplete-input" autocomplete="off" onkeyup="product_autocomplete(this);" placeholder="Ürün" type="text" value="" name="proposal_product[' + proposal_product_row + '][product_id]">';
 		html +=	'				<div class="autocomplete-results"></div>';
 		html +=	'				<input type="hidden" class="hidden-id" value="'+ proposal_product_row + '" name="proposal_product[' + proposal_product_row + '][product_id]">';
 		html +=	'				<span class="input-group-addon"><a onclick="removeRow(this).parent(); return false;"><i class="fa fa-times"></i></a></span>';
@@ -132,7 +132,7 @@ $(document).ready(function(){
 		html +=	'		<div class="col-md-2">';
 		html +=	'			<div class="input-group">';
 		html +=	'				<input class="product-price form-control price" id="price-' + proposal_product_row + '" type="text" value="" name="proposal_product[' + proposal_product_row + '][product_price]" placeholder="Birim Fiyat">';
-		html +=	'				<span class="input-group-addon"><div class="btn-group"><i class="fa fa-try"></i><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="fa fa-angle-down"></i></button><ul class="dropdown-menu" role="menu">' + exchange_rates +'</ul><?php endforeach ;?><?php endif; ?></div></span>';
+		html +=	'				<span class="input-group-addon"><div class="btn-group"><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="fa fa-try"></i></button><ul class="dropdown-menu" role="menu">' + exchange_rates +'</ul><?php endforeach ;?><?php endif; ?></div></span>';
 		html +=	'			</div>';
 		html +=	'		</div>';
 		html +=	'		<div class="col-md-2"><input class="product-discount form-control" type="text" name="proposal_product[' + proposal_product_row + '][product_discount]" value="" placeholder="İndirim"></div>';

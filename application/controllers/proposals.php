@@ -104,14 +104,20 @@ class Proposals extends CI_Controller {
 			}
 		}
 
+		$data['proposal_customer_ids'] = array();
+
 		if ($proposal_id != -1) {
 			$data['proposal'] 	= $this->proposal_model->getProposal($proposal_id);
-			$data['proposal_customers'] 	= $this->proposal_model->getProposalCustomers($proposal_id);
+			$data['proposal_customers'] = $this->proposal_model->getProposalCustomers($proposal_id);
+
+			foreach ($data['proposal_customers'] as $customer) {
+				$data['proposal_customer_ids'][] = $customer['customer_id'];
+			}
+
 			$data['notes'] 		= $this->proposal_model->getProposalNotes($proposal_id);
 			$data['proposal_products'] 	= $this->proposal_model->getProposalProducts($proposal_id);
 		}
 
-		//$data['products'] = $this->product_model->getProducts(array());
 		$data['customers'] = $this->customer_model->getCustomers(array());
 		$data['templates'] = $this->setting_model->getTemplates();
 		$data['tax_rates'] = $this->setting_model->getSetting('tax_rates');
