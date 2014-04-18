@@ -49,7 +49,7 @@ class Proposal_model extends CI_Model {
 	public function addProposal($data) {
 		$this->load->model('user_model');
 
-		$result = $this->db->query("INSERT INTO proposal SET proposal_name = " . $this->db->escape($data['proposal_name']) . ", proposal_code = '" . (int)$data['proposal_temporary_id'] . "', proposal_statement_top = " . $this->db->escape($data['proposal_statement_top']) . ", proposal_statement_bottom = " . $this->db->escape($data['proposal_statement_bottom']) . ", proposal_total = '" . (double)$data['proposal_total'] . "', proposal_tax_rate = '" . (int)$data['proposal_tax_rate'] . "', proposal_discount_rate = '" . (int)$data['proposal_discount_rate'] . "', proposal_status = '" . (int)$data['proposal_status'] . "', proposal_date_added = now(), proposal_date_updated = now()");
+		$result = $this->db->query("INSERT INTO proposal SET proposal_name = " . $this->db->escape($data['proposal_name']) . ", proposal_code = '" . (int)$data['proposal_temporary_id'] . "', proposal_statement_top = " . $this->db->escape($data['proposal_statement_top']) . ", proposal_statement_bottom = " . $this->db->escape($data['proposal_statement_bottom']) . ", proposal_total = '" . (double)$data['proposal_total'] . "',  proposal_status = '" . (int)$data['proposal_status'] . "', proposal_date_added = now(), proposal_date_updated = now()");
 		$proposal_id = $this->db->insert_id();
 
 		$user = $this->user_model->getUser($this->session->userdata['user_id']);
@@ -58,8 +58,8 @@ class Proposal_model extends CI_Model {
 
 		$this->db->query("INSERT INTO proposal_note SET proposal_id = '" . $proposal_id . "', proposal_note_content = " . $this->db->escape($proposal_note_content) . ", proposal_note_user = '" . $this->session->userdata['user_id'] . "', proposal_note_status = '1', proposal_note_date_added = now(), proposal_note_date_updated = now()");
 
-		foreach ($data['product'] as $product) {
-           $result = $this->db->query("INSERT INTO proposal_product SET product_id = " . (int)$product['product_id'] . ", product_quantity = " . $this->db->escape($product['product_quantity']) . ", product_price = " . $this->db->escape($product['product_price']) ." , product_discount = " . $this->db->escape($product['product_discount']) ." , product_discount_type = " . $this->db->escape($product['product_discount_type']) ." , product_tax_rate = " . $this->db->escape($product['product_tax_rate']) .", product_attachments = " . $this->db->escape($product['product_attachments']) ." ");
+        foreach ($data['proposal_product'] as $product) {
+           $result = $this->db->query("INSERT INTO proposal_product SET product_id = '" . (int)$product['product_id'] . "' ,proposal_id = '" . (int)$proposal_id . "' , product_quantity = " . $this->db->escape($product['product_quantity']) . ", product_price = '" .(float)$product['product_price'] ."' , product_discount = " . $this->db->escape($product['product_discount']) ." , product_discount_type = " . (int)$product['product_discount_type'] ." , product_tax_rate = " . $this->db->escape($product['product_tax_rate']) ."");
         }
 
 		foreach($data['proposal_customers'] as $customer_id) {
@@ -72,9 +72,6 @@ class Proposal_model extends CI_Model {
 	public function updateProposal($data, $proposal_id) {
 		$this->load->model('user_model');
 
-		$result = $this->db->query("UPDATE proposal SET proposal_name = " . $this->db->escape($data['proposal_name']) . ", proposal_code = '" . (int)$data['proposal_temporary_id'] . "', proposal_statement_top = " . $this->db->escape($data['proposal_statement_top']) . ", proposal_statement_bottom = " . $this->db->escape($data['proposal_statement_bottom']) . ", proposal_total = '" . (double)$data['proposal_total'] . "', proposal_status = '" . (int)$data['proposal_status'] . "', proposal_date_updated = now() WHERE proposal_id = '" . (int)$proposal_id . "'");
-
-
 		$user = $this->user_model->getUser($this->session->userdata['user_id']);
 
 		$proposal_note_content = $proposal_id . " numaralı teklif " . $user['user_name'] . " " . $user['user_surname'] . " adlı kullanıcı tarafından güncellendi.";
@@ -84,12 +81,18 @@ class Proposal_model extends CI_Model {
 		$this->db->query("DELETE FROM proposal_product WHERE proposal_id = '" . (int)$proposal_id . "' ");
 
 		foreach ($data['proposal_product'] as $product) {
-           $result = $this->db->query("INSERT INTO proposal_product SET product_id = '" . (int)$product['product_id'] . "' ,proposal_id = '" . (int)$proposal_id . "' , product_quantity = " . $this->db->escape($product['product_quantity']) . ", product_price = '" .(float)$product['product_price'] ."' , product_discount = " . $this->db->escape($product['product_discount']) ." , product_discount_type = " . (int)$product['product_discount_type'] ." , product_tax_rate = " . $this->db->escape($product['product_tax_rate']) ."");
+           $result = $this->db->query("INSERT INTO proposal_product SET product_id = '" . (int)$product['product_id'] . "' ,proposal_id = '" . (int)$proposal_id . "' , product_quantity = " . $this->db->escape($product['product_quantity']) . ", product_price = '" .(float)$product['product_price'] ."' , product_discount = " . $this->db->escape($product['product_discount']) ." , product_price_type = " . $this->db->escape($product['product_price_type']) ." , product_discount_type = " . (int)$product['product_discount_type'] ." , product_tax_rate = " . $this->db->escape($product['product_tax_rate']) ."");
+			$product_prices[] = $product['product_price'];
         }
 
-        var_dump($data['proposal_product']);
+       	$total_prices = '';
+		$countPrice = count($data['proposal_product']);
+		 for ($i=0; $i < $countPrice ; $i++) { 
+		 		$total_prices += $product_prices[$i];
+		 }
+		 			
 
-        die;
+		 $result = $this->db->query("UPDATE proposal SET proposal_name = " . $this->db->escape($data['proposal_name']) . ", proposal_code = '" . (int)$data['proposal_temporary_id'] . "', proposal_statement_top = " . $this->db->escape($data['proposal_statement_top']) . ", proposal_statement_bottom = " . $this->db->escape($data['proposal_statement_bottom']) . ", proposal_total = '" . (double)$total_prices. "', proposal_status = '" . (int)$data['proposal_status'] . "', proposal_date_updated = now() WHERE proposal_id = '" . (int)$proposal_id . "'");
 
         $this->db->query("DELETE FROM proposal_to_customer WHERE proposal_id = '" . (int)$proposal_id . "'");
 

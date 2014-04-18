@@ -125,19 +125,19 @@ $(document).ready(function(){
 		html +=	'				<input class="form-control autocomplete-input" autocomplete="off" onkeyup="product_autocomplete(this);" placeholder="Ürün" type="text" value="" name="proposal_product[' + proposal_product_row + '][product_id]">';
 		html +=	'				<div class="autocomplete-results"></div>';
 		html +=	'				<input type="hidden" class="hidden-id" value="'+ proposal_product_row + '" name="proposal_product[' + proposal_product_row + '][product_id]">';
-		html +=	'				<span class="input-group-addon"><a onclick="removeRow(this).parent(); return false;"><i class="fa fa-times"></i></a></span>';
+		html +=	'				<span class="input-group-addon"><a onclick="removeRow(this).parent().parent(); return false;"><i class="fa fa-times"></i></a></span>';
 		html +=	'			</div>';
 		html +=	'		</div>';
-		html +=	'		<div class="col-md-1"><input class="product-quantity form-control" type="number" name="proposal_product[' + proposal_product_row + '][product_quantity]" placeholder="Adet" value=""></div>';
-		html +=	'		<div class="col-md-2">';
+		html +=	'		<div class="col-md-1"><input class="product-quantity form-control" value="1" type="number" name="proposal_product[' + proposal_product_row + '][product_quantity]" placeholder="Adet" value=""></div>';
+		html +=	'		<div class="col-md-2 price">';
 		html +=	'			<div class="input-group">';
 		html +=	'				<input class="product-price form-control price" id="price-' + proposal_product_row + '" type="text" value="" name="proposal_product[' + proposal_product_row + '][product_price]" placeholder="Birim Fiyat">';
-		html +=	'				<span class="input-group-addon"><div class="btn-group"><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="fa fa-try"></i></button><ul class="dropdown-menu" role="menu">' + exchange_rates +'</ul><?php endforeach ;?><?php endif; ?></div></span>';
+		html +=	'				<span class="input-group-addon"><div class="btn-group"><input type="button" value="TL" class="btn btn-default dropdown-toggle" data-toggle="dropdown"/><input type="hidden" class="hidden-id" name="proposal_product[' + proposal_product_row + '][product_price_type]" /><ul class="dropdown-menu" role="menu">' + exchange_rates +'</ul><?php endforeach ;?><?php endif; ?></div></span>'; 
 		html +=	'			</div>';
 		html +=	'		</div>';
-		html +=	'		<div class="col-md-2"><input class="product-discount form-control" type="text" name="proposal_product[' + proposal_product_row + '][product_discount]" value="" placeholder="İndirim"></div>';
+		html +=	'		<div class="col-md-2 discount"><input class="product-discount form-control" type="text" name="proposal_product[' + proposal_product_row + '][product_discount]" value="" placeholder="İndirim"></div>';
 		html +=	'		<div class="col-md-2">';
-		html +=	'			<select class="product-discount-type form-control" name="proposal_product[' + proposal_product_row + '][product_discount_type]">';
+		html +=	'			<select class="product-discount-type form-control disc" onChange="myFunction(this,this.options[this.selectedIndex].value)" name="proposal_product[' + proposal_product_row + '][product_discount_type]">';
 		html +=	'				<option disabled readonly selected="true">İndirim Tipi</option>';
 		html +=	'				<option>%</option>';
 		html +=	'				<option>TRL</option>';
@@ -152,7 +152,7 @@ $(document).ready(function(){
 
 		$(this).parents('.col-md-12').first().before(html);
 
-		product_row++;
+		proposal_product_row++;
 
 		return false;
 	});

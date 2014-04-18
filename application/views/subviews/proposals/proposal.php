@@ -93,16 +93,17 @@
 														<input class="form-control autocomplete-input" autocomplete="off" onkeyup="product_autocomplete(this);" placeholder="Ürün" type="text" name="proposal_product[<?php echo $proposal_product_row ?>][product_id]" value="<?php echo $proposal_product['product_name']; ?>">
 														<div class="autocomplete-results"></div>
 														<input type="hidden" class="hidden-id" value="<?php echo $proposal_product['product_id'] ?>" name="proposal_product[<?php echo $proposal_product_row ?>][product_id]">
-														<span class="input-group-addon"><a onclick="removeRow(this).parent(); return false;"><i class="fa fa-times"></i></a></span>
+														<span class="input-group-addon"><a onclick="removeRow(this).parent().parent(); return false;"><i class="fa fa-times"></i></a></span>
 													</div>
 												</div>
 												<div class="col-md-1"><input class="product-quantity form-control" type="number" name="proposal_product[<?php echo $proposal_product_row ?>][product_quantity]" placeholder="Adet" value="<?php echo $proposal_product['product_quantity'] ?>"></div>
-												<div class="col-md-2">
+												<div class="col-md-2 price">
 													<div class="input-group">
 														<input class="product-price form-control price" type="text" value="<?php echo $proposal_product['product_price'] ?>" name="proposal_product[<?php echo $proposal_product_row ?>][product_price]" placeholder="Birim Fiyat">
 														<span class="input-group-addon">
 																<div class="btn-group">
-																	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="fa fa-try"></i></button>
+																	<input type="button" class="btn btn-default dropdown-toggle" value="<?php echo $proposal_product['product_price_type'] ?>" data-toggle="dropdown" />
+																	<input type="hidden" class="hidden-id" name="proposal_product[<?php echo $proposal_product_row ?>][product_price_type]" value="<?php echo $proposal_product['product_price_type'] ?>" />
 																	<ul class="dropdown-menu" role="menu">
 																		<?php if($exchange_rates): ?>
 																			<?php foreach ($exchange_rates['exchange_rate'] as $exchange_rate): ?>
@@ -116,12 +117,12 @@
 														</span>
 													</div>
 												</div>
-												<div class="col-md-2"><input class="product-discount form-control" type="text" name="proposal_product[<?php echo $proposal_product_row ?>][product_discount]" value="<?php echo $proposal_product['product_discount'] ?>" placeholder="İndirim"></div>
+												<div class="col-md-2 discount"><input class="product-discount form-control" type="text" name="proposal_product[<?php echo $proposal_product_row ?>][product_discount]" value="<?php echo $proposal_product['product_discount'] ?>" placeholder="İndirim"></div>
 												<div class="col-md-2">
-													<select class="product-discount-type form-control" name="proposal_product[<?php echo $proposal_product_row ?>][product_discount_type]">
+													<select class="product-discount-type form-control disc" onChange="myFunction(this,this.options[this.selectedIndex].value)" name="proposal_product[<?php echo $proposal_product_row ?>][product_discount_type]">
 														<option disabled readonly selected="true">İndirim Tipi</option>
 														<option value="0" <?php echo isset($proposal_product['product_discount_type']) && $proposal_product['product_discount_type'] == 0 ? 'selected' : '' ;?>>%</option>
-														<option value="1" <?php echo isset($proposal_product['product_discount_type']) && $proposal_product['product_discount_type'] == 1 ? 'selected' : ''
+														<option value="1"  <?php echo isset($proposal_product['product_discount_type']) && $proposal_product['product_discount_type'] == 1 ? 'selected' : ''
 														?>>TRL</option>
 													</select>
 												</div>
@@ -185,16 +186,34 @@
 		</div>
 	</div>
 </div>
+<script src="<?php echo ASSETS ?>plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 var proposal_product_row = <?php echo $proposal_product_row; ?>;
 </script>
 <script type="text/javascript">
 	function getExchange(element, result_id, rate) {
-		console.log($(element));
 		var value = $(element).parents('.input-group-addon').siblings('input').val();
 		var result = Math.round(value / rate * 100) / 100;
-
 		$(element).parents('.input-group-addon').siblings('input').val(result);
+		$(element).parents('.dropdown-menu').siblings('input').val($(element).html());
+		$(element).parents('.dropdown-menu').siblings('.hidden-id').val($(element).html());
+
+	}
+</script>
+<script type="text/javascript">
+	function myFunction(element,id){
+		var value = $(element).parent().siblings('.price').children('.input-group').children('.input-group-addon').siblings('input').val();
+		var discount = $(element).parent().siblings('.discount').children('input').val();
+		
+		if(id==1){
+			var result = (value - discount); 
+		}else{
+			var result = value - (value*discount) / 100;
+		}
+
+		
+		$(element).parent().siblings('.price').children('.input-group').children('.input-group-addon').siblings('input').val(result);
+			
 	}
 </script>
 <script type="text/javascript">

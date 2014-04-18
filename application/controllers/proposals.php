@@ -25,12 +25,29 @@ class Proposals extends CI_Controller {
 		$proposals = $this->proposal_model->getProposals($filters);
 
 		foreach ($proposals as $proposal) {
-			//$customers = $this->proposal_model->getProposalCustomers($proposal_id);
 
+			$proposal_customers = array();
+			$customers = $this->proposal_model->getProposalCustomers($proposal['proposal_id']);
+
+			foreach ($customers as $customer) {
+				$proposal_customers[] = $customer['customer_name'];
+			}
+
+
+			$names = '';
+			$countNames = count($customers);
+		
+			 for ($i=0; $i < $countNames ; $i++) { 
+			 		$names .= $proposal_customers[$i];
+			 			if($i < $countNames -1)
+			 				$names .= ',';
+			 }
+
+		 	$data['proposals_customers_name'] = $names;
+		
 			$data['proposals'][] = array(
 				'proposal_id' 	=> $proposal['proposal_id'],
 				'proposal_name'	=> $proposal['proposal_name'],
-				'proposal_customers' => $proposal['customer_name'],
 				'proposal_total'	 => $proposal['proposal_total'],
 				'proposal_status'	 => $proposal['proposal_status']
 			);
@@ -89,7 +106,7 @@ class Proposals extends CI_Controller {
 
 			if ($proposal_id == -1) {
 				$result = $this->proposal_model->addProposal($this->input->post());
-
+				
 				if ($result) {
 					$this->session->set_flashdata('success', 'Teklif başarıyla oluşturuldu eklendi');
 					redirect('proposals/preview/' . $result);

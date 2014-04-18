@@ -82,12 +82,12 @@
 						</tr>
 						</thead>
 						<tbody>
+							
 							<?php foreach ($proposals as $proposal): ?>
 								<tr>
 									<td><?php echo $proposal['proposal_id'] ;?></td>
 									<td><?php echo $proposal['proposal_name']; ?></td>
-									<td><?php echo $proposal['proposal_customers']; ?></td>
-
+									<td><?php echo $proposals_customers_name; ?></td>
 									<td><?php echo $proposal['proposal_total'] ?></td>
 									<td>
 										<a href="<?php echo base_url() . 'proposals/proposal/' . $proposal['proposal_id']; ?>" class="btn default btn-xs yellow"><i class="fa fa-edit"></i> Güncelle</a>

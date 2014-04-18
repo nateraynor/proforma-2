@@ -135,7 +135,7 @@
 										<div class="col-md-2 rates">
 											<input type="text" value="<?php echo $exchange_rate['rate'] ?>" class="form-control result" name="exchange_rate[<?php echo $exchange_rate_row ?>][rate]" style="margin-bottom: 10px;" id="result-<?php echo $exchange_rate['exchange_rate_id'] ?>">
 										</div>
-										<div class="col-md-1"><a class="btn red" onclick="removeRow(this).parent(); return false;">Kaldır</a></div>
+										<div class="col-md-1"><a class="btn red" onclick="removeRow(this).parent().parent(); return false;">Kaldır</a></div>
 									</div>
 								</div>
 								<div class="clearfix"></div>
