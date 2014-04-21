@@ -96,10 +96,10 @@
 														<span class="input-group-addon"><a onclick="removeRow(this).parent().parent(); return false;"><i class="fa fa-times"></i></a></span>
 													</div>
 												</div>
-												<div class="col-md-1"><input class="product-quantity form-control" type="number" name="proposal_product[<?php echo $proposal_product_row ?>][product_quantity]" placeholder="Adet" value="<?php echo $proposal_product['product_quantity'] ?>"></div>
+												<div class="col-md-1 quantity"><input class="product-quantity form-control" type="number" name="proposal_product[<?php echo $proposal_product_row ?>][product_quantity]" placeholder="Adet" value="<?php echo $proposal_product['product_quantity'] ?>"></div>
 												<div class="col-md-2 price">
 													<div class="input-group">
-														<input class="product-price form-control price" type="text" value="<?php echo $proposal_product['product_price'] ?>" name="proposal_product[<?php echo $proposal_product_row ?>][product_price]" placeholder="Birim Fiyat">
+														<input class="product-price form-control eachPrice" baseprice="<?php echo $proposal_product['product_price'] ?>" type="text" value="<?php echo $proposal_product['product_price'] ?>" name="proposal_product[<?php echo $proposal_product_row ?>][product_price]" placeholder="Birim Fiyat">
 														<span class="input-group-addon">
 																<div class="btn-group">
 																	<input type="button" class="btn btn-default dropdown-toggle" value="<?php echo $proposal_product['product_price_type'] ?>" data-toggle="dropdown" />
@@ -123,7 +123,7 @@
 														<option disabled readonly selected="true">İndirim Tipi</option>
 														<option value="0" <?php echo isset($proposal_product['product_discount_type']) && $proposal_product['product_discount_type'] == 0 ? 'selected' : '' ;?>>%</option>
 														<option value="1"  <?php echo isset($proposal_product['product_discount_type']) && $proposal_product['product_discount_type'] == 1 ? 'selected' : ''
-														?>>TRL</option>
+														?>>Miktar</option>
 													</select>
 												</div>
 												<div class="col-md-2">
@@ -144,16 +144,16 @@
 									<?php endif; ?>
 
 
-									<div class="col-md-12">
+									<div class="col-md-12 totalPrices">
 										<div class="row">
 											<div class="form-group">
 												<div class="col-md-3">
 													<a href="#" id="add-product" class="btn green form-control" style="margin-top: 10px; margin-bottom: 10px;">Ürün/Hizmet Ekle</a>
 												</div>
 											</div>
-											<div class="form-group">
+											<div class="form-group totalPrice">
 												<label class="control-label col-md-6" style="text-align: right; padding-top: 5px;">Toplam:</label>
-												<div class="input-group col-md-3" style="padding-right: 15px;">
+												<div class="input-group col-md-3 ttlprice" style="padding-right: 15px;">
 													<input type="text" readonly="" name="proposal_total" class="form-control" id="proposal-total" col-type="varchar" placeholder="Teklif Toplamı" value="<?php echo isset($proposal['proposal_total']) ? $proposal['proposal_total'] : ''; ?>" required>
 													<span class="input-group-addon"><i class="fa fa-try"></i></span>
 												</div>
@@ -201,18 +201,31 @@ var proposal_product_row = <?php echo $proposal_product_row; ?>;
 	}
 </script>
 <script type="text/javascript">
-	function myFunction(element,id){
-		var value = $(element).parent().siblings('.price').children('.input-group').children('.input-group-addon').siblings('input').val();
-		var discount = $(element).parent().siblings('.discount').children('input').val();
-		
-		if(id==1){
-			var result = (value - discount); 
-		}else{
-			var result = value - (value*discount) / 100;
-		}
+		function myFunction(element,id){
+			var other_total =  $(element).parent().parents('.col-md-12').siblings('.totalPrices').children('.row').children('.totalPrice').children('.ttlprice').children('input').val();
+			console.log(other_total);
+			var value = $(element).parent().siblings('.price').children('.input-group').children('.input-group-addon').siblings('input').val();
+			var baseprice = $(element).parent().siblings('.price').children('.input-group').children('.input-group-addon').siblings('input').attr("baseprice");
+			console.log(baseprice);
+			var discount = $(element).parent().siblings('.discount').children('input').val();
+			console.log(discount);
+			var quantity = $(element).parent().siblings('.quantity').children('input').val();
+			console.log(quantity);
+			var other_total = other_total - value; 
+			if(id==1){
+				var result = (baseprice - discount); 
+			}else{
+				var result = baseprice - (baseprice*discount) / 100;
+			}
+			var result = result * quantity;
+			console.log(result)
+			var other_total = parseFloat(other_total + result);
+			console.log(other_total);
+			var totalPrice = $(element).parent().parents('.col-md-12').siblings('.totalPrices').children('.row').children('.totalPrice').children('.ttlprice').children('input').val(other_total);
 
 		
 		$(element).parent().siblings('.price').children('.input-group').children('.input-group-addon').siblings('input').val(result);
+
 			
 	}
 </script>

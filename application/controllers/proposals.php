@@ -33,7 +33,6 @@ class Proposals extends CI_Controller {
 				$proposal_customers[] = $customer['customer_name'];
 			}
 
-
 			$names = '';
 			$countNames = count($customers);
 		
@@ -92,7 +91,7 @@ class Proposals extends CI_Controller {
 		$this->load->model('product_model');
 		$this->load->model('customer_model');
 		$this->load->model('setting_model');
-
+		$data['total'] = 0;
 		$filters = array();
 		$allowed_pages = $this->session->userdata['allowed_pages'];
 
@@ -133,7 +132,14 @@ class Proposals extends CI_Controller {
 
 			$data['notes'] 		= $this->proposal_model->getProposalNotes($proposal_id);
 			$data['proposal_products'] 	= $this->proposal_model->getProposalProducts($proposal_id);
+			foreach ($data['proposal_products'] as $proposal_product) {
+				$data['total'] +=$proposal_product['product_price']	;	
+			}
+
+
 		}
+
+
 
 		$data['customers'] = $this->customer_model->getCustomers(array());
 		$data['templates'] = $this->setting_model->getTemplates();

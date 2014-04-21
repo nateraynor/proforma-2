@@ -1,11 +1,15 @@
 var images = ['jpg', 'jpeg', 'png', 'gif'];
 var product_row = 1;
 var e = null;
+var total = 0;
+
 
 function autocompleteResult(element, product_id, price, tax_rate_id) {
 	$(element).parents('.autocomplete-results').siblings('.autocomplete-input').val($(element).html());
 	$(element).parents('.autocomplete-results').siblings('.hidden-id').val(product_id);
 	$(element).parents('.form-group').find('.product-price').val(price);
+	$(element).parents('.form-group').find('.product-price').attr("baseprice",price);
+
 	$(element).parents('.autocomplete-results').fadeOut(300);
 	$(element).parents('.form-group').find('.product-tax-rate option').each(function() {
 		if ($(this).val() == tax_rate_id)
@@ -39,6 +43,14 @@ function product_autocomplete(element) {
     }
 }
 
+/*function myFunction(element,id) {
+	$('.price').each(function() {
+		total += parseFloat($(this).val());
+	});
+
+	console.log(total);
+}*/
+
 $(document).on('blur', '.autocomplete-input', function() {
 	$(this).siblings(".autocomplete-results").fadeOut(300);
 });
@@ -48,8 +60,6 @@ $(document).on('focus', '.autocomplete-input', function() {
 });
 
 $(document).ready(function(){
-	var total = 0;
-
 	$('#add-tax-rate').click(function() {
 		html  = '<div class="row">';
 		html += '	<div class="form-group">';
@@ -128,10 +138,10 @@ $(document).ready(function(){
 		html +=	'				<span class="input-group-addon"><a onclick="removeRow(this).parent().parent(); return false;"><i class="fa fa-times"></i></a></span>';
 		html +=	'			</div>';
 		html +=	'		</div>';
-		html +=	'		<div class="col-md-1"><input class="product-quantity form-control" value="1" type="number" name="proposal_product[' + proposal_product_row + '][product_quantity]" placeholder="Adet" value=""></div>';
+		html +=	'		<div class="col-md-1 quantity"><input class="product-quantity form-control" value="1" type="number" name="proposal_product[' + proposal_product_row + '][product_quantity]" placeholder="Adet" value=""></div>';
 		html +=	'		<div class="col-md-2 price">';
 		html +=	'			<div class="input-group">';
-		html +=	'				<input class="product-price form-control price" id="price-' + proposal_product_row + '" type="text" value="" name="proposal_product[' + proposal_product_row + '][product_price]" placeholder="Birim Fiyat">';
+		html +=	'				<input class="product-price form-control price" baseprice="" id="price-' + proposal_product_row + '" type="text" value="" name="proposal_product[' + proposal_product_row + '][product_price]" placeholder="Birim Fiyat">';
 		html +=	'				<span class="input-group-addon"><div class="btn-group"><input type="button" value="TL" class="btn btn-default dropdown-toggle" data-toggle="dropdown"/><input type="hidden" class="hidden-id" name="proposal_product[' + proposal_product_row + '][product_price_type]" /><ul class="dropdown-menu" role="menu">' + exchange_rates +'</ul><?php endforeach ;?><?php endif; ?></div></span>'; 
 		html +=	'			</div>';
 		html +=	'		</div>';
@@ -140,7 +150,7 @@ $(document).ready(function(){
 		html +=	'			<select class="product-discount-type form-control disc" onChange="myFunction(this,this.options[this.selectedIndex].value)" name="proposal_product[' + proposal_product_row + '][product_discount_type]">';
 		html +=	'				<option disabled readonly selected="true">İndirim Tipi</option>';
 		html +=	'				<option>%</option>';
-		html +=	'				<option>TRL</option>';
+		html +=	'				<option>Miktar</option>';
 		html +=	'			</select>';
 		html +=	'		</div>';
 		html +=	'		<div class="col-md-2">';
