@@ -9,16 +9,17 @@ function autocompleteResult(element, product_id, price, tax_rate_id) {
 	$(element).parents('.autocomplete-results').siblings('.hidden-id').val(product_id);
 	$(element).parents('.form-group').find('.product-price').val(price);
 	$(element).parents('.form-group').find('.product-price').attr("baseprice",price);
-
+	$(element).parents('.form-group').find('.product-price').trigger('change');
 	$(element).parents('.autocomplete-results').fadeOut(300);
 	$(element).parents('.form-group').find('.product-tax-rate option').each(function() {
-		if ($(this).val() == tax_rate_id)
-			$(this).attr('selected', 'true');
+	if ($(this).val() == tax_rate_id)
+		$(this).attr('selected', 'true');
 	});
 }
 
 function removeRow(element) {
-	$(element).parents('.row').first().remove();
+	$(element).parents('.row').first().parent().remove();
+	$(element).parents('.row').find('.product-price').first().trigger('change');
 }
 
 function product_autocomplete(element) {
@@ -141,8 +142,8 @@ $(document).ready(function(){
 		html +=	'		<div class="col-md-1 quantity"><input class="product-quantity form-control" value="1" type="number" name="proposal_product[' + proposal_product_row + '][product_quantity]" placeholder="Adet" value=""></div>';
 		html +=	'		<div class="col-md-2 price">';
 		html +=	'			<div class="input-group">';
-		html +=	'				<input class="product-price form-control price" baseprice="" id="price-' + proposal_product_row + '" type="text" value="" name="proposal_product[' + proposal_product_row + '][product_price]" placeholder="Birim Fiyat">';
-		html +=	'				<span class="input-group-addon"><div class="btn-group"><input type="button" value="TL" class="btn btn-default dropdown-toggle" data-toggle="dropdown"/><input type="hidden" class="hidden-id" name="proposal_product[' + proposal_product_row + '][product_price_type]" /><ul class="dropdown-menu" role="menu">' + exchange_rates +'</ul><?php endforeach ;?><?php endif; ?></div></span>'; 
+		html +=	'				<input class="product-price form-control" onchange="calculate_price();" baseprice="" id="price-' + proposal_product_row + '" type="text" value="" name="proposal_product[' + proposal_product_row + '][product_price]" placeholder="Birim Fiyat">';
+		html +=	'				<span class="input-group-addon" style="padding: 0px; border: 1px;"><div class="btn-group"><input type="button" value="TL" class="btn btn-default dropdown-toggle" data-toggle="dropdown"/><input type="hidden" class="hidden-id" name="proposal_product[' + proposal_product_row + '][product_price_type]" /><ul class="dropdown-menu" role="menu">' + exchange_rates +'</ul><?php endforeach ;?><?php endif; ?></div></span>';
 		html +=	'			</div>';
 		html +=	'		</div>';
 		html +=	'		<div class="col-md-2 discount"><input class="product-discount form-control" type="text" name="proposal_product[' + proposal_product_row + '][product_discount]" value="" placeholder="İndirim"></div>';

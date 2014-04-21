@@ -99,8 +99,8 @@
 												<div class="col-md-1 quantity"><input class="product-quantity form-control" type="number" name="proposal_product[<?php echo $proposal_product_row ?>][product_quantity]" placeholder="Adet" value="<?php echo $proposal_product['product_quantity'] ?>"></div>
 												<div class="col-md-2 price">
 													<div class="input-group">
-														<input class="product-price form-control eachPrice" baseprice="<?php echo $proposal_product['product_price'] ?>" type="text" value="<?php echo $proposal_product['product_price'] ?>" name="proposal_product[<?php echo $proposal_product_row ?>][product_price]" placeholder="Birim Fiyat">
-														<span class="input-group-addon">
+														<input class="product-price form-control eachPrice" onchange="calculate_price();" baseprice="<?php echo $proposal_product['product_price'] ?>" type="text" value="<?php echo $proposal_product['product_price'] ?>" onchange="" name="proposal_product[<?php echo $proposal_product_row ?>][product_price]" placeholder="Birim Fiyat">
+															<span class="input-group-addon" style="padding: 0px; border: 1px;">
 																<div class="btn-group">
 																	<input type="button" class="btn btn-default dropdown-toggle" value="<?php echo $proposal_product['product_price_type'] ?>" data-toggle="dropdown" />
 																	<input type="hidden" class="hidden-id" name="proposal_product[<?php echo $proposal_product_row ?>][product_price_type]" value="<?php echo $proposal_product['product_price_type'] ?>" />
@@ -114,7 +114,7 @@
 																		<?php endif; ?>
 																	</ul>
 																</div>
-														</span>
+															</span>
 													</div>
 												</div>
 												<div class="col-md-2 discount"><input class="product-discount form-control" type="text" name="proposal_product[<?php echo $proposal_product_row ?>][product_discount]" value="<?php echo $proposal_product['product_discount'] ?>" placeholder="İndirim"></div>
@@ -142,8 +142,6 @@
 									<?php $proposal_product_row++ ;?>
 									<?php endforeach; ?>
 									<?php endif; ?>
-
-
 									<div class="col-md-12 totalPrices">
 										<div class="row">
 											<div class="form-group">
@@ -192,41 +190,47 @@ var proposal_product_row = <?php echo $proposal_product_row; ?>;
 </script>
 <script type="text/javascript">
 	function getExchange(element, result_id, rate) {
-		var value = $(element).parents('.input-group-addon').siblings('input').val();
+		var value = $(element).parents('.input-group-addon').siblings('input').attr('baseprice');
 		var result = Math.round(value / rate * 100) / 100;
 		$(element).parents('.input-group-addon').siblings('input').val(result);
 		$(element).parents('.dropdown-menu').siblings('input').val($(element).html());
 		$(element).parents('.dropdown-menu').siblings('.hidden-id').val($(element).html());
-
+		$(element).parents('.input-group-addon').siblings('input').trigger('change');
 	}
 </script>
 <script type="text/javascript">
+		function calculate_price() {
+			var total = 0;
+
+			$('.product-price').each(function() {
+				if ($(this).val() === '')
+					$(this).val(0);
+
+				var quantity = $(this).parents('.price').siblings('.quantity').children('input').val();
+
+				total += parseFloat(quantity * $(this).val());
+			});
+
+			$('#proposal-total').val(total);
+		}
+
 		function myFunction(element,id){
-			var other_total =  $(element).parent().parents('.col-md-12').siblings('.totalPrices').children('.row').children('.totalPrice').children('.ttlprice').children('input').val();
-			console.log(other_total);
+			/*var other_total =  $(element).parent().parents('.col-md-12').siblings('.totalPrices').children('.row').children('.totalPrice').children('.ttlprice').children('input').val();
 			var value = $(element).parent().siblings('.price').children('.input-group').children('.input-group-addon').siblings('input').val();
 			var baseprice = $(element).parent().siblings('.price').children('.input-group').children('.input-group-addon').siblings('input').attr("baseprice");
-			console.log(baseprice);
 			var discount = $(element).parent().siblings('.discount').children('input').val();
-			console.log(discount);
 			var quantity = $(element).parent().siblings('.quantity').children('input').val();
-			console.log(quantity);
-			var other_total = other_total - value; 
+			var other_total = other_total - value;
 			if(id==1){
-				var result = (baseprice - discount); 
+				var result = (baseprice - discount);
 			}else{
 				var result = baseprice - (baseprice*discount) / 100;
 			}
 			var result = result * quantity;
-			console.log(result)
 			var other_total = parseFloat(other_total + result);
-			console.log(other_total);
 			var totalPrice = $(element).parent().parents('.col-md-12').siblings('.totalPrices').children('.row').children('.totalPrice').children('.ttlprice').children('input').val(other_total);
 
-		
-		$(element).parent().siblings('.price').children('.input-group').children('.input-group-addon').siblings('input').val(result);
-
-			
+		$(element).parent().siblings('.price').children('.input-group').children('.input-group-addon').siblings('input').val(result);*/
 	}
 </script>
 <script type="text/javascript">
