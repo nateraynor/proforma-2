@@ -138,8 +138,7 @@ class Proposal_model extends CI_Model {
 		 		$total_prices += $product_prices[$i];
 		 }
 
-
-		 $result = $this->db->query("UPDATE proposal SET proposal_name = " . $this->db->escape($data['proposal_name']) . ", proposal_code = '" . (int)$data['proposal_temporary_id'] . "', proposal_statement_top = " . $this->db->escape($data['proposal_statement_top']) . ", proposal_statement_bottom = " . $this->db->escape($data['proposal_statement_bottom']) . ", proposal_total = '" . (double)$total_prices. "', proposal_status = '" . (int)$data['proposal_status'] . "', proposal_date_updated = now() WHERE proposal_id = '" . (int)$proposal_id . "'");
+		 $result = $this->db->query("UPDATE proposal SET proposal_name = " . $this->db->escape($data['proposal_name']) . ", proposal_code = '" . (int)$data['proposal_temporary_id'] . "', proposal_statement_top = " . $this->db->escape($data['proposal_statement_top']) . ", proposal_statement_bottom = " . $this->db->escape($data['proposal_statement_bottom']) . ", proposal_total = '" . (double)$data['proposal_total']. "', proposal_status = '" . (int)$data['proposal_status'] . "', proposal_date_updated = now() WHERE proposal_id = '" . (int)$proposal_id . "'");
 
         $this->db->query("DELETE FROM proposal_to_customer WHERE proposal_id = '" . (int)$proposal_id . "'");
 
