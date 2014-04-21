@@ -93,13 +93,13 @@
 														<input class="form-control autocomplete-input" autocomplete="off" onkeyup="product_autocomplete(this);" placeholder="Ürün" type="text" name="proposal_product[<?php echo $proposal_product_row ?>][product_id]" value="<?php echo $proposal_product['product_name']; ?>">
 														<div class="autocomplete-results"></div>
 														<input type="hidden" class="hidden-id" value="<?php echo $proposal_product['product_id'] ?>" name="proposal_product[<?php echo $proposal_product_row ?>][product_id]">
-														<span class="input-group-addon"><a onclick="removeRow(this).parent().parent(); return false;"><i class="fa fa-times"></i></a></span>
+														<span class="input-group-addon"><a onclick="removeRow(this); return false;"><i class="fa fa-times"></i></a></span>
 													</div>
 												</div>
-												<div class="col-md-1 quantity"><input class="product-quantity form-control" type="number" name="proposal_product[<?php echo $proposal_product_row ?>][product_quantity]" placeholder="Adet" value="<?php echo $proposal_product['product_quantity'] ?>"></div>
+												<div class="col-md-1 quantity"><input class="product-quantity form-control" onchange="calculate_price();" type="number" name="proposal_product[<?php echo $proposal_product_row ?>][product_quantity]" placeholder="Adet" value="<?php echo $proposal_product['product_quantity'] ?>"></div>
 												<div class="col-md-2 price">
 													<div class="input-group">
-														<input class="product-price form-control eachPrice" onchange="calculate_price();" baseprice="<?php echo $proposal_product['product_price'] ?>" type="text" value="<?php echo $proposal_product['product_price'] ?>" onchange="" name="proposal_product[<?php echo $proposal_product_row ?>][product_price]" placeholder="Birim Fiyat">
+														<input class="product-price form-control eachPrice" onchange="calculate_price();" baseprice="<?php echo $proposal_product['product_price'] ?>" type="text" value="<?php echo $proposal_product['product_price'] ?>"name="proposal_product[<?php echo $proposal_product_row ?>][product_price]" placeholder="Birim Fiyat">
 															<span class="input-group-addon" style="padding: 0px; border: 1px;">
 																<div class="btn-group">
 																	<input type="button" class="btn btn-default dropdown-toggle" value="<?php echo $proposal_product['product_price_type'] ?>" data-toggle="dropdown" />
@@ -117,9 +117,9 @@
 															</span>
 													</div>
 												</div>
-												<div class="col-md-2 discount"><input class="product-discount form-control" type="text" name="proposal_product[<?php echo $proposal_product_row ?>][product_discount]" value="<?php echo $proposal_product['product_discount'] ?>" placeholder="İndirim"></div>
+												<div class="col-md-2 discount"><input class="product-discount form-control" onchange="discount_price(id);" type="text" name="proposal_product[<?php echo $proposal_product_row ?>][product_discount]" value="<?php echo $proposal_product['product_discount'] ?>" placeholder="İndirim"></div>
 												<div class="col-md-2">
-													<select class="product-discount-type form-control disc" onChange="myFunction(this,this.options[this.selectedIndex].value)" name="proposal_product[<?php echo $proposal_product_row ?>][product_discount_type]">
+													<select class="product-discount-type form-control disc" onchange="discount_price(this.options[this.selectedIndex].value);" name="proposal_product[<?php echo $proposal_product_row ?>][product_discount_type]">
 														<option disabled readonly selected="true">İndirim Tipi</option>
 														<option value="0" <?php echo isset($proposal_product['product_discount_type']) && $proposal_product['product_discount_type'] == 0 ? 'selected' : '' ;?>>%</option>
 														<option value="1"  <?php echo isset($proposal_product['product_discount_type']) && $proposal_product['product_discount_type'] == 1 ? 'selected' : ''
@@ -207,6 +207,10 @@ var proposal_product_row = <?php echo $proposal_product_row; ?>;
 					$(this).val(0);
 
 				var quantity = $(this).parents('.price').siblings('.quantity').children('input').val();
+				
+				var baseprice = $(this).parents('.price').children('.input-group').children('.product-price').attr('baseprice');
+				var discount = $(this).parents('.price').siblings('.discount').children('input').val();
+
 
 				total += parseFloat(quantity * $(this).val());
 			});
@@ -214,12 +218,47 @@ var proposal_product_row = <?php echo $proposal_product_row; ?>;
 			$('#proposal-total').val(total);
 		}
 
+		function discount_price(id) {
+			var total = 0;
+			$('.product-price').each(function() {
+				if ($(this).val() === '')
+					$(this).val(0);
+
+				var quantity = $(this).parents('.price').siblings('.quantity').children('input').val();
+				
+				if($(this).parents('.price').children('.input-group').children('.product-price').attr('baseprice') == ' '){
+					//burası çalışmıyor
+					var baseprice = $(this).parents('.price').children('.input-group').children('.product-price').children('input').val();
+				}else{
+					var baseprice = $(this).parents('.price').children('.input-group').children('.product-price').attr('baseprice');
+				}
+
+
+				if(id === '')
+					alert("Lütfen indirim tipini seçiniz!");
+
+				var discount = $(this).parents('.price').siblings('.discount').children('input').val();
+
+				if(id==1){
+					var result = (baseprice - discount);
+				}else{
+					var result = baseprice - (baseprice*discount) / 100;
+				}
+
+				var price = $(this).val(result);
+				total += parseFloat(quantity * result);
+			});
+
+			$('#proposal-total').val(total);
+		}
+
 		function myFunction(element,id){
-			/*var other_total =  $(element).parent().parents('.col-md-12').siblings('.totalPrices').children('.row').children('.totalPrice').children('.ttlprice').children('input').val();
+			var other_total =  $(element).parent().parents('.col-md-12').siblings('.totalPrices').children('.row').children('.totalPrice').children('.ttlprice').children('input').val();
 			var value = $(element).parent().siblings('.price').children('.input-group').children('.input-group-addon').siblings('input').val();
 			var baseprice = $(element).parent().siblings('.price').children('.input-group').children('.input-group-addon').siblings('input').attr("baseprice");
 			var discount = $(element).parent().siblings('.discount').children('input').val();
 			var quantity = $(element).parent().siblings('.quantity').children('input').val();
+
 			var other_total = other_total - value;
 			if(id==1){
 				var result = (baseprice - discount);
@@ -230,7 +269,7 @@ var proposal_product_row = <?php echo $proposal_product_row; ?>;
 			var other_total = parseFloat(other_total + result);
 			var totalPrice = $(element).parent().parents('.col-md-12').siblings('.totalPrices').children('.row').children('.totalPrice').children('.ttlprice').children('input').val(other_total);
 
-		$(element).parent().siblings('.price').children('.input-group').children('.input-group-addon').siblings('input').val(result);*/
+		$(element).parent().siblings('.price').children('.input-group').children('.input-group-addon').siblings('input').val(result);
 	}
 </script>
 <script type="text/javascript">

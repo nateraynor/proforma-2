@@ -84,15 +84,9 @@ class Proposal_model extends CI_Model {
            $result = $this->db->query("INSERT INTO proposal_product SET product_id = '" . (int)$product['product_id'] . "' ,proposal_id = '" . (int)$proposal_id . "' , product_quantity = " . $this->db->escape($product['product_quantity']) . ", product_price = '" .(float)$product['product_price'] ."' , product_discount = " . $this->db->escape($product['product_discount']) ." , product_price_type = " . $this->db->escape($product['product_price_type']) ." , product_discount_type = " . (int)$product['product_discount_type'] ." , product_tax_rate = " . $this->db->escape($product['product_tax_rate']) ."");
 			$product_prices[] = $product['product_price'];
         }
-
-       	$total_prices = '';
-		$countPrice = count($data['proposal_product']);
-		 for ($i=0; $i < $countPrice ; $i++) { 
-		 		$total_prices += $product_prices[$i];
-		 }
 		 			
 
-		 $result = $this->db->query("UPDATE proposal SET proposal_name = " . $this->db->escape($data['proposal_name']) . ", proposal_code = '" . (int)$data['proposal_temporary_id'] . "', proposal_statement_top = " . $this->db->escape($data['proposal_statement_top']) . ", proposal_statement_bottom = " . $this->db->escape($data['proposal_statement_bottom']) . ", proposal_total = '" . (double)$total_prices. "', proposal_status = '" . (int)$data['proposal_status'] . "', proposal_date_updated = now() WHERE proposal_id = '" . (int)$proposal_id . "'");
+		 $result = $this->db->query("UPDATE proposal SET proposal_name = " . $this->db->escape($data['proposal_name']) . ", proposal_code = '" . (int)$data['proposal_temporary_id'] . "', proposal_statement_top = " . $this->db->escape($data['proposal_statement_top']) . ", proposal_statement_bottom = " . $this->db->escape($data['proposal_statement_bottom']) . ", proposal_total = '" . (double)$data['proposal_total']. "', proposal_status = '" . (int)$data['proposal_status'] . "', proposal_date_updated = now() WHERE proposal_id = '" . (int)$proposal_id . "'");
 
         $this->db->query("DELETE FROM proposal_to_customer WHERE proposal_id = '" . (int)$proposal_id . "'");
 
