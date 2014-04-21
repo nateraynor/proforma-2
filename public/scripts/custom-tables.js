@@ -1,22 +1,28 @@
 $(document).ready(function() {
-	$('[data-onload]').each(function(){
-    	eval($(this).data('onload'));
+	$('#filter_button').click(function() {
+		var filter_proposal_id = $('#filter_proposal_id').val();
+		var filter_proposal_name = $('#filter_proposal_name').val();
+		var filter_proposal_total = $('#filter_proposal_total').val();
+		var filter_proposal_status = $('#filter_proposal_status').val();
+
+		window.location.href = page_url + '?sort=' + sort + '&sort_order=' + order + '&filter_proposal_id=' + encodeURIComponent(filter_proposal_id) + '&filter_proposal_name=' + encodeURIComponent(filter_proposal_name) + '&filter_proposal_total=' + encodeURIComponent(filter_proposal_total) + '&filter_proposal_status=' + encodeURIComponent(filter_proposal_status);
 	});
-	$('.column-toggler').click(function() {
-		var column_name = $(this).attr('data-column-value');
-		$.ajax({
-			type: "POST",
-			url: base_url + 'home/updateColumnDisplayAjax/' + column_name,
-			success: function(){
-	        },
-	        error:function(){
-	        }
-		});
+
+	$('.sort').click(function(){
+		if (sort == $(this).attr('sort')) {
+			if (order == 'desc')
+				order = 'asc';
+			else
+				order = 'desc';
+		}
+
+		sort = $(this).attr('sort');
+
+		var filter_proposal_id = $('#filter_proposal_id').val();
+		var filter_proposal_name = $('#filter_proposal_name').val();
+		var filter_proposal_total = $('#filter_proposal_total').val();
+		var filter_proposal_status = $('#filter_proposal_status').val();
+
+		window.location.href = page_url + '?sort=' + sort + '&sort_order=' + order + '&filter_proposal_id=' + encodeURIComponent(filter_proposal_id) + '&filter_proposal_name=' + encodeURIComponent(filter_proposal_name) + '&filter_proposal_total=' + encodeURIComponent(filter_proposal_total) + '&filter_proposal_status=' + encodeURIComponent(filter_proposal_status);
 	});
 });
-function setDisplay(element) {
-	var oTable = $('.sample_2').dataTable();
-	var iCol = parseInt($(element).attr("data-column"));
-    var bVis = oTable.fnSettings().aoColumns[iCol].bVisible;
-    oTable.fnSetColumnVis(iCol, (bVis ? false : true));
-}

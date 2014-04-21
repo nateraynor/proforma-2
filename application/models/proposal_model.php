@@ -7,10 +7,62 @@ class Proposal_model extends CI_Model {
     }
 
  	public function getProposals($filters) {
- 		$result = $this->db->query("SELECT *, p.proposal_id AS 'proposal_id' FROM proposal p LEFT JOIN proposal_to_customer ptc ON p.proposal_id = ptc.proposal_id LEFT JOIN customer c ON ptc.customer_id = c.customer_id");
+ 		$sql = "SELECT *, p.proposal_id AS 'proposal_id' FROM proposal p LEFT JOIN proposal_to_customer ptc ON p.proposal_id = ptc.proposal_id LEFT JOIN customer c ON ptc.customer_id = c.customer_id WHERE 1=1";
+
+ 		if (!empty($filters['filter_proposal_id'])) {
+            $sql .= " AND p.proposal_id = '" . (int)$filters['filter_proposal_id'] . "'";
+        }
+
+        if (!empty($filters['filter_proposal_name'])) {
+            $sql .= " AND p.proposal_name LIKE " . $this->db->escape('%' . $filters['filter_proposal_name'] . '%');
+        }
+
+        if (!empty($filters['filter_proposal_total'])) {
+            $sql .= " AND p.proposal_total = " . (float)$filters['filter_proposal_total'];
+        }
+
+        if (!empty($filters['filter_proposal_status']) || $filters['filter_proposal_status'] == '0') {
+            $sql .= " AND p.proposal_status = '" . (int)$filters['filter_proposal_status'] . "'";
+        }
+
+        if (!empty($filters['sort'])) {
+            $sql .= " ORDER BY " . $filters['sort'] . " " . $filters['sort_order'];
+        }
+
+ 		$sql .= " LIMIT " . $filters['start'] . ", " . $filters['limit'];
+
+ 		$result = $this->db->query($sql);
 
  		return $result->result_array();
  	}
+
+ 	public function getTotalProposals($filters = array()){
+		$sql = "SELECT COUNT(*) AS 'total' FROM proposal p WHERE 1=1";
+
+		if (!empty($filters['filter_proposal_id'])) {
+            $sql .= " AND p.proposal_id = '" . (int)$filters['filter_proposal_id'] . "'";
+        }
+
+        if (!empty($filters['filter_proposal_name'])) {
+            $sql .= " AND p.proposal_name LIKE " . $this->db->escape('%' . $filters['filter_proposal_name'] . '%');
+        }
+
+        if (!empty($filters['filter_proposal_total'])) {
+            $sql .= " AND p.proposal_total = " . (float)$filters['filter_proposal_total'];
+        }
+
+        if (!empty($filters) && $filters['filter_proposal_status'] != '') {
+            $sql .= " AND p.proposal_status = '" . (int)$filters['filter_proposal_status'] . "'";
+        }
+
+        if (!empty($filters['sort'])) {
+            $sql .= " ORDER BY " . $filters['sort'] . " " . $filters['sort_order'];
+        }
+
+ 		$result = $this->db->query($sql);
+
+		return $result->row(0)->total;
+	}
 
  	public function getProposal($proposal_id) {
  		$result = $this->db->query("SELECT * FROM proposal p WHERE proposal_id = '" . (int)$proposal_id . "' LIMIT 1");
@@ -40,11 +92,6 @@ class Proposal_model extends CI_Model {
 
  		return $result->result_array();
  	}
- 	public function getTotalProposals(){
-		$result = $this->db->query("SELECT COUNT(*) AS 'total' FROM proposal ");
-
-		return $result->row(0)->total;
-	}
 
 	public function addProposal($data) {
 		$this->load->model('user_model');
@@ -87,10 +134,10 @@ class Proposal_model extends CI_Model {
 
        	$total_prices = '';
 		$countPrice = count($data['proposal_product']);
-		 for ($i=0; $i < $countPrice ; $i++) { 
+		 for ($i=0; $i < $countPrice ; $i++) {
 		 		$total_prices += $product_prices[$i];
 		 }
-		 			
+
 
 		 $result = $this->db->query("UPDATE proposal SET proposal_name = " . $this->db->escape($data['proposal_name']) . ", proposal_code = '" . (int)$data['proposal_temporary_id'] . "', proposal_statement_top = " . $this->db->escape($data['proposal_statement_top']) . ", proposal_statement_bottom = " . $this->db->escape($data['proposal_statement_bottom']) . ", proposal_total = '" . (double)$total_prices. "', proposal_status = '" . (int)$data['proposal_status'] . "', proposal_date_updated = now() WHERE proposal_id = '" . (int)$proposal_id . "'");
 

@@ -9,20 +9,39 @@ class Proposals extends CI_Controller {
         	redirect('login');
     }
 
-	public function index() {
-		$this->load->model('proposal_model');
-		$this->load->model('setting_model');
-
-		$filters = array();
-
+	public function index($start = 0, $limit = 1) {
 		$allowed_pages = $this->session->userdata['allowed_pages'];
+
 		if(!empty($allowed_pages) && (!strstr($allowed_pages, 'proposalslist'))){
 			$this->session->set_flashdata('error','Teklifler sayfasına erişim izniniz yoktur!');
 			redirect('home');
 		}
 
+		$this->load->model('proposal_model');
+		$this->load->model('setting_model');
+
+		/** Filterler **/
+		$data['sort']   = $this->input->get('sort') ? $this->input->get('sort') : 'p.proposal_id';
+		$data['sort_order']  = $this->input->get('sort_order') ? $this->input->get('sort_order') : 'desc';
+
+		$filters = array(
+			'filter_proposal_id'   		=> $this->input->get('filter_proposal_id'),
+			'filter_proposal_name'   	=> $this->input->get('filter_proposal_name'),
+			'filter_proposal_total' 	=> $this->input->get('filter_proposal_total'),
+			'filter_proposal_status'   	=> $this->input->get('filter_proposal_status'),
+			'sort'              		=> $data['sort'],
+			'sort_order'        		=> $data['sort_order'],
+			'start' 					=> $start,
+			'limit'						=> $limit
+		);
+
+        $data['filters'] = $filters;
+
 		$data['proposals'] = array();
+
+		/** Total ve proposal **/
 		$proposals = $this->proposal_model->getProposals($filters);
+		$total_proposals = $this->proposal_model->getTotalProposals($filters);
 
 		foreach ($proposals as $proposal) {
 
@@ -35,23 +54,39 @@ class Proposals extends CI_Controller {
 
 			$names = '';
 			$countNames = count($customers);
-		
-			 for ($i=0; $i < $countNames ; $i++) { 
-			 		$names .= $proposal_customers[$i];
-			 			if($i < $countNames -1)
-			 				$names .= ',';
-			 }
 
-		 	$data['proposals_customers_name'] = $names;
-		
+			for ($i=0; $i < $countNames ; $i++) {
+				$names .= $proposal_customers[$i];
+				if ($i < $countNames -1)
+					$names .= ',';
+			}
+
+			if ($proposal['proposal_status'] == '0') {
+				$proposal['proposal_status'] = 'İptal';
+			} else if ($proposal['proposal_status'] == '1') {
+				$proposal['proposal_status'] = 'Taslak';
+			} else if ($proposal['proposal_status'] == '2' ) {
+				$proposal['proposal_status'] = 'Gönderildi';
+			} else if ($proposal['proposal_status'] == '3' ) {
+				$proposal['proposal_status'] = 'Onaylandı';
+			} else if ($proposal['proposal_status'] == '4' ) {
+				$proposal['proposal_status'] = 'Değişiklik Yapıldı';
+			} else if ($proposal['proposal_status'] == '5' ) {
+				$proposal['proposal_status'] = 'Red Edildi';
+			}
+
 			$data['proposals'][] = array(
 				'proposal_id' 	=> $proposal['proposal_id'],
 				'proposal_name'	=> $proposal['proposal_name'],
 				'proposal_total'	 => $proposal['proposal_total'],
-				'proposal_status'	 => $proposal['proposal_status']
+				'proposal_status'	 => $proposal['proposal_status'],
+				'proposal_customers' => $names,
 			);
 		}
 
+		/** Pagination **/
+		$data['page_url'] = base_url() . 'proposals';
+		$data['pagination'] = $this->getPagination(base_url() . 'proposals/index', $total_proposals, $limit, 3, $_SERVER['QUERY_STRING']);
 		$data['metaInfo'] = $this->setting_model->getSetting('meta');
 		$data['menu'] = 'proposals';
 		$data['page'] = 'advancedtables';
@@ -105,7 +140,7 @@ class Proposals extends CI_Controller {
 
 			if ($proposal_id == -1) {
 				$result = $this->proposal_model->addProposal($this->input->post());
-				
+
 				if ($result) {
 					$this->session->set_flashdata('success', 'Teklif başarıyla oluşturuldu eklendi');
 					redirect('proposals/preview/' . $result);
@@ -133,7 +168,7 @@ class Proposals extends CI_Controller {
 			$data['notes'] 		= $this->proposal_model->getProposalNotes($proposal_id);
 			$data['proposal_products'] 	= $this->proposal_model->getProposalProducts($proposal_id);
 			foreach ($data['proposal_products'] as $proposal_product) {
-				$data['total'] +=$proposal_product['product_price']	;	
+				$data['total'] +=$proposal_product['product_price']	;
 			}
 
 
@@ -183,14 +218,6 @@ class Proposals extends CI_Controller {
 		redirect('proposals');
 	}
 
-	public function addProposalProductAjax() {
-		$this->load->model('proposal_model');
-
-		$result = $this->proposal_model->addTemporaryProposalProduct($this->input->post());
-
-		echo $result;
-	}
-
 	public function validate($data) {
 		$errors = array();
 		if (!empty($errors)) {
@@ -201,6 +228,39 @@ class Proposals extends CI_Controller {
 		}
 	}
 
+	public function getPagination($link, $total_rows, $per_page, $segment, $suffix) {
+		$this->load->library('pagination');
 
+	    $pagination = array(
+	      'num_links'   => 3,
+	      'base_url'    => $link,
+	      'total_rows'  => $total_rows,
+	      'per_page'    => $per_page,
+	      'uri_segment' => $segment,
+	      'next_link' => 'Sonraki',
+	      'next_tag_open' => '<li>',
+	      'next_tag_close' => '</li>',
+	      'prev_link' => 'Önceki',
+	      'prev_tag_open' => '<li>',
+	      'prev_tag_close' => '</li>',
+	      'cur_tag_open' => '<li class="active"><a href="#">',
+	      'cur_tag_close' => '</a></li>',
+	      'first_link' => 'İlk',
+	      'first_tag_open' => '<li>',
+	      'first_tag_close' => '</li>',
+	      'last_link' => 'Son',
+	      'last_tag_open' => '<li>',
+	      'last_tag_close' => '</li>',
+	      'full_tag_open' => ' <div class="dataTables_paginate paging_bootstrap"><ul class="pagination">',
+	      'full_tag_close' => '</ul></div>',
+	      'num_tag_open' => '<li>',
+	      'num_tag_close' => '</li>',
+	      'suffix' => '?' . $suffix,
+	      'first_url' => $link . '?' . $suffix
+	    );
+
+	    $this->pagination->initialize($pagination);
+	    return $this->pagination->create_links();
+	}
 }
 ?>
