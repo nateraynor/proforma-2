@@ -74,11 +74,11 @@
 						<table class="table table-striped table-bordered table-hover table-full-width">
 						<thead>
 						<tr class="sorts">
-							<th><a href="" sort="p.proposal_id">Teklif No</a></th>
-							<th><a href="" sort="p.proposal_name">Teklif Adı</a></th>
+							<th><a class="sort" href="#" sort="p.proposal_id">Teklif No</a></th>
+							<th><a class="sort" href="#" sort="p.proposal_name">Teklif Adı</a></th>
 							<th>Teklif Müşterileri</th>
-							<th><a href="" sort="p.proposal_total">Teklif Toplamı</a></th>
-							<th><a href="" sort="p.proposal_status">Teklif Durumu</a></th>
+							<th><a class="sort" href="#" sort="p.proposal_total">Teklif Toplamı</a></th>
+							<th><a class="sort" href="#" sort="p.proposal_status">Teklif Durumu</a></th>
 							<th>İşlemler</th>
 						</tr>
 						</thead>

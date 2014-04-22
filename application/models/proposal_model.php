@@ -55,10 +55,6 @@ class Proposal_model extends CI_Model {
             $sql .= " AND p.proposal_status = '" . (int)$filters['filter_proposal_status'] . "'";
         }
 
-        if (!empty($filters['sort'])) {
-            $sql .= " ORDER BY " . $filters['sort'] . " " . $filters['sort_order'];
-        }
-
  		$result = $this->db->query($sql);
 
 		return $result->row(0)->total;
