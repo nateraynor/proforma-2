@@ -139,7 +139,7 @@ class Proposals extends CI_Controller {
 		$this->load->model('product_model');
 		$this->load->model('customer_model');
 		$this->load->model('setting_model');
-		$data['total'] = 0;
+
 		$filters = array();
 		$allowed_pages = $this->session->userdata['allowed_pages'];
 
@@ -169,27 +169,54 @@ class Proposals extends CI_Controller {
 		}
 
 		$data['proposal_customer_ids'] = array();
+		$data['proposal_total'] = 0;
 
 		if ($proposal_id != -1) {
 			$data['proposal'] 	= $this->proposal_model->getProposal($proposal_id);
 			$data['proposal_customers'] = $this->proposal_model->getProposalCustomers($proposal_id);
-
 			foreach ($data['proposal_customers'] as $customer) {
 				$data['proposal_customer_ids'][] = $customer['customer_id'];
 			}
 
 			$data['notes'] 		= $this->proposal_model->getProposalNotes($proposal_id);
-			$data['proposal_products'] 	= $this->proposal_model->getProposalProducts($proposal_id);
-			foreach ($data['proposal_products'] as $proposal_product) {
-				$data['total'] +=$proposal_product['product_price']	;
-			}
 
+			$proposal_products 	= $this->proposal_model->getProposalProducts($proposal_id);
 
-		}
+			foreach ($proposal_products as $proposal_product) {
+				$price 				= $proposal_product['product_price'];
+				$product_quantity 	= $proposal_product['product_quantity'];
+				$discount_amount 	= $proposal_product['product_discount'];
+				$discount_type 		= $proposal_product['product_discount_type'];
 
 		$filters = array();
 
-		$data['customers'] = $this->customer_model->getCustomers($filters);
+		$data['customers'] = $this->proposal_model->getCustomers();
+
+				$total_product_price = $price * $product_quantity;
+
+				if ($discount_type == '1') {
+					$total_product_price = $total_product_price - ($total_product_price * $discount_amount / 100);
+				} else if ($discount_type == '2') {
+					$total_product_price = $total_product_price - $discount_amount;
+				}
+
+				$data['proposal_products'][] = array(
+					'product_id' 			=> $proposal_product['product_id'],
+					'product_quantity' 		=> $proposal_product['product_quantity'],
+					'product_price'			=> $proposal_product['product_price'],
+					'product_price_type' 	=> $proposal_product['product_price_type'],
+					'product_discount' 		=> $proposal_product['product_discount'],
+					'product_discount_type' => $proposal_product['product_discount_type'],
+					'product_tax_rate'		=> $proposal_product['product_tax_rate'],
+					'product_name'			=> $proposal_product['product_name'],
+					'product_total'			=> $total_product_price
+				);
+
+				$data['proposal_total'] += $total_product_price;
+			}
+		}
+
+		$data['customers'] = $this->proposal_model->getCustomers(array());
 		$data['templates'] = $this->setting_model->getTemplates();
 		$data['tax_rates'] = $this->setting_model->getSetting('tax_rates');
 		$data['exchange_rates'] = $this->setting_model->getSetting('exchange_rates');

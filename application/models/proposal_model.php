@@ -102,7 +102,19 @@ class Proposal_model extends CI_Model {
 		$this->db->query("INSERT INTO proposal_note SET proposal_id = '" . $proposal_id . "', proposal_note_content = " . $this->db->escape($proposal_note_content) . ", proposal_note_user = '" . $this->session->userdata['user_id'] . "', proposal_note_status = '1', proposal_note_date_added = now(), proposal_note_date_updated = now()");
 
         foreach ($data['proposal_product'] as $product) {
-           $result = $this->db->query("INSERT INTO proposal_product SET product_id = '" . (int)$product['product_id'] . "' ,proposal_id = '" . (int)$proposal_id . "' , product_quantity = " . $this->db->escape($product['product_quantity']) . ", product_price = '" .(float)$product['product_price'] ."' , product_discount = " . $this->db->escape($product['product_discount']) ." , product_discount_type = " . (int)$product['product_discount_type'] ." , product_tax_rate = " . $this->db->escape($product['product_tax_rate']) ."");
+        	if ($product['product_id'] == '-1') {
+        		// Ürün insert edilcek
+        	} else {
+        		if (!isset($product['product_discount_type'])) {
+        			$product['product_discount_type'] = '';
+        		}
+
+        		if (!isset($product['product_tax_rate'])) {
+        			$product['product_tax_rate'] = '';
+        		}
+
+        		$result = $this->db->query("INSERT INTO proposal_product SET product_id = '" . (int)$product['product_id'] . "' , proposal_id = '" . (int)$proposal_id . "' , product_quantity = " . $this->db->escape($product['product_quantity']) . ", product_price = '" .(float)$product['product_price'] ."' , product_discount = " . $this->db->escape($product['product_discount']) ." , product_discount_type = " . (int)$product['product_discount_type'] ." , product_tax_rate = " . $this->db->escape($product['product_tax_rate']) ."");
+        	}
         }
 
 		foreach($data['proposal_customers'] as $customer_id) {
@@ -124,8 +136,27 @@ class Proposal_model extends CI_Model {
 		$this->db->query("DELETE FROM proposal_product WHERE proposal_id = '" . (int)$proposal_id . "' ");
 
 		foreach ($data['proposal_product'] as $product) {
-           $result = $this->db->query("INSERT INTO proposal_product SET product_id = '" . (int)$product['product_id'] . "' ,proposal_id = '" . (int)$proposal_id . "' , product_quantity = " . $this->db->escape($product['product_quantity']) . ", product_price = '" .(float)$product['product_price'] ."' , product_discount = " . $this->db->escape($product['product_discount']) ." , product_price_type = " . $this->db->escape($product['product_price_type']) ." , product_discount_type = " . (int)$product['product_discount_type'] ." , product_tax_rate = " . $this->db->escape($product['product_tax_rate']) ."");
-			$product_prices[] = $product['product_price'];
+			if (!isset($product['product_discount_type'])) {
+				$product['product_discount_type'] = '-1';
+			}
+
+			if (!isset($product['product_tax_rate'])) {
+				$product['product_tax_rate'] = '-1';
+			}
+
+           	if ($product['product_id'] == '-1') {
+
+           		if (trim($product['name']) != '' && trim($product['product_price']) != '') {
+           			$this->db->query("INSERT INTO product SET product_name = " . $this->db->escape($product['name']) . ", product_price = '" . (float)$product['product_price'] . "', product_tax_rate = '" . (int)$product['product_tax_rate'] . "'" );
+
+           			$product['product_id'] = $this->db->insert_id();
+
+           			$result = $this->db->query("INSERT INTO proposal_product SET product_id = '" . (int)$product['product_id'] . "' , proposal_id = '" . (int)$proposal_id . "' , product_quantity = " . $this->db->escape($product['product_quantity']) . ", product_price = '" .(float)$product['product_price'] ."' , product_discount = " . $this->db->escape($product['product_discount']) ." , product_discount_type = " . (int)$product['product_discount_type'] ." , product_tax_rate = " . $this->db->escape($product['product_tax_rate']) ."");
+           		}
+
+        	} else {
+        		$result = $this->db->query("INSERT INTO proposal_product SET product_id = '" . (int)$product['product_id'] . "' , proposal_id = '" . (int)$proposal_id . "' , product_quantity = " . $this->db->escape($product['product_quantity']) . ", product_price = '" .(float)$product['product_price'] ."' , product_discount = " . $this->db->escape($product['product_discount']) ." , product_discount_type = " . (int)$product['product_discount_type'] ." , product_tax_rate = " . $this->db->escape($product['product_tax_rate']) ."");
+        	}
         }
 
        	$total_prices = '';
@@ -150,5 +181,11 @@ class Proposal_model extends CI_Model {
 
 		return $result;
 	}
+
+    public function getCustomers(){
+        $result = $this->db->query("SELECT * FROM customer c");
+        return $result->result_array();
+
+    }
 
 }

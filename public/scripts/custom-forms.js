@@ -3,17 +3,70 @@ var product_row = 1;
 var e = null;
 var total = 0;
 
+function getExchange(element, result_id, rate) {
+	var value = $(element).parents('.input-group-addon').siblings('input').attr('baseprice');
+	var result = Math.round(value / rate * 100) / 100;
+	$(element).parents('.input-group-addon').siblings('input').val(result);
+	$(element).parents('.dropdown-menu').siblings('input').val($(element).html());
+	$(element).parents('.dropdown-menu').siblings('.hidden-id').val($(element).html());
+	$(element).parents('.input-group-addon').siblings('input').trigger('change');
+}
+
+function calculatePrice(type) {
+	var total = 0;
+
+	$('.total-product-price').each(function() {
+		if ($(this).val() === '')
+			$(this).val(0);
+
+		var quantity = $(this).parents('.form-group').find('.product-quantity').val();
+		var price 	 = $(this).parents('.form-group').find('.product-price').val();
+		var discount_type 	= $(this).parents('.form-group').find('.product-discount-type').val();
+		var discount_amount = $(this).parents('.form-group').find('.product-discount').val();
+		var temp_total = parseFloat(quantity * price);
+
+		if (discount_type !== null) {
+			var discounted_price = 0;
+
+			if (discount_type == '1') {
+				discounted_price = temp_total - (temp_total * discount_amount / 100);
+			} else {
+				discounted_price = temp_total - discount_amount;
+			}
+
+			temp_total = discounted_price;
+		}
+
+		temp_total = temp_total.toFixed(2);
+
+		$(this).val(temp_total);
+		$(this).siblings('span').html('Toplam: ' + temp_total + ' TRY');
+
+		total += parseFloat(temp_total);
+	});
+
+	$('#proposal-total').val(total);
+}
 
 function autocompleteResult(element, product_id, price, tax_rate_id) {
+	price = price.toFixed(2);
+
 	$(element).parents('.autocomplete-results').siblings('.autocomplete-input').val($(element).html());
 	$(element).parents('.autocomplete-results').siblings('.hidden-id').val(product_id);
+
 	$(element).parents('.form-group').find('.product-price').val(price);
-	$(element).parents('.form-group').find('.product-price').attr("baseprice",price);
+	$(element).parents('.form-group').find('.product-quantity').val(1);
+
+	$(element).parents('.form-group').find('.product-price').attr("baseprice", price);
+	$(element).parents('.form-group').find('.total-text').html("Toplam: " + price + " TRY");
+	$(element).parents('.form-group').find('.total-product-price').val(price);
+
 	$(element).parents('.form-group').find('.product-price').trigger('change');
 	$(element).parents('.autocomplete-results').fadeOut(300);
+
 	$(element).parents('.form-group').find('.product-tax-rate option').each(function() {
-	if ($(this).val() == tax_rate_id)
-		$(this).attr('selected', 'true');
+		if ($(this).val() == tax_rate_id)
+			$(this).attr('selected', 'true');
 	});
 }
 
@@ -43,14 +96,6 @@ function product_autocomplete(element) {
         }, 500);
     }
 }
-
-/*function myFunction(element,id) {
-	$('.price').each(function() {
-		total += parseFloat($(this).val());
-	});
-
-	console.log(total);
-}*/
 
 $(document).on('blur', '.autocomplete-input', function() {
 	$(this).siblings(".autocomplete-results").fadeOut(300);
@@ -131,32 +176,36 @@ $(document).ready(function(){
 		html  = '<div class="col-md-12" style="margin-top: 10px;">';
 		html += '<div class="row">';
 		html +=	'	<div class="form-group">';
-		html +=	'		<div class="col-md-3">';
+		html +=	'		<div class="col-md-2">';
 		html +=	'			<div class="input-group">';
-		html +=	'				<input class="form-control autocomplete-input" autocomplete="off" onkeyup="product_autocomplete(this);" placeholder="Ürün" type="text" value="" name="proposal_product[' + proposal_product_row + '][product_id]">';
+		html +=	'				<input class="form-control autocomplete-input" autocomplete="off" onkeyup="product_autocomplete(this);" placeholder="Ürün" type="text" value="" name="proposal_product[' + proposal_product_row + '][name]">';
 		html +=	'				<div class="autocomplete-results"></div>';
-		html +=	'				<input type="hidden" class="hidden-id" value="'+ proposal_product_row + '" name="proposal_product[' + proposal_product_row + '][product_id]">';
+		html +=	'				<input type="hidden" class="hidden-id" value="-1" name="proposal_product[' + proposal_product_row + '][product_id]">';
 		html +=	'				<span class="input-group-addon"><a onclick="removeRow(this).parent().parent(); return false;"><i class="fa fa-times"></i></a></span>';
 		html +=	'			</div>';
 		html +=	'		</div>';
-		html +=	'		<div class="col-md-1 quantity"><input class="product-quantity form-control"  onchange="calculate_price();" value="1" type="number" name="proposal_product[' + proposal_product_row + '][product_quantity]" placeholder="Adet" value=""></div>';
+		html +=	'		<div class="col-md-1 quantity"><input class="product-quantity form-control"  onchange="calculatePrice();" value="" type="number" name="proposal_product[' + proposal_product_row + '][product_quantity]" placeholder="Adet" value=""></div>';
 		html +=	'		<div class="col-md-2 price">';
 		html +=	'			<div class="input-group">';
-		html +=	'				<input class="product-price form-control" onchange="calculate_price();" baseprice="" id="price-' + proposal_product_row + '" type="text" value="" name="proposal_product[' + proposal_product_row + '][product_price]" placeholder="Birim Fiyat">';
-		html +=	'				<span class="input-group-addon" style="padding: 0px; border: 1px;"><div class="btn-group"><input type="button" value="TL" class="btn btn-default dropdown-toggle" data-toggle="dropdown"/><input type="hidden" class="hidden-id" name="proposal_product[' + proposal_product_row + '][product_price_type]" /><ul class="dropdown-menu" role="menu">' + exchange_rates +'</ul><?php endforeach ;?><?php endif; ?></div></span>';
+		html +=	'				<input class="product-price form-control" onchange="calculatePrice();" baseprice="" id="price-' + proposal_product_row + '" type="text" value="" name="proposal_product[' + proposal_product_row + '][product_price]" placeholder="Birim Fiyat">';
+		html +=	'				<span class="input-group-addon" style="padding: 0px; border: 1px;"></span>';
 		html +=	'			</div>';
 		html +=	'		</div>';
-		html +=	'		<div class="col-md-2 discount"><input class="product-discount form-control" onchange="discount_price(id); "type="text" name="proposal_product[' + proposal_product_row + '][product_discount]" value="" placeholder="İndirim"></div>';
-		html +=	'		<div class="col-md-2">';
-		html +=	'			<select class="product-discount-type form-control disc" onChange="discount_price(this.options[this.selectedIndex].value);" name="proposal_product[' + proposal_product_row + '][product_discount_type]">';
+		html +=	'		<div class="col-md-2 discount"><input class="product-discount form-control" onchange="calculatePrice(); "type="text" name="proposal_product[' + proposal_product_row + '][product_discount]" value="" placeholder="İndirim"></div>';
+		html +=	'		<div class="col-md-1">';
+		html +=	'			<select class="product-discount-type form-control disc" onChange="calculatePrice();" name="proposal_product[' + proposal_product_row + '][product_discount_type]">';
 		html +=	'				<option disabled readonly selected="true">İndirim Tipi</option>';
-		html +=	'				<option>%</option>';
-		html +=	'				<option>Miktar</option>';
+		html +=	'				<option value="1">%</option>';
+		html +=	'				<option value="2">Miktar</option>';
 		html +=	'			</select>';
 		html +=	'		</div>';
 		html +=	'		<div class="col-md-2">';
 		html +=	'			<select class="product-tax-rate form-control" name="proposal_product[' + proposal_product_row + '][product_tax_rate]"><option disabled readonly selected="true">Vergi Oranı</option>' + tax_rates +'</select>';
 		html +=	'		</div>';
+		html += '		<div class="col-md-2">';
+		html += '			<span style="border: none;" class="form-control total-text">Toplam: 0 TRY</span>';
+		html += '			<input type="hidden" class="total-product-price" value="0">';
+		html += '		</div>';
 		html +=	'	</div>';
 		html +=	'</div>';
 		html +=	'</div>';
