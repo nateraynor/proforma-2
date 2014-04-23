@@ -1,8 +1,8 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if ( ! defined('BASEPATH')) exit('No direct script 
+    	parent::__construct();access allowed');
 class Customers extends CI_Controller {
 	var $errors = array();
 	public function __construct() {
-    	parent::__construct();
         if (!isset($this->session->userdata['user_id']))
         	redirect('login');
     }
@@ -25,7 +25,6 @@ class Customers extends CI_Controller {
 
 		$limit2 = $this->session->userdata('limit');
 		$limit = (int)$limit2;
-
 			/** Filterler **/
 		$data['sort']   = $this->input->get('sort') ? $this->input->get('sort') : 'c.customer_id';
 		$data['sort_order']  = $this->input->get('sort_order') ? $this->input->get('sort_order') : 'desc';
@@ -43,7 +42,6 @@ class Customers extends CI_Controller {
 		);
 
         $data['filters'] = $filters;
-
 		/** Total ve proposal **/
 		$data['customers'] = $this->customer_model->getCustomers($filters);
 		
@@ -51,7 +49,6 @@ class Customers extends CI_Controller {
 
 		$data['page_url'] = base_url() . 'customers';
 		$data['pagination'] = $this->getPagination(base_url() . 'customers/index', $total_customers, $limit, 3, $_SERVER['QUERY_STRING']);
-
 		$data['metaInfo'] = $this->setting_model->getSetting('meta');	
 		$data['menu'] = 'customers';
 		$data['page'] = 'advancedtables';

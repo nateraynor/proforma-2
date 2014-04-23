@@ -137,6 +137,5 @@
           url: base_url + "customers/getLimit",
           data:"limit="+limit,
      });
-
 	}
 </script>
