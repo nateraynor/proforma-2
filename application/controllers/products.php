@@ -8,13 +8,12 @@ class Products extends CI_Controller {
         	redirect('login');
     }
 
-    public function index() {
+    public function index($start = 0 , $limit = 1) {
 		$this->load->model('product_model');
 		$this->load->model('category_model');
 		$this->load->model('brand_model');
 		$this->load->model('setting_model');
 
-		$filters = array();
 		$allowed_pages = $this->session->userdata['allowed_pages'];
 		if(!empty($allowed_pages) && (!strstr($allowed_pages,'productslist'))){
 			$this->session->set_flashdata('error','Ürünler sayfasına erişim izniniz yoktur!');
@@ -22,8 +21,34 @@ class Products extends CI_Controller {
 
 		}
 
-		$data['metaInfo'] = $this->setting_model->getSetting('meta');
+		/** Filterler **/
+		$data['sort']   = $this->input->get('sort') ? $this->input->get('sort') : 'p.product_id';
+		$data['sort_order']  = $this->input->get('sort_order') ? $this->input->get('sort_order') : 'desc';
+
+		$filters = array(
+			'filter_product_id'   		=> $this->input->get('filter_product_id'),
+			'filter_product_name'   	=> $this->input->get('filter_product_name'),
+			'filter_category_name'   	=> $this->input->get('filter_category_name'),
+			'filter_brand_name'   		=> $this->input->get('filter_brand_name'),
+			'filter_product_price' 	    => $this->input->get('filter_product_price'),
+			'filter_product_status'   	=> $this->input->get('filter_product_status'),
+			'sort'              		=> $data['sort'],
+			'sort_order'        		=> $data['sort_order'],
+			'start' 					=> $start,
+			'limit'						=> $limit
+		);
+
+        $data['filters'] = $filters;
+
+		/** Total ve product **/
 		$data['products'] = $this->product_model->getProducts($filters);
+		$total_products = $this->product_model->getTotalProducts($filters);
+		/**Pagination*/
+		$data['page_url'] = base_url() . 'products';
+		$data['pagination'] = $this->getPagination(base_url() . 'products/index', $total_products, $limit, 3, $_SERVER['QUERY_STRING']);
+		//public function getPagination($link, $total_rows, $per_page, $segment, $suffix) {
+		
+		$data['metaInfo'] = $this->setting_model->getSetting('meta');
 		$data['categories'] = $this->category_model->getCategory($filters);
 		$data['brands']  = $this->brand_model->getBrands($filters);
 		$data['menu'] = 'products';
@@ -208,6 +233,41 @@ class Products extends CI_Controller {
 		} else {
 			return true;
 		}
+	}
+
+	public function getPagination($link, $total_rows, $per_page, $segment, $suffix) {
+		$this->load->library('pagination');
+
+	    $pagination = array(
+	      'num_links'   => 3,
+	      'base_url'    => $link,
+	      'total_rows'  => $total_rows,
+	      'per_page'    => $per_page,
+	      'uri_segment' => $segment,
+	      'next_link' => 'Sonraki',
+	      'next_tag_open' => '<li>',
+	      'next_tag_close' => '</li>',
+	      'prev_link' => 'Önceki',
+	      'prev_tag_open' => '<li>',
+	      'prev_tag_close' => '</li>',
+	      'cur_tag_open' => '<li class="active"><a href="#">',
+	      'cur_tag_close' => '</a></li>',
+	      'first_link' => 'İlk',
+	      'first_tag_open' => '<li>',
+	      'first_tag_close' => '</li>',
+	      'last_link' => 'Son',
+	      'last_tag_open' => '<li>',
+	      'last_tag_close' => '</li>',
+	      'full_tag_open' => ' <div class="dataTables_paginate paging_bootstrap"><ul class="pagination">',
+	      'full_tag_close' => '</ul></div>',
+	      'num_tag_open' => '<li>',
+	      'num_tag_close' => '</li>',
+	      'suffix' => '?' . $suffix,
+	      'first_url' => $link . '?' . $suffix
+	    );
+
+	    $this->pagination->initialize($pagination);
+	    return $this->pagination->create_links();
 	}
 }
 ?>

@@ -6,11 +6,16 @@ class Customers extends CI_Controller {
         if (!isset($this->session->userdata['user_id']))
         	redirect('login');
     }
-	public function index() {
+
+    public function getLimit(){
+    	$this->load->library('session');
+    	$limit = $this->input->post('limit');
+        $this->session->set_userdata('limit', $limit);
+    }
+	public function index($start=0) {
+    	$this->load->library('session');
 		$this->load->model('customer_model');
 		$this->load->model('setting_model');
-
-		$filters = array();
 
 		$allowed_pages = $this->session->userdata['allowed_pages'];
 		if(!empty($allowed_pages) && (!strstr($allowed_pages, 'customerslist'))){
@@ -18,8 +23,36 @@ class Customers extends CI_Controller {
 			redirect('home');
 		}
 
-		$data['metaInfo'] = $this->setting_model->getSetting('meta');	
+		$limit2 = $this->session->userdata('limit');
+		$limit = (int)$limit2;
+
+			/** Filterler **/
+		$data['sort']   = $this->input->get('sort') ? $this->input->get('sort') : 'c.customer_id';
+		$data['sort_order']  = $this->input->get('sort_order') ? $this->input->get('sort_order') : 'desc';
+
+		$filters = array(
+			'filter_customer_id'   		=> $this->input->get('filter_customer_id'),
+			'filter_customer_name'   	=> $this->input->get('filter_customer_name'),
+			'filter_customer_surname' 	=> $this->input->get('filter_customer_surname'),
+			'filter_customer_email' 	=> $this->input->get('filter_customer_email'),
+			'filter_customer_status'   	=> $this->input->get('filter_customer_status'),
+			'sort'              		=> $data['sort'],
+			'sort_order'        		=> $data['sort_order'],
+			'start' 					=> $start,
+			'limit'						=> $limit
+		);
+
+        $data['filters'] = $filters;
+
+		/** Total ve proposal **/
 		$data['customers'] = $this->customer_model->getCustomers($filters);
+		
+		$total_customers = $this->customer_model->getTotalCustomers($filters);
+
+		$data['page_url'] = base_url() . 'customers';
+		$data['pagination'] = $this->getPagination(base_url() . 'customers/index', $total_customers, $limit, 3, $_SERVER['QUERY_STRING']);
+
+		$data['metaInfo'] = $this->setting_model->getSetting('meta');	
 		$data['menu'] = 'customers';
 		$data['page'] = 'advancedtables';
 		$data['subview'] = 'customers/customer_list';
@@ -89,5 +122,40 @@ class Customers extends CI_Controller {
 		} else {
 			return true;
 		}
+	}
+
+	public function getPagination($link, $total_rows, $per_page, $segment, $suffix) {
+		$this->load->library('pagination');
+
+	    $pagination = array(
+	      'num_links'   => 3,
+	      'base_url'    => $link,
+	      'total_rows'  => $total_rows,
+	      'per_page'    => $per_page,
+	      'uri_segment' => $segment,
+	      'next_link' => 'Sonraki',
+	      'next_tag_open' => '<li>',
+	      'next_tag_close' => '</li>',
+	      'prev_link' => 'Önceki',
+	      'prev_tag_open' => '<li>',
+	      'prev_tag_close' => '</li>',
+	      'cur_tag_open' => '<li class="active"><a href="#">',
+	      'cur_tag_close' => '</a></li>',
+	      'first_link' => 'İlk',
+	      'first_tag_open' => '<li>',
+	      'first_tag_close' => '</li>',
+	      'last_link' => 'Son',
+	      'last_tag_open' => '<li>',
+	      'last_tag_close' => '</li>',
+	      'full_tag_open' => ' <div class="dataTables_paginate paging_bootstrap"><ul class="pagination">',
+	      'full_tag_close' => '</ul></div>',
+	      'num_tag_open' => '<li>',
+	      'num_tag_close' => '</li>',
+	      'suffix' => '?' . $suffix,
+	      'first_url' => $link . '?' . $suffix
+	    );
+
+	    $this->pagination->initialize($pagination);
+	    return $this->pagination->create_links();
 	}
 }

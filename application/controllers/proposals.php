@@ -9,7 +9,15 @@ class Proposals extends CI_Controller {
         	redirect('login');
     }
 
-	public function index($start = 0, $limit = 1) {
+    public function getLimit(){
+    	$this->load->library('session');
+    	$limit = $this->input->post('limit');
+    	$this->session->set_userdata('limit', $limit);
+
+    }
+
+	public function index($start = 0) {
+		$this->load->library('session');
 		$allowed_pages = $this->session->userdata['allowed_pages'];
 
 		if(!empty($allowed_pages) && (!strstr($allowed_pages, 'proposalslist'))){
@@ -19,6 +27,11 @@ class Proposals extends CI_Controller {
 
 		$this->load->model('proposal_model');
 		$this->load->model('setting_model');
+
+	   	$limit = $this->session->userdata('limit');
+	   	$limit2 = (int)$limit;
+
+	   	
 
 		/** Filterler **/
 		$data['sort']   = $this->input->get('sort') ? $this->input->get('sort') : 'p.proposal_id';
@@ -32,7 +45,7 @@ class Proposals extends CI_Controller {
 			'sort'              		=> $data['sort'],
 			'sort_order'        		=> $data['sort_order'],
 			'start' 					=> $start,
-			'limit'						=> $limit
+			'limit'						=> $limit2
 		);
 
         $data['filters'] = $filters;
@@ -174,9 +187,9 @@ class Proposals extends CI_Controller {
 
 		}
 
+		$filters = array();
 
-
-		$data['customers'] = $this->customer_model->getCustomers(array());
+		$data['customers'] = $this->customer_model->getCustomers($filters);
 		$data['templates'] = $this->setting_model->getTemplates();
 		$data['tax_rates'] = $this->setting_model->getSetting('tax_rates');
 		$data['exchange_rates'] = $this->setting_model->getSetting('exchange_rates');

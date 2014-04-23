@@ -44,17 +44,12 @@
 							<i class="fa fa-money"></i>Teklifler
 						</div>
 						<div class="actions">
-							<div class="btn-group">
-								<a class="btn default" href="#" data-toggle="dropdown">
-								Kolonlar <i class="fa fa-angle-down"></i>
-								</a>
-								<div id="" class="sample_2_column_toggler dropdown-menu hold-on-click dropdown-checkboxes pull-right">
-									<?php $i = 0; ?>
-									<?php foreach ($columns as $column): ?>
-										<label><input type="checkbox" <?php echo $column['column_display']  == 1 ? 'checked' : 'data-onload="setDisplay(this);"'; ?> data-column="<?php echo $i; ?>" data-column-value="<?php echo $column['column_value']; ?>" class="column-toggler"><?php echo $column['column_name']; ?></label>
-										<?php $i++; ?>
-									<?php endforeach; ?>
-								</div>
+							<div class="btn-group pull-right">
+								<button class="btn dropdown-toggle" data-toggle="dropdown">Araçlar <i class="fa fa-angle-down"></i></button>
+								<ul class="dropdown-menu pull-right">
+									<li><a href="javascript:window.print();">Sayfayı Yazdır</a></li>
+									<li><a href="<?php echo base_url() ?>proposals/excelOutput">Excel Çıktısı</a></li>
+								</ul>
 							</div>
 						</div>
 					</div>
@@ -63,12 +58,14 @@
 							<div class="btn-group">
 								<a class="btn red" href="<?php echo base_url() ?>proposals/proposal">Ekle <i class="fa fa-plus"></i></a>
 							</div>
-							<div class="btn-group pull-right">
-								<button class="btn dropdown-toggle" data-toggle="dropdown">Araçlar <i class="fa fa-angle-down"></i></button>
-								<ul class="dropdown-menu pull-right">
-									<li><a href="javascript:window.print();">Sayfayı Yazdır</a></li>
-									<li><a href="<?php echo base_url() ?>proposals/excelOutput">Excel Çıktısı</a></li>
-								</ul>
+							<div class="pull-right">
+								<label>Göster :</label>
+								<select class="input-xsmall" onchange="get_limit(this.options[this.selectedIndex].value);">
+									<option value="5">5</option>
+									<option value="10">10</option>
+									<option value="15">15</option>
+								</select>
+								<label>kayıt</label>
 							</div>
 						</div>
 						<table class="table table-striped table-bordered table-hover table-full-width">
@@ -99,6 +96,8 @@
 								</select></td>
 								<td><a class="btn blue pull-right" href="#" id="filter_button">Ara <i class="fa fa-search"></i></a></td>
 							</tr>
+						
+					
 						<?php foreach ($proposals as $proposal): ?>
 							<tr>
 								<td><?php echo $proposal['proposal_id'] ?></td>
@@ -127,4 +126,15 @@
 	var page_url = '<?php echo $page_url; ?>';
 	var sort = '<?php echo $sort ?>';
 	var order = '<?php echo $sort_order ?>';
+</script>
+<script type="text/javascript">
+	function get_limit(limit){
+	var base_url = '<?php echo base_url(); ?>';
+	$.ajax({
+          type:"post",
+          url: base_url + "proposals/getLimit",
+          data:"limit="+limit,
+     });
+
+	}
 </script>

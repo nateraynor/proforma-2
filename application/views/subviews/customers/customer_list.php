@@ -44,25 +44,6 @@
 							<i class="fa fa-group"></i>Müşteri Listesi
 						</div>
 						<div class="actions">
-							<div class="btn-group">
-								<a class="btn default" href="#" data-toggle="dropdown">
-								Kolonlar <i class="fa fa-angle-down"></i>
-								</a>
-								<div id="" class="sample_2_column_toggler dropdown-menu hold-on-click dropdown-checkboxes pull-right">
-									<?php $i = 0; ?>
-									<?php foreach ($columns as $column): ?>
-										<label><input type="checkbox" <?php echo $column['column_display']  == 1 ? 'checked' : 'data-onload="setDisplay(this);"'; ?> data-column="<?php echo $i; ?>" data-column-value="<?php echo $column['column_value']; ?>" class="column-toggler"><?php echo $column['column_name']; ?></label>
-										<?php $i++; ?>
-									<?php endforeach; ?>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="portlet-body">
-						<div class="table-toolbar">
-							<div class="btn-group">
-								<a class="btn red" href="<?php echo base_url() ?>customers/customer">Ekle <i class="fa fa-plus"></i></a>
-							</div>
 							<div class="btn-group pull-right">
 								<button class="btn dropdown-toggle" data-toggle="dropdown">Araçlar <i class="fa fa-angle-down"></i></button>
 								<ul class="dropdown-menu pull-right">
@@ -71,32 +52,53 @@
 								</ul>
 							</div>
 						</div>
-						<table class="table table-striped table-bordered table-hover table-full-width sample_2">
+					</div>
+					<div class="portlet-body">
+						<div class="table-toolbar">
+							<div class="btn-group">
+								<a class="btn red" href="<?php echo base_url() ?>customers/customer">Ekle <i class="fa fa-plus"></i></a>
+							</div>
+							<div class="pull-right">
+								<label>Göster :</label>
+								<select class="input-xsmall" onchange="get_limit(this.options[this.selectedIndex].value);">
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+								</select>
+								<label>kayıt</label>
+							</div>
+						</div>
+						<table class="table table-striped table-bordered table-hover table-full-width">
 						<thead>
-						<tr>
-							<th>Müşteri No</th>
-							<th>Müşteri Adı</th>
-							<th>Müşteri Soyadı</th>
-							<th>Müşteri E-posta</th>
-							<th>Müşteri Şirket</th>
-							<th>Müşteri Telefon</th>
-							<th>Müşteri Adres</th>
-							<th>Müşteri Durum</th>
-							<th>Müşteri Eklenme Tarihi</th>
-							<th>Müşteri Güncellenme Tarihi</th>
+						<tr class="sorts">
+							<th><a class="customer-sort" href="#" sort="c.customer_id">Müşteri No</a></th>
+							<th><a class="customer-sort" href="#" sort="c.customer_name">Müşteri Adı</a></th>
+							<th><a class="customer-sort" href="#" sort="c.customer_surname">Müşteri Soyadı</a></th>
+							<th><a class="customer-sort" href="#" sort="c.customer_email">Müşteri E-posta</a></th>
+							<th><a class="customer-sort" href="#" sort="c.customer_status">Müşteri Durumu</a></th>
 							<th>İşlemler</th>
 						</tr>
 						</thead>
 						<tbody>
+							<tr class="filters">
+								<td><input class="form-control input-inline" type="text" id="filter_customer_id" value="<?php echo $filters['filter_customer_id'] ?>"></td>
+								<td><input class="form-control input-inline" type="text" id="filter_customer_name" value="<?php echo $filters['filter_customer_name'] ?>"></td>
+								<td><input class="form-control input-inline" type="text" id="filter_customer_surname" value="<?php echo $filters['filter_customer_surname'] ?>"></td>
+								<td><input class="form-control input-inline" type="text" id="filter_customer_email" value="<?php echo $filters['filter_customer_email'] ?>"></td>
+								<td><select class="form-control input-inline" id="filter_customer_status">
+									<option value=""  <?php echo empty($filters['filter_customer_status']) ? 'selected' : '' ?>>Hepsi</option>
+									<option value="1" <?php echo $filters['filter_customer_status'] == '1' ? 'selected' : ''?>>Aktif</option>
+									<option value="0" <?php echo $filters['filter_customer_status'] == '0' ? 'selected' : ''?>>Pasif</option>
+								</select></td>
+								<td><a class="btn blue pull-right" href="#" id="filter_customer_button">Ara <i class="fa fa-search"></i></a></td>
+							</tr>
+
 							<?php foreach ($customers as $customer): ?>
 								<tr>
 									<td><?php echo $customer['customer_id'] ;?></td>
 									<td><?php echo $customer['customer_name']; ?></td>
 									<td><?php echo $customer['customer_surname']; ?></td>
 									<td><?php echo $customer['customer_email']; ?></td>
-									<td><?php echo $customer['customer_company']; ?></td>
-									<td><?php echo $customer['customer_phone']; ?></td>
-									<td><?php echo $customer['customer_address']; ?></td>
 									<td>
 										<?php if($customer['customer_status'] == 1 ): ?>
 											<?php echo 'Aktif'; ?>
@@ -104,8 +106,6 @@
 											<?php echo 'Pasif'; ?>
 										<?php endif ;?>
 									</td>
-									<td><?php echo $customer['customer_date_added'] ?></td>
-									<td><?php echo $customer['customer_date_updated'] ?></td>
 									<td>
 										
 										<a href="<?php echo base_url() . 'customers/customer/' . $customer['customer_id']; ?>" class="btn default btn-xs yellow"><i class="fa fa-edit"></i> Güncelle</a>
@@ -114,6 +114,9 @@
 								</tr>
 							<?php endforeach ?>
 						</tbody>
+						<tfoot>
+							<tr><td colspan="6"><?php echo $pagination; ?></td></tr>
+						</tfoot>
 						</table>
 					</div>
 				</div>
@@ -121,3 +124,19 @@
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+	var page_url = '<?php echo $page_url; ?>';
+	var sort = '<?php echo $sort ?>';
+	var order = '<?php echo $sort_order ?>';
+</script>
+<script type="text/javascript">
+	function get_limit(limit){
+	var base_url = '<?php echo base_url(); ?>';
+	$.ajax({
+          type:"post",
+          url: base_url + "customers/getLimit",
+          data:"limit="+limit,
+     });
+
+	}
+</script>

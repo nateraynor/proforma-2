@@ -44,25 +44,6 @@
 							<i class="fa fa-barcode"></i>Ürün Listesi
 						</div>
 						<div class="actions">
-							<div class="btn-group">
-								<a class="btn default" href="#" data-toggle="dropdown">
-								Kolonlar <i class="fa fa-angle-down"></i>
-								</a>
-								<div id="" class="sample_2_column_toggler dropdown-menu hold-on-click dropdown-checkboxes pull-right">
-									<?php $i = 0; ?>
-									<?php foreach ($columns as $column): ?>
-										<label><input type="checkbox" <?php echo $column['column_display']  == 1 ? 'checked' : 'data-onload="setDisplay(this);"'; ?> data-column="<?php echo $i; ?>" data-column-value="<?php echo $column['column_value']; ?>" class="column-toggler"><?php echo $column['column_name']; ?></label>
-										<?php $i++; ?>
-									<?php endforeach; ?>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="portlet-body">
-						<div class="table-toolbar">
-							<div class="btn-group">
-								<a class="btn red" href="<?php echo base_url() ?>products/product">Ekle <i class="fa fa-plus"></i></a>
-							</div>
 							<div class="btn-group pull-right">
 								<button class="btn dropdown-toggle" data-toggle="dropdown">Araçlar <i class="fa fa-angle-down"></i></button>
 								<ul class="dropdown-menu pull-right">
@@ -71,22 +52,49 @@
 								</ul>
 							</div>
 						</div>
-						<table class="table table-striped table-bordered table-hover table-full-width sample_2">
+					</div>
+					<div class="portlet-body">
+						<div class="table-toolbar">
+							<div class="btn-group">
+								<a class="btn red" href="<?php echo base_url() ?>products/product">Ekle <i class="fa fa-plus"></i></a>
+							</div>
+							<div class="pull-right">
+								<label>Göster :</label>
+								<select class="input-xsmall">
+									<option>5</option>
+									<option>10</option>
+									<option>15</option>
+								</select>
+								<label>kayıt</label>
+							</div>
+						</div>
+						<table class="table table-striped table-bordered table-hover table-full-width">
 						<thead>
-						<tr>
-							<th>Ürün No</th>
-							<th>Ürün Adı</th>
-							<th>Ürün Kategori</th>
-							<th>Ürün Marka</th>
-							<th>Ürün Fiyat</th>
-							<th>Ürün Vergi Oranı</th>
-							<th>Ürün Eklenme Tarihi</th>
-							<th>Ürün Güncellenme Tarihi</th>
-							<th>Ürün Durum</th>
+						<tr class="product-sorts">
+							<th><a class="product-sort" href="#" sort="p.product_id">Ürün No</a></th>
+							<th><a class="product-sort" href="#" sort="p.product_name">Ürün Adı</a></th>
+							<th><a class="product-sort" href="#" sort="c.category_name">Ürün Kategori</a></th>
+							<th><a class="product-sort" href="#" sort="b.brand_name">Ürün Marka</a></th>
+							<th><a class="product-sort" href="#" sort="p.product_price">Ürün Fiyat</a></th>
+							<th><a class="product-sort" href="#" sort="p.product_status">Ürün Durum</a></th>
 							<th>İşlemler</th>
 						</tr>
 						</thead>
 						<tbody>
+							<tr class="filters">
+								<td><input class="form-control input-inline" type="text" id="filter_product_id" value="<?php echo $filters['filter_product_id'] ?>"></td>
+								<td><input class="form-control input-inline" type="text" id="filter_product_name" value="<?php echo $filters['filter_product_name'] ?>"></td>
+								<td><input class="form-control input-inline" type="text" id="filter_category_name" value="<?php echo $filters['filter_category_name'] ?>"></td>
+								<td><input class="form-control input-inline" type="text" id="filter_brand_name" value="<?php echo $filters['filter_brand_name'] ?>"></td>
+								<td><input class="form-control input-inline" type="text" id="filter_product_price" value="<?php echo $filters['filter_product_price'] ?>"></td>
+							
+								<td><select class="form-control input-inline" id="filter_product_status">
+									<option value=""  <?php echo empty($filters['filter_product_status']) ? 'selected' : '' ?>>Hepsi</option>
+									<option value="1" <?php echo $filters['filter_product_status'] == '1' ? 'selected' : ''?>>Aktif</option>
+									<option value="0" <?php echo $filters['filter_product_status'] == '0' ? 'selected' : ''?>>Pasif</option>
+								</select></td>
+								<td><a class="btn blue pull-right" href="#" id="filter_product_button">Ara <i class="fa fa-search"></i></a></td>
+							</tr>
 
 							<?php foreach ($products as $product): ?>
 								<tr>
@@ -109,15 +117,7 @@
 									<td>
 										<?php echo $product['product_price']; ?>
 									</td>
-									<td>
-										<?php echo $product['product_tax_rate']; ?>
-									</td>
-									<td>
-										<?php echo $product['product_date_added']; ?>
-									</td>
-									<td>
-										<?php echo $product['product_date_updated']; ?>
-									</td>
+									
 									<td>
 										<?php if($product['product_status'] == 1 ): ?>
 											<?php echo 'Aktif'; ?>
@@ -132,6 +132,9 @@
 								</tr>
 							<?php endforeach ?>
 						</tbody>
+						<tfoot>
+							<tr><td colspan="12"><?php echo $pagination; ?></td></tr>
+						</tfoot>
 						</table>
 					</div>
 				</div>
@@ -139,3 +142,8 @@
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+	var page_url = '<?php echo $page_url; ?>';
+	var sort = '<?php echo $sort ?>';
+	var order = '<?php echo $sort_order ?>';
+</script>

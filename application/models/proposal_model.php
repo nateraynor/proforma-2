@@ -21,7 +21,7 @@ class Proposal_model extends CI_Model {
             $sql .= " AND p.proposal_total = " . (float)$filters['filter_proposal_total'];
         }
 
-        if (!empty($filters['filter_proposal_status']) || $filters['filter_proposal_status'] == '0') {
+        if (!empty($filters['filter_proposal_status']) || $filters['filter_proposal_status'] === '0') {
             $sql .= " AND p.proposal_status = '" . (int)$filters['filter_proposal_status'] . "'";
         }
 

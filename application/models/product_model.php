@@ -7,23 +7,74 @@ class Product_model extends CI_Model {
     }
 
  	public function getProducts($filters) {
- 		$sql = "SELECT * FROM product p LEFT JOIN product_to_category ptc ON p.product_id = ptc.product_id";
+ 		$sql = "SELECT * FROM product p LEFT JOIN product_to_category ptc ON p.product_id = ptc.product_id LEFT JOIN category c ON c.category_id = ptc.category_id LEFT JOIN brand b ON p.brand_id = b.brand_id WHERE 1=1";
 
- 		if (!empty($filters)) {
- 			$sql .= " WHERE";
+ 		if (!empty($filters['filter_product_id'])) {
+            $sql .= " AND p.product_id = '" . (int)$filters['filter_product_id'] . "'";
+        }
+ 		
+        if (!empty($filters['filter_product_name'])) {
+            $sql .= " AND p.product_name LIKE " . $this->db->escape('%' . $filters['filter_product_name'] . '%');
+        }
 
- 			if (isset($filters['filter_name'])) {
- 				$sql .= " product_name LIKE " . $this->db->escape('%' . $filters['filter_name'] . '%');
- 			}
+        if (!empty($filters['filter_category_name'])) {
+            $sql .= " AND c.category_name LIKE " . $this->db->escape('%' . $filters['filter_category_name'] . '%');
+        }
 
- 			if (isset($filters['limit'])) {
- 				$sql .= ' LIMIT ' . $filters['limit'];
- 			}
- 		}
+        if (!empty($filters['filter_brand_name'])) {
+            $sql .= " AND b.brand_name LIKE " . $this->db->escape('%' . $filters['filter_brand_name'] . '%');
+        }
+
+        if (!empty($filters['filter_proposal_total'])) {
+            $sql .= " AND p.product_price = " . (float)$filters['filter_product_price'];
+        }
+			
+        if (!empty($filters['filter_product_status']) || $filters['filter_product_status'] === '0') 
+        {
+            $sql .= " AND p.product_status = '" . (int)$filters['filter_product_status'] . "'";
+        }
+
+         if (!empty($filters['sort'])) {
+            $sql .= " ORDER BY " . $filters['sort'] . " " . $filters['sort_order'];
+        }
+
+        $sql .= " LIMIT " . $filters['start'] . ", " . $filters['limit'];
 
  		$result = $this->db->query($sql);
  		return $result->result_array();
  	}
+
+ 	public function getTotalProducts($filters = array()){
+		$sql = "SELECT COUNT(*) AS 'total' FROM product p LEFT JOIN product_to_category ptc ON p.product_id = ptc.product_id LEFT JOIN category c ON c.category_id = ptc.category_id LEFT JOIN brand b ON p.brand_id = b.brand_id WHERE 1=1";
+
+		if (!empty($filters['filter_product_id'])) {
+            $sql .= " AND p.product_id = '" . (int)$filters['filter_product_id'] . "'";
+        }
+
+        if (!empty($filters['filter_product_name'])) {
+            $sql .= " AND p.product_name LIKE " . $this->db->escape('%' . $filters['filter_product_name'] . '%');
+        }
+
+        if (!empty($filters['filter_category_name'])) {
+            $sql .= " AND c.category_name LIKE " . $this->db->escape('%' . $filters['filter_category_name'] . '%');
+        }
+
+        if (!empty($filters['filter_brand_name'])) {
+            $sql .= " AND b.brand_name LIKE " . $this->db->escape('%' . $filters['filter_brand_name'] . '%');
+        }
+
+        if (!empty($filters['filter_product_price'])) {
+            $sql .= " AND p.product_price = " . (float)$filters['filter_product_price'];
+        }
+
+        if (!empty($filters) && $filters['filter_product_status'] != '') {
+            $sql .= " AND p.product_status = '" . (int)$filters['filter_product_status'] . "'";
+        }
+
+ 		$result = $this->db->query($sql);
+ 	
+		return $result->row(0)->total;
+	}
 
  	public function getProductsForExcel() {
  		$result = $this->db->query("SELECT p.product_id as 'Ürün No', product_name as 'Ürün Adı' , b.brand_name as 'Ürün Marka' , c.category_name as 'Ürün Kategori' ,product_description as 'Ürün Açıklaması', product_price as 'Ürün Fiyat', product_tax_rate as 'Ürün Vergi Oranı' , product_date_added as 'Ürün Eklenme Tarihi' , product_date_updated as 'Ürün Güncellenme Tarihi' FROM product p LEFT JOIN brand b ON p.brand_id = b.brand_id LEFT JOIN product_to_category ptc ON ptc.product_id = p.product_id LEFT JOIN category c ON ptc.category_id = c.category_id");
