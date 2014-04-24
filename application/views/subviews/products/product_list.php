@@ -60,10 +60,11 @@
 							</div>
 							<div class="pull-right">
 								<label>Göster :</label>
-								<select class="input-xsmall">
-									<option>5</option>
-									<option>10</option>
-									<option>15</option>
+								<select class="input-xsmall" onchange="get_limit(this.options[this.selectedIndex].value);">
+									<option></option>
+									<option value="5">5</option>
+									<option value="10">10</option>
+									<option value="15">15</option>
 								</select>
 								<label>kayıt</label>
 							</div>

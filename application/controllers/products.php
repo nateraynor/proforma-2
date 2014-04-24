@@ -20,7 +20,8 @@ class Products extends CI_Controller {
 			redirect('home');
 
 		}
-
+		$limit2 = $this->session->userdata('limit');
+		$limit = (int)$limit2;
 		/** Filterler **/
 		$data['sort']   = $this->input->get('sort') ? $this->input->get('sort') : 'p.product_id';
 		$data['sort_order']  = $this->input->get('sort_order') ? $this->input->get('sort_order') : 'desc';
@@ -57,6 +58,23 @@ class Products extends CI_Controller {
 		$data['errors'] = $this->errors;
 		$this->load->view('layouts/default', $data);
 	}
+
+	public function getProductsAjax($value) {
+		$this->load->model('product_model');
+
+		$filters = array(
+			'filter_name' => $value,
+			'limit'		  => 10
+		);
+
+		$products = $this->product_model->getAjaxProducts($filters);
+
+		foreach ($products as $product) {
+			echo '<a href="#" class="autocomplete-result" onclick="autocompleteResult(this, ' . $product['product_id'] . ', ' . $product['product_price'] . ', ' . $product['product_tax_rate'] . '); return false;">' . $product['product_name'] . '</a>';
+		}
+
+	}
+
 
 	public function product($product_id = -1) {
 		$this->load->model('product_model');
@@ -192,22 +210,7 @@ class Products extends CI_Controller {
 		redirect('products');
 	}
 
-	public function getProductsAjax($value) {
-		$this->load->model('product_model');
-
-		$filters = array(
-			'filter_name' => $value,
-			'limit'		  => 10
-		);
-
-		$products = $this->product_model->getProducts($filters);
-
-		foreach ($products as $product) {
-			echo '<a href="#" class="autocomplete-result" onclick="autocompleteResult(this, ' . $product['product_id'] . ', ' . $product['product_price'] . ', ' . $product['product_tax_rate'] . '); return false;">' . $product['product_name'] . '</a>';
-		}
-
-	}
-
+	
 	public function getProductAjax($product_id) {
 		$this->load->model('product_model');
 		$this->load->model('category_model');

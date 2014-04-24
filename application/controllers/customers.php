@@ -1,16 +1,12 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script 
-    	parent::__construct();access allowed');
+<?php if ( ! defined('BASEPATH')) exit('No direct script parent::__construct();access allowed');
 class Customers extends CI_Controller {
 	var $errors = array();
+
 	public function __construct() {
+    	parent::__construct();
+
         if (!isset($this->session->userdata['user_id']))
         	redirect('login');
-    }
-
-    public function getLimit(){
-    	$this->load->library('session');
-    	$limit = $this->input->post('limit');
-        $this->session->set_userdata('limit', $limit);
     }
 	public function index($start=0) {
     	$this->load->library('session');

@@ -8,6 +8,8 @@
     </span>
   </div>
 </div>
+<script src="<?php echo ASSETS ?>plugins/jquery-1.4.2.min.js" type="text/javascript"></script>
+
 <script src="<?php echo ASSETS ?>plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
 <script src="<?php echo ASSETS ?>plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
 <script src="<?php echo ASSETS ?>plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
@@ -19,6 +21,7 @@
 <script type="text/javascript" src="<?php echo ASSETS ?>plugins/jquery-validation/dist/jquery.validate.min.js"></script>
 <script type="text/javascript" src="<?php echo ASSETS ?>plugins/jquery-validation/dist/additional-methods.min.js"></script>
 <script type="text/javascript" src="<?php echo ASSETS ?>plugins/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+
 <?php if ($page == 'wizard'): ?>
 <script type="text/javascript" src="<?php echo ASSETS ?>plugins/select2/select2.min.js"></script>
 <script src="<?php echo ASSETS ?>plugins/jquery.pwstrength.bootstrap/src/pwstrength.js" type="text/javascript"></script>
@@ -112,6 +115,34 @@ jQuery(document).ready(function() {
 <script type="text/javascript" src="<?php echo ASSETS ?>plugins/select2/select2.min.js"></script>
 <script type="text/javascript" src="<?php echo ASSETS ?>plugins/data-tables/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="<?php echo ASSETS ?>plugins/data-tables/DT_bootstrap.js"></script>
+
+<script type="text/javascript" src="<?php echo ASSETS ?>plugins/fuelux/js/spinner.min.js"></script>
+<script type="text/javascript" src="<?php echo ASSETS ?>plugins/select2/select2.min.js"></script>
+<script type="text/javascript" src="<?php echo ASSETS ?>plugins/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script>
+<script type="text/javascript" src="<?php echo ASSETS ?>plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
+<script type="text/javascript" src="<?php echo ASSETS ?>plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="<?php echo ASSETS ?>plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+<script type="text/javascript" src="<?php echo ASSETS ?>plugins/clockface/js/clockface.js"></script>
+<script type="text/javascript" src="<?php echo ASSETS ?>plugins/bootstrap-daterangepicker/moment.min.js"></script>
+<script type="text/javascript" src="<?php echo ASSETS ?>plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script type="text/javascript" src="<?php echo ASSETS ?>plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
+<script type="text/javascript" src="<?php echo ASSETS ?>plugins/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
+<script type="text/javascript" src="<?php echo ASSETS ?>plugins/jquery-inputmask/jquery.inputmask.bundle.min.js"></script>
+<script type="text/javascript" src="<?php echo ASSETS ?>plugins/jquery.input-ip-address-control-1.0.min.js"></script>
+<script type="text/javascript" src="<?php echo ASSETS ?>plugins/jquery-multi-select/js/jquery.multi-select.js"></script>
+<script type="text/javascript" src="<?php echo ASSETS ?>plugins/jquery-multi-select/js/jquery.quicksearch.js"></script>
+<script src="<?php echo ASSETS ?>plugins/jquery.pwstrength.bootstrap/src/pwstrength.js" type="text/javascript"></script>
+<script src="<?php echo ASSETS ?>plugins/bootstrap-switch/static/js/bootstrap-switch.min.js" type="text/javascript"></script>
+<script src="<?php echo ASSETS ?>plugins/jquery-tags-input/jquery.tagsinput.min.js" type="text/javascript"></script>
+<script src="<?php echo ASSETS ?>plugins/bootstrap-markdown/js/bootstrap-markdown.js" type="text/javascript"></script>
+<script src="<?php echo ASSETS ?>plugins/bootstrap-markdown/lib/markdown.js" type="text/javascript"></script>
+<script src="<?php echo ASSETS ?>plugins/bootstrap-maxlength/bootstrap-maxlength.min.js" type="text/javascript"></script>
+<script src="<?php echo ASSETS ?>plugins/bootstrap-touchspin/bootstrap.touchspin.js" type="text/javascript"></script>
+
+<script src="<?php echo ASSETS ?>scripts/form-components.js"></script>
+<script src="<?php echo ASSETS ?>scripts/custom-forms.js"></script>
+<script src="<?php echo ASSETS ?>scripts/form-dropzone.js"></script>
+
 <script src="<?php echo ASSETS ?>plugins/bootbox/bootbox.min.js" type="text/javascript"></script>
 <script src="<?php echo ASSETS ?>scripts/ui-bootbox.js" type="text/javascript"></script>
 <script src="<?php echo ASSETS ?>scripts/app.js"></script>
@@ -121,10 +152,13 @@ jQuery(document).ready(function() {
 jQuery(document).ready(function() {
   App.init();
   TableAdvanced.init();
+  FormComponents.init();
   UIBootbox.init();
 });
 </script>
 <?php endif; ?>
+<script src="<?php echo ASSETS ?>plugins/jquery.formatCurrency-1.4.0.js" type="text/javascript"></script>
+<script src="<?php echo ASSETS ?>plugins/jquery.formatCurrency.all.js" type="text/javascript"></script>
 <script type="text/javascript">
   $('.calculate').click(function(e){
     var currency = $(this).parent().siblings('div.col-md-2.values').children('.form-control.code').val();

@@ -7,7 +7,7 @@ class Product_model extends CI_Model {
     }
 
  	public function getProducts($filters) {
- 		$sql = "SELECT * FROM product p LEFT JOIN product_to_category ptc ON p.product_id = ptc.product_id LEFT JOIN category c ON c.category_id = ptc.category_id LEFT JOIN brand b ON p.brand_id = b.brand_id WHERE 1=1";
+ 		$sql = "SELECT *, p.product_id AS 'product_id' FROM product p LEFT JOIN product_to_category ptc ON p.product_id = ptc.product_id LEFT JOIN category c ON c.category_id = ptc.category_id LEFT JOIN brand b ON p.brand_id = b.brand_id WHERE 1=1";
 
  		if (!empty($filters['filter_product_id'])) {
             $sql .= " AND p.product_id = '" . (int)$filters['filter_product_id'] . "'";
@@ -44,6 +44,11 @@ class Product_model extends CI_Model {
  		return $result->result_array();
  	}
 
+    public function getAjaxProducts($filters){
+        $result = $this->db->query("SELECT * FROM product WHERE product_name LIKE " . $this->db->escape('%' . $filters['filter_name'] . '%') . "");
+        return $result->result_array();
+
+    }
  	public function getTotalProducts($filters = array()){
 		$sql = "SELECT COUNT(*) AS 'total' FROM product p LEFT JOIN product_to_category ptc ON p.product_id = ptc.product_id LEFT JOIN category c ON c.category_id = ptc.category_id LEFT JOIN brand b ON p.brand_id = b.brand_id WHERE 1=1";
 
@@ -76,6 +81,7 @@ class Product_model extends CI_Model {
 		return $result->row(0)->total;
 	}
 
+
  	public function getProductsForExcel() {
  		$result = $this->db->query("SELECT p.product_id as 'Ürün No', product_name as 'Ürün Adı' , b.brand_name as 'Ürün Marka' , c.category_name as 'Ürün Kategori' ,product_description as 'Ürün Açıklaması', product_price as 'Ürün Fiyat', product_tax_rate as 'Ürün Vergi Oranı' , product_date_added as 'Ürün Eklenme Tarihi' , product_date_updated as 'Ürün Güncellenme Tarihi' FROM product p LEFT JOIN brand b ON p.brand_id = b.brand_id LEFT JOIN product_to_category ptc ON ptc.product_id = p.product_id LEFT JOIN category c ON ptc.category_id = c.category_id");
  		return $result->result_array();
@@ -95,8 +101,17 @@ class Product_model extends CI_Model {
 
  	public function updateProduct($data , $product_id){
  		 $this->db->query( "UPDATE product SET 	product_name = " .$this->db->escape($data['product_name']) . " , product_description = " . $this->db->escape($data['product_description']) . " , brand_id = '" . (int)$data['brand_id'] . "', product_price = '" .(double)$data['product_price'] ."' ,product_image = " . $this->db->escape($data['product_image']) . "  , product_link = " .$this->db->escape($data['product_link']) . "  , product_tax_rate = '" .(double)$data['product_tax_rate'] .  "' , product_status = '" . (int)$data['product_status'] ."' , product_date_updated = now() WHERE product_id = '" .(int)$product_id ."'");
- 		 $result = $this->db->query("UPDATE product_to_category SET category_id = '" . (int)$data['category_id'] ."' WHERE product_id = '" . (int)$product_id."' ");
- 		return $result;
+ 	
+           $query = $this->db->query("SELECT * FROM product_to_category WHERE product_id = '" . (int)$product_id ."'"); 
+
+            if(isset($query->row(0)->category_id)){
+                $result = $this->db->query("UPDATE product_to_category SET category_id = '" . (int)$data['category_id'] ."' WHERE product_id = '" . (int)$product_id."' ");
+                return $result;
+            }else{
+                $result = $this->db->query("INSERT INTO product_to_category SET product_id = '" .(int)$product_id ."' , category_id = '" .(int)$data['category_id'] ."'");
+                return $result;
+            }
+               
  	}
 
  	public function deleteProduct($product_id) {
@@ -130,4 +145,6 @@ class Product_model extends CI_Model {
 
  		return $result->result_array();
  	}
+
+    
 }

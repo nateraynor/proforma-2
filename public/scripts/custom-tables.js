@@ -4,8 +4,10 @@ $(document).ready(function() {
 		var filter_proposal_name = $('#filter_proposal_name').val();
 		var filter_proposal_total = $('#filter_proposal_total').val();
 		var filter_proposal_status = $('#filter_proposal_status').val();
+		var filter_proposal_date_added = $('#filter_proposal_date_added').val();
+		var filter_proposal_date_updated = $('#filter_proposal_date_updated').val();
 
-		window.location.href = page_url + '?sort=' + sort + '&sort_order=' + order + '&filter_proposal_id=' + encodeURIComponent(filter_proposal_id) + '&filter_proposal_name=' + encodeURIComponent(filter_proposal_name) + '&filter_proposal_total=' + encodeURIComponent(filter_proposal_total) + '&filter_proposal_status=' + encodeURIComponent(filter_proposal_status);
+		window.location.href = page_url + '?sort=' + sort + '&sort_order=' + order + '&filter_proposal_id=' + encodeURIComponent(filter_proposal_id) + '&filter_proposal_name=' + encodeURIComponent(filter_proposal_name) + '&filter_proposal_total=' + encodeURIComponent(filter_proposal_total) + '&filter_proposal_status=' + encodeURIComponent(filter_proposal_status) + '&filter_proposal_date_added=' + encodeURIComponent(filter_proposal_date_added) + '&filter_proposal_date_updated=' + encodeURIComponent(filter_proposal_date_updated);
 	});
 
 	$('.sort').click(function(){
@@ -22,8 +24,11 @@ $(document).ready(function() {
 		var filter_proposal_name = $('#filter_proposal_name').val();
 		var filter_proposal_total = $('#filter_proposal_total').val();
 		var filter_proposal_status = $('#filter_proposal_status').val();
+		var filter_proposal_date_added = $('#filter_proposal_date_added').val();
+		var filter_proposal_date_updated = $('#filter_proposal_date_updated').val();
 
-		window.location.href = page_url + '?sort=' + sort + '&sort_order=' + order + '&filter_proposal_id=' + encodeURIComponent(filter_proposal_id) + '&filter_proposal_name=' + encodeURIComponent(filter_proposal_name) + '&filter_proposal_total=' + encodeURIComponent(filter_proposal_total) + '&filter_proposal_status=' + encodeURIComponent(filter_proposal_status);
+
+		window.location.href = page_url + '?sort=' + sort + '&sort_order=' + order + '&filter_proposal_id=' + encodeURIComponent(filter_proposal_id) + '&filter_proposal_name=' + encodeURIComponent(filter_proposal_name) + '&filter_proposal_total=' + encodeURIComponent(filter_proposal_total) + '&filter_proposal_status=' + encodeURIComponent(filter_proposal_status) + '&filter_proposal_date_added=' + encodeURIComponent(filter_proposal_date_added) + '&filter_proposal_date_updated=' + encodeURIComponent(filter_proposal_date_updated);
 	});
 
 	$('#filter_product_button').click(function() {
@@ -87,3 +92,13 @@ $(document).ready(function() {
 	});
 
 });
+
+function get_limit(limit){
+	$.ajax({
+          type:"post",
+          url: base_url + "settings/getLimit",
+          data:"limit="+limit,
+     }).done(function(){
+        location.reload();
+     });
+}

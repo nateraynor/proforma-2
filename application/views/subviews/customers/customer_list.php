@@ -61,9 +61,10 @@
 							<div class="pull-right">
 								<label>Göster :</label>
 								<select class="input-xsmall" onchange="get_limit(this.options[this.selectedIndex].value);">
-									<option value="1">1</option>
-									<option value="2">2</option>
-									<option value="3">3</option>
+									<option></option>
+									<option value="5">5</option>
+									<option value="10">10</option>
+									<option value="15">15</option>
 								</select>
 								<label>kayıt</label>
 							</div>
@@ -132,10 +133,13 @@
 <script type="text/javascript">
 	function get_limit(limit){
 	var base_url = '<?php echo base_url(); ?>';
-	$.ajax({
-          type:"post",
-          url: base_url + "customers/getLimit",
-          data:"limit="+limit,
-     });
+	console.log(limit);
+		$.ajax({
+	          type:"post",
+	          url: base_url + "customers/getLimit",
+	          data:"limit="+limit,
+	     }).done(function(){
+	        location.reload();
+	     });
 	}
 </script>

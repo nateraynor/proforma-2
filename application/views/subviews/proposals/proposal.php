@@ -99,7 +99,7 @@
 												<div class="col-md-1 quantity"><input class="product-quantity form-control" onchange="calculatePrice();" type="number" name="proposal_product[<?php echo $proposal_product_row ?>][product_quantity]" placeholder="Adet" value="<?php echo $proposal_product['product_quantity'] ?>"></div>
 												<div class="col-md-2 price">
 													<div class="input-group">
-														<input class="product-price form-control eachPrice" onchange="calculatePrice();" baseprice="<?php echo $proposal_product['product_price'] ?>" type="text" value="<?php echo $proposal_product['product_price'] ?>"name="proposal_product[<?php echo $proposal_product_row ?>][product_price]" placeholder="Birim Fiyat">
+														<input class="product-price form-control eachPrice currency" id="currencyField" onchange="calculatePrice();" baseprice="<?php echo $proposal_product['product_price'] ?>" type="text" value="<?php echo $proposal_product['product_price'] ?>"name="proposal_product[<?php echo $proposal_product_row ?>][product_price]" placeholder="Birim Fiyat">
 															<span class="input-group-addon" style="padding: 0px; border: 1px;"></span>
 													</div>
 												</div>
@@ -125,7 +125,7 @@
 													</select>
 												</div>
 												<div class="col-md-2">
-													<span style="border: none;" class="form-control">Toplam: <?php echo $proposal_product['product_total'] ?> TRY</span>
+													<span style="border: none;" class="form-control total-text">Toplam: <?php echo $proposal_product['product_total'] ?> TRY</span>
 													<input type="hidden" class="total-product-price" value="<?php echo $proposal_product['product_total'] ?>">
 												</div>
 											</div>
@@ -148,6 +148,36 @@
 													<span class="input-group-addon"><i class="fa fa-try"></i></span>
 												</div>
 											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label class="control-label">Geçerlilik Tarihi</label>
+												<div class="input-group input-medium date date-picker" data-date="12-04-2014" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
+													<input type="text" name="proposal_date_expiration" value="<?php echo isset($proposal['proposal_date_expiration']) ? date('d-m-Y',strtotime($proposal['proposal_date_expiration'])) : '' ?>" class="form-control" readonly>
+													<span class="input-group-btn">
+														<button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+													</span>
+												</div>
+												<!-- /input-group -->
+												<span class="help-block">
+													Tarih Seçiniz
+												</span>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label class="control-label">Teslim Tarihi</label>
+												<div class="input-group input-medium date date-picker" data-date="12-04-2014" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
+													<input type="text" name="proposal_date_delivery" value="<?php echo isset($proposal['proposal_date_delivery']) ? date('d-m-Y',strtotime($proposal['proposal_date_delivery'])): '' ?>" class="form-control" readonly>
+													<span class="input-group-btn">
+														<button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+													</span>
+												</div>
+												<!-- /input-group -->
+												<span class="help-block">
+													Tarih Seçiniz
+												</span>
 										</div>
 									</div>
 									<div class="col-md-6">

@@ -12,10 +12,13 @@ function getExchange(element, result_id, rate) {
 	$(element).parents('.input-group-addon').siblings('input').trigger('change');
 }
 
+
+
 function calculatePrice(type) {
 	var total = 0;
 
 	$('.total-product-price').each(function() {
+
 		if ($(this).val() === '')
 			$(this).val(0);
 
@@ -24,28 +27,28 @@ function calculatePrice(type) {
 		var discount_type 	= $(this).parents('.form-group').find('.product-discount-type').val();
 		var discount_amount = $(this).parents('.form-group').find('.product-discount').val();
 		var temp_total = parseFloat(quantity * price);
-
 		if (discount_type !== null) {
 			var discounted_price = 0;
 
 			if (discount_type == '1') {
 				discounted_price = temp_total - (temp_total * discount_amount / 100);
 			} else {
-				discounted_price = temp_total - discount_amount;
+				discounted_price = temp_total - (discount_amount * quantity);
 			}
 
-			temp_total = discounted_price;
+			temp_total = parseFloat(discounted_price);
 		}
 
-		temp_total = temp_total.toFixed(2);
-
-		$(this).val(temp_total);
-		$(this).siblings('span').html('Toplam: ' + temp_total + ' TRY');
+		$(this).siblings('span').html(temp_total);
+		$(this).siblings('span').formatCurrency();
+		$(this).siblings('span').prepend('Toplam: ');
+		$(this).siblings('span').append(' TRY');
 
 		total += parseFloat(temp_total);
 	});
 
 	$('#proposal-total').val(total);
+	$('#proposal-total').formatCurrency();
 }
 
 function autocompleteResult(element, product_id, price, tax_rate_id) {
@@ -106,6 +109,10 @@ $(document).on('focus', '.autocomplete-input', function() {
 });
 
 $(document).ready(function(){
+	$('.currency').blur(function() {
+		$(this).formatCurrency();
+	});
+	
 	$('#add-tax-rate').click(function() {
 		html  = '<div class="row">';
 		html += '	<div class="form-group">';
@@ -187,7 +194,7 @@ $(document).ready(function(){
 		html +=	'		<div class="col-md-1 quantity"><input class="product-quantity form-control"  onchange="calculatePrice();" value="" type="number" name="proposal_product[' + proposal_product_row + '][product_quantity]" placeholder="Adet" value=""></div>';
 		html +=	'		<div class="col-md-2 price">';
 		html +=	'			<div class="input-group">';
-		html +=	'				<input class="product-price form-control" onchange="calculatePrice();" baseprice="" id="price-' + proposal_product_row + '" type="text" value="" name="proposal_product[' + proposal_product_row + '][product_price]" placeholder="Birim Fiyat">';
+		html +=	'				<input class="product-price form-control currency" id="currencyField" onchange="calculatePrice();" baseprice="" id="price-' + proposal_product_row + '" type="text" value="" name="proposal_product[' + proposal_product_row + '][product_price]" placeholder="Birim Fiyat">';
 		html +=	'				<span class="input-group-addon" style="padding: 0px; border: 1px;"></span>';
 		html +=	'			</div>';
 		html +=	'		</div>';

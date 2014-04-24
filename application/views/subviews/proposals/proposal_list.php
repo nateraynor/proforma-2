@@ -61,6 +61,7 @@
 							<div class="pull-right">
 								<label>Göster :</label>
 								<select class="input-xsmall" onchange="get_limit(this.options[this.selectedIndex].value);">
+									<option></option>
 									<option value="5">5</option>
 									<option value="10">10</option>
 									<option value="15">15</option>
@@ -76,6 +77,8 @@
 							<th>Teklif Müşterileri</th>
 							<th><a class="sort" href="#" sort="p.proposal_total">Teklif Toplamı</a></th>
 							<th><a class="sort" href="#" sort="p.proposal_status">Teklif Durumu</a></th>
+							<th><a class="sort" href="#" sort="p.proposal_date_added">Teklif Eklenme Tarihi</a></th>
+							<th><a class="sort" href="#" sort="p.proposal_date_updated">Teklif Güncelleme Tarihi</a></th>
 							<th>İşlemler</th>
 						</tr>
 						</thead>
@@ -94,6 +97,22 @@
 									<option value="4" <?php echo $filters['filter_proposal_status'] == '4' ? 'selected' : ''?>>Değişiklik Yapıldı</option>
 									<option value="5" <?php echo $filters['filter_proposal_status'] == '5' ? 'selected' : ''?>>Red Edildi</option>
 								</select></td>
+								<td>
+									<div class="input-group input-medium date date-picker" data-date="2014-04-14" data-date-format="yyyy-mm-dd" data-date-viewmode="years">
+										<input type="text" id="filter_proposal_date_added" value="<?php echo $filters['filter_proposal_date_added'] ?>" class="form-control" readonly>
+										<span class="input-group-btn">
+											<button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+										</span>
+									</div>,
+								</td>
+								<td>
+									<div class="input-group input-medium date date-picker" data-date="12-04-2014" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
+										<input type="text" id="filter_proposal_date_updated" value="<?php echo $filters['filter_proposal_date_updated'] ?>" class="form-control" readonly>
+										<span class="input-group-btn">
+											<button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+										</span>
+									</div>,
+								</td>
 								<td><a class="btn blue pull-right" href="#" id="filter_button">Ara <i class="fa fa-search"></i></a></td>
 							</tr>
 						
@@ -105,6 +124,8 @@
 								<td><?php echo $proposal['proposal_customers'] ?></td>
 								<td><?php echo $proposal['proposal_total'] ?></td>
 								<td><?php echo $proposal['proposal_status'] ?></td>
+								<td><?php echo $proposal['proposal_date_added'] ?></td>
+								<td><?php echo $proposal['proposal_date_updated'] ?></td>
 								<td>
           							<a href="#" location="<?php echo base_url() . 'proposals/deleteProposal/' . $proposal['proposal_id']; ?>" class="btn default btn-xs black validate-delete pull-right"><i class="fa fa-trash-o"></i> Sil</a>
 									<a href="<?php echo base_url() . 'proposals/proposal/' . $proposal['proposal_id']; ?>" class="btn default btn-xs yellow pull-right"><i class="fa fa-edit"></i> Güncelle</a>
@@ -126,15 +147,4 @@
 	var page_url = '<?php echo $page_url; ?>';
 	var sort = '<?php echo $sort ?>';
 	var order = '<?php echo $sort_order ?>';
-</script>
-<script type="text/javascript">
-	function get_limit(limit){
-	var base_url = '<?php echo base_url(); ?>';
-	$.ajax({
-          type:"post",
-          url: base_url + "proposals/getLimit",
-          data:"limit="+limit,
-     });
-
-	}
 </script>

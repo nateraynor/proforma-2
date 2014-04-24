@@ -8,14 +8,7 @@ class Proposals extends CI_Controller {
         if (!isset($this->session->userdata['user_id']))
         	redirect('login');
     }
-
-    public function getLimit(){
-    	$this->load->library('session');
-    	$limit = $this->input->post('limit');
-    	$this->session->set_userdata('limit', $limit);
-
-    }
-
+	
 	public function index($start = 0) {
 		$this->load->library('session');
 		$allowed_pages = $this->session->userdata['allowed_pages'];
@@ -30,9 +23,7 @@ class Proposals extends CI_Controller {
 
 	   	$limit = $this->session->userdata('limit');
 	   	$limit2 = (int)$limit;
-
 	   	
-
 		/** Filterler **/
 		$data['sort']   = $this->input->get('sort') ? $this->input->get('sort') : 'p.proposal_id';
 		$data['sort_order']  = $this->input->get('sort_order') ? $this->input->get('sort_order') : 'desc';
@@ -42,11 +33,15 @@ class Proposals extends CI_Controller {
 			'filter_proposal_name'   	=> $this->input->get('filter_proposal_name'),
 			'filter_proposal_total' 	=> $this->input->get('filter_proposal_total'),
 			'filter_proposal_status'   	=> $this->input->get('filter_proposal_status'),
+			'filter_proposal_date_added'=> $this->input->get('filter_proposal_date_added'),
+			'filter_proposal_date_updated'=> $this->input->get('filter_proposal_date_updated'),
 			'sort'              		=> $data['sort'],
 			'sort_order'        		=> $data['sort_order'],
 			'start' 					=> $start,
 			'limit'						=> $limit2
 		);
+
+		
 
         $data['filters'] = $filters;
 
@@ -94,6 +89,8 @@ class Proposals extends CI_Controller {
 				'proposal_total'	 => $proposal['proposal_total'],
 				'proposal_status'	 => $proposal['proposal_status'],
 				'proposal_customers' => $names,
+				'proposal_date_added' => $proposal['proposal_date_added'],
+				'proposal_date_updated' => $proposal['proposal_date_updated'],
 			);
 		}
 

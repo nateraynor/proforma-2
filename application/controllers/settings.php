@@ -164,4 +164,10 @@ class Settings extends CI_Controller {
             return true;
         }
     }
+
+    public function getLimit(){
+        $this->load->library('session');
+        $limit = $this->input->post('limit');
+        $this->session->set_userdata('limit', $limit);
+    }
 }

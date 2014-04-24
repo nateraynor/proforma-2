@@ -24,6 +24,8 @@
 <?php if ($page == 'advancedtables'): ?>
 <link rel="stylesheet" type="text/css" href="<?php echo ASSETS ?>plugins/select2/select2_metro.css"/>
 <link rel="stylesheet" href="<?php echo ASSETS; ?>plugins/data-tables/DT_bootstrap.css"/>
+<link rel="stylesheet" type="text/css" href="<?php echo ASSETS ?>plugins/bootstrap-daterangepicker/daterangepicker-bs3.css"/>
+<link rel="stylesheet" type="text/css" href="<?php echo ASSETS ?>plugins/bootstrap-datetimepicker/css/datetimepicker.css"/>
 <?php elseif ($page == 'forms'): ?>
 <link href="<?php echo ASSETS ?>plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css" rel="stylesheet" type="text/css"/>
 <link href="<?php echo ASSETS ?>plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" type="text/css"/>
@@ -53,8 +55,11 @@
 <link href="<?php echo ASSETS ?>css/themes/default.css" rel="stylesheet" type="text/css" id="style_color"/>
 <link href="<?php echo ASSETS ?>css/custom.css" rel="stylesheet" type="text/css"/>
 <link rel="shortcut icon" href="favicon.ico"/>
-</head>
+
 <script type="text/javascript">
 	var base_url = '<?php echo base_url() ?>';
 </script>
+</head>
+
+
 <body class="page-header-fixed">
