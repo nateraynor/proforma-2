@@ -214,7 +214,7 @@ var proposal_product_row = <?php echo $proposal_product_row; ?>;
 	<?php foreach ($exchange_rates['exchange_rate'] as $exchange_rate) { ?>
 	exchange_rates += "<?php echo '<li><a onclick=\"getExchange(this, ' . $exchange_rate['exchange_rate_id'] . ', ' . $exchange_rate['rate'] . '); return false;\" href=\"#\">' . $exchange_rate['code'] . '</a></li>'; ?>";
 	<?php } ?>;
-
+	
 </script>
 <script type="text/javascript">
 	var tax_rates = '';

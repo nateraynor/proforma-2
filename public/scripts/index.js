@@ -171,7 +171,7 @@ var Index = function () {
                                 tickColor: "#eee",
                                 borderWidth: 0
                             },
-                            colors: ["#d12610", "#37b7f3", "#52e136"],
+                            colors: ["#27a9e3", "#27a9e3", "#27a9e3"],
                             xaxis: {
                                 ticks: 11,
                                 tickDecimals: 0
@@ -299,6 +299,349 @@ var Index = function () {
                     $("#tooltip").remove();
                 });
             }
+
+            function getProposalStatistics() {
+                $.getJSON(base_url + 'reports/getProposalStatistics').done(function(data){
+                    var pageviews = new Array();
+                    for (var i = 0; i < data.length; i++) {
+                        var day = data[i]['day'];
+                        var total = data[i]['total'];
+                        temp_array = Array(day, total);
+                        pageviews.push(temp_array);
+                    };
+                    if ($('#proposal_site_statistics').size() != 0) {
+                        $('#proposal_site_statistics_loading').hide();
+                        $('#proposal_site_statistics_content').show();
+                        var plot_statistics = $.plot($("#proposal_site_statistics"), [{
+                                data: pageviews,
+                                label: "Eklenen Teklif Sayısı"
+                            }
+                        ], {
+                            series: {
+                                lines: {
+                                    show: true,
+                                    lineWidth: 2,
+                                    fill: true,
+                                    fillColor: {
+                                        colors: [{
+                                                opacity: 0.05
+                                            }, {
+                                                opacity: 0.01
+                                            }
+                                        ]
+                                    }
+                                },
+                                points: {
+                                    show: true
+                                },
+                                shadowSize: 2
+                            },
+                            grid: {
+                                hoverable: true,
+                                clickable: true,
+                                tickColor: "#eee",
+                                borderWidth: 0
+                            },
+                            colors: ["#28b779", "#28b779", "#28b779"],
+                            xaxis: {
+                                ticks: 11,
+                                tickDecimals: 0
+                            },
+                            yaxis: {
+                                ticks: 11,
+                                tickDecimals: 0
+                            }
+                        });
+                    }
+                });
+            }
+            getProposalStatistics();
+            if ($('#proposal_site_activities').size() != 0) {
+                //site activities
+                var previousPoint2 = null;
+                $('#proposal_site_activities_loading').hide();
+                $('#proposal_site_activities_content').show();
+                var activities = [
+                    [1, 10],
+                    [2, 9],
+                    [3, 8],
+                    [4, 6],
+                    [5, 5],
+                    [6, 3],
+                    [7, 9],
+                    [8, 10],
+                    [9, 12],
+                    [10, 14],
+                    [11, 15],
+                    [12, 13],
+                    [13, 11],
+                    [14, 10],
+                    [15, 9],
+                    [16, 8],
+                    [17, 12],
+                    [18, 14],
+                    [19, 16],
+                    [20, 19],
+                    [21, 20],
+                    [22, 20],
+                    [23, 19],
+                    [24, 17],
+                    [25, 15],
+                    [25, 14],
+                    [26, 12],
+                    [27, 10],
+                    [28, 8],
+                    [29, 10],
+                    [30, 12],
+                    [31, 10],
+                    [32, 9],
+                    [33, 8],
+                    [34, 6],
+                    [35, 5],
+                    [36, 3],
+                    [37, 9],
+                    [38, 10],
+                    [39, 12],
+                    [40, 14],
+                    [41, 15],
+                    [42, 13],
+                    [43, 11],
+                    [44, 10],
+                    [45, 9],
+                    [46, 8],
+                    [47, 12],
+                    [48, 14],
+                    [49, 16],
+                    [50, 12],
+                    [51, 10]
+                ];
+                var plot_activities = $.plot(
+                    $("#proposal_site_activities"), [{
+                        data: activities,
+                        color: "rgba(107,207,123, 0.9)",
+                        shadowSize: 0,
+                        bars: {
+                            show: true,
+                            lineWidth: 0,
+                            fill: true,
+                            fillColor: {
+                                colors: [{
+                                        opacity: 1
+                                    }, {
+                                        opacity: 1
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                ], {
+                    series: {
+                        bars: {
+                            show: true,
+                            barWidth: 0.9
+                        }
+                    },
+                    grid: {
+                        show: false,
+                        hoverable: true,
+                        clickable: false,
+                        autoHighlight: true,
+                        borderWidth: 0
+                    },
+                    yaxis: {
+                        min: 0,
+                        max: 20
+                    }
+                });
+                $("#proposal_site_activities").bind("plothover", function (event, pos, item) {
+                    $("#x").text(pos.x.toFixed(2));
+                    $("#y").text(pos.y.toFixed(2));
+                    if (item) {
+                        if (previousPoint2 != item.dataIndex) {
+                            previousPoint2 = item.dataIndex;
+                            $("#tooltip").remove();
+                            var x = item.datapoint[0].toFixed(2),
+                                y = item.datapoint[1].toFixed(2);
+                            showTooltip('24 Feb 2013', item.pageX, item.pageY, x);
+                        }
+                    }
+                });
+                $('#proposal_site_activities').bind("mouseleave", function () {
+                    $("#tooltip").remove();
+                });
+            }
+
+            function getProductStatistics() {
+                $.getJSON(base_url + 'reports/getProductStatistics').done(function(data){
+                    var pageviews = new Array();
+                    for (var i = 0; i < data.length; i++) {
+                        var day = data[i]['day'];
+                        var total = data[i]['total'];
+                        temp_array = Array(day, total);
+                        pageviews.push(temp_array);
+                    };
+                    if ($('#product_site_statistics').size() != 0) {
+                        $('#product_site_statistics_loading').hide();
+                        $('#product_site_statistics_content').show();
+                        var plot_statistics = $.plot($("#product_site_statistics"), [{
+                                data: pageviews,
+                                label: "Eklenen Ürün Sayısı"
+                            }
+                        ], {
+                            series: {
+                                lines: {
+                                    show: true,
+                                    lineWidth: 2,
+                                    fill: true,
+                                    fillColor: {
+                                        colors: [{
+                                                opacity: 0.05
+                                            }, {
+                                                opacity: 0.01
+                                            }
+                                        ]
+                                    }
+                                },
+                                points: {
+                                    show: true
+                                },
+                                shadowSize: 2
+                            },
+                            grid: {
+                                hoverable: true,
+                                clickable: true,
+                                tickColor: "#eee",
+                                borderWidth: 0
+                            },
+                            colors: ["#ffb848", "#37b7f3", "#52e136"],
+                            xaxis: {
+                                ticks: 11,
+                                tickDecimals: 0
+                            },
+                            yaxis: {
+                                ticks: 11,
+                                tickDecimals: 0
+                            }
+                        });
+                    }
+                });
+            }
+            getProductStatistics();
+            if ($('#product_site_activities').size() != 0) {
+                //site activities
+                var previousPoint2 = null;
+                $('#product_site_activities_loading').hide();
+                $('#product_site_activities_content').show();
+                var activities = [
+                    [1, 10],
+                    [2, 9],
+                    [3, 8],
+                    [4, 6],
+                    [5, 5],
+                    [6, 3],
+                    [7, 9],
+                    [8, 10],
+                    [9, 12],
+                    [10, 14],
+                    [11, 15],
+                    [12, 13],
+                    [13, 11],
+                    [14, 10],
+                    [15, 9],
+                    [16, 8],
+                    [17, 12],
+                    [18, 14],
+                    [19, 16],
+                    [20, 19],
+                    [21, 20],
+                    [22, 20],
+                    [23, 19],
+                    [24, 17],
+                    [25, 15],
+                    [25, 14],
+                    [26, 12],
+                    [27, 10],
+                    [28, 8],
+                    [29, 10],
+                    [30, 12],
+                    [31, 10],
+                    [32, 9],
+                    [33, 8],
+                    [34, 6],
+                    [35, 5],
+                    [36, 3],
+                    [37, 9],
+                    [38, 10],
+                    [39, 12],
+                    [40, 14],
+                    [41, 15],
+                    [42, 13],
+                    [43, 11],
+                    [44, 10],
+                    [45, 9],
+                    [46, 8],
+                    [47, 12],
+                    [48, 14],
+                    [49, 16],
+                    [50, 12],
+                    [51, 10]
+                ];
+                var plot_activities = $.plot(
+                    $("#product_site_activities"), [{
+                        data: activities,
+                        color: "rgba(107,207,123, 0.9)",
+                        shadowSize: 0,
+                        bars: {
+                            show: true,
+                            lineWidth: 0,
+                            fill: true,
+                            fillColor: {
+                                colors: [{
+                                        opacity: 1
+                                    }, {
+                                        opacity: 1
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                ], {
+                    series: {
+                        bars: {
+                            show: true,
+                            barWidth: 0.9
+                        }
+                    },
+                    grid: {
+                        show: false,
+                        hoverable: true,
+                        clickable: false,
+                        autoHighlight: true,
+                        borderWidth: 0
+                    },
+                    yaxis: {
+                        min: 0,
+                        max: 20
+                    }
+                });
+                $("#product_site_activities").bind("plothover", function (event, pos, item) {
+                    $("#x").text(pos.x.toFixed(2));
+                    $("#y").text(pos.y.toFixed(2));
+                    if (item) {
+                        if (previousPoint2 != item.dataIndex) {
+                            previousPoint2 = item.dataIndex;
+                            $("#tooltip").remove();
+                            var x = item.datapoint[0].toFixed(2),
+                                y = item.datapoint[1].toFixed(2);
+                            showTooltip('24 Feb 2013', item.pageX, item.pageY, x);
+                        }
+                    }
+                });
+                $('#product_site_activities').bind("mouseleave", function () {
+                    $("#tooltip").remove();
+                });
+            }
+
         },
         initMiniCharts: function () {
             $('.easy-pie-chart .number.transactions').easyPieChart({

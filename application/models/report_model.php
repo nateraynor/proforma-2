@@ -33,7 +33,9 @@ class Report_model extends CI_Model {
     public function getTotalProposals(){
         $this->load->model('proposal_model');
 
-        $total = $this->proposal_model->getTotalProposals();
+        $filters = array();
+
+        $total = $this->proposal_model->getTotalProposals($filters);
 
         return $total;
     }
@@ -43,8 +45,34 @@ class Report_model extends CI_Model {
     		$year = date('Y');
 
     		$result = $this->db->query("SELECT COUNT(*) AS 'total', DAY(customer_date_added) as 'day' FROM customer WHERE MONTH(customer_date_added) = " . $month . " AND YEAR(customer_date_added) = " . $year . " GROUP BY DAY(customer_date_added)");
+
     	}
 
     	return $result->result_array();
     }
+
+     public function getProposalStatistics($type) {
+        if ($type == 'monthly') {
+            $month = date('m');
+            $year = date('Y');
+
+            $result = $this->db->query("SELECT COUNT(*) AS 'total', DAY(proposal_date_added) as 'day' FROM proposal WHERE MONTH(proposal_date_added) = " . $month . " AND YEAR(proposal_date_added) = " . $year . " GROUP BY DAY(proposal_date_added)");
+
+        }
+
+        return $result->result_array();
+    }
+
+     public function getProductStatistics($type) {
+        if ($type == 'monthly') {
+            $month = date('m');
+            $year = date('Y');
+
+            $result = $this->db->query("SELECT COUNT(*) AS 'total', DAY(product_date_added) as 'day' FROM product WHERE MONTH(product_date_added) = " . $month . " AND YEAR(product_date_added) = " . $year . " GROUP BY DAY(product_date_added)");
+
+        }
+
+        return $result->result_array();
+    }
+
 }

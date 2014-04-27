@@ -16,7 +16,9 @@ class Reports extends CI_Controller {
 		$this->load->model('setting_model');
 		
 		$data['metaInfo'] = $this->setting_model->getSetting('meta');	
-		$data['total_actions'] = $this->report_model->getTotalActions();
+		//$data['total_actions'] = $this->report_model->getTotalActions();
+		$data['total_products'] = $this->report_model->getTotalProducts();
+		$data['total_proposals'] = $this->report_model->getTotalProposals();
 		$data['total_customers'] = $this->report_model->getTotalCustomers();
 		$data['total_users'] = $this->report_model->getTotalUsers();
 		$data['menu'] = 'reports';
@@ -30,6 +32,22 @@ class Reports extends CI_Controller {
 		$this->load->model('report_model');
 
 		$results = $this->report_model->getCustomerStatistics($type);
+
+		echo json_encode($results);
+	}
+
+	public function getProposalStatistics($type = 'monthly') {
+		$this->load->model('report_model');
+
+		$results = $this->report_model->getProposalStatistics($type);
+
+		echo json_encode($results);
+	}
+
+	public function getProductStatistics($type = 'monthly') {
+		$this->load->model('report_model');
+
+		$results = $this->report_model->getProductStatistics($type);
 
 		echo json_encode($results);
 	}

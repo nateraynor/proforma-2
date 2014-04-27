@@ -12,6 +12,24 @@
 			</div>
 			<div class="row">
 				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+					<div class="dashboard-stat yellow">
+						<div class="visual">
+							<i class="fa fa-barcode"></i>
+						</div>
+						<div class="details">
+							<div class="number">
+								<?php echo $total_products; ?>
+							</div>
+							<div class="desc">
+								Ürün
+							</div>
+						</div>
+						<a class="more" href="<?php echo base_url() ?>products/product">
+						Ürün Ekle <i class="fa fa-plus"></i>
+						</a>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
 					<div class="dashboard-stat blue">
 						<div class="visual">
 							<i class="fa fa-group"></i>
@@ -32,18 +50,18 @@
 				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
 					<div class="dashboard-stat green">
 						<div class="visual">
-							<i class="fa fa-credit-card"></i>
+							<i class="fa fa-money"></i>
 						</div>
 						<div class="details">
 							<div class="number">
-								<?php echo $total_actions; ?>
+								<?php echo $total_proposals; ?>
 							</div>
 							<div class="desc">
 								İşlem
 							</div>
 						</div>
-						<a class="more" href="<?php echo base_url() ?>actions">
-						Tüm işlemler <i class="m-icon-swapright m-icon-white"></i>
+						<a class="more" href="<?php echo base_url() ?>proposals">
+						Tüm Teklifler <i class="m-icon-swapright m-icon-white"></i>
 						</a>
 					</div>
 				</div>
@@ -86,7 +104,7 @@
 			</div>
 			<div class="clearfix">
 			</div>
-			<div class="row">
+				<div class="row">
 				<div class="col-md-12">
 					<div class="portlet solid bordered light-grey">
 						<div class="portlet-title">
@@ -101,6 +119,48 @@
 							</div>
 							<div id="site_statistics_content" class="display-none">
 								<div id="site_statistics" class="chart">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="portlet solid bordered light-grey">
+						<div class="portlet-title">
+							<div class="caption">
+								<i class="fa fa-bar-chart-o"></i>Teklif Kayıtları
+								<small>bu ay içinde</small>
+							</div>
+						</div>
+						<div class="portlet-body">
+							<div id="proposal_site_statistics_loading">
+								<img src="assets/img/loading.gif" alt="loading"/>
+							</div>
+							<div id="proposal_site_statistics_content" class="display-none">
+								<div id="proposal_site_statistics" class="chart">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="portlet solid bordered light-grey">
+						<div class="portlet-title">
+							<div class="caption">
+								<i class="fa fa-bar-chart-o"></i>Ürün Kayıtları
+								<small>bu ay içinde</small>
+							</div>
+						</div>
+						<div class="portlet-body">
+							<div id="product_site_statistics_loading">
+								<img src="assets/img/loading.gif" alt="loading"/>
+							</div>
+							<div id="product_site_statistics_content" class="display-none">
+								<div id="product_site_statistics" class="chart">
 								</div>
 							</div>
 						</div>

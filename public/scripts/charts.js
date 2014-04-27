@@ -79,7 +79,7 @@ var Charts = function () {
                     });
             }
             //Interactive Chart
-            function chart2() {
+            function chart2() {//burdaki veriler ile çiziyo sanırım
                 function randValue() {
                     return (Math.floor(Math.random() * (1 + 40 - 20))) + 20;
                 }
