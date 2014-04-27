@@ -114,8 +114,9 @@ class Proposal_model extends CI_Model {
 
  		return $result->result_array();
  	}
+
  	public function getProposalsForExcel(){
- 		$result = $this->db->query("SELECT proposal as 'prop' FORM proposal");
+ 		$result = $this->db->query("SELECT p.proposal_id as 'Teklif No', proposal_code as 'Teklif Kodu' , proposal_name as 'Teklif Adı', proposal_statement_top as 'Teklif Üst Açıklaması' , proposal_statement_bottom as 'Teklif Alt Açıklaması' , c.customer_name as 'Müşteri Adı' FROM proposal p LEFT JOIN proposal_note pn ON p.proposal_id = pn.proposal_id LEFT JOIN proposal_to_customer ptc ON ptc.proposal_id = p.proposal_id LEFT JOIN customer c ON c.customer_id = ptc.customer_id");
 
  		return $result->result_array();
  	}
