@@ -5,10 +5,13 @@ class Proposals extends CI_Controller {
 	public function __construct() {
     	parent::__construct();
 
-        if (!isset($this->session->userdata['user_id']))
+        if (!isset($this->session->userdata['user_id']) && !$this->input->get('token')) {
         	redirect('login');
+        } else if ($this->input->get('token') && !isset($this->session->userdata['user_id'])) {
+        	redirect('customerPreview?token=' . $this->input->get('token'));
+        }
     }
-	
+
 	public function index($start = 0) {
 		$this->load->library('session');
 		$allowed_pages = $this->session->userdata['allowed_pages'];
@@ -23,6 +26,7 @@ class Proposals extends CI_Controller {
 
 	   	$limit = $this->session->userdata('limit');
 	   	$limit2 = (int)$limit;
+
 	   	$data['limit'] = $limit2;
 	   	
 		/** Filterler **/
@@ -42,7 +46,7 @@ class Proposals extends CI_Controller {
 			'limit'						=> $limit2
 		);
 
-		
+
 
         $data['filters'] = $filters;
 
@@ -114,22 +118,176 @@ class Proposals extends CI_Controller {
         $this->excel->to_excel($results, 'proposals-excel', 'Teklifler');
 	}
 
+	public function customerPreview() {
+		$this->load->model('proposal_model');
+		$this->load->model('setting_model');
+
+		$data['proposal'] 				 = $this->proposal_model->getProposal($proposal_id);
+		$data['proposal_customers'] 	 = $this->proposal_model->getProposalCustomers($proposal_id);
+		$data['proposal_notes'] 		 = $this->proposal_model->getProposalNotes($proposal_id);
+		$data['proposal_total'] 		 = 0;
+		$data['proposal_total_discount'] = 0;
+		$data['subtotal'] 				 = 0;
+		$data['tax_total']				 = 0;
+
+		$proposal_products 	= $this->proposal_model->getProposalProducts($proposal_id);
+		$tax_rates = $this->setting_model->getSetting('tax_rates');
+		$tax_rates = $tax_rates['tax_rate'];
+
+		foreach ($proposal_products as $proposal_product) {
+			$price 				= $proposal_product['product_price'];
+			$product_quantity 	= $proposal_product['product_quantity'];
+			$discount_amount 	= $proposal_product['product_discount'];
+			$discount_type 		= $proposal_product['product_discount_type'];
+
+			$total_product_price = $price * $product_quantity;
+
+			if ($discount_type == '1') {
+				$total_product_price = $total_product_price - ($total_product_price * $discount_amount / 100);
+				$product_discount 	 = $total_product_price * $discount_amount / 100;
+			} else if ($discount_type == '2') {
+				$total_product_price = $total_product_price - $discount_amount;
+				$product_discount 	 = $discount_amount;
+			} else {
+				$product_discount = 0;
+			}
+
+			$product_tax_rate = array();
+
+			for ($i=0; $i < count($tax_rates) ; $i++) {
+				if ($tax_rates[$i]['tax_rate_id'] == $proposal_product['product_tax_rate']) {
+					$product_tax_rate = $tax_rates[$i]['rate'];
+				}
+			}
+
+			$data['proposal_products'][] = array(
+				'product_id' 			=> $proposal_product['product_id'],
+				'product_quantity' 		=> $proposal_product['product_quantity'],
+				'product_price'			=> number_format($proposal_product['product_price'], 2, ',', '.'),
+				'product_price_type' 	=> $proposal_product['product_price_type'],
+				'product_discount' 		=> number_format($product_discount, 2, ',', '.'),
+				'product_discount_type' => $proposal_product['product_discount_type'],
+				'product_tax_rate'		=> $product_tax_rate,
+				'product_name'			=> $proposal_product['product_name'],
+				'product_link'			=> $proposal_product['product_link'],
+				'product_total'			=> number_format($total_product_price, 2, ',', '.')
+			);
+
+			$data['subtotal']				 += $proposal_product['product_quantity'] * ($proposal_product['product_price'] - ($proposal_product['product_price'] * $product_tax_rate / 100));
+			$data['tax_total']				 += ($proposal_product['product_price'] - $product_discount) * $product_tax_rate / 100;
+			$data['proposal_total_discount'] += $product_discount;
+			$data['proposal_total'] 		 += $total_product_price;
+		}
+
+		$data['proposal_total'] 		 = number_format($data['proposal_total'] , 2, ',', '.');
+		$data['proposal_total_discount'] = number_format($data['proposal_total_discount'], 2, ',', '.');
+		$data['subtotal'] 				 = number_format($data['subtotal'], 2, ',', '.');
+		$data['tax_total']				 = number_format($data['tax_total'], 2, ',', '.');
+
+		$data['templates'] 			= $this->setting_model->getTemplates();
+		$data['company_info'] 		= $this->setting_model->getSetting('company_info');
+		$data['metaInfo'] 			= $this->setting_model->getSetting('meta');
+		$data['proposal_id'] 		= $proposal_id;
+
+		$data['page'] 				= 'forms';
+		$data['subview'] 			= 'proposals/preview';
+
+		$this->load->view('layouts/default', $data);
+	}
+
 	public function preview($proposal_id) {
 		$this->load->model('proposal_model');
 		$this->load->model('setting_model');
 
-		$data['proposal'] = $this->proposal_model->getProposal($proposal_id);
-		$data['proposal_customers'] = $this->proposal_model->getProposalCustomers($proposal_id);
-		$data['proposal_notes'] = $this->proposal_model->getProposalNotes($proposal_id);
-		$data['proposal_products'] = $this->proposal_model->getProposalProducts($proposal_id);
-		$data['templates'] = $this->setting_model->getTemplates();
-		$data['company_info'] = $this->setting_model->getSetting('company_info');
-		$data['metaInfo'] = $this->setting_model->getSetting('meta');
-		$data['proposal_id'] = $proposal_id;
-		$data['menu'] = 'proposals';
-		$data['page'] = 'forms';
-		$data['subview'] = 'proposals/preview';
+		$data['proposal'] 				 = $this->proposal_model->getProposal($proposal_id);
+		$data['proposal_customers'] 	 = $this->proposal_model->getProposalCustomers($proposal_id);
+		$data['proposal_notes'] 		 = $this->proposal_model->getProposalNotes($proposal_id);
+		$data['proposal_total'] 		 = 0;
+		$data['proposal_total_discount'] = 0;
+		$data['subtotal'] 				 = 0;
+		$data['tax_total']				 = 0;
+
+		$proposal_products 	= $this->proposal_model->getProposalProducts($proposal_id);
+		$tax_rates = $this->setting_model->getSetting('tax_rates');
+		$tax_rates = $tax_rates['tax_rate'];
+
+		foreach ($proposal_products as $proposal_product) {
+			$price 				= $proposal_product['product_price'];
+			$product_quantity 	= $proposal_product['product_quantity'];
+			$discount_amount 	= $proposal_product['product_discount'];
+			$discount_type 		= $proposal_product['product_discount_type'];
+
+			$total_product_price = $price * $product_quantity;
+
+			if ($discount_type == '1') {
+				$total_product_price = $total_product_price - ($total_product_price * $discount_amount / 100);
+				$product_discount 	 = $total_product_price * $discount_amount / 100;
+			} else if ($discount_type == '2') {
+				$total_product_price = $total_product_price - $discount_amount;
+				$product_discount 	 = $discount_amount;
+			} else {
+				$product_discount = 0;
+			}
+
+			$product_tax_rate = array();
+
+			for ($i=0; $i < count($tax_rates) ; $i++) {
+				if ($tax_rates[$i]['tax_rate_id'] == $proposal_product['product_tax_rate']) {
+					$product_tax_rate = $tax_rates[$i]['rate'];
+				}
+			}
+
+			$data['proposal_products'][] = array(
+				'product_id' 			=> $proposal_product['product_id'],
+				'product_quantity' 		=> $proposal_product['product_quantity'],
+				'product_price'			=> number_format($proposal_product['product_price'], 2, ',', '.'),
+				'product_price_type' 	=> $proposal_product['product_price_type'],
+				'product_discount' 		=> number_format($product_discount, 2, ',', '.'),
+				'product_discount_type' => $proposal_product['product_discount_type'],
+				'product_tax_rate'		=> $product_tax_rate,
+				'product_name'			=> $proposal_product['product_name'],
+				'product_link'			=> $proposal_product['product_link'],
+				'product_total'			=> number_format($total_product_price, 2, ',', '.')
+			);
+
+			$data['subtotal']				 += $proposal_product['product_quantity'] * ($proposal_product['product_price'] - ($proposal_product['product_price'] * $product_tax_rate / 100));
+			$data['tax_total']				 += ($proposal_product['product_price'] - $product_discount) * $product_tax_rate / 100;
+			$data['proposal_total_discount'] += $product_discount;
+			$data['proposal_total'] 		 += $total_product_price;
+		}
+
+		$data['proposal_total'] 		 = number_format($data['proposal_total'] , 2, ',', '.');
+		$data['proposal_total_discount'] = number_format($data['proposal_total_discount'], 2, ',', '.');
+		$data['subtotal'] 				 = number_format($data['subtotal'], 2, ',', '.');
+		$data['tax_total']				 = number_format($data['tax_total'], 2, ',', '.');
+
+		$data['templates'] 			= $this->setting_model->getTemplates();
+		$data['company_info'] 		= $this->setting_model->getSetting('company_info');
+		$data['metaInfo'] 			= $this->setting_model->getSetting('meta');
+		$data['proposal_id'] 		= $proposal_id;
+
+		$data['menu'] 				= 'proposals';
+		$data['page'] 				= 'forms';
+		$data['subview'] 			= 'proposals/preview';
+
 		$this->load->view('layouts/default', $data);
+	}
+
+	public function sendProposal($proposal_id) {
+		$this->load->model('proposal_model');
+		$this->load->helper('mail_helper');
+
+		$length = 15;
+		$token = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
+
+		$this->proposal_model->updateToken($proposal_id, $token);
+
+		$mail_data = array(
+			'proposal_link' => base_url() . 'proposals/preview/' . $proposal_id . '?token=' . $token,
+			'company_name'	=> 'ICM Yazılım'
+		);
+
+		send_mail('efenacigiray@gmail.com', 'Teklif', proposal_mail($mail_data));
 	}
 
 	public function proposal($proposal_id = -1) {
@@ -161,17 +319,18 @@ class Proposals extends CI_Controller {
 
 				if ($result) {
 					$this->session->set_flashdata('success', 'Teklif başarıyla güncellendi');
-					redirect('proposals');
+					redirect('proposals/preview/' . $result);
 				}
 			}
 		}
 
-		$data['proposal_customer_ids'] = array();
-		$data['proposal_total'] = 0;
+		$data['proposal_customer_ids'] 	= array();
+		$data['proposal_total'] 		= 0;
 
 		if ($proposal_id != -1) {
 			$data['proposal'] 	= $this->proposal_model->getProposal($proposal_id);
 			$data['proposal_customers'] = $this->proposal_model->getProposalCustomers($proposal_id);
+
 			foreach ($data['proposal_customers'] as $customer) {
 				$data['proposal_customer_ids'][] = $customer['customer_id'];
 			}
@@ -185,10 +344,6 @@ class Proposals extends CI_Controller {
 				$product_quantity 	= $proposal_product['product_quantity'];
 				$discount_amount 	= $proposal_product['product_discount'];
 				$discount_type 		= $proposal_product['product_discount_type'];
-
-		$filters = array();
-
-		$data['customers'] = $this->proposal_model->getCustomers();
 
 				$total_product_price = $price * $product_quantity;
 

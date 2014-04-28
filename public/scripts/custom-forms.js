@@ -39,6 +39,7 @@ function calculatePrice(type) {
 			temp_total = parseFloat(discounted_price);
 		}
 
+		$(this).parents('.form-group').find('.product-price').formatCurrency();
 		$(this).siblings('span').html(temp_total);
 		$(this).siblings('span').formatCurrency();
 		$(this).siblings('span').prepend('Toplam: ');
