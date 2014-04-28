@@ -21,6 +21,7 @@ class Customers extends CI_Controller {
 
 		$limit2 = $this->session->userdata('limit');
 		$limit = (int)$limit2;
+		$data['limit'] = $limit;
 			/** Filterler **/
 		$data['sort']   = $this->input->get('sort') ? $this->input->get('sort') : 'c.customer_id';
 		$data['sort_order']  = $this->input->get('sort_order') ? $this->input->get('sort_order') : 'desc';

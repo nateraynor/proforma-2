@@ -27,6 +27,8 @@ class Proposals extends CI_Controller {
 	   	$limit = $this->session->userdata('limit');
 	   	$limit2 = (int)$limit;
 
+	   	$data['limit'] = $limit2;
+	   	
 		/** Filterler **/
 		$data['sort']   = $this->input->get('sort') ? $this->input->get('sort') : 'p.proposal_id';
 		$data['sort_order']  = $this->input->get('sort_order') ? $this->input->get('sort_order') : 'desc';
@@ -397,15 +399,15 @@ class Proposals extends CI_Controller {
 		echo $rate;
 	}
 
-	public function deleteProp($proposal_id) {
+	public function deleteProposal($proposal_id) {
 		$this->load->model('proposal_model');
 
-		$result = $this->proposal_model->deleteproposal($proposal_id);
+		$result = $this->proposal_model->deleteProposal($proposal_id);
 
 		if ($result)
-			$this->session->set_flashdata('success', 'Ürün Marka başarıyla silindi!');
+			$this->session->set_flashdata('success', 'Teklif başarıyla silindi!');
 		else
-			$this->session->set_flashdata('error', 'Ürün Marka silinemedi!');
+			$this->session->set_flashdata('error', 'Teklif silinemedi!');
 
 		redirect('proposals');
 	}

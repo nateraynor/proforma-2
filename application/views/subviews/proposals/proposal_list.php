@@ -61,7 +61,6 @@
 							<div class="pull-right">
 								<label>Göster :</label>
 								<select class="input-xsmall" onchange="get_limit(this.options[this.selectedIndex].value);">
-									<option></option>
 									<option value="5">5</option>
 									<option value="10">10</option>
 									<option value="15">15</option>
@@ -106,7 +105,7 @@
 									</div>,
 								</td>
 								<td>
-									<div class="input-group input-medium date date-picker" data-date="12-04-2014" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
+									<div class="input-group input-medium date date-picker" data-date="2014-04-14" data-date-format="yyyy-mm-dd" data-date-viewmode="years">
 										<input type="text" id="filter_proposal_date_updated" value="<?php echo $filters['filter_proposal_date_updated'] ?>" class="form-control" readonly>
 										<span class="input-group-btn">
 											<button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
@@ -115,26 +114,24 @@
 								</td>
 								<td><a class="btn blue pull-right" href="#" id="filter_button">Ara <i class="fa fa-search"></i></a></td>
 							</tr>
-						
-					
-						<?php foreach ($proposals as $proposal): ?>
-							<tr>
-								<td><?php echo $proposal['proposal_id'] ?></td>
-								<td><?php echo $proposal['proposal_name'] ?></td>
-								<td><?php echo $proposal['proposal_customers'] ?></td>
-								<td><?php echo $proposal['proposal_total'] ?></td>
-								<td><?php echo $proposal['proposal_status'] ?></td>
-								<td><?php echo $proposal['proposal_date_added'] ?></td>
-								<td><?php echo $proposal['proposal_date_updated'] ?></td>
-								<td>
-          							<a href="#" location="<?php echo base_url() . 'proposals/deleteProposal/' . $proposal['proposal_id']; ?>" class="btn default btn-xs black validate-delete pull-right"><i class="fa fa-trash-o"></i> Sil</a>
-									<a href="<?php echo base_url() . 'proposals/proposal/' . $proposal['proposal_id']; ?>" class="btn default btn-xs yellow pull-right"><i class="fa fa-edit"></i> Güncelle</a>
-      							</td>
-							</tr>
-						<?php endforeach ?>
+							<?php foreach ($proposals as $proposal): ?>
+								<tr>
+									<td><?php echo $proposal['proposal_id'] ?></td>
+									<td><?php echo $proposal['proposal_name'] ?></td>
+									<td><?php echo $proposal['proposal_customers'] ?></td>
+									<td><?php echo $proposal['proposal_total'] ?></td>
+									<td><?php echo $proposal['proposal_status'] ?></td>
+									<td><?php echo $proposal['proposal_date_added'] ?></td>
+									<td><?php echo $proposal['proposal_date_updated'] ?></td>
+									<td>
+	          							<a href="#" location="<?php echo base_url() . 'proposals/deleteProposal/' . $proposal['proposal_id']; ?>" class="btn default btn-xs black validate-delete pull-right"><i class="fa fa-trash-o"></i> Sil</a>
+										<a href="<?php echo base_url() . 'proposals/proposal/' . $proposal['proposal_id']; ?>" class="btn default btn-xs yellow pull-right"><i class="fa fa-edit"></i> Güncelle</a>
+	      							</td>
+								</tr>
+							<?php endforeach ?>
 						</tbody>
 						<tfoot>
-							<tr><td colspan="6"><?php echo $pagination; ?></td></tr>
+							<tr><td colspan="12"><?php echo $pagination; ?></td></tr>
 						</tfoot>
 						</table>
 					</div>
