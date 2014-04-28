@@ -61,10 +61,9 @@
 							<div class="pull-right">
 								<label>Göster :</label>
 								<select class="input-xsmall" onchange="get_limit(this.options[this.selectedIndex].value);">
-									<option></option>
-									<option value="5">5</option>
-									<option value="10">10</option>
-									<option value="15">15</option>
+									<option value="<?php echo $limit ? $limit : '5' ;?>">5</option>
+									<option value="<?php echo $limit ? $limit : '10' ;?>">10</option>
+									<option value="<?php echo $limit ? $limit : '15' ;?>">15</option>
 								</select>
 								<label>kayıt</label>
 							</div>

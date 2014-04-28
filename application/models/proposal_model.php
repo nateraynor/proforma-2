@@ -27,19 +27,11 @@ class Proposal_model extends CI_Model {
         }
 
         if (!empty($filters['filter_proposal_date_added'])) {
-              //$sql .= " AND t.date_add > '" . $filters['first'] . " 00:00:00'";
-            //$sql .= " AND p.proposal_date_added  '" . $filters['filter_proposal_date_added'] . " 00:00:00";
-             $sql .= " AND DATE(p.proposal_date_added) = '2014-04-18 14-33-22' ";
-            
-
+             $sql .= " AND DATE(p.proposal_date_added) = '" . $filters['filter_proposal_date_added'] . "' ";
         }
 
         if (!empty($filters['filter_proposal_date_updated'])) {
-            //$sql .= " AND p.proposal_date_updated  '" . $filters['filter_proposal_date_updated'] . " 00:00:00";
-             $sql .= " AND date(p.proposal_date_updated) = '" . date('Y-m-d',strtotime($filters['filter_proposal_date_updated'])) . "' ";
-          
-
-
+             $sql .= " AND DATE(p.proposal_date_updated) = '" .$filters['filter_proposal_date_updated'] . "' ";
         }
 
         if (!empty($filters['sort'])) {
@@ -73,17 +65,13 @@ class Proposal_model extends CI_Model {
         }
 
         if (!empty($filters['filter_proposal_date_added'])) {
-              //$sql .= " AND t.date_add > '" . $filters['first'] . " 00:00:00'";
-             $sql .= " AND DATE(p.proposal_date_added) = '2014-04-18 14-33-22' ";
-            // $sql .= " AND date(p.proposal_date_added) = '" . $filters['filter_proposal_date_added'] . "' ";
-           
+             $sql .= " AND DATE(p.proposal_date_added) = '" . $filters['filter_proposal_date_added'] . "' ";
         }
 
         if (!empty($filters['filter_proposal_date_updated'])) {
-             $sql .= " AND date(p.proposal_date_updated) = '" . date('Y-m-d',strtotime($filters['filter_proposal_date_updated'])) . "' ";
-       
-
+             $sql .= " AND DATE(p.proposal_date_updated) = '" .$filters['filter_proposal_date_updated'] . "' ";
         }
+
 
 
  		$result = $this->db->query($sql);
@@ -221,6 +209,11 @@ class Proposal_model extends CI_Model {
         $result = $this->db->query("SELECT * FROM customer c");
         return $result->result_array();
 
+    }
+
+    public function deleteProposal($proposal_id) {
+        $result = $this->db->query("DELETE FROM proposal WHERE proposal_id = '" . (int)$proposal_id . "' LIMIT 1");
+        return $result;
     }
 
 }
