@@ -117,7 +117,7 @@ class Proposals extends CI_Controller {
         $this->excel->to_excel($results, 'proposals-excel', 'Teklifler');
 	}
 
-	public function customerPreview() {
+	public function customerPreview($proposal_id) {
 		$this->load->model('proposal_model');
 		$this->load->model('setting_model');
 
@@ -191,7 +191,7 @@ class Proposals extends CI_Controller {
 		$data['proposal_id'] 		= $proposal_id;
 
 		$data['page'] 				= 'forms';
-		$data['subview'] 			= 'proposals/preview';
+		$data['subview'] 			= 'proposals/customer_preview';
 
 		$this->load->view('layouts/default', $data);
 	}
@@ -267,7 +267,6 @@ class Proposals extends CI_Controller {
 		$data['metaInfo'] 			= $this->setting_model->getSetting('meta');
 		$data['proposal_id'] 		= $proposal_id;
 
-		$data['menu'] 				= 'proposals';
 		$data['page'] 				= 'forms';
 		$data['subview'] 			= 'proposals/preview';
 
@@ -288,7 +287,10 @@ class Proposals extends CI_Controller {
 			'company_name'	=> 'ICM Yazılım'
 		);
 
-		send_mail('efenacigiray@gmail.com', 'Teklif', proposal_mail($mail_data));
+		if(send_mail('dygyldrm1@gmail.com', 'Teklif', proposal_mail($mail_data)))
+			redirect('proposals');
+		else
+			redirect('proposals/preview/'.$proposal_id);
 	}
 
 	public function proposal($proposal_id = -1) {
