@@ -53,26 +53,26 @@
 						</div>
 						<div class="col-xs-6">
 							<p>
-								#<?php echo $proposal['proposal_code'] ?> / <?php echo $proposal['proposal_date_added']; ?>
-								<span class="muted">
-									<?php echo $proposal['proposal_name']; ?> / Son güncellenme tarihi: <?php echo $proposal['proposal_date_updated']; ?>
-								</span>
+								<?php echo $proposal['proposal_name'] ?> / <?php echo $proposal['proposal_date_added']; ?>
+								<span class="muted">Son güncellenme tarihi: <?php echo $proposal['proposal_date_updated']; ?></span>
 							</p>
 						</div>
 					</div>
 					<hr/>
 					<div class="row">
-						<div class="col-xs-4">
-							<h4>Müşteri:</h4>
-							<ul class="list-unstyled">
+						<div class="col-xs-6">
+							<h4>Müşteriler:</h4>
 							<?php foreach ($proposal_customers as $customer): ?>
-								<li><?php echo $customer['customer_name']; ?></li>
-								<li><?php echo $customer['customer_email'] ?></li>
-								<li><?php echo $customer['customer_company'] ?></li>
+							<div class="col-md-3" style="border-left: 1px solid #eee; min-height: 90px;">
+								<ul class="list-unstyled">
+									<li><b><?php echo $customer['customer_name']; ?></b></li>
+									<li><?php echo $customer['customer_email'] ?></li>
+									<li><?php echo $customer['customer_company'] ?></li>
+								</ul>
+							</div>
 							<?php endforeach ?>
-							</ul>
 						</div>
-						<div class="col-xs-7">
+						<div class="col-xs-6">
 							<h4>Teklif Hakkında:</h4>
 							<?php echo $proposal['proposal_statement_top']; ?>
 						</div>
@@ -81,82 +81,78 @@
 					<div class="row">
 						<div class="col-xs-12">
 							<table class="table table-striped table-hover">
-							<thead>
-							<tr>
-								<th>
-									#
-								</th>
-								<th>
-									Ürün Adı
-								</th>
-								<th class="hidden-480">
-									Ürün Açıklaması
-								</th>
-								<th class="hidden-480">
-									Adet
-								</th>
-								<th class="hidden-480">
-									Birim Fiyat
-								</th>
-								<th>
-									Toplam
-								</th>
-							</tr>
-							</thead>
-							<tbody>
-							<?php $sub_total = 0; ?>
-							<?php foreach ($proposal_products as $product): ?>
+								<thead>
 								<tr>
-									<td><?php echo $product['product_id']; ?></td>
-									<td><?php echo $product['product_name']; ?></td>
-									<td><?php echo $product['product_description']; ?></td>
-									<td><?php echo $product['product_quantity']; ?></td>
-									<td><?php echo $product['product_price']; ?></td>
-									<td><?php echo $product['product_quantity'] * $product['product_price']; ?></td>
-									<?php $sub_total += $product['product_quantity'] * $product['product_price']; ?>
+									<th>#</th>
+									<th>Ürün Adı</th>
+									<th>Adet</th>
+									<th>Birim Fiyat</th>
+									<th>İndirim</th>
+									<th>Vergi Oranı</th>
+									<th style="text-align: right; font-weight: bold;">Toplam</th>
 								</tr>
-							<?php endforeach ?>
-							</tbody>
+								</thead>
+								<tbody>
+								<?php $sub_total = 0; ?>
+								<?php foreach ($proposal_products as $product): ?>
+									<tr>
+										<td><?php echo $product['product_id']; ?></td>
+										<td>
+											<?php echo $product['product_name']; ?>
+											<?php if ($product['product_link']): ?>
+												<a href="<?php echo $product['product_link'] ?>" target="_blank"><i class="fa fa-search"></i></a>
+											<?php endif ?>
+										</td>
+										<td><?php echo $product['product_quantity']; ?></td>
+										<td><?php echo $product['product_price']; ?></td>
+										<td><?php echo $product['product_discount']; ?></td>
+										<td>% <?php echo $product['product_tax_rate']; ?></td>
+										<td style="text-align: right; font-weight: bold;"><?php echo $product['product_total'] ?></td>
+									</tr>
+								<?php endforeach ?>
+								</tbody>
 							</table>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-xs-4">
+						<div class="col-md-8">
+							<?php if ($proposal['proposal_date_delivery']): ?>
+								<h5><b>Teslimat Tarihi:</b> <?php echo $proposal['proposal_date_delivery'] ?></h5>
+							<?php endif ?>
+							<?php if ($proposal['proposal_date_expiration']): ?>
+								<h5><b>Teklif Geçerlilik Tarihi:</b> <?php echo $proposal['proposal_date_expiration'] ?></h5>
+							<?php endif ?>
+							<?php if ($proposal['proposal_statement_bottom']): ?>
+								<h5><b>Teklif Notları</b></h5>
+								<p><?php echo $proposal['proposal_statement_bottom'] ?></p>
+							<?php endif ?>
+						</div>
+						<div class="col-xs-4 invoice-block">
+							<ul class="list-unstyled amounts">
+								<li><strong>Ara Toplam:</strong> <?php echo $subtotal ?> <i class="fa fa-try"></i></li>
+								<li><strong>İndirim Tutarı:</strong> <?php echo $proposal_total_discount ?> <i class="fa fa-try"></i></li>
+								<li><strong>Vergi Tutarı:</strong> <?php echo $tax_total; ?> <i class="fa fa-try"></i></li>
+								<li><strong>Genel Toplam:</strong> <?php echo $proposal_total; ?> <i class="fa fa-try"></i></li>
+							</ul>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-7">
 							<div class="well">
 								<address>
-								<strong><?php echo $company_info['company_name']; ?></strong><br/>
-								<?php echo $company_info['company_address']; ?><br/>
-								<abbr title="Phone">P:</abbr> <?php echo $company_info['company_phone']; ?> </address>
+									<strong><?php echo $company_info['company_name']; ?></strong><br/>
+									<?php echo $company_info['company_address']; ?><br/>
+									<?php echo $company_info['company_phone']; ?>
+								</address>
 								<address>
-								<strong><?php echo $this->session->userdata['name'] . " " . $this->session->userdata['surname']; ?></strong><br/>
-								<a href="mailto:#"><?php echo $this->session->userdata['email'] ?></a>
+									<strong><?php echo $this->session->userdata['name'] . " " . $this->session->userdata['surname']; ?></strong><br/>
+									<a href="mailto:#"><?php echo $this->session->userdata['email'] ?></a>
 								</address>
 							</div>
 						</div>
-						<div class="col-xs-8 invoice-block">
-							<ul class="list-unstyled amounts">
-								<li>
-									<strong>Ara - Toplam:</strong> <?php echo $sub_total ?> <i class="fa fa-try"></i>
-								</li>
-								<li>
-									<strong>İndirim Oranı:</strong> <?php echo $proposal['proposal_discount_rate'] ?>%
-								</li>
-								<li>
-									<strong>İndirim Tutarı:</strong> <?php echo $sub_total * $proposal['proposal_discount_rate'] / 100; ?> <i class="fa fa-try"></i>
-								</li>
-								<li>
-									<strong>Vergi Oranı:</strong> <?php echo $proposal['proposal_tax_rate']; ?>%
-								</li>
-								<li>
-									<strong>Vergi Oranı:</strong> <?php echo $sub_total * $proposal['proposal_tax_rate'] / 100; ?> <i class="fa fa-try"></i>
-								</li>
-								<li>
-									<strong>Genel Toplam:</strong> <?php echo $sub_total - ($sub_total * $proposal['proposal_discount_rate'] / 100) + ($sub_total * $proposal['proposal_tax_rate'] / 100); ?> <i class="fa fa-try"></i>
-								</li>
-							</ul>
-							<br/>
-							<a class="btn btn-lg blue hidden-print" onclick="javascript:window.print();">Print <i class="fa fa-print"></i></a>
-							<a class="btn btn-lg green hidden-print">Submit Your Invoice <i class="fa fa-check"></i></a>
+						<div class="col-md-5" style="text-align: right;">
+							<a class="btn btn-lg blue hidden-print" onclick="javascript:window.print();">Yazdır <i class="fa fa-print"></i></a>
+							<a class="btn btn-lg green hidden-print" href="<?php echo base_url() . 'proposals/sendProposal/' . $proposal['proposal_id']  ?>">Müşterilere Gönder <i class="fa fa-check"></i></a>
 						</div>
 					</div>
 				</div>
