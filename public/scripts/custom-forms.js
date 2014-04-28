@@ -26,7 +26,15 @@ function calculatePrice(type) {
 		var price 	 = $(this).parents('.form-group').find('.product-price').val();
 		var discount_type 	= $(this).parents('.form-group').find('.product-discount-type').val();
 		var discount_amount = $(this).parents('.form-group').find('.product-discount').val();
+
+		if (quantity == '')
+			quantity = 1;
+
+		price = price.replace(/\,/g,'');
+
+
 		var temp_total = parseFloat(quantity * price);
+
 		if (discount_type !== null) {
 			var discounted_price = 0;
 
@@ -44,10 +52,9 @@ function calculatePrice(type) {
 		$(this).siblings('span').formatCurrency();
 		$(this).siblings('span').prepend('Toplam: ');
 		$(this).siblings('span').append(' TRY');
-
 		total += parseFloat(temp_total);
 	});
-
+		
 	$('#proposal-total').val(total);
 	$('#proposal-total').formatCurrency();
 }
