@@ -139,6 +139,12 @@ class Proposal_model extends CI_Model {
         $this->db->query("UPDATE proposal SET proposal_token = " . $this->db->escape($token) . " WHERE proposal_id = '" . (int)$proposal_id . "'");
     }
 
+    public function getProposalWithToken($token) {
+        $result = $this->db->query("SELECT proposal_id FROM proposal WHERE proposal_token = " . $this->db->escape($token));
+
+        return $result->row(0)->proposal_id;
+    }
+
 	public function addProposal($data) {
 		$this->load->model('user_model');
 

@@ -7,8 +7,8 @@ class Proposals extends CI_Controller {
 
         if (!isset($this->session->userdata['user_id']) && !$this->input->get('token')) {
         	redirect('login');
-        } else if ($this->input->get('token') && !isset($this->session->userdata['user_id'])) {
-        	redirect('customerPreview?token=' . $this->input->get('token'));
+        } else if ($this->input->get('token') && !isset($this->session->userdata['user_id']) && $this->uri->segment()) {
+        	redirect('proposals/customerPreview?token=' . $this->input->get('token'));
         }
     }
 
@@ -45,7 +45,6 @@ class Proposals extends CI_Controller {
 			'start' 					=> $start,
 			'limit'						=> $limit2
 		);
-
 
 
         $data['filters'] = $filters;
@@ -121,6 +120,8 @@ class Proposals extends CI_Controller {
 	public function customerPreview() {
 		$this->load->model('proposal_model');
 		$this->load->model('setting_model');
+
+		$proposal_id = $this->proposal_model->getProposalWithToken($this->input->get('token'));
 
 		$data['proposal'] 				 = $this->proposal_model->getProposal($proposal_id);
 		$data['proposal_customers'] 	 = $this->proposal_model->getProposalCustomers($proposal_id);
