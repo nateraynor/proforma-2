@@ -3,18 +3,9 @@
 		<div class="row">
 			<div class="col-md-12">
 				<ul class="page-breadcrumb breadcrumb">
-					<li>
-						<i class="fa fa-home"></i>
-						<a href="<?php echo base_url() ?>">Anasayfa</a>
-						<i class="fa fa-angle-right"></i>
-					</li>
-					<li>
-						<a href="<?php echo base_url() ?>proposals">Teklifler</a>
-						<i class="fa fa-angle-right"></i>
-					</li>
-					<li>
-						<a href="#">Teklif</a>
-					</li>
+					<li><i class="fa fa-home"></i><a href="<?php echo base_url() ?>">Anasayfa</a><i class="fa fa-angle-right"></i></li>
+					<li><a href="<?php echo base_url() ?>proposals">Teklifler</a><i class="fa fa-angle-right"></i></li>
+					<li><a href="#">Teklif</a></li>
 				</ul>
 			</div>
 		</div>
@@ -153,31 +144,25 @@
 									<div class="col-md-6">
 										<div class="form-group">
 											<label class="control-label">Geçerlilik Tarihi</label>
-												<div class="input-group input-medium date date-picker" data-date="12-04-2014" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
-													<input type="text" name="proposal_date_expiration" value="<?php echo isset($proposal['proposal_date_expiration']) ? date('d-m-Y',strtotime($proposal['proposal_date_expiration'])) : '' ?>" class="form-control" readonly>
-													<span class="input-group-btn">
-														<button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
-													</span>
-												</div>
-												<!-- /input-group -->
-												<span class="help-block">
-													Tarih Seçiniz
+											<div class="input-group date date-picker" data-date="12-04-2014" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
+												<input type="text" name="proposal_date_expiration" value="<?php echo isset($proposal['proposal_date_expiration']) ? date('d-m-Y',strtotime($proposal['proposal_date_expiration'])) : '' ?>" class="form-control" readonly>
+												<span class="input-group-btn">
+													<button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
 												</span>
+											</div>
+											<span class="help-block">Tarih Seçiniz</span>
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
-											<label class="control-label">Teslim Tarihi</label>
-												<div class="input-group input-medium date date-picker" data-date="12-04-2014" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
-													<input type="text" name="proposal_date_delivery" value="<?php echo isset($proposal['proposal_date_delivery']) ? date('d-m-Y',strtotime($proposal['proposal_date_delivery'])): '' ?>" class="form-control" readonly>
-													<span class="input-group-btn">
-														<button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
-													</span>
-												</div>
-												<!-- /input-group -->
-												<span class="help-block">
-													Tarih Seçiniz
+										<label class="control-label">Teslim Tarihi</label>
+											<div class="input-group date date-picker" data-date="12-04-2014" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
+												<input type="text" name="proposal_date_delivery" value="<?php echo isset($proposal['proposal_date_delivery']) ? date('d-m-Y',strtotime($proposal['proposal_date_delivery'])): '' ?>" class="form-control" readonly>
+												<span class="input-group-btn">
+													<button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
 												</span>
+											</div>
+											<span class="help-block">Tarih Seçiniz</span>
 										</div>
 									</div>
 									<div class="col-md-6">
@@ -214,7 +199,7 @@ var proposal_product_row = <?php echo $proposal_product_row; ?>;
 	<?php foreach ($exchange_rates['exchange_rate'] as $exchange_rate) { ?>
 	exchange_rates += "<?php echo '<li><a onclick=\"getExchange(this, ' . $exchange_rate['exchange_rate_id'] . ', ' . $exchange_rate['rate'] . '); return false;\" href=\"#\">' . $exchange_rate['code'] . '</a></li>'; ?>";
 	<?php } ?>;
-	
+
 </script>
 <script type="text/javascript">
 	var tax_rates = '';

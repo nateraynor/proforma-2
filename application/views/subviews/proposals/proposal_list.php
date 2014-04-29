@@ -120,6 +120,7 @@
 									<td>
 	          							<a href="#" location="<?php echo base_url() . 'proposals/deleteProposal/' . $proposal['proposal_id']; ?>" class="btn default btn-xs black validate-delete pull-right"><i class="fa fa-trash-o"></i> Sil</a>
 										<a href="<?php echo base_url() . 'proposals/proposal/' . $proposal['proposal_id']; ?>" class="btn default btn-xs yellow pull-right"><i class="fa fa-edit"></i> Güncelle</a>
+										<a href="<?php echo base_url() . 'proposals/preview/' . $proposal['proposal_id']; ?>" class="btn default btn-xs blue pull-right"><i class="fa fa-search"></i> Önizle</a>
 	      							</td>
 								</tr>
 							<?php endforeach ?>
