@@ -3,14 +3,8 @@
 		<div class="row">
 			<div class="col-md-12">
 				<ul class="page-breadcrumb breadcrumb">
-					<li>
-						<i class="fa fa-home"></i>
-						<a href="<?php echo base_url() ?>">Anasayfa</a>
-						<i class="fa fa-angle-right"></i>
-					</li>
-					<li>
-						<a href="#">Teklifler</a>
-					</li>
+					<li><i class="fa fa-home"></i><a href="<?php echo base_url() ?>">Anasayfa</a><i class="fa fa-angle-right"></i></li>
+					<li><a href="#">Teklifler</a></li>
 				</ul>
 			</div>
 		</div>
@@ -61,9 +55,9 @@
 							<div class="pull-right">
 								<label>Göster :</label>
 								<select class="input-xsmall" onchange="get_limit(this.options[this.selectedIndex].value);">
-									<option value="5">5</option>
-									<option value="10">10</option>
-									<option value="15">15</option>
+									<option value="10" <?php echo $this->session->userdata['limit'] == '10' ? 'selected' : ''; ?>>10</option>
+									<option value="25" <?php echo $this->session->userdata['limit'] == '25' ? 'selected' : ''; ?>>25</option>
+									<option value="40" <?php echo $this->session->userdata['limit'] == '40' ? 'selected' : ''; ?>>40</option>
 								</select>
 								<label>kayıt</label>
 							</div>

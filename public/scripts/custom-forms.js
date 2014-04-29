@@ -54,7 +54,7 @@ function calculatePrice(type) {
 		$(this).siblings('span').append(' TRY');
 		total += parseFloat(temp_total);
 	});
-		
+
 	$('#proposal-total').val(total);
 	$('#proposal-total').formatCurrency();
 }
@@ -120,7 +120,18 @@ $(document).ready(function(){
 	$('.currency').blur(function() {
 		$(this).formatCurrency();
 	});
-	
+
+	console.log(typeof $('.total-text'));
+
+	if (typeof $('.total-text') !== 'object') {
+		$('.product-price').formatCurrency();
+		$('.total-text').html().replace('Toplam: ', '');
+		$('.total-text').html().replace(' TRY', '');
+		$('.total-text').formatCurrency();
+		$('.total-text').append(' TRY');
+		$('.total-text').prepend('Toplam :');
+	}
+
 	$('#add-tax-rate').click(function() {
 		html  = '<div class="row">';
 		html += '	<div class="form-group">';

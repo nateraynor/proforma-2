@@ -61,9 +61,9 @@
 							<div class="pull-right">
 								<label>Göster :</label>
 								<select class="input-xsmall" onchange="get_limit(this.options[this.selectedIndex].value);">
-									<option value="<?php echo $limit ? $limit : '5' ;?>">5</option>
-									<option value="<?php echo $limit ? $limit : '10' ;?>">10</option>
-									<option value="<?php echo $limit ? $limit : '15' ;?>">15</option>
+									<option value="10" <?php echo $this->session->userdata['limit'] == '10' ? 'selected' : ''; ?>>10</option>
+									<option value="25" <?php echo $this->session->userdata['limit'] == '25' ? 'selected' : ''; ?>>25</option>
+									<option value="40" <?php echo $this->session->userdata['limit'] == '40' ? 'selected' : ''; ?>>40</option>
 								</select>
 								<label>kayıt</label>
 							</div>
@@ -107,7 +107,7 @@
 										<?php endif ;?>
 									</td>
 									<td>
-										
+
 										<a href="<?php echo base_url() . 'customers/customer/' . $customer['customer_id']; ?>" class="btn default btn-xs yellow"><i class="fa fa-edit"></i> Güncelle</a>
 										<a href="#" location="<?php echo base_url() . 'customers/deletecustomer/' . $customer['customer_id']; ?>" class="btn default btn-xs black validate-delete"><i class="fa fa-trash-o"></i> Sil</a>
 									</td>

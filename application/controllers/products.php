@@ -20,8 +20,9 @@ class Products extends CI_Controller {
 			redirect('home');
 
 		}
-		$limit2 = $this->session->userdata('limit');
-		$limit = (int)$limit2;
+
+		$limit = $this->session->userdata('limit');
+
 		/** Filterler **/
 		$data['sort']   = $this->input->get('sort') ? $this->input->get('sort') : 'p.product_id';
 		$data['sort_order']  = $this->input->get('sort_order') ? $this->input->get('sort_order') : 'desc';
@@ -48,7 +49,7 @@ class Products extends CI_Controller {
 		$data['page_url'] = base_url() . 'products';
 		$data['pagination'] = $this->getPagination(base_url() . 'products/index', $total_products, $limit, 3, $_SERVER['QUERY_STRING']);
 		//public function getPagination($link, $total_rows, $per_page, $segment, $suffix) {
-		
+
 		$data['metaInfo'] = $this->setting_model->getSetting('meta');
 		$data['categories'] = $this->category_model->getCategory($filters);
 		$data['brands']  = $this->brand_model->getBrands($filters);
@@ -210,7 +211,7 @@ class Products extends CI_Controller {
 		redirect('products');
 	}
 
-	
+
 	public function getProductAjax($product_id) {
 		$this->load->model('product_model');
 		$this->load->model('category_model');

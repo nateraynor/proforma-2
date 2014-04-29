@@ -7,7 +7,7 @@ class Proposals extends CI_Controller {
 
         if (!isset($this->session->userdata['user_id']) && !$this->input->get('token')) {
         	redirect('login');
-        } else if ($this->input->get('token') && !isset($this->session->userdata['user_id']) && $this->uri->segment()) {
+        } else if ($this->input->get('token') && $this->uri->segment(2) != 'customerPreview') {
         	redirect('proposals/customerPreview?token=' . $this->input->get('token'));
         }
     }
@@ -25,10 +25,7 @@ class Proposals extends CI_Controller {
 		$this->load->model('setting_model');
 
 	   	$limit = $this->session->userdata('limit');
-	   	$limit2 = (int)$limit;
 
-	   	$data['limit'] = $limit2;
-	   	
 		/** Filterler **/
 		$data['sort']   = $this->input->get('sort') ? $this->input->get('sort') : 'p.proposal_id';
 		$data['sort_order']  = $this->input->get('sort_order') ? $this->input->get('sort_order') : 'desc';
@@ -43,7 +40,7 @@ class Proposals extends CI_Controller {
 			'sort'              		=> $data['sort'],
 			'sort_order'        		=> $data['sort_order'],
 			'start' 					=> $start,
-			'limit'						=> $limit2
+			'limit'						=> $limit
 		);
 
 
@@ -117,7 +114,7 @@ class Proposals extends CI_Controller {
         $this->excel->to_excel($results, 'proposals-excel', 'Teklifler');
 	}
 
-	public function customerPreview($proposal_id) {
+	public function customerPreview() {
 		$this->load->model('proposal_model');
 		$this->load->model('setting_model');
 
@@ -193,7 +190,7 @@ class Proposals extends CI_Controller {
 		$data['page'] 				= 'forms';
 		$data['subview'] 			= 'proposals/customer_preview';
 
-		$this->load->view('layouts/default', $data);
+		$this->load->view('layouts/customer_preview', $data);
 	}
 
 	public function preview($proposal_id) {
@@ -267,6 +264,7 @@ class Proposals extends CI_Controller {
 		$data['metaInfo'] 			= $this->setting_model->getSetting('meta');
 		$data['proposal_id'] 		= $proposal_id;
 
+		$data['menu'] 				= 'proposals';
 		$data['page'] 				= 'forms';
 		$data['subview'] 			= 'proposals/preview';
 
@@ -283,14 +281,14 @@ class Proposals extends CI_Controller {
 		$this->proposal_model->updateToken($proposal_id, $token);
 
 		$mail_data = array(
-			'proposal_link' => base_url() . 'proposals/preview/' . $proposal_id . '?token=' . $token,
+			'proposal_link' => base_url() . 'proposals/customerPreview?token=' . $token,
 			'company_name'	=> 'ICM Yazılım'
 		);
 
-		if(send_mail('dygyldrm1@gmail.com', 'Teklif', proposal_mail($mail_data)))
-			redirect('proposals');
-		else
-			redirect('proposals/preview/'.$proposal_id);
+		send_mail('efenacigiray@gmail.com', 'Teklif', proposal_mail($mail_data));
+
+		$this->session->set_flashdata('success','Teklif başarıyla gönderildi');
+		redirect('proposals');
 	}
 
 	public function proposal($proposal_id = -1) {

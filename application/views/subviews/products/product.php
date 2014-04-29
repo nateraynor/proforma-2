@@ -3,18 +3,9 @@
 			<div class="row">
 				<div class="col-md-12">
 					<ul class="page-breadcrumb breadcrumb">
-						<li>
-							<i class="fa fa-home"></i>
-							<a href="<?php echo base_url() ?>">Anasayfa</a>
-							<i class="fa fa-angle-right"></i>
-						</li>
-						<li>
-							<a href="<?php echo base_url() ?>products">Ürünler</a>
-							<i class="fa fa-angle-right"></i>
-						</li>
-						<li>
-							<a href="#">Ürün</a>
-						</li>
+						<li><i class="fa fa-home"></i><a href="<?php echo base_url() ?>">Anasayfa</a><i class="fa fa-angle-right"></i></li>
+						<li><a href="<?php echo base_url() ?>products">Ürünler</a><i class="fa fa-angle-right"></i></li>
+						<li><a href="#">Ürün</a></li>
 					</ul>
 				</div>
 			</div>
@@ -54,12 +45,8 @@
 							</div>
 						<div class="portlet-body">
 							<ul class="nav nav-tabs">
-									<li class="active">
-										<a href="#product_info" data-toggle="tab">Ürün Bilgileri</a>
-									</li>
-									<li class="">
-										<a href="#product_gallery" data-toggle="tab">Ürün Galeri</a>
-									</li>
+								<li class="active"><a href="#product_info" data-toggle="tab">Ürün Bilgileri</a></li>
+								<li class=""><a href="#product_gallery" data-toggle="tab">Ürün Galeri</a></li>
 							</ul>
 							<div class="tab-content">
 								<div class="tab-pane fade active in" id="product_info">
@@ -120,9 +107,9 @@
 																<input type="text" name="product_link" class="form-control" col-type="varchar" placeholder="Ürün Link" value="<?php echo isset($product['product_link']) ? $product['product_link'] : ''; ?>" required>
 															</div>
 														</div>
-														<div class="form-group last">
+														<div class="form-group">
 															<label class="control-label col-md-3">Resim Seçiniz</label>
-															<div class="col-md-6">
+															<div class="col-md-3">
 																<div class="fileupload fileupload-new" data-provides="fileupload">
 																	<div class="fileupload-new thumbnail" style="width: 200px; height: 150px;">
 																		<?php if(!isset($product['product_image'])): ?>
@@ -147,22 +134,22 @@
 																	</div>
 																</div>
 															</div>
-														</div>
-														<div class="col-md-6">
-															<div class="form-group">
-															<label class="control-label col-md-0">Ürün Açıklama</label><br>
-																<div class="col-md-12">
-																	<textarea class="wysihtml5 form-control" name="product_description" rows="10" ><?php echo isset($product['product_description']) ? $product['product_description'] : '' ;?></textarea>
+															<div class="col-md-6">
+																<div class="form-group">
+																	<label class="control-label">Ürün Durumu</label>
+																		<select class="form-control select2me" name="product_status" data-placeholder="Seçiniz...">
+																			<option value="1" <?php echo isset($product['product_status']) && $product['product_status'] == 1 ? 'selected ' : '' ;?>>Aktif</option>
+																			<option value="0" <?php echo isset($product['product_status']) && $product['product_status'] == 0 ? ' selected' : '' ;?>>Pasif</option>
+																		</select>
 																</div>
 															</div>
 														</div>
-														<div class="col-md-6">
+														<div class="col-md-12">
 															<div class="form-group">
-																<label class="control-label">Ürün Durumu</label>
-																	<select class="form-control select2me" name="product_status" data-placeholder="Seçiniz...">
-																		<option value="1" <?php echo isset($product['product_status']) && $product['product_status'] == 1 ? 'selected ' : '' ;?>>Aktif</option>
-																		<option value="0" <?php echo isset($product['product_status']) && $product['product_status'] == 0 ? ' selected' : '' ;?>>Pasif</option>
-																	</select>
+															<label class="control-label col-md-0 ">Ürün Açıklama</label><br>
+																<div class="col-md-12">
+																	<textarea class="wysihtml5 form-control" name="product_description" rows="10" ><?php echo isset($product['product_description']) ? $product['product_description'] : '' ;?></textarea>
+																</div>
 															</div>
 														</div>
 												</div>
@@ -179,9 +166,9 @@
 										<div class="col-md-12">
 											<p>
 												<span class="label label-danger">
-													 NOTE:
+													 Not:
 												</span>
-												 &nbsp; This plugins works only on Latest Chrome, Firefox, Safari, Opera & Internet Explorer 10.
+												 &nbsp; Bu modül sadece Chrome, Firefox, Safari, Opera & Internet Explorer 10'da çalışır.
 											</p>
 											<form action="<?php echo base_url() ?>products/fileUpload/<?php echo $product_id; ?>" class="dropzone" id="my-dropzone"></form>
 											<div class="gallery dropzone">

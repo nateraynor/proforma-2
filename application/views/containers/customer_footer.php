@@ -140,6 +140,7 @@ jQuery(document).ready(function() {
 <script src="<?php echo ASSETS ?>plugins/bootstrap-touchspin/bootstrap.touchspin.js" type="text/javascript"></script>
 
 <script src="<?php echo ASSETS ?>scripts/form-components.js"></script>
+<script src="<?php echo ASSETS ?>scripts/custom-forms.js"></script>
 <script src="<?php echo ASSETS ?>scripts/form-dropzone.js"></script>
 
 <script src="<?php echo ASSETS ?>plugins/bootbox/bootbox.min.js" type="text/javascript"></script>

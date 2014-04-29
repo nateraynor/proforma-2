@@ -61,9 +61,9 @@
 							<div class="pull-right">
 								<label>Göster :</label>
 								<select class="input-xsmall" onchange="get_limit(this.options[this.selectedIndex].value);">
-									<option value="5">5</option>
-									<option value="10">10</option>
-									<option value="15">15</option>
+									<option value="10" <?php echo $this->session->userdata['limit'] == '10' ? 'selected' : ''; ?>>10</option>
+									<option value="25" <?php echo $this->session->userdata['limit'] == '25' ? 'selected' : ''; ?>>25</option>
+									<option value="40" <?php echo $this->session->userdata['limit'] == '40' ? 'selected' : ''; ?>>40</option>
 								</select>
 								<label>kayıt</label>
 							</div>
@@ -87,7 +87,7 @@
 								<td><input class="form-control input-inline" type="text" id="filter_category_name" value="<?php echo $filters['filter_category_name'] ?>"></td>
 								<td><input class="form-control input-inline" type="text" id="filter_brand_name" value="<?php echo $filters['filter_brand_name'] ?>"></td>
 								<td><input class="form-control input-inline" type="text" id="filter_product_price" value="<?php echo $filters['filter_product_price'] ?>"></td>
-							
+
 								<td><select class="form-control input-inline" id="filter_product_status">
 									<option value=""  <?php echo empty($filters['filter_product_status']) ? 'selected' : '' ?>>Hepsi</option>
 									<option value="1" <?php echo $filters['filter_product_status'] == '1' ? 'selected' : ''?>>Aktif</option>
@@ -117,7 +117,7 @@
 									<td>
 										<?php echo $product['product_price']; ?>
 									</td>
-									
+
 									<td>
 										<?php if($product['product_status'] == 1 ): ?>
 											<?php echo 'Aktif'; ?>
