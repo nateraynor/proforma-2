@@ -43,13 +43,13 @@ class Categories extends CI_Controller {
 			if ($category_id == -1) {
 				$result = $this->category_model->addCategory($this->input->post());
 				if ($result) {
-					$this->session->set_flashdata('success', 'Ürün Kategorisi başarıyla eklendi');
+					$this->session->set_flashdata('success', 'Ürün kategorisi başarıyla eklendi.');
 					redirect('categories');
 				}
 			} else {
 				$result = $this->category_model->updateCategory($this->input->post(), $category_id);
 				if ($result) {
-					$this->session->set_flashdata('success', 'Ürün Kategorisi başarıyla güncellendi');
+					$this->session->set_flashdata('success', 'Ürün kategorisi başarıyla güncellendi.');
 					redirect('categories');
 				}
 			}
@@ -74,7 +74,7 @@ class Categories extends CI_Controller {
 				 $categories_name[] = $category['category_name'];
 			}
 			$names = '';
-			$countnames = count($names);
+			$countnames = count($subcategory);
 			for ($i=0; $i<= $countnames ;$i++) { 
 				$names .= $categories_name[$i];
 					if($i != $countnames)
@@ -88,9 +88,9 @@ class Categories extends CI_Controller {
 		}else{
 			$result = $this->category_model->deleteCategory($category_id);
 			if ($result)
-				$this->session->set_flashdata('success', 'Ürün Kategorisi başarıyla silindi!');
+				$this->session->set_flashdata('success', 'Ürün kategorisi başarıyla silindi.');
 			else
-				$this->session->set_flashdata('error', 'Ürün Kategorisi silinemedi!');
+				$this->session->set_flashdata('error', 'Ürün kategorisi silinemedi!');
 		}
 			
 		redirect('categories');
@@ -99,7 +99,7 @@ class Categories extends CI_Controller {
 	public function validate($data) {
 		$errors = array();
 		if (isset($data['category_name']) && strlen(trim($data['category_name'])) < 3)
-			$errors[] = 'Müşteri adı alanı minimum 3 karakter olmalıdır';
+			$errors[] = 'Kategori adı alanı minimum 3 karakter olmalıdır !';
 		if (!empty($errors)) {
 			$this->errors = $errors;
 			return false;

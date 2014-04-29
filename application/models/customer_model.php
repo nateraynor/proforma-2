@@ -71,9 +71,30 @@ class Customer_model extends CI_Model {
 		return $result->row(0)->total;
 	}
 
- 	public function getCustomersForExcel() {
- 		$result = $this->db->query("SELECT customer_id as 'Müşteri No', customer_name as 'Müşteri Adı', customer_surname as 'Müşteri Soyadı' , customer_email as 'Müşteri E-posta' , customer_company as 'Müşteri Şirket' , customer_phone as 'Müşteri Telefon' , customer_address as 'Müşteri Adres' , customer_date_added as 'Müşteri Eklenme Tarihi' , customer_date_updated as 'Müşteri Güncelleme Tarihi'  FROM customer");
+ 	public function getCustomersForExcel($filters) {
+ 		$sql = "SELECT customer_id as 'Müşteri No', customer_name as 'Müşteri Adı', customer_surname as 'Müşteri Soyadı' , customer_email as 'Müşteri E-posta' , customer_company as 'Müşteri Şirket' , customer_phone as 'Müşteri Telefon' , customer_address as 'Müşteri Adres' , customer_date_added as 'Müşteri Eklenme Tarihi' , customer_date_updated as 'Müşteri Güncelleme Tarihi'  FROM customer c WHERE 1=1";
 
+        if (!empty($filters['filter_customer_id'])) {
+            $sql .= " AND c.customer_id = '" . (int)$filters['filter_customer_id'] . "'";
+        }
+
+        if (!empty($filters['filter_customer_name'])) {
+            $sql .= " AND c.customer_name LIKE " . $this->db->escape('%' . $filters['filter_customer_name'] . '%');
+        }
+
+        if (!empty($filters['filter_customer_surname'])) {
+            $sql .= " AND c.customer_surname LIKE " . $this->db->escape('%' . $filters['filter_customer_surname'] . '%');
+        }
+
+        if (!empty($filters['filter_customer_email'])) {
+            $sql .= " AND c.customer_email LIKE " . $this->db->escape('%' . $filters['filter_customer_email'] . '%');
+        }
+
+        if (!empty($filters['filter_customer_status']) || $filters['filter_customer_status'] === '0') {
+            $sql .= " AND c.customer_status = '" . (int)$filters['filter_customer_status'] . "'";
+        }
+
+        $result = $this->db->query($sql);
  		return $result->result_array();
  	}
 

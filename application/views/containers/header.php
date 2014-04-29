@@ -85,12 +85,16 @@
 					<span class="title">Anasayfa</span>
 					</a>
 				</li>
+				<?php $allowed_pages = $this->session->userdata['allowed_pages']; ?>
+				<?php if(!empty($allowed_pages) && (strstr($allowed_pages, 'proposals'))): ?>
 				<li class="<?php echo $menu == 'proposals' ? "active" : ''; ?>">
 					<a href="<?php echo base_url() ?>proposals">
 					<i class="fa fa-money"></i>
 					<span class="title">Teklifler</span>
 					</a>
 				</li>
+				<?php endif; ?>
+				<?php if(!empty($allowed_pages) && (strstr($allowed_pages, 'products'))): ?>
 				<li class="<?php echo $menu == 'products' ? "active" : ''; ?>">
 					<a href="javascript:;">
 					<i class="fa fa-barcode"></i>
@@ -109,24 +113,32 @@
 						</li>
 					</ul>
 				</li>
+				<?php endif; ?>
+				<?php if(!empty($allowed_pages) && (strstr($allowed_pages, 'customers'))): ?>
 				<li class="<?php echo $menu == 'customers' ? "active" : ''; ?>">
 					<a href="<?php echo base_url() ?>customers">
 					<i class="fa fa-group"></i>
 					<span class="title">Müşteriler</span>
 					</a>
 				</li>
+				<?php endif; ?>
+				<?php if(!empty($allowed_pages) && (strstr($allowed_pages, 'reports'))): ?>
 				<li class="<?php echo $menu == 'reports' ? "active" : ''; ?>">
 					<a href="<?php echo base_url() ?>reports">
 					<i class="fa fa-bar-chart-o"></i>
 					<span class="title">Raporlar</span>
 					</a>
 				</li>
+				<?php endif; ?>
+				<?php if(!empty($allowed_pages) && (strstr($allowed_pages, 'users'))): ?>
 				<li class="<?php echo $menu == 'users' ? "active" : ''; ?>">
 					<a href="<?php echo base_url() ?>users">
 					<i class="fa fa-male"></i>
 					<span class="title">Kullanıcılar</span>
 					</a>
 				</li>
+			    <?php endif; ?>
+				<?php if(!empty($allowed_pages) && (strstr($allowed_pages, 'settings'))): ?>
 				<li class="last <?php echo $menu == 'settings' ? 'active' : '' ?>">
 					<a href="javascript:;">
 					<i class="fa fa-cogs"></i>
@@ -140,6 +152,7 @@
 						<li><a href="<?php echo base_url() ?>settings/generalSetting">Genel Ayarlar</a></li>
 					</ul>
 				</li>
+				<?php endif; ?>
 			</ul>
 			<!-- END SIDEBAR MENU -->
 		</div>

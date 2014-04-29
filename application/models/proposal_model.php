@@ -18,6 +18,10 @@ class Proposal_model extends CI_Model {
             $sql .= " AND p.proposal_name LIKE " . $this->db->escape('%' . $filters['filter_proposal_name'] . '%');
         }
 
+        if (!empty($filters['filter_customer_name'])) {
+            $sql .= " AND c.customer_name LIKE " . $this->db->escape('%' . $filters['filter_customer_name'] . '%');
+        }
+
         if (!empty($filters['filter_proposal_total'])) {
             $sql .= " AND p.proposal_total = " . (float)$filters['filter_proposal_total'];
         }
@@ -27,28 +31,14 @@ class Proposal_model extends CI_Model {
         }
 
         if (!empty($filters['filter_proposal_date_added'])) {
-
              $sql .= " AND DATE(p.proposal_date_added) = '" . $filters['filter_proposal_date_added'] . "' ";
         }
 
         if (!empty($filters['filter_proposal_date_updated'])) {
              $sql .= " AND DATE(p.proposal_date_updated) = '" .$filters['filter_proposal_date_updated'] . "' ";
-
-              //$sql .= " AND t.date_add > '" . $filters['first'] . " 00:00:00'";
-            //$sql .= " AND p.proposal_date_added  '" . $filters['filter_proposal_date_added'] . " 00:00:00";
-             $sql .= " AND DATE(p.proposal_date_added) = '2014-04-18 14-33-22' ";
-
-
         }
 
-        if (!empty($filters['filter_proposal_date_updated'])) {
-            //$sql .= " AND p.proposal_date_updated  '" . $filters['filter_proposal_date_updated'] . " 00:00:00";
-             $sql .= " AND date(p.proposal_date_updated) = '" . date('Y-m-d',strtotime($filters['filter_proposal_date_updated'])) . "' ";
-
-
-
-        }
-
+    
         if (!empty($filters['sort'])) {
             $sql .= " ORDER BY " . $filters['sort'] . " " . $filters['sort_order'];
         }
@@ -60,8 +50,47 @@ class Proposal_model extends CI_Model {
  		return $result->result_array();
  	}
 
+    public function getProposalsForExcel($filters){
+
+        $sql = "SELECT p.proposal_id as 'Teklif No', proposal_name as 'Teklif Adı', proposal_statement_top as 'Teklif Üst Açıklaması' , proposal_statement_bottom as 'Teklif Alt Açıklaması' , p.proposal_date_expiration as 'Teklif Geçerlilik Tarihi' , p.proposal_date_delivery as 'Teklif Teslim Tarihi' , p.proposal_status as 'Teklif Durumu' , c.customer_name as 'Müşteri Adı' , pr.product_name as 'Ürün Adı' , pp.product_price as 'Ürün Teklif Fiyatı'  FROM proposal p LEFT JOIN proposal_note pn ON p.proposal_id = pn.proposal_id LEFT JOIN proposal_to_customer ptc ON ptc.proposal_id = p.proposal_id LEFT JOIN customer c ON c.customer_id = ptc.customer_id LEFT JOIN proposal_product pp ON p.proposal_id = pp.proposal_id LEFT JOIN product pr ON pp.product_id = pr.product_id WHERE 1=1";
+
+        if (!empty($filters['filter_proposal_id'])) {
+            $sql .= " AND p.proposal_id = '" . (int)$filters['filter_proposal_id'] . "'";
+        }
+
+        if (!empty($filters['filter_proposal_name'])) {
+            $sql .= " AND p.proposal_name LIKE " . $this->db->escape('%' . $filters['filter_proposal_name'] . '%');
+        }
+
+        if (!empty($filters['filter_customer_name'])) {
+            $sql .= " AND c.customer_name LIKE " . $this->db->escape('%' . $filters['filter_customer_name'] . '%');
+        }
+
+        if (!empty($filters['filter_proposal_total'])) {
+            $sql .= " AND p.proposal_total = " . (float)$filters['filter_proposal_total'];
+        }
+
+        if (!empty($filters['filter_proposal_status']) || $filters['filter_proposal_status'] === '0') {
+            $sql .= " AND p.proposal_status = '" . (int)$filters['filter_proposal_status'] . "'";
+        }
+
+        if (!empty($filters['filter_proposal_date_added'])) {
+             $sql .= " AND DATE(p.proposal_date_added) = '" . $filters['filter_proposal_date_added'] . "' ";
+        }
+
+        if (!empty($filters['filter_proposal_date_updated'])) {
+             $sql .= " AND DATE(p.proposal_date_updated) = '" .$filters['filter_proposal_date_updated'] . "' ";
+        }
+
+
+        $result = $this->db->query($sql);
+
+
+        return $result->result_array();
+    }
+
  	public function getTotalProposals($filters = array()){
-		$sql = "SELECT COUNT(*) AS 'total' FROM proposal p WHERE 1=1";
+		$sql = "SELECT COUNT(*) AS 'total' FROM proposal p  LEFT JOIN proposal_to_customer ptc ON p.proposal_id = ptc.proposal_id LEFT JOIN customer c ON ptc.customer_id = c.customer_id WHERE 1=1";
 
 		if (!empty($filters['filter_proposal_id'])) {
             $sql .= " AND p.proposal_id = '" . (int)$filters['filter_proposal_id'] . "'";
@@ -69,6 +98,10 @@ class Proposal_model extends CI_Model {
 
         if (!empty($filters['filter_proposal_name'])) {
             $sql .= " AND p.proposal_name LIKE " . $this->db->escape('%' . $filters['filter_proposal_name'] . '%');
+        }
+
+        if (!empty($filters['filter_customer_name'])) {
+            $sql .= " AND c.customer_name LIKE " . $this->db->escape('%' . $filters['filter_customer_name'] . '%');
         }
 
         if (!empty($filters['filter_proposal_total'])) {
@@ -87,17 +120,7 @@ class Proposal_model extends CI_Model {
         if (!empty($filters['filter_proposal_date_updated'])) {
              $sql .= " AND DATE(p.proposal_date_updated) = '" .$filters['filter_proposal_date_updated'] . "' ";
 
-              //$sql .= " AND t.date_add > '" . $filters['first'] . " 00:00:00'";
-             $sql .= " AND DATE(p.proposal_date_added) = '2014-04-18 14-33-22' ";
-            // $sql .= " AND date(p.proposal_date_added) = '" . $filters['filter_proposal_date_added'] . "' ";
-
         }
-
-        if (!empty($filters['filter_proposal_date_updated'])) {
-             $sql .= " AND date(p.proposal_date_updated) = '" . date('Y-m-d',strtotime($filters['filter_proposal_date_updated'])) . "' ";
-
-        }
-
 
 
  		$result = $this->db->query($sql);
@@ -129,11 +152,7 @@ class Proposal_model extends CI_Model {
  		return $result->result_array();
  	}
 
- 	public function getProposalsForExcel(){
- 		$result = $this->db->query("SELECT p.proposal_id as 'Teklif No', proposal_name as 'Teklif Adı', proposal_statement_top as 'Teklif Üst Açıklaması' , proposal_statement_bottom as 'Teklif Alt Açıklaması' , c.customer_name as 'Müşteri Adı' FROM proposal p LEFT JOIN proposal_note pn ON p.proposal_id = pn.proposal_id LEFT JOIN proposal_to_customer ptc ON ptc.proposal_id = p.proposal_id LEFT JOIN customer c ON c.customer_id = ptc.customer_id");
-
- 		return $result->result_array();
- 	}
+ 	
 
     public function updateToken($proposal_id, $token) {
         $this->db->query("UPDATE proposal SET proposal_token = " . $this->db->escape($token) . " WHERE proposal_id = '" . (int)$proposal_id . "'");

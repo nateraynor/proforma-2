@@ -15,7 +15,7 @@ class Login extends CI_Controller {
 			$this->load->model('login_model');
 			$result = $this->login_model->sign_in($this->input->post());
 			if (empty($result))
-				$this->errors[] = 'Hatalı kullanıcı adı ve ya şifre';
+				$this->errors[] = 'Hatalı kullanıcı adı ve ya şifre !';
 			else {
 				$this->session->set_userdata('user_id', $result['user_id']);
 				$this->session->set_userdata('username', $result['user_username']);
@@ -41,10 +41,10 @@ class Login extends CI_Controller {
 	public function validate($data) {
 		$errors = array();
 		if (isset($data['username']) && strlen(trim($data['username'])) < 5)
-			$errors[] = 'Kullanıcı adı alanı minimum 5 karakter olmalıdır';
+			$errors[] = 'Kullanıcı adı alanı minimum 5 karakter olmalıdır !';
 
 		if (isset($data['password']) && strlen(trim($data['password'])) < 5)
-			$errors[] = 'Şifre alanı minimum 5 karakter olmalıdır';
+			$errors[] = 'Şifre alanı minimum 5 karakter olmalıdır !';
 		if (!empty($errors)) {
 			$this->errors = $errors;
 			return false;

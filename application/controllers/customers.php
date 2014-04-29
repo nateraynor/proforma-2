@@ -44,6 +44,8 @@ class Customers extends CI_Controller {
 		$total_customers = $this->customer_model->getTotalCustomers($filters);
 
 		$data['page_url'] = base_url() . 'customers';
+		$data['excel_url'] = base_url() . 'customers/excelOutput';
+
 		$data['pagination'] = $this->getPagination(base_url() . 'customers/index', $total_customers, $limit, 3, $_SERVER['QUERY_STRING']);
 		$data['metaInfo'] = $this->setting_model->getSetting('meta');
 		$data['menu'] = 'customers';
@@ -66,13 +68,13 @@ class Customers extends CI_Controller {
 			if ($customer_id == -1) {
 				$result = $this->customer_model->addCustomer($this->input->post());
 				if ($result) {
-					$this->session->set_flashdata('success', 'Müşteri başarıyla eklendi');
+					$this->session->set_flashdata('success', 'Müşteri başarıyla eklendi.');
 					redirect('customers');
 				}
 			} else {
 				$result = $this->customer_model->updateCustomer($this->input->post(), $customer_id);
 				if ($result) {
-					$this->session->set_flashdata('success', 'Müşteri başarıyla güncellendi');
+					$this->session->set_flashdata('success', 'Müşteri başarıyla güncellendi.');
 					redirect('customers');
 				}
 			}
@@ -91,7 +93,7 @@ class Customers extends CI_Controller {
 		$this->load->model('customer_model');
 		$result = $this->customer_model->deleteCustomer($customer_id);
 		if ($result)
-			$this->session->set_flashdata('success', 'Müşteri kaydı başarıyla silindi!');
+			$this->session->set_flashdata('success', 'Müşteri kaydı başarıyla silindi.');
 		else
 			$this->session->set_flashdata('error', 'Müşteri kaydı silinemedi!');
 		redirect('customers');
@@ -99,16 +101,25 @@ class Customers extends CI_Controller {
 	public function excelOutput() {
 		$this->load->library('excel');
 		$this->load->model('customer_model');
-		$results = $this->customer_model->getCustomersForExcel();
+
+		$filters = array(
+			'filter_customer_id'   		=> $this->input->get('filter_customer_id'),
+			'filter_customer_name'   	=> $this->input->get('filter_customer_name'),
+			'filter_customer_surname' 	=> $this->input->get('filter_customer_surname'),
+			'filter_customer_email' 	=> $this->input->get('filter_customer_email'),
+			'filter_customer_status'   	=> $this->input->get('filter_customer_status'),
+		);
+		
+		$results = $this->customer_model->getCustomersForExcel($filters);
         $this->excel->to_excel($results, 'users-excel', 'Müşteriler');
 	}
 
 	public function validate($data) {
 		$errors = array();
 		if (isset($data['customer_name']) && strlen(trim($data['customer_name'])) < 3)
-			$errors[] = 'Müşteri adı alanı minimum 3 karakter olmalıdır';
+			$errors[] = 'Müşteri adı alanı minimum 3 karakter olmalıdır !';
 		if (isset($data['customer_surname']) && strlen(trim($data['customer_surname'])) < 3)
-			$errors[] = 'Müşteri soyadı alanı minimum 3 karakter olmalıdır';
+			$errors[] = 'Müşteri soyadı alanı minimum 3 karakter olmalıdır !';
 		if (!empty($errors)) {
 			$this->errors = $errors;
 			return false;

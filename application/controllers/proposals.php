@@ -33,6 +33,7 @@ class Proposals extends CI_Controller {
 		$filters = array(
 			'filter_proposal_id'   		=> $this->input->get('filter_proposal_id'),
 			'filter_proposal_name'   	=> $this->input->get('filter_proposal_name'),
+			'filter_customer_name' 	    => $this->input->get('filter_customer_name'),
 			'filter_proposal_total' 	=> $this->input->get('filter_proposal_total'),
 			'filter_proposal_status'   	=> $this->input->get('filter_proposal_status'),
 			'filter_proposal_date_added'=> $this->input->get('filter_proposal_date_added'),
@@ -97,6 +98,7 @@ class Proposals extends CI_Controller {
 
 		/** Pagination **/
 		$data['page_url'] = base_url() . 'proposals';
+		$data['excel_url'] = base_url() . 'proposals/excelOutput';
 		$data['pagination'] = $this->getPagination(base_url() . 'proposals/index', $total_proposals, $limit, 3, $_SERVER['QUERY_STRING']);
 		$data['metaInfo'] = $this->setting_model->getSetting('meta');
 		$data['menu'] = 'proposals';
@@ -109,8 +111,20 @@ class Proposals extends CI_Controller {
 
 	public function excelOutput() {
 		$this->load->library('excel');
+		
+		$filters = array(
+			'filter_proposal_id'   		=> $this->input->get('filter_proposal_id'),
+			'filter_proposal_name'   	=> $this->input->get('filter_proposal_name'),
+			'filter_customer_name' 	    => $this->input->get('filter_customer_name'),
+			'filter_proposal_total' 	=> $this->input->get('filter_proposal_total'),
+			'filter_proposal_status'   	=> $this->input->get('filter_proposal_status'),
+			'filter_proposal_date_added'=> $this->input->get('filter_proposal_date_added'),
+			'filter_proposal_date_updated'=> $this->input->get('filter_proposal_date_updated')
+		);
+
+
 		$this->load->model('proposal_model');
-		$results = $this->proposal_model->getProposalsForExcel();
+		$results = $this->proposal_model->getProposalsForExcel($filters);
         $this->excel->to_excel($results, 'proposals-excel', 'Teklifler');
 	}
 
@@ -287,7 +301,7 @@ class Proposals extends CI_Controller {
 
 		send_mail('efenacigiray@gmail.com', 'Teklif', proposal_mail($mail_data));
 
-		$this->session->set_flashdata('success','Teklif başarıyla gönderildi');
+		$this->session->set_flashdata('success','Teklif başarıyla gönderildi.');
 		redirect('proposals');
 	}
 
@@ -312,14 +326,14 @@ class Proposals extends CI_Controller {
 				$result = $this->proposal_model->addProposal($this->input->post());
 
 				if ($result) {
-					$this->session->set_flashdata('success', 'Teklif başarıyla oluşturuldu eklendi');
+					$this->session->set_flashdata('success', 'Teklif başarıyla oluşturuldu eklendi.');
 					redirect('proposals/preview/' . $result);
 				}
 			} else {
 				$result = $this->proposal_model->updateProposal($this->input->post(), $proposal_id);
 
 				if ($result) {
-					$this->session->set_flashdata('success', 'Teklif başarıyla güncellendi');
+					$this->session->set_flashdata('success', 'Teklif başarıyla güncellendi.');
 					redirect('proposals/preview/' . $result);
 				}
 			}
@@ -405,7 +419,7 @@ class Proposals extends CI_Controller {
 		$result = $this->proposal_model->deleteProposal($proposal_id);
 
 		if ($result)
-			$this->session->set_flashdata('success', 'Teklif başarıyla silindi!');
+			$this->session->set_flashdata('success', 'Teklif başarıyla silindi.');
 		else
 			$this->session->set_flashdata('error', 'Teklif silinemedi!');
 

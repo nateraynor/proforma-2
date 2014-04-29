@@ -47,7 +47,7 @@ class Settings extends CI_Controller {
             }
 
             if ($result) {
-                $this->session->set_flashdata('success', 'Şirket bilgileri başarıyla kayıt edildi');
+                $this->session->set_flashdata('success', 'Şirket bilgileri başarıyla kayıt edildi.');
                 redirect('settings/generalSetting#company_setting');
             }
         }
@@ -56,17 +56,24 @@ class Settings extends CI_Controller {
     public function generalSetting(){
         $this->load->model('setting_model');
 
+         $allowed_pages = $this->session->userdata['allowed_pages'];
+        if(!empty($allowed_pages) && (!strstr($allowed_pages, 'settings/generalSetting'))){
+            $this->session->set_flashdata('error','Genel ayarlar sayfasına erişim izniniz yoktur!');
+            redirect('home');
+        }
+
+
         if ($this->input->post()) {
             $key = $this->input->post('key');
             $result = $this->setting_model->setSetting($key, $this->input->post());
 
                 if ($result){
                     if($key == 'meta'){
-                        $this->session->set_flashdata('success', 'Meta bilgileri başarıyla kayıt edildi');
+                        $this->session->set_flashdata('success', 'Meta bilgileri başarıyla kayıt edildi.');
                         redirect('settings/generalSetting');
                     }
                     if($key == 'email'){
-                        $this->session->set_flashdata('success', 'E-posta bilgileri başarıyla kayıt edildi');
+                        $this->session->set_flashdata('success', 'E-posta bilgileri başarıyla kayıt edildi.');
                         redirect('settings/generalSetting#email_setting');
                     }
                  }
@@ -84,6 +91,7 @@ class Settings extends CI_Controller {
 
     public function taxRates() {
         $this->load->model('setting_model');
+
         $allowed_pages = $this->session->userdata['allowed_pages'];
         if(!empty($allowed_pages) && (!strstr($allowed_pages, 'settings/tax_rates'))){
             $this->session->set_flashdata('error','Vergi oranları sayfasına erişim izniniz yoktur!');
@@ -96,10 +104,10 @@ class Settings extends CI_Controller {
             $result = $this->setting_model->setSetting($key, $this->input->post());
 
             if ($result) {
-                $this->session->set_flashdata('success', 'Vergi Oranları başarıyla kayıt edildi');
+                $this->session->set_flashdata('success', 'Vergi oranları başarıyla kayıt edildi.');
                 redirect('settings/taxRates');
             } else {
-                $this->session->set_flashdata('error', 'Vergi Oranları kayıt edilemedi!');
+                $this->session->set_flashdata('error', 'Vergi oranları kayıt edilemedi!');
                 redirect('settings/taxRates');
             }
         }
@@ -113,7 +121,14 @@ class Settings extends CI_Controller {
 
      public function exchangeRates() {
         $this->load->model('setting_model');
-    
+        
+        $allowed_pages = $this->session->userdata['allowed_pages'];
+        if(!empty($allowed_pages) && (!strstr($allowed_pages, 'settings/exchangeRates'))){
+            $this->session->set_flashdata('error','Döviz kurları sayfasına erişim izniniz yoktur!');
+            redirect('home');
+        }
+
+
         $data['exchange_rates'] = $this->setting_model->getSetting('exchange_rates');
 
         if ($this->input->post()) {
@@ -121,10 +136,10 @@ class Settings extends CI_Controller {
             $result = $this->setting_model->setSetting($key, $this->input->post());
 
             if ($result) {
-                $this->session->set_flashdata('success', 'Döviz Kurları başarıyla kayıt edildi');
+                $this->session->set_flashdata('success', 'Döviz kurları başarıyla kayıt edildi.');
                 redirect('settings/exchangeRates');
             } else {
-                $this->session->set_flashdata('error', 'Döviz Kurları kayıt edilemedi!');
+                $this->session->set_flashdata('error', 'Döviz kurları kayıt edilemedi!');
                 redirect('settings/exchangeRates');
             }
         }
@@ -152,10 +167,10 @@ class Settings extends CI_Controller {
     public function validate($data) {
         $errors = array();
         if (isset($data['company_name']) && strlen($data['company_name']) < 3) {
-            $errors[] = 'Şirket adı alanı minimum 3 karakter olmalıdır';
+            $errors[] = 'Şirket adı alanı minimum 3 karakter olmalıdır !';
         }
         if (isset($data['company_entitled_name']) && strlen($data['company_entitled_name']) < 3) {
-            $errors[] = 'Şirket Yetkilisi adı alanı minimum 3 karakter olmalıdır';
+            $errors[] = 'Şirket yetkilisi adı alanı minimum 3 karakter olmalıdır !';
         }
         if (!empty($errors)) {
             $this->errors = $errors;

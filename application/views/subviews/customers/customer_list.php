@@ -48,7 +48,7 @@
 								<button class="btn dropdown-toggle" data-toggle="dropdown">Araçlar <i class="fa fa-angle-down"></i></button>
 								<ul class="dropdown-menu pull-right">
 									<li><a href="javascript:window.print();">Sayfayı Yazdır</a></li>
-									<li><a href="<?php echo base_url() ?>customers/excelOutput">Excel Çıktısı</a></li>
+									<li><a href="#" id="filter_excel_customer_button">Excel Çıktısı</a></li>
 								</ul>
 							</div>
 						</div>
@@ -107,9 +107,8 @@
 										<?php endif ;?>
 									</td>
 									<td>
-
-										<a href="<?php echo base_url() . 'customers/customer/' . $customer['customer_id']; ?>" class="btn default btn-xs yellow"><i class="fa fa-edit"></i> Güncelle</a>
-										<a href="#" location="<?php echo base_url() . 'customers/deletecustomer/' . $customer['customer_id']; ?>" class="btn default btn-xs black validate-delete"><i class="fa fa-trash-o"></i> Sil</a>
+										<a href="#" location="<?php echo base_url() . 'customers/deletecustomer/' . $customer['customer_id']; ?>" class="btn default btn-xs black validate-delete pull-right"><i class="fa fa-trash-o"></i> Sil</a>
+										<a href="<?php echo base_url() . 'customers/customer/' . $customer['customer_id']; ?>" class="btn default btn-xs yellow pull-right"><i class="fa fa-edit"></i> Güncelle</a>
 									</td>
 								</tr>
 							<?php endforeach ?>
@@ -126,6 +125,7 @@
 </div>
 <script type="text/javascript">
 	var page_url = '<?php echo $page_url; ?>';
+	var excel_url = '<?php echo $excel_url; ?>';
 	var sort = '<?php echo $sort ?>';
 	var order = '<?php echo $sort_order ?>';
 </script>

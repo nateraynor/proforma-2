@@ -88,9 +88,10 @@
 												<select name="user_allowed_pages[]" id="select2_sample2" class="form-control select2" multiple placeholder="Seçiniz">
 													<?php echo $user['user_allowed_pages']; ?>
 													<optgroup label="Ayarlar">
+													<option value="settings/generalSetting" <?php echo isset($user['user_allowed_pages']) && (strstr($user['user_allowed_pages'],'settings/generalSetting' )) ? 'selected' : ' ' ;?>>Genel Ayarlar</option>
 													<option value="settings/tax_rates" <?php echo isset($user['user_allowed_pages']) && (strstr($user['user_allowed_pages'],'settings/tax_rates' )) ? 'selected' : ' ' ;?>>Vergi Oranları</option>
 													<option value="setting/templates" <?php echo isset($user['user_allowed_pages']) && (strstr($user['user_allowed_pages'],'setting/templates'))  ? 'selected' : '';?>>Şablonlar</option>
-													<option value="settings/generalSetting" <?php echo isset($user['user_allowed_pages']) && (strstr($user['user_allowed_pages'],'settings/generalSetting' )) ? 'selected' : ' ' ;?>>Genel Ayarlar</option>
+													<option value="setting/exchangeRates" <?php echo isset($user['user_allowed_pages']) && (strstr($user['user_allowed_pages'],'setting/exchangeRates'))  ? 'selected' : '';?>>Döviz Kurları</option>
 													</optgroup>
 													<optgroup label="Teklifler">
 													<option value="proposalslist" <?php echo isset($user['user_allowed_pages']) && (strstr($user['user_allowed_pages'],'proposalslist')) ? 'selected' : '' ?>>Teklifler</option>
@@ -116,8 +117,10 @@
 													<option value="userslist" <?php echo isset($user['user_allowed_pages']) && (strstr($user['user_allowed_pages'],'userslist'))  ? 'selected' : '';?>>Kullanıcılar</option>
 													<option value="users/user" <?php echo isset($user['user_allowed_pages']) && (strstr($user['user_allowed_pages'],'"users/user'))  ? 'selected' : '';?>>Kullanıcı İşlemleri</option>
 													</optgroup>
+													<optgroup label="Raporlar">
+													<option value="reports" <?php echo isset($user['user_allowed_pages']) && (strstr($user['user_allowed_pages'],'reports'))  ? 'selected' : '';?>>Raporlar</option>
+													</optgroup>
 												</select>
-												<span class="help-block">Boş bıraktığınız taktirde, tüm sayfalara erişim izni tanınancaktır.</span>
 										</div>
 									</div>
 									<div class="col-md-6">
@@ -156,12 +159,12 @@
 							<div class="form-body">
 								<div class="row">
 
-									<div class="col-md-6">
+									<!--div class="col-md-6">
 										<div class="form-group">
 											<label class="control-label">Eski Şifre</label>
 											<input type="text" name="past_pass" class="form-control" placeholder="Eski Şifre">
 										</div>
-									</div>
+									</div-->
 									<div class="col-md-6">
 										<div class="form-group">
 											<label class="control-label">Yeni Şifre</label>

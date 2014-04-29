@@ -42,7 +42,7 @@
 								<button class="btn dropdown-toggle" data-toggle="dropdown">Araçlar <i class="fa fa-angle-down"></i></button>
 								<ul class="dropdown-menu pull-right">
 									<li><a href="javascript:window.print();">Sayfayı Yazdır</a></li>
-									<li><a href="<?php echo base_url() ?>proposals/excelOutput">Excel Çıktısı</a></li>
+									<li><a href="#" id="filter_excel_button" >Excel Çıktısı</a></li>
 								</ul>
 							</div>
 						</div>
@@ -67,7 +67,7 @@
 						<tr class="sorts">
 							<th><a class="sort" href="#" sort="p.proposal_id">Teklif No</a></th>
 							<th><a class="sort" href="#" sort="p.proposal_name">Teklif Adı</a></th>
-							<th>Teklif Müşterileri</th>
+							<th><a class="sort" href="#" sort="c.customer_name">Teklif Müşterileri</a></th>
 							<th><a class="sort" href="#" sort="p.proposal_total">Teklif Toplamı</a></th>
 							<th><a class="sort" href="#" sort="p.proposal_status">Teklif Durumu</a></th>
 							<th><a class="sort" href="#" sort="p.proposal_date_added">Teklif Eklenme Tarihi</a></th>
@@ -79,7 +79,7 @@
 							<tr class="filters">
 								<td><input class="form-control input-inline" type="text" id="filter_proposal_id" value="<?php echo $filters['filter_proposal_id'] ?>"></td>
 								<td><input class="form-control input-inline" type="text" id="filter_proposal_name" value="<?php echo $filters['filter_proposal_name'] ?>"></td>
-								<td>&nbsp;</td>
+								<td><input class="form-control input-inline" type="text" id="filter_customer_name" value="<?php echo $filters['filter_customer_name'] ?>"></td>
 								<td><input class="form-control input-inline" type="text" id="filter_proposal_total" value="<?php echo $filters['filter_proposal_total'] ?>"></td>
 								<td><select class="form-control input-inline" id="filter_proposal_status">
 									<option value=""  <?php echo empty($filters['filter_proposal_status']) ? 'selected' : '' ?>>Hepsi</option>
@@ -120,6 +120,7 @@
 									<td>
 	          							<a href="#" location="<?php echo base_url() . 'proposals/deleteProposal/' . $proposal['proposal_id']; ?>" class="btn default btn-xs black validate-delete pull-right"><i class="fa fa-trash-o"></i> Sil</a>
 										<a href="<?php echo base_url() . 'proposals/proposal/' . $proposal['proposal_id']; ?>" class="btn default btn-xs yellow pull-right"><i class="fa fa-edit"></i> Güncelle</a>
+										<a href="<?php echo base_url() . 'proposals/preview/' . $proposal['proposal_id']; ?>" class="btn default btn-xs green pull-right"><i class="fa fa-file-o"></i> Önizleme</a>
 	      							</td>
 								</tr>
 							<?php endforeach ?>
@@ -136,6 +137,7 @@
 </div>
 <script type="text/javascript">
 	var page_url = '<?php echo $page_url; ?>';
+	var excel_url = '<?php echo $excel_url; ?>';
 	var sort = '<?php echo $sort ?>';
 	var order = '<?php echo $sort_order ?>';
 </script>

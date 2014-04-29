@@ -15,6 +15,12 @@ class Reports extends CI_Controller {
 		$this->load->model('report_model');
 		$this->load->model('setting_model');
 		
+		$allowed_pages = $this->session->userdata['allowed_pages'];
+		if(!empty($allowed_pages) && (!strstr($allowed_pages, 'reports'))){
+			$this->session->set_flashdata('error','Raporlar  sayfasına erişim izniniz yoktur !');
+			redirect('home');
+		}
+
 		$data['metaInfo'] = $this->setting_model->getSetting('meta');	
 		//$data['total_actions'] = $this->report_model->getTotalActions();
 		$data['total_products'] = $this->report_model->getTotalProducts();

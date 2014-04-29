@@ -70,8 +70,9 @@
 									<td><?php echo $user['user_email'] ?></td>
 									<td><?php echo $user['user_status'] == 1 ? 'Aktif' : 'Pasif' ;?></td>
 									<td>
-										<a href="<?php echo base_url() . 'users/user/' . $user['user_id']; ?>" class="btn default btn-xs yellow"><i class="fa fa-edit"></i> Güncelle</a>
-										<a href="#" location="<?php echo base_url() . 'users/deleteUser/' . $user['user_id']; ?>" class="btn default btn-xs black validate-delete"><i class="fa fa-trash-o"></i> Sil</a>
+										<a href="#" location="<?php echo base_url() . 'users/deleteUser/' . $user['user_id']; ?>" class="btn default btn-xs black validate-delete pull-right"><i class="fa fa-trash-o"></i> Sil</a>
+										<a href="<?php echo base_url() . 'users/user/' . $user['user_id']; ?>" class="btn default btn-xs yellow pull-right"><i class="fa fa-edit"></i> Güncelle</a>
+										
 									</td>
 								</tr>
 							<?php endforeach ?>

@@ -47,6 +47,7 @@ class Products extends CI_Controller {
 		$total_products = $this->product_model->getTotalProducts($filters);
 		/**Pagination*/
 		$data['page_url'] = base_url() . 'products';
+		$data['excel_url'] = base_url() . 'products/excelOutput';
 		$data['pagination'] = $this->getPagination(base_url() . 'products/index', $total_products, $limit, 3, $_SERVER['QUERY_STRING']);
 		//public function getPagination($link, $total_rows, $per_page, $segment, $suffix) {
 
@@ -87,7 +88,7 @@ class Products extends CI_Controller {
 
 		$allowed_pages = $this->session->userdata['allowed_pages'];
 		if (!empty($allowed_pages) && (!strstr($allowed_pages, 'products/product'))) {
-			$this->session->set_flashdata('error','Ürün işlmeleri sayfasına erişim izniniz yoktur!');
+			$this->session->set_flashdata('error','Ürün işlemleri sayfasına erişim izniniz yoktur!');
 			redirect('home');
 		}
 
@@ -124,7 +125,7 @@ class Products extends CI_Controller {
 					$result = $this->product_model->addProduct($insert_data);
 				}
 				if ($result) {
-					$this->session->set_flashdata('success', 'Ürün başarıyla eklendi');
+					$this->session->set_flashdata('success', 'Ürün başarıyla eklendi.');
 					redirect('products');
 				}
 			} else {
@@ -142,7 +143,7 @@ class Products extends CI_Controller {
 					$result = $this->product_model->updateProduct($update_data, $product_id);
 				}
 				if ($result) {
-					$this->session->set_flashdata('success', 'Ürün başarıyla güncellendi');
+					$this->session->set_flashdata('success', 'Ürün başarıyla güncellendi.');
 					redirect('products');
 				}
 			}
@@ -197,7 +198,18 @@ class Products extends CI_Controller {
 	public function excelOutput() {
 		$this->load->library('excel');
 		$this->load->model('product_model');
-		$results = $this->product_model->getProductsForExcel();
+
+		$filters = array(
+			'filter_product_id'   		=> $this->input->get('filter_product_id'),
+			'filter_product_name'   	=> $this->input->get('filter_product_name'),
+			'filter_category_name'   	=> $this->input->get('filter_category_name'),
+			'filter_brand_name'   		=> $this->input->get('filter_brand_name'),
+			'filter_product_price' 	    => $this->input->get('filter_product_price'),
+			'filter_product_status'   	=> $this->input->get('filter_product_status'),
+		);
+
+
+		$results = $this->product_model->getProductsForExcel($filters);
         $this->excel->to_excel($results, 'products-excel', 'Ürünler');
 	}
 

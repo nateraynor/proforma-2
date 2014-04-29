@@ -32,7 +32,6 @@ class Users extends CI_Controller {
 		if(!empty($allowed_pages) && (!strstr($allowed_pages,'users/user'))){
 			$this->session->set_flashdata('error','Kullanıcı işlemleri sayfasına erişim izniniz yoktur!');
 			redirect('home');
-
 		}
 
 		$validate_data =  $this->input->post();
@@ -43,14 +42,14 @@ class Users extends CI_Controller {
 			$result = false;
 			if ($user_id == -1) {
 					$result = $this->user_model->addUser($this->input->post());
-					$this->session->set_flashdata('warning', 'Kullanıcı başarıyla eklendi');
+					$this->session->set_flashdata('warning', 'Kullanıcı başarıyla eklendi.');
 					redirect('users');
 				if ($result) {
 					redirect('users');
 				}
 			} else {
 				$result = $this->user_model->updateUser($this->input->post(), $user_id);
-				$this->session->set_flashdata('success', 'Kullanıcı başarıyla güncellendi');
+				$this->session->set_flashdata('success', 'Kullanıcı başarıyla güncellendi.');
 				redirect('users');
 			}
 		}
@@ -71,28 +70,19 @@ class Users extends CI_Controller {
 		$user_email = $this->user_model->getUserEmail($user_id);
 		$user_username = $this->user_model->getUsername($user_id);
 		if (isset($data['user_username']) && strlen(trim($data['user_username'])) < 3)
-			$errors[] = 'Kullanıcı Rumuz alanı minimum 3 karakter olmalıdır';
+			$errors[] = 'Kullanıcı rumuz alanı minimum 3 karakter olmalıdır !';
 		if (isset($data['user_name']) && strlen(trim($data['user_name'])) < 3)
-			$errors[] = 'Kullanıcı Ad - Soyad alanı minimum 3 karakter olmalıdır';
+			$errors[] = 'Kullanıcı ad - soyad alanı minimum 3 karakter olmalıdır !';
 
 		if($data['user_id'] != -1)
 			if($data['user_username'] != $user_username)
 				if(isset($data['user_username']) && (!$this->user_model->checkUsername($data['user_username'])))
-					$errors[] = 'Kullanıcı Adı daha önce kullanılmıştır';
-		if($data['user_id'] == -1)
-			if(isset($data['user_username']) && (!$this->user_model->checkUsername($data['user_username'])))
-					$errors[] = 'Kullanıcı Adı daha önce kullanılmıştır';
-
+					$errors[] = 'Kullanıcı adı daha önce kullanılmıştır !';
+		
 		if($data['user_id'] != -1)
 			if($data['user_email'] != $user_email )
 				if(isset($data['user_email']) && (!$this->user_model->checkUserEmail($data['user_email'])))
-					$errors[] = 'Kullanıcı E-postası daha kullanılmıştır';
-
-		if($data['user_id'] == -1)
-			if(isset($data['user_email']) && (!$this->user_model->checkUserEmail($data['user_email'])))
-				$errors[] = 'Kullanıcı E-postası daha kullanılmıştır';
-
-
+					$errors[] = 'Kullanıcı e-postası daha kullanılmıştır !';
 
 		if (!empty($errors)) {
 			$this->errors = $errors;
@@ -108,17 +98,13 @@ class Users extends CI_Controller {
 		if($this->input->post()){
 			$data['user'] = $this->input->post();
 	
-			if(md5($data['user']['past_pass']) != $user['user_password']){
-				$this->session->set_flashdata('errorPass', 'Eski Şifreyle uyuşmamaktadır');		
-
-				redirect('users/user/'.$user_id);
-			}else if($data['user']['new_pass'] != $data['user']['repeat_new_pass']){
-				$this->session->set_flashdata('errorPass', 'Şifreler uyuşmamaktadır');	
+			if($data['user']['new_pass'] != $data['user']['repeat_new_pass']){
+				$this->session->set_flashdata('errorPass', 'Şifreler uyuşmamaktadır !');	
 
 				redirect('users/user/'.$user_id);
 			}else{
 				$result = $this->user_model->updateUserPassword($this->input->post(), $user_id);
-				$this->session->set_flashdata('success', 'Kullanıcı şifresi başarıyla güncellendi');
+				$this->session->set_flashdata('success', 'Kullanıcı şifresi başarıyla güncellendi.');
 				redirect('users');
 			}
 
@@ -128,7 +114,7 @@ class Users extends CI_Controller {
 		$this->load->model('user_model');
 		$result = $this->user_model->deleteUser($user_id);
 		if($result)
-			$this->session->set_flashdata('success' ,'Kullanıcı kaydı başarıyla silindi!');
+			$this->session->set_flashdata('success' ,'Kullanıcı kaydı başarıyla silindi.');
 		else
 			$this->session->set_flashdata('error', 'Kullanıcı kaydı silinemedi!');
 		redirect('users');

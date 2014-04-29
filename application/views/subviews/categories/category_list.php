@@ -105,8 +105,8 @@
 										<?php endif ;?>
 									</td>
 									<td>
-										<a href="<?php echo base_url() . 'categories/category/' . $category['category_id']; ?>" class="btn default btn-xs yellow"><i class="fa fa-edit"></i> Güncelle</a>
-										<a href="#" location="<?php echo base_url() . 'categories/deleteCategory/' . $category['category_id']; ?>" class="btn default btn-xs black validate-delete"><i class="fa fa-trash-o"></i> Sil</a>
+										<a href="#" location="<?php echo base_url() . 'categories/deleteCategory/' . $category['category_id']; ?>" class="btn default btn-xs black validate-delete pull-right"><i class="fa fa-trash-o"></i> Sil</a>
+										<a href="<?php echo base_url() . 'categories/category/' . $category['category_id']; ?>" class="btn default btn-xs yellow pull-right"><i class="fa fa-edit"></i> Güncelle</a>
 									</td>
 								</tr>
 							<?php endforeach ?>
