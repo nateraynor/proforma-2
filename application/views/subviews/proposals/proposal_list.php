@@ -120,7 +120,11 @@
 									<td>
 	          							<a href="#" location="<?php echo base_url() . 'proposals/deleteProposal/' . $proposal['proposal_id']; ?>" class="btn default btn-xs black validate-delete pull-right"><i class="fa fa-trash-o"></i> Sil</a>
 										<a href="<?php echo base_url() . 'proposals/proposal/' . $proposal['proposal_id']; ?>" class="btn default btn-xs yellow pull-right"><i class="fa fa-edit"></i> Güncelle</a>
+<<<<<<< HEAD
 										<a href="<?php echo base_url() . 'proposals/preview/' . $proposal['proposal_id']; ?>" class="btn default btn-xs green pull-right"><i class="fa fa-file-o"></i> Önizleme</a>
+=======
+										<a href="<?php echo base_url() . 'proposals/preview/' . $proposal['proposal_id']; ?>" class="btn default btn-xs blue pull-right"><i class="fa fa-search"></i> Önizle</a>
+>>>>>>> 4c4ea3c1c6f365fd0e5cf60119005f6fbec7ea32
 	      							</td>
 								</tr>
 							<?php endforeach ?>
