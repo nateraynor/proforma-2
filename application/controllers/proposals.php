@@ -203,7 +203,6 @@ class Proposals extends CI_Controller {
 		$data['metaInfo'] 			= $this->setting_model->getSetting('meta');
 		$data['proposal_id'] 		= $proposal_id;
 
-		$data['page'] 				= 'forms';
 		$data['subview'] 			= 'proposals/customer_preview';
 		$this->load->view('layouts/customer_preview', $data);
 	}
@@ -279,7 +278,7 @@ class Proposals extends CI_Controller {
 		$data['metaInfo'] 			= $this->setting_model->getSetting('meta');
 		$data['proposal_id'] 		= $proposal_id;
 
-		$data['menu'] 				= 'proposals';
+		$data['menu']               = 'proposals';
 		$data['page'] 				= 'forms';
 		$data['subview'] 			= 'proposals/preview';
 
@@ -305,6 +304,50 @@ class Proposals extends CI_Controller {
 
 		$this->session->set_flashdata('success','Teklif başarıyla gönderildi.');
 		redirect('proposals');
+	}
+
+	public function proposalRejected(){
+		 $this->load->model('proposal_model');
+		 $this->load->helper('mail_helper');
+
+		 $proposal_id = $this->input->post('id');
+		 $proposal_status = 5;
+		 $updateStatus = $this->proposal_model->updateProposalStatus($proposal_id,$proposal_status);
+		 if($updateStatus)
+		 	$message = 'Teklif reddedildi!';
+		 else
+		 	$message = 'Teklif reddilemedi!';
+
+		$data['proposal'] 	= $this->proposal_model->getProposal($proposal_id);
+		$mail_data = array(
+			'proposal_name' => $data['proposal']['proposal_name'],
+			'company_name'  => 'ICM Yazılım'
+		);
+
+		send_mail('dygyldrm1@gmail.com', 'Teklif', proposal_rejected($mail_data));
+		 echo json_encode($message);
+	}
+
+	public function proposalApproval(){
+		 $this->load->model('proposal_model');
+		 $this->load->helper('mail_helper');
+
+		 $proposal_id = $this->input->post('id');
+		 $proposal_status = 3;
+		 $updateStatus = $this->proposal_model->updateProposalStatus($proposal_id,$proposal_status);
+		 if($updateStatus)
+		 	$message = 'Teklif onaylandı!';
+		 else
+		 	$message = 'Teklif oanylanamadı!';
+
+		$data['proposal'] 	= $this->proposal_model->getProposal($proposal_id);
+		$mail_data = array(
+			'proposal_name' => $data['proposal']['proposal_name'],
+			'company_name'  => 'ICM Yazılım'
+		);
+		send_mail('dygyldrm1@gmail.com', 'Teklif', proposal_approval($mail_data));
+		
+		 echo json_encode($message);
 	}
 
 	public function proposal($proposal_id = -1) {
@@ -414,32 +457,7 @@ class Proposals extends CI_Controller {
 		echo $rate;
 	}
 
-	public function proposalRejected(){
-		 $this->load->model('proposal_model');
 
-		 $proposal_id = $this->input->post('id');
-		 $proposal_status = 5;
-		 $updateStatus = $this->proposal_model->updateProposalStatus($proposal_id,$proposal_status);
-		 if($updateStatus)
-		 	$message = 'Teklif reddedildi!';
-		 else
-		 	$message = 'Teklif reddilemedi!';
-
-		 echo json_encode($message);
-	}
-
-	public function proposalApproval(){
-		 $this->load->model('proposal_model');
-		 $proposal_id = $this->input->post('id');
-		 $proposal_status = 3;
-		 $updateStatus = $this->proposal_model->updateProposalStatus($proposal_id,$proposal_status);
-		 if($updateStatus)
-		 	$message = 'Teklif onaylandı!';
-		 else
-		 	$message = 'Teklif oanylanamadı!';
-
-		 echo json_encode($message);
-	}
 
 	public function deleteProposal($proposal_id) {
 		$this->load->model('proposal_model');

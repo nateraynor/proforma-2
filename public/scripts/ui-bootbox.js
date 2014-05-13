@@ -14,6 +14,7 @@ var UIBootbox = function () {
              $('.validate-rejected').click(function(e) {
                 var id = $(this).attr('id');
                 var html = $(this).parent();
+                console.log($(this).parent());
                 bootbox.confirm("Emin misiniz? Teklif reddedilecek!", function(result) {
                     if (result === true) {
                         $.ajax({
@@ -21,7 +22,8 @@ var UIBootbox = function () {
                             url: base_url + 'proposals/proposalRejected/',
                             data: {id: id},
                             success: function(){
-                                $(this).parent().remove();
+                                $('.message').empty();
+                                $(".message").html("<div class='alert alert-danger' style='text-align: center;'><h4 style='font-weight: bold !important;'>Teklif Reddedildi.</h4></div>");
                             }
                         });
                     }
@@ -29,17 +31,20 @@ var UIBootbox = function () {
                 return false;
             });
 
-
              $('.validate-approval').click(function() {
                 var id = $(this).attr('id');
-                bootbox.confirm("Emin misiniz? Teklif reddedilecek!", function(result) {
+                console.log(id);
+
+                bootbox.confirm("Emin misiniz? Teklif onaylanacak!", function(result) {
                     if (result === true) {
                         $.ajax({
                             type: "POST",
                             url: base_url + 'proposals/proposalApproval/',
                             data: {id: id},
                             success: function(e){
-                                $(this).parent().remove();
+                                 $('.message').empty();
+                                 $(".message").html("<div class='alert alert-success' style='text-align: center;'><h4 style='font-weight: bold !important;'>Teklif Onaylandı.</h4></div>");
+
                             }
                         });
                     }

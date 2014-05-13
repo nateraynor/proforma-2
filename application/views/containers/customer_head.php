@@ -20,39 +20,17 @@
 <link href="<?php echo ASSETS ?>plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 <link href="<?php echo ASSETS ?>plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
 <!-- END GLOBAL MANDATORY STYLES -->
-<!-- BEGIN PAGE LEVEL STYLES -->
-<?php if ($page == 'forms'): ?>
-<link rel="stylesheet" type="text/css" href="<?php echo ASSETS ?>plugins/select2/select2_metro.css"/>
-<link rel="stylesheet" href="<?php echo ASSETS; ?>plugins/data-tables/DT_bootstrap.css"/>
-<link rel="stylesheet" type="text/css" href="<?php echo ASSETS ?>plugins/bootstrap-daterangepicker/daterangepicker-bs3.css"/>
-<link rel="stylesheet" type="text/css" href="<?php echo ASSETS ?>plugins/bootstrap-datetimepicker/css/datetimepicker.css"/>
-<link href="<?php echo ASSETS ?>plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css" rel="stylesheet" type="text/css"/>
-<link href="<?php echo ASSETS ?>plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" type="text/css"/>
-<link rel="stylesheet" type="text/css" href="<?php echo ASSETS ?>plugins/bootstrap-fileupload/bootstrap-fileupload.css"/>
-<link rel="stylesheet" type="text/css" href="<?php echo ASSETS ?>plugins/gritter/css/jquery.gritter.css"/>
-<link rel="stylesheet" type="text/css" href="<?php echo ASSETS ?>plugins/select2/select2_metro.css"/>
-<link rel="stylesheet" type="text/css" href="<?php echo ASSETS ?>plugins/clockface/css/clockface.css"/>
-<link rel="stylesheet" type="text/css" href="<?php echo ASSETS ?>plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css"/>
-<link rel="stylesheet" type="text/css" href="<?php echo ASSETS ?>plugins/bootstrap-datepicker/css/datepicker.css"/>
-<link rel="stylesheet" type="text/css" href="<?php echo ASSETS ?>plugins/bootstrap-timepicker/compiled/timepicker.css"/>
-<link rel="stylesheet" type="text/css" href="<?php echo ASSETS ?>plugins/bootstrap-colorpicker/css/colorpicker.css"/>
-<link rel="stylesheet" type="text/css" href="<?php echo ASSETS ?>plugins/bootstrap-daterangepicker/daterangepicker-bs3.css"/>
-<link rel="stylesheet" type="text/css" href="<?php echo ASSETS ?>plugins/bootstrap-datetimepicker/css/datetimepicker.css"/>
-<link rel="stylesheet" type="text/css" href="<?php echo ASSETS ?>plugins/jquery-multi-select/css/multi-select.css"/>
-<link rel="stylesheet" type="text/css" href="<?php echo ASSETS ?>plugins/bootstrap-switch/static/stylesheets/bootstrap-switch-metro.css"/>
-<link rel="stylesheet" type="text/css" href="<?php echo ASSETS ?>plugins/jquery-tags-input/jquery.tagsinput.css"/>
-<link rel="stylesheet" type="text/css" href="<?php echo ASSETS ?>plugins/bootstrap-markdown/css/bootstrap-markdown.min.css">
-<link href="<?php echo ASSETS ?>plugins/dropzone/css/dropzone.css" rel="stylesheet"/>
-<link href="<?php echo ASSETS ?>/css/pages/invoice.css" rel="stylesheet" type="text/css"/>
-<?php endif; ?>
-<!-- END PAGE LEVEL SCRIPTS -->
 <!-- BEGIN THEME STYLES -->
+<link href="<?php echo ASSETS ?>css/print.css" rel="stylesheet" type="text/css" media="print"/>
 <link href="<?php echo ASSETS ?>css/style-metronic.css" rel="stylesheet" type="text/css"/>
 <link href="<?php echo ASSETS ?>css/style.css" rel="stylesheet" type="text/css"/>
 <link href="<?php echo ASSETS ?>css/style-responsive.css" rel="stylesheet" type="text/css"/>
 <link href="<?php echo ASSETS ?>css/plugins.css" rel="stylesheet" type="text/css"/>
 <link href="<?php echo ASSETS ?>css/themes/default.css" rel="stylesheet" type="text/css" id="style_color"/>
+<link href="<?php echo ASSETS ?>css/pages/invoice.css" rel="stylesheet" type="text/css"/>
+
 <link href="<?php echo ASSETS ?>css/custom.css" rel="stylesheet" type="text/css"/>
+<!-- END THEME STYLES -->
 <link rel="shortcut icon" href="favicon.ico"/>
 
 <script type="text/javascript">

@@ -110,6 +110,22 @@ function proposal_mail($data = array()) {
     return $header . $body . $footer;
 }
 
+function proposal_rejected($data = array()) {
+    $header = mail_header();
+    $footer = mail_footer();
+    $body = "<h4>" . $data['company_name'] . "'dan aldığınız '" . $data['proposal_name'] ."' adlı teklif reddildi.</h4>";
+
+    return $header . $body . $footer;
+}
+
+function proposal_approval($data = array()) {
+    $header = mail_header();
+    $footer = mail_footer();
+    $body = "<h4>" . $data['company_name'] . "'dan aldığınız '" . $data['proposal_name'] ."' adlı teklif onaylandı.</h4>";
+
+    return $header . $body . $footer;
+}
+
 function send_mail($to, $subject, $message) {
     $ci =& get_instance();
     $ci->email->from('server@depodakaldi.com', 'Proforma');
