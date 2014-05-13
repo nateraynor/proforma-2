@@ -120,7 +120,7 @@ $(document).ready(function(){
 	$('.currency').blur(function() {
 		$(this).formatCurrency();
 	});
-
+/*
 	console.log(typeof $('.total-text'));
 
 	if (typeof $('.total-text') !== 'object') {
@@ -131,7 +131,7 @@ $(document).ready(function(){
 		$('.total-text').append(' TRY');
 		$('.total-text').prepend('Toplam :');
 	}
-
+*/
 	$('#add-tax-rate').click(function() {
 		html  = '<div class="row">';
 		html += '	<div class="form-group">';

@@ -268,4 +268,9 @@ class Proposal_model extends CI_Model {
         return $result;
     }
 
+    public function updateProposalStatus($proposal_id,$proposal_status){
+        $result = $this->db->query("UPDATE proposal SET proposal_status =  "  . $this->db->escape($proposal_status) . " WHERE proposal_id = '" . (int)$proposal_id . "' ");
+        return $result;
+    }
+
 }

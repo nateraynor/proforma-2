@@ -128,11 +128,11 @@
 								</address>
 							</div>
 						</div>
-						<div class="col-md-5" style="text-align: right;">
+						<div class="col-md-5" id="message" style="text-align: right;">
 							<a class="btn btn-lg blue hidden-print" onclick="javascript:window.print();">Yazdır <i class="fa fa-print"></i></a>
-							<a class="btn btn-lg red hidden-print" href="<?php echo base_url() . 'proposals/sendProposal/' . $proposal['proposal_id']  ?>">Red Et <i class="fa fa-times"></i></a>
+							<a class="btn btn-lg red hidden-print validate-rejected" id="<?php echo $proposal['proposal_id'] ;?>" href="#">Red Et<i class="fa fa-times"></i></a>
 							<a class="btn btn-lg yellow hidden-print" href="<?php echo base_url() . 'proposals/sendProposal/' . $proposal['proposal_id']  ?>">Pazarlık Et <i class="fa fa-edit"></i></a>
-							<a class="btn btn-lg green hidden-print" href="<?php echo base_url() . 'proposals/sendProposal/' . $proposal['proposal_id']  ?>">Onayla <i class="fa fa-check"></i></a>
+							<a class="btn btn-lg green hidden-print validate-approval" id="<?php echo $proposal['proposal_id'] ;?>" href="#">Onayla <i class="fa fa-check"></i></a>
 						</div>
 					</div>
 				</div>

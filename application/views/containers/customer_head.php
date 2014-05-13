@@ -21,12 +21,11 @@
 <link href="<?php echo ASSETS ?>plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
 <!-- END GLOBAL MANDATORY STYLES -->
 <!-- BEGIN PAGE LEVEL STYLES -->
-<?php if ($page == 'advancedtables'): ?>
+<?php if ($page == 'forms'): ?>
 <link rel="stylesheet" type="text/css" href="<?php echo ASSETS ?>plugins/select2/select2_metro.css"/>
 <link rel="stylesheet" href="<?php echo ASSETS; ?>plugins/data-tables/DT_bootstrap.css"/>
 <link rel="stylesheet" type="text/css" href="<?php echo ASSETS ?>plugins/bootstrap-daterangepicker/daterangepicker-bs3.css"/>
 <link rel="stylesheet" type="text/css" href="<?php echo ASSETS ?>plugins/bootstrap-datetimepicker/css/datetimepicker.css"/>
-<?php elseif ($page == 'forms'): ?>
 <link href="<?php echo ASSETS ?>plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css" rel="stylesheet" type="text/css"/>
 <link href="<?php echo ASSETS ?>plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" type="text/css"/>
 <link rel="stylesheet" type="text/css" href="<?php echo ASSETS ?>plugins/bootstrap-fileupload/bootstrap-fileupload.css"/>

@@ -142,6 +142,8 @@ class Proposals extends CI_Controller {
 		$data['subtotal'] 				 = 0;
 		$data['tax_total']				 = 0;
 
+
+
 		$proposal_products 	= $this->proposal_model->getProposalProducts($proposal_id);
 		$tax_rates = $this->setting_model->getSetting('tax_rates');
 		$tax_rates = $tax_rates['tax_rate'];
@@ -203,7 +205,6 @@ class Proposals extends CI_Controller {
 
 		$data['page'] 				= 'forms';
 		$data['subview'] 			= 'proposals/customer_preview';
-
 		$this->load->view('layouts/customer_preview', $data);
 	}
 
@@ -299,7 +300,8 @@ class Proposals extends CI_Controller {
 			'company_name'	=> 'ICM Yazılım'
 		);
 
-		send_mail('efenacigiray@gmail.com', 'Teklif', proposal_mail($mail_data));
+		send_mail('dygyldrm1@gmail.com', 'Teklif', proposal_mail($mail_data));
+
 
 		$this->session->set_flashdata('success','Teklif başarıyla gönderildi.');
 		redirect('proposals');
@@ -405,12 +407,38 @@ class Proposals extends CI_Controller {
 		foreach ($exchange_rates['exchange_rate'] as $exchange_rate) {
 			if($result_id == $exchange_rate['exchange_rate_id'])
 				echo $exchange_rate['rate'];
-					die;
 		}
 
 		$rate = $this->proposal_model->getExchangeRate($result_id);
 
 		echo $rate;
+	}
+
+	public function proposalRejected(){
+		 $this->load->model('proposal_model');
+
+		 $proposal_id = $this->input->post('id');
+		 $proposal_status = 5;
+		 $updateStatus = $this->proposal_model->updateProposalStatus($proposal_id,$proposal_status);
+		 if($updateStatus)
+		 	$message = 'Teklif reddedildi!';
+		 else
+		 	$message = 'Teklif reddilemedi!';
+
+		 echo json_encode($message);
+	}
+
+	public function proposalApproval(){
+		 $this->load->model('proposal_model');
+		 $proposal_id = $this->input->post('id');
+		 $proposal_status = 3;
+		 $updateStatus = $this->proposal_model->updateProposalStatus($proposal_id,$proposal_status);
+		 if($updateStatus)
+		 	$message = 'Teklif onaylandı!';
+		 else
+		 	$message = 'Teklif oanylanamadı!';
+
+		 echo json_encode($message);
 	}
 
 	public function deleteProposal($proposal_id) {
