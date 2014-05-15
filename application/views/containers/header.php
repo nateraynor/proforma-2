@@ -8,18 +8,10 @@
 					Hızlı Erişim <i class="fa fa-angle-down"></i>
 					</a>
 					<ul class="dropdown-menu">
-						<li>
-							<a href="<?php echo base_url() ?>products/product">Ürün Ekle</a>
-						</li>
-						<li>
-							<a href="<?php echo base_url() ?>categories/category">Ürün Kategori Ekle</a>
-						</li>
-						<li>
-							<a href="<?php echo base_url() ?>brands/brand">Ürün Marka Ekle</a>
-						</li>
-						<li>
-							<a href="<?php echo base_url() ?>customers/customer">Müşteri Ekle</a>
-						</li>
+						<li><a href="<?php echo base_url() ?>products/product">Ürün Ekle</a></li>
+						<li><a href="<?php echo base_url() ?>categories/category">Ürün Kategori Ekle</a></li>
+						<li><a href="<?php echo base_url() ?>brands/brand">Ürün Marka Ekle</a></li>
+						<li><a href="<?php echo base_url() ?>customers/customer">Müşteri Ekle</a></li>
 					</ul>
 				</li>
 			</ul>
