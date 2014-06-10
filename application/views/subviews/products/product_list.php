@@ -9,7 +9,7 @@
 						<i class="fa fa-angle-right"></i>
 					</li>
 					<li>
-						<a href="#">Ürünler</a>
+						<a href="#">Ürünler / Hizmetler</a>
 					</li>
 				</ul>
 			</div>
@@ -41,7 +41,7 @@
 				<div class="portlet box grey">
 					<div class="portlet-title">
 						<div class="caption">
-							<i class="fa fa-barcode"></i>Ürün Listesi
+							<i class="fa fa-barcode"></i>Ürün / Hizmet Listesi
 						</div>
 						<div class="actions">
 							<div class="btn-group pull-right">
@@ -56,28 +56,28 @@
 					<div class="portlet-body">
 						<div class="table-toolbar">
 							<div class="btn-group">
-								<a class="btn red" href="<?php echo base_url() ?>products/product">Ekle <i class="fa fa-plus"></i></a>
+								<a class="btn red" href="<?php echo base_url() ?>products/product">Ürün / Hizmet Ekle <i class="fa fa-plus"></i></a>
 							</div>
 							<div class="pull-right">
 								<label>Göster :</label>
-								<select class="input-xsmall" onchange="get_limit(this.options[this.selectedIndex].value);">
+								<select class="input-xsmall" onchange="get_limit(this.options[this.selectedIndex].value);" style = "height:30px;" >
 									<option value="10" <?php echo $this->session->userdata['limit'] == '10' ? 'selected' : ''; ?>>10</option>
 									<option value="25" <?php echo $this->session->userdata['limit'] == '25' ? 'selected' : ''; ?>>25</option>
 									<option value="40" <?php echo $this->session->userdata['limit'] == '40' ? 'selected' : ''; ?>>40</option>
 								</select>
-								<label>kayıt</label>
+								
 							</div>
 						</div>
 						<table class="table table-striped table-bordered table-hover table-full-width">
 						<thead>
 						<tr class="product-sorts">
-							<th><a class="product-sort" href="#" sort="p.product_id">Ürün No</a></th>
-							<th><a class="product-sort" href="#" sort="p.product_name">Ürün Adı</a></th>
-							<th><a class="product-sort" href="#" sort="c.category_name">Ürün Kategori</a></th>
-							<th><a class="product-sort" href="#" sort="b.brand_name">Ürün Marka</a></th>
-							<th><a class="product-sort" href="#" sort="p.product_price">Ürün Fiyat</a></th>
-							<th><a class="product-sort" href="#" sort="p.product_status">Ürün Durum</a></th>
-							<th>İşlemler</th>
+							<th><a class="product-sort" href="#" sort="p.product_id">Ürün / Hizmet No</a></th>
+							<th><a class="product-sort" href="#" sort="p.product_name">Ürün / Hizmet Adı</a></th>
+							<th><a class="product-sort" href="#" sort="c.category_name">Ürün / Hizmet Kategori</a></th>
+							<th><a class="product-sort" href="#" sort="b.brand_name">Ürün / Hizmet Marka</a></th>
+							<th style='width: 120px;'><a class="product-sort" href="#" sort="p.product_price">Ürün / Hizmet Fiyat</a></th>
+
+							<th style='width: 201px;'>İşlemler</th>
 						</tr>
 						</thead>
 						<tbody>
@@ -87,13 +87,7 @@
 								<td><input class="form-control input-inline" type="text" id="filter_category_name" value="<?php echo $filters['filter_category_name'] ?>"></td>
 								<td><input class="form-control input-inline" type="text" id="filter_brand_name" value="<?php echo $filters['filter_brand_name'] ?>"></td>
 								<td><input class="form-control input-inline" type="text" id="filter_product_price" value="<?php echo $filters['filter_product_price'] ?>"></td>
-
-								<td><select class="form-control input-inline" id="filter_product_status">
-									<option value=""  <?php echo empty($filters['filter_product_status']) ? 'selected' : '' ?>>Hepsi</option>
-									<option value="1" <?php echo $filters['filter_product_status'] == '1' ? 'selected' : ''?>>Aktif</option>
-									<option value="0" <?php echo $filters['filter_product_status'] == '0' ? 'selected' : ''?>>Pasif</option>
-								</select></td>
-								<td><a class="btn blue pull-right" href="#" id="filter_product_button">Ara <i class="fa fa-search"></i></a></td>
+								<td><a class="btn blue pull-right w100" href="#" id="filter_product_button">Ara <i class="fa fa-search"></i></a></td>
 							</tr>
 
 							<?php foreach ($products as $product): ?>
@@ -115,19 +109,13 @@
 										<?php endforeach ?>
 									</td>
 									<td>
-										<?php echo $product['product_price']; ?>
+										<?php echo $product['product_price']; ?> <i class="fa fa-try"></i>
 									</td>
+									<td>
+										<a style='margin-left: 4px;' href="#" location="<?php echo base_url() . 'products/deleteProduct/' . $product['product_id']; ?>" class="btn default btn-xs black validate-delete pull-right"><i class="fa fa-trash-o"></i> Sil</a>
 
-									<td>
-										<?php if($product['product_status'] == 1 ): ?>
-											<?php echo 'Aktif'; ?>
-										<?php else :?>
-											<?php echo 'Pasif'; ?>
-										<?php endif ;?>
-									</td>
-									<td>
-										<a href="#" location="<?php echo base_url() . 'products/deleteProduct/' . $product['product_id']; ?>" class="btn default btn-xs black validate-delete pull-right"><i class="fa fa-trash-o"></i> Sil</a>
-										<a href="<?php echo base_url() . 'products/product/' . $product['product_id']; ?>" class="btn default btn-xs yellow pull-right"><i class="fa fa-edit"></i> Güncelle</a>
+										<a style='margin-left: 4px;' href="<?php echo base_url() . 'products/product/' . $product['product_id']; ?>" class="btn default btn-xs yellow pull-right"><i class="fa fa-edit"></i> Güncelle</a>
+										<a style='margin-left: 4px;' href="<?php echo base_url() . 'products/product/' . $product['product_id'].'/#product_gallery'; ?>" class="btn default btn-xs blue pull-right"><i class="fa fa-paperclip"></i> Galeri</a>
 										
 									</td>
 								</tr>

@@ -9,7 +9,7 @@
 						<i class="fa fa-angle-right"></i>
 					</li>
 					<li>
-						<a href="#">Ürün Kategorileri</a>
+						<a href="#">Ürün / Hizmet Kategorileri</a>
 					</li>
 				</ul>
 			</div>
@@ -41,7 +41,7 @@
 				<div class="portlet box grey">
 					<div class="portlet-title">
 						<div class="caption">
-							<i class="fa fa-sitemap"></i>Ürün Kategori Listesi
+							<i class="fa fa-sitemap"></i>Ürün / Hizmet Kategori Listesi
 						</div>
 						<div class="actions">
 							<div class="btn-group">
@@ -61,7 +61,7 @@
 					<div class="portlet-body">
 						<div class="table-toolbar">
 							<div class="btn-group">
-								<a class="btn red" href="<?php echo base_url() ?>categories/category">Ekle <i class="fa fa-plus"></i></a>
+								<a class="btn red" href="<?php echo base_url() ?>categories/category">Ürün / Hizmet Kategori Ekle <i class="fa fa-plus"></i></a>
 							</div>
 							<div class="btn-group pull-right">
 								<button class="btn dropdown-toggle" data-toggle="dropdown">Araçlar <i class="fa fa-angle-down"></i></button>
@@ -77,8 +77,7 @@
 							<th>Kategori No</th>
 							<th>Kategori Adı</th>
 							<th>Üst Kategori Adı</th>
-							<th>Kategori Durum</th>
-							<th>İşlemler</th>
+							<th style='width:124px !important;'>İşlemler</th>
 						</tr>
 						</thead>
 						<tbody>
@@ -97,16 +96,10 @@
 											<?php echo 'Üst Kategori Bulunmamaktadır.' ?>
 									<?php endif; ?>
 									</td>
-									<td>
-										<?php if($category['category_status'] == 1 ): ?>
-											<?php echo 'Aktif'; ?>
-										<?php else :?>
-											<?php echo 'Pasif'; ?>
-										<?php endif ;?>
-									</td>
-									<td>
+									
+									<td style='padding-right: 4px;'>
 										<a href="#" location="<?php echo base_url() . 'categories/deleteCategory/' . $category['category_id']; ?>" class="btn default btn-xs black validate-delete pull-right"><i class="fa fa-trash-o"></i> Sil</a>
-										<a href="<?php echo base_url() . 'categories/category/' . $category['category_id']; ?>" class="btn default btn-xs yellow pull-right"><i class="fa fa-edit"></i> Güncelle</a>
+										<a style='margin-right:10px;' href="<?php echo base_url() . 'categories/category/' . $category['category_id']; ?>" class="btn default btn-xs yellow pull-right"><i class="fa fa-edit"></i> Güncelle</a>
 									</td>
 								</tr>
 							<?php endforeach ?>

@@ -9,7 +9,7 @@
 						<i class="fa fa-angle-right"></i>
 					</li>
 					<li>
-						<a href="#">Ürün Markaları</a>
+						<a href="#">Ürün / Hizmet Markaları</a>
 					</li>
 				</ul>
 			</div>
@@ -41,7 +41,7 @@
 				<div class="portlet box grey">
 					<div class="portlet-title">
 						<div class="caption">
-							<i class="fa fa-sitemap"></i>Ürün Marka Listesi
+							<i class="fa fa-sitemap"></i>Ürün / Hizmet Marka Listesi
 						</div>
 						<div class="actions">
 							<div class="btn-group">
@@ -61,7 +61,7 @@
 					<div class="portlet-body">
 						<div class="table-toolbar">
 							<div class="btn-group">
-								<a class="btn red" href="<?php echo base_url() ?>brands/brand">Ekle <i class="fa fa-plus"></i></a>
+								<a class="btn red" href="<?php echo base_url() ?>brands/brand">Ürün / Hizmet Marka Ekle <i class="fa fa-plus"></i></a>
 							</div>
 							<div class="btn-group pull-right">
 								<button class="btn dropdown-toggle" data-toggle="dropdown">Araçlar <i class="fa fa-angle-down"></i></button>
@@ -76,8 +76,7 @@
 						<tr>
 							<th>Marka No</th>
 							<th>Marka Adı</th>
-							<th>Marka Durum</th>
-							<th>İşlemler</th>
+							<th style='width: 124px !important;'>İşlemler</th>
 						</tr>
 						</thead>
 						<tbody>
@@ -85,16 +84,10 @@
 								<tr>
 									<td><?php echo $brand['brand_id'] ;?></td>
 									<td><?php echo $brand['brand_name']; ?></td>
-									<td>
-										<?php if($brand['brand_status'] == 1 ): ?>
-											<?php echo 'Aktif'; ?>
-										<?php else :?>
-											<?php echo 'Pasif'; ?>
-										<?php endif ;?>
-									</td>
-									<td>
+									
+									<td style='padding-right:4px;'>
 										<a href="#" location="<?php echo base_url() . 'brands/deleteBrand/' . $brand['brand_id']; ?>" class="btn default btn-xs black validate-delete pull-right"><i class="fa fa-trash-o"></i> Sil</a>
-										<a href="<?php echo base_url() . 'brands/brand/' . $brand['brand_id']; ?>" class="btn default btn-xs yellow pull-right"><i class="fa fa-edit"></i> Güncelle</a>
+										<a style='margin-right: 6px;' href="<?php echo base_url() . 'brands/brand/' . $brand['brand_id']; ?>" class="btn default btn-xs yellow pull-right"><i class="fa fa-edit"></i> Güncelle</a>
 										
 									</td>
 								</tr>

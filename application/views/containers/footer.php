@@ -1,6 +1,6 @@
 <div class="footer">
   <div class="footer-inner">
-     2014 &copy; ICM MARS | CRM.
+     2014 &copy; ICM VENUS | CRM.
   </div>
   <div class="footer-tools">
     <span class="go-top">
@@ -21,7 +21,7 @@
 <script type="text/javascript" src="<?php echo ASSETS ?>plugins/jquery-validation/dist/jquery.validate.min.js"></script>
 <script type="text/javascript" src="<?php echo ASSETS ?>plugins/jquery-validation/dist/additional-methods.min.js"></script>
 <script type="text/javascript" src="<?php echo ASSETS ?>plugins/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
-
+<script src="<?php echo ASSETS ?>scripts/icm-validator.js" type="text/javascript"></script>
 <?php if ($page == 'wizard'): ?>
 <script type="text/javascript" src="<?php echo ASSETS ?>plugins/select2/select2.min.js"></script>
 <script src="<?php echo ASSETS ?>plugins/jquery.pwstrength.bootstrap/src/pwstrength.js" type="text/javascript"></script>
@@ -61,7 +61,7 @@ jQuery(document).ready(function() {
 <script src="<?php echo ASSETS ?>plugins/bootstrap-markdown/lib/markdown.js" type="text/javascript"></script>
 <script src="<?php echo ASSETS ?>plugins/bootstrap-maxlength/bootstrap-maxlength.min.js" type="text/javascript"></script>
 <script src="<?php echo ASSETS ?>plugins/bootstrap-touchspin/bootstrap.touchspin.js" type="text/javascript"></script>
-<script src="<?php echo ASSETS ?>plugins/bootbox/bootbox.min.js" type="text/javascript"></script>
+
 <script src="<?php echo ASSETS ?>plugins/dropzone/dropzone.js"></script>
 <script src="<?php echo ASSETS ?>scripts/ui-bootbox.js" type="text/javascript"></script>
 <script src="<?php echo ASSETS ?>scripts/app.js"></script>
@@ -70,6 +70,9 @@ jQuery(document).ready(function() {
 <script src="<?php echo ASSETS ?>scripts/form-components.js"></script>
 <script src="<?php echo ASSETS ?>scripts/custom-forms.js"></script>
 <script src="<?php echo ASSETS ?>scripts/form-dropzone.js"></script>
+<script type="text/javascript">CKEDITOR.replace('editor');</script>
+<script type="text/javascript">CKEDITOR.replace('editor2');</script>
+
 <script>
 jQuery(document).ready(function() {
   App.init();
@@ -88,27 +91,23 @@ jQuery(document).ready(function() {
 <script src="<?php echo ASSETS; ?>plugins/jqvmap/jqvmap/maps/jquery.vmap.usa.js" type="text/javascript"></script>
 <script src="<?php echo ASSETS; ?>plugins/jqvmap/jqvmap/data/jquery.vmap.sampledata.js" type="text/javascript"></script>
 <script src="<?php echo ASSETS; ?>plugins/flot/jquery.flot.js" type="text/javascript"></script>
+<script src="<?php echo ASSETS ?>plugins/flot/jquery.flot.pie.js"></script>
 <script src="<?php echo ASSETS; ?>plugins/flot/jquery.flot.resize.js" type="text/javascript"></script>
 <script src="<?php echo ASSETS; ?>plugins/jquery.pulsate.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="<?php echo ASSETS ?>plugins/bootstrap-daterangepicker/moment.min.js"></script>
 <script type="text/javascript" src="<?php echo ASSETS ?>plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
 <script src="<?php echo ASSETS; ?>plugins/gritter/js/jquery.gritter.js" type="text/javascript"></script>
 <script src="<?php echo ASSETS; ?>plugins/fullcalendar/fullcalendar/fullcalendar.min.js" type="text/javascript"></script>
-<script src="<?php echo ASSETS; ?>plugins/jquery-easy-pie-chart/jquery.easy-pie-chart.js" type="text/javascript"></script>
 <script src="<?php echo ASSETS; ?>plugins/jquery.sparkline.min.js" type="text/javascript"></script>
 <script src="<?php echo ASSETS; ?>scripts/app.js" type="text/javascript"></script>
 <script src="<?php echo ASSETS; ?>scripts/index.js" type="text/javascript"></script>
-<script src="<?php echo ASSETS; ?>scripts/tasks.js" type="text/javascript"></script>
+<script src="<?php echo ASSETS; ?>scripts/charts.js" type="text/javascript"></script>
 <script>
 jQuery(document).ready(function() {
   App.init();
   Index.init();
-  Index.initCalendar(); // init index page's custom scripts
-  Index.initCharts(); // init index page's custom scripts
-  Index.initChat();
-  Index.initMiniCharts();
-  Index.initDashboardDaterange();
-  Tasks.initDashboardWidget();
+  Index.initCharts();
+  Charts.initPieCharts();
 });
 </script>
 <?php elseif ($page == 'advancedtables'): ?>
@@ -125,7 +124,6 @@ jQuery(document).ready(function() {
 <script type="text/javascript" src="<?php echo ASSETS ?>plugins/clockface/js/clockface.js"></script>
 <script type="text/javascript" src="<?php echo ASSETS ?>plugins/bootstrap-daterangepicker/moment.min.js"></script>
 <script type="text/javascript" src="<?php echo ASSETS ?>plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
-<script type="text/javascript" src="<?php echo ASSETS ?>plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
 <script type="text/javascript" src="<?php echo ASSETS ?>plugins/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
 <script type="text/javascript" src="<?php echo ASSETS ?>plugins/jquery-inputmask/jquery.inputmask.bundle.min.js"></script>
 <script type="text/javascript" src="<?php echo ASSETS ?>plugins/jquery.input-ip-address-control-1.0.min.js"></script>
@@ -145,8 +143,10 @@ jQuery(document).ready(function() {
 <script src="<?php echo ASSETS ?>plugins/bootbox/bootbox.min.js" type="text/javascript"></script>
 <script src="<?php echo ASSETS ?>scripts/ui-bootbox.js" type="text/javascript"></script>
 <script src="<?php echo ASSETS ?>scripts/app.js"></script>
-<script src="<?php echo ASSETS ?>scripts/table-advanced.js"></script>
 <script src="<?php echo ASSETS ?>scripts/custom-tables.js"></script>
+
+<script src="<?php echo ASSETS ?>scripts/table-advanced.js"></script>
+
 <script>
 jQuery(document).ready(function() {
   App.init();
@@ -155,6 +155,12 @@ jQuery(document).ready(function() {
   UIBootbox.init();
 });
 </script>
+<?php elseif ($page == 'preview'): ?>
+<script src="<?php echo ASSETS ?>plugins/bootstrap-modal/js/bootstrap-modalmanager.js" type="text/javascript"></script>
+<script src="<?php echo ASSETS ?>plugins/bootstrap-modal/js/bootstrap-modal.js" type="text/javascript"></script>
+<script src="<?php echo ASSETS ?>scripts/app.js"></script>
+<script src="<?php echo ASSETS ?>/scripts/ui-extended-modals.js"></script>
+<script src="<?php echo ASSETS ?>scripts/portfolio.js"></script>
 <?php endif; ?>
 <script src="<?php echo ASSETS ?>plugins/jquery.formatCurrency-1.4.0.js" type="text/javascript"></script>
 <script src="<?php echo ASSETS ?>plugins/jquery.formatCurrency.all.js" type="text/javascript"></script>
@@ -173,4 +179,26 @@ jQuery(document).ready(function() {
       });
   });
 
+</script>
+<script src="<?php echo ASSETS ?>plugins/bootbox/bootbox.min.js" type="text/javascript"></script>
+
+<script type="text/javascript" src="<?php echo ASSETS ?>plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
+<script>
+/*
+  $('#settingsCss .headerColor input').change(function(){
+    console.log('test');
+
+  });
+
+   $('#settingsCss select.footerColor').change(function(){
+    $('.template .template-footer').css('background-color','#'+$(this).val());  
+  });
+
+  $('#settingsCss select.backgroundColor').change(function(){
+
+    $('.template').children(1).css('background-color','#'+$(this).val());  
+  });
+
+
+*/
 </script>

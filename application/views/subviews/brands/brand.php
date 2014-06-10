@@ -10,11 +10,16 @@
 						<i class="fa fa-angle-right"></i>
 					</li>
 					<li>
-						<a href="<?php echo base_url() ?>brands">Ürün Markaları</a>
+						<a href="<?php echo base_url() ?>brands">Ürün / Hizmet Markaları</a>
 						<i class="fa fa-angle-right"></i>
 					</li>
 					<li>
-						<a href="#">Marka</a>
+						<a href="#">
+						<?php if($brand_id != -1): ?>
+							Güncelle
+						<?php else: ?>
+							Ekle
+						<?php endif; ?></a>
 					</li>
 				</ul>
 			</div>
@@ -60,7 +65,7 @@
 											</div>
 										</div>
 						
-										<div class="col-md-6">
+										<div class="col-md-6" style="display: none;">
 											<div class="form-group">
 												<label class="control-label">Durumu</label>
 													<select class="form-control select2me" name="brand_status" data-placeholder="Seçiniz...">

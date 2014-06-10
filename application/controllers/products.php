@@ -16,7 +16,7 @@ class Products extends CI_Controller {
 
 		$allowed_pages = $this->session->userdata['allowed_pages'];
 		if(!empty($allowed_pages) && (!strstr($allowed_pages,'productslist'))){
-			$this->session->set_flashdata('error','Ürünler sayfasına erişim izniniz yoktur!');
+			$this->session->set_flashdata('error','Ürünler / Hizmetler sayfasına erişim izniniz yoktur!');
 			redirect('home');
 
 		}
@@ -61,9 +61,9 @@ class Products extends CI_Controller {
 		$this->load->view('layouts/default', $data);
 	}
 
-	public function getProductsAjax($value) {
+	public function getProductsAjax() {
 		$this->load->model('product_model');
-
+		$value = $this->input->post('value');
 		$filters = array(
 			'filter_name' => $value,
 			'limit'		  => 10
@@ -77,6 +77,36 @@ class Products extends CI_Controller {
 
 	}
 
+	public function product_detail($product_id) {
+		$this->load->model('product_model');
+		$this->load->model('category_model');
+		$this->load->model('brand_model');
+		$this->load->model('setting_model');
+
+		$filters = array();
+
+		$allowed_pages = $this->session->userdata['allowed_pages'];
+		if (!empty($allowed_pages) && (!strstr($allowed_pages, 'products/product'))) {
+			$this->session->set_flashdata('error','Ürün / Hizmet işlemleri sayfasına erişim izniniz yoktur!');
+			redirect('home');
+		}
+
+		$data['product_files'] = array();
+
+		$data['product'] = $this->product_model->getProduct($product_id);
+		$data['product_files'] = $this->product_model->getProductFiles($product_id);
+
+		$data['tax_rates'] = $this->setting_model->getSetting('tax_rates');
+		$data['categories'] = $this->category_model->getCategory($filters);
+		$data['brands']  = $this->brand_model->getBrands($filters);
+		$data['product_id'] = $product_id;
+		$data['metaInfo'] = $this->setting_model->getSetting('meta');
+
+		$data['menu'] = 'products';
+		$data['page'] = 'forms';
+		$data['subview'] = 'products/product_detail';
+		$this->load->view('layouts/customer_preview', $data);
+	}
 
 	public function product($product_id = -1) {
 		$this->load->model('product_model');
@@ -88,7 +118,7 @@ class Products extends CI_Controller {
 
 		$allowed_pages = $this->session->userdata['allowed_pages'];
 		if (!empty($allowed_pages) && (!strstr($allowed_pages, 'products/product'))) {
-			$this->session->set_flashdata('error','Ürün işlemleri sayfasına erişim izniniz yoktur!');
+			$this->session->set_flashdata('error','Ürün / Hizmet işlemleri sayfasına erişim izniniz yoktur!');
 			redirect('home');
 		}
 
@@ -125,7 +155,7 @@ class Products extends CI_Controller {
 					$result = $this->product_model->addProduct($insert_data);
 				}
 				if ($result) {
-					$this->session->set_flashdata('success', 'Ürün başarıyla eklendi.');
+					$this->session->set_flashdata('success', 'Ürün / Hizmet başarıyla eklendi.');
 					redirect('products');
 				}
 			} else {
@@ -143,7 +173,7 @@ class Products extends CI_Controller {
 					$result = $this->product_model->updateProduct($update_data, $product_id);
 				}
 				if ($result) {
-					$this->session->set_flashdata('success', 'Ürün başarıyla güncellendi.');
+					$this->session->set_flashdata('success', 'Ürün / Hizmet başarıyla güncellendi.');
 					redirect('products');
 				}
 			}
@@ -210,16 +240,16 @@ class Products extends CI_Controller {
 
 
 		$results = $this->product_model->getProductsForExcel($filters);
-        $this->excel->to_excel($results, 'products-excel', 'Ürünler');
+        $this->excel->to_excel($results, 'products-excel', 'Ürünler / Hizmetler');
 	}
 
 	public function deleteProduct($product_id) {
 		$this->load->model('product_model');
 		$result = $this->product_model->deleteProduct($product_id);
 		if ($result)
-			$this->session->set_flashdata('success', 'Ürün başarıyla silindi!');
+			$this->session->set_flashdata('success', 'Ürün / Hizmetler başarıyla silindi!');
 		else
-			$this->session->set_flashdata('error', 'Ürün silinemedi!');
+			$this->session->set_flashdata('error', 'Ürün / Hizmetler silinemedi!');
 		redirect('products');
 	}
 

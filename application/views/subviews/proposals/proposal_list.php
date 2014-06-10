@@ -35,7 +35,7 @@
 				<div class="portlet box grey">
 					<div class="portlet-title">
 						<div class="caption">
-							<i class="fa fa-money"></i>Teklifler
+							<i class="fa fa-edit"></i>Teklifler
 						</div>
 						<div class="actions">
 							<div class="btn-group pull-right">
@@ -50,16 +50,21 @@
 					<div class="portlet-body">
 						<div class="table-toolbar">
 							<div class="btn-group">
-								<a class="btn red" href="<?php echo base_url() ?>proposals/proposal">Ekle <i class="fa fa-plus"></i></a>
+								<a class="btn red" href="<?php echo base_url() ?>proposals/proposal">Teklif Ekle <i class="fa fa-plus"></i></a>
+
+							</div>
+							<div class="btn-group">
+								<a class="btn red" href="<?php echo base_url() ?>proposals/proposalDraft">Taslaklar <i class="fa fa-file-text-o"></i></a>
+
 							</div>
 							<div class="pull-right">
 								<label>Göster :</label>
-								<select class="input-xsmall" onchange="get_limit(this.options[this.selectedIndex].value);">
+								<select class="input-xsmall" onchange="get_limit(this.options[this.selectedIndex].value);" style = "height:30px;">
 									<option value="10" <?php echo $this->session->userdata['limit'] == '10' ? 'selected' : ''; ?>>10</option>
 									<option value="25" <?php echo $this->session->userdata['limit'] == '25' ? 'selected' : ''; ?>>25</option>
 									<option value="40" <?php echo $this->session->userdata['limit'] == '40' ? 'selected' : ''; ?>>40</option>
 								</select>
-								<label>kayıt</label>
+							
 							</div>
 						</div>
 						<table class="table table-striped table-bordered table-hover table-full-width">
@@ -71,8 +76,7 @@
 							<th><a class="sort" href="#" sort="p.proposal_total">Teklif Toplamı</a></th>
 							<th><a class="sort" href="#" sort="p.proposal_status">Teklif Durumu</a></th>
 							<th><a class="sort" href="#" sort="p.proposal_date_added">Teklif Eklenme Tarihi</a></th>
-							<th><a class="sort" href="#" sort="p.proposal_date_updated">Teklif Güncelleme Tarihi</a></th>
-							<th>İşlemler</th>
+							<th style='min-width: 202px;'>İşlemler</th>
 						</tr>
 						</thead>
 						<tbody>
@@ -96,33 +100,22 @@
 										<span class="input-group-btn">
 											<button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
 										</span>
-									</div>,
+									</div>
 								</td>
-								<td>
-									<div class="input-group input-medium date date-picker" data-date="2014-04-14" data-date-format="yyyy-mm-dd" data-date-viewmode="years">
-										<input type="text" id="filter_proposal_date_updated" value="<?php echo $filters['filter_proposal_date_updated'] ?>" class="form-control" readonly>
-										<span class="input-group-btn">
-											<button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
-										</span>
-									</div>,
-								</td>
-								<td><a class="btn blue pull-right" href="#" id="filter_button">Ara <i class="fa fa-search"></i></a></td>
+								<td><a class="btn blue pull-right w100" href="#" id="filter_button">Ara <i class="fa fa-search"></i></a></td>
 							</tr>
 							<?php foreach ($proposals as $proposal): ?>
 								<tr>
 									<td><?php echo $proposal['proposal_id'] ?></td>
 									<td><?php echo $proposal['proposal_name'] ?></td>
 									<td><?php echo $proposal['proposal_customers'] ?></td>
-									<td><?php echo $proposal['proposal_total'] ?></td>
+									<td><?php echo $proposal['proposal_total'] ?> <i class="fa fa-try"></i></td>
 									<td><?php echo $proposal['proposal_status'] ?></td>
 									<td><?php echo $proposal['proposal_date_added'] ?></td>
-									<td><?php echo $proposal['proposal_date_updated'] ?></td>
 									<td>
-	          							<a href="#" location="<?php echo base_url() . 'proposals/deleteProposal/' . $proposal['proposal_id']; ?>" class="btn default btn-xs black validate-delete pull-right"><i class="fa fa-trash-o"></i> Sil</a>
-										<a href="<?php echo base_url() . 'proposals/proposal/' . $proposal['proposal_id']; ?>" class="btn default btn-xs yellow pull-right"><i class="fa fa-edit"></i> Güncelle</a>
-
-										<a href="<?php echo base_url() . 'proposals/preview/' . $proposal['proposal_id']; ?>" class="btn default btn-xs blue pull-right"><i class="fa fa-search"></i> Önizle</a>
-
+	          							<a style='margin-left:4px;' href="#" location="<?php echo base_url() . 'proposals/deleteProposal/' . $proposal['proposal_id']; ?>" class="btn default btn-xs black validate-delete pull-right"><i class="fa fa-trash-o"></i> Sil</a>
+										<a style='margin-left:4px;' href="<?php echo base_url() . 'proposals/proposal/' . $proposal['proposal_id']; ?>" class="btn default btn-xs yellow pull-right"><i class="fa fa-edit"></i> Güncelle</a>
+										<a style='margin-left:4px;' href="<?php echo base_url() . 'proposals/preview/' . $proposal['proposal_id']; ?>" class="btn default btn-xs blue pull-right"><i class="fa fa-search"></i> Önizle</a>
 	      							</td>
 								</tr>
 							<?php endforeach ?>

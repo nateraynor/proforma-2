@@ -45,7 +45,7 @@
 						<div class="portlet-body">
 							<div class="table-toolbar">
 								<div class="btn-group">
-									<a class="btn red" href="<?php echo base_url() ?>users/user">Ekle <i class="fa fa-plus"></i></a>
+									<a class="btn red" href="<?php echo base_url() ?>users/user">Kullanıcı Ekle <i class="fa fa-plus"></i></a>
 								</div>
 							</div>
 							<table class="table table-striped table-bordered table-hover table-full-width" id="sample_2">
@@ -56,8 +56,7 @@
 									<th>Kullanıcı Ad</th>
 									<th>Kullanıcı Soyad</th>
 									<th>Kullanıcı E-Posta</th>
-									<th>Kullanıcı Durumu</th>
-									<th class="sorting_disabled">İşlemler</th>
+									<th class="sorting_disabled" style='width:140px;'>İşlemler</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -68,10 +67,10 @@
 									<td><?php echo $user['user_name'] ?></td>
 									<td><?php echo $user['user_surname'] ?></td>
 									<td><?php echo $user['user_email'] ?></td>
-									<td><?php echo $user['user_status'] == 1 ? 'Aktif' : 'Pasif' ;?></td>
+									
 									<td>
 										<a href="#" location="<?php echo base_url() . 'users/deleteUser/' . $user['user_id']; ?>" class="btn default btn-xs black validate-delete pull-right"><i class="fa fa-trash-o"></i> Sil</a>
-										<a href="<?php echo base_url() . 'users/user/' . $user['user_id']; ?>" class="btn default btn-xs yellow pull-right"><i class="fa fa-edit"></i> Güncelle</a>
+										<a style='margin-right:8px;' href="<?php echo base_url() . 'users/user/' . $user['user_id']; ?>" class="btn default btn-xs yellow pull-right"><i class="fa fa-edit"></i> Güncelle</a>
 										
 									</td>
 								</tr>

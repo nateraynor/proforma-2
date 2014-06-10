@@ -39,10 +39,12 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 CKEDITOR.replace( '<em>textarea_id</em>', {
 	coreStyles_bold: { element: 'b' },
 	coreStyles_italic: { element: 'i' },
+
 	fontSize_style: {
 		element: 'font',
 		attributes: { 'size': '#(size)' }
 	}
+
 	...
 });</pre>
 	</div>
@@ -53,19 +55,23 @@ CKEDITOR.replace( '<em>textarea_id</em>', {
 			</label>
 			<textarea cols="80" id="editor1" name="editor1" rows="10">&lt;p&gt;This is some &lt;b&gt;sample text&lt;/b&gt;. You are using &lt;a href="http://ckeditor.com/"&gt;CKEditor&lt;/a&gt;.&lt;/p&gt;</textarea>
 			<script>
+
 				CKEDITOR.replace( 'editor1', {
 					/*
 					 * Ensure that htmlwriter plugin, which is required for this sample, is loaded.
 					 */
 					extraPlugins: 'htmlwriter',
+
 					/*
 					 * Style sheet for the contents
 					 */
 					contentsCss: 'body {color:#000; background-color#:FFF;}',
+
 					/*
 					 * Simple HTML5 doctype
 					 */
 					docType: '<!DOCTYPE HTML>',
+
 					/*
 					 * Allowed content rules which beside limiting allowed HTML
 					 * will also take care of transforming styles to attributes
@@ -77,6 +83,7 @@ CKEDITOR.replace( '<em>textarea_id</em>', {
 						'h1 h2 h3 p pre[align]; ' +
 						'blockquote code kbd samp var del ins cite q b i u strike ul ol li hr table tbody tr td th caption; ' +
 						'img[!src,alt,align,width,height]; font[!face]; font[!family]; font[!color]; font[!size]; font{!background-color}; a[!href]; a[!name]',
+
 					/*
 					 * Core styles.
 					 */
@@ -84,15 +91,18 @@ CKEDITOR.replace( '<em>textarea_id</em>', {
 					coreStyles_italic: { element: 'i' },
 					coreStyles_underline: { element: 'u' },
 					coreStyles_strike: { element: 'strike' },
+
 					/*
 					 * Font face.
 					 */
+
 					// Define the way font elements will be applied to the document.
 					// The "font" element will be used.
 					font_style: {
 						element: 'font',
 						attributes: { 'face': '#(family)' }
 					},
+
 					/*
 					 * Font sizes.
 					 */
@@ -101,17 +111,21 @@ CKEDITOR.replace( '<em>textarea_id</em>', {
 						element: 'font',
 						attributes: { 'size': '#(size)' }
 					},
+
 					/*
 					 * Font colors.
 					 */
+
 					colorButton_foreStyle: {
 						element: 'font',
 						attributes: { 'color': '#(color)' }
 					},
+
 					colorButton_backStyle: {
 						element: 'font',
 						styles: { 'background-color': '#(color)' }
 					},
+
 					/*
 					 * Styles combo.
 					 */
@@ -125,16 +139,19 @@ CKEDITOR.replace( '<em>textarea_id</em>', {
 						{ name: 'Cited Work', element: 'cite' },
 						{ name: 'Inline Quotation', element: 'q' }
 					],
+
 					on: {
 						pluginsLoaded: configureTransformations,
 						loaded: configureHtmlWriter
 					}
 				});
+
 				/*
 				 * Add missing content transformations.
 				 */
 				function configureTransformations( evt ) {
 					var editor = evt.editor;
+
 					editor.dataProcessor.htmlFilter.addRules( {
 						attributes: {
 							style: function( value, element ) {
@@ -143,6 +160,7 @@ CKEDITOR.replace( '<em>textarea_id</em>', {
 							}
 						}
 					} );
+
 					// Default automatic content transformations do not yet take care of
 					// align attributes on blocks, so we need to add our own transformation rules.
 					function alignToAttribute( element ) {
@@ -159,14 +177,17 @@ CKEDITOR.replace( '<em>textarea_id</em>', {
 						[ { element: 'pre',	right: alignToAttribute } ]
 					] );
 				}
+
 				/*
 				 * Adjust the behavior of htmlWriter to make it output HTML like FCKeditor.
 				 */
 				function configureHtmlWriter( evt ) {
 					var editor = evt.editor,
 						dataProcessor = editor.dataProcessor;
+
 					// Out self closing tags the HTML4 way, like <br>.
 					dataProcessor.writer.selfClosingEnd = '>';
+
 					// Make output formatting behave similar to FCKeditor.
 					var dtd = CKEDITOR.dtd;
 					for ( var e in CKEDITOR.tools.extend( {}, dtd.$nonBodyContent, dtd.$block, dtd.$listItem, dtd.$tableContent ) ) {
@@ -179,6 +200,7 @@ CKEDITOR.replace( '<em>textarea_id</em>', {
 						});
 					}
 				}
+
 			</script>
 		</p>
 		<p>

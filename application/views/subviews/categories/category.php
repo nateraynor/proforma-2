@@ -10,11 +10,17 @@
 						<i class="fa fa-angle-right"></i>
 					</li>
 					<li>
-						<a href="<?php echo base_url() ?>categories">Ürün Kategoriler</a>
+						<a href="<?php echo base_url() ?>categories">Ürün / Hizmet Kategoriler</a>
 						<i class="fa fa-angle-right"></i>
 					</li>
 					<li>
-						<a href="#">Kategori</a>
+						<a href="#">
+							<?php if($category_id != -1): ?>
+								Güncelle
+							<?php else: ?>
+								Ekle
+							<?php endif; ?>
+						</a>
 					</li>
 				</ul>
 			</div>
@@ -71,7 +77,7 @@
 											</div>
 										</div>
 
-										<div class="col-md-6">
+										<div class="col-md-6" style="display: none;">
 											<div class="form-group">
 												<label class="control-label">Durumu</label>
 													<select class="form-control select2me" name="category_status" data-placeholder="Seçiniz...">

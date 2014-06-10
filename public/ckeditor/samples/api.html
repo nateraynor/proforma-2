@@ -10,18 +10,22 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 	<script src="../ckeditor.js"></script>
 	<link href="sample.css" rel="stylesheet">
 	<script>
+
 // The instanceReady event is fired, when an instance of CKEditor has finished
 // its initialization.
 CKEDITOR.on( 'instanceReady', function( ev ) {
 	// Show the editor name and description in the browser status bar.
 	document.getElementById( 'eMessage' ).innerHTML = 'Instance <code>' + ev.editor.name + '<\/code> loaded.';
+
 	// Show this sample buttons.
 	document.getElementById( 'eButtons' ).style.display = 'block';
 });
+
 function InsertHTML() {
 	// Get the editor instance that we want to interact with.
 	var editor = CKEDITOR.instances.editor1;
 	var value = document.getElementById( 'htmlArea' ).value;
+
 	// Check the active editing mode.
 	if ( editor.mode == 'wysiwyg' )
 	{
@@ -32,10 +36,12 @@ function InsertHTML() {
 	else
 		alert( 'You must be in WYSIWYG mode!' );
 }
+
 function InsertText() {
 	// Get the editor instance that we want to interact with.
 	var editor = CKEDITOR.instances.editor1;
 	var value = document.getElementById( 'txtArea' ).value;
+
 	// Check the active editing mode.
 	if ( editor.mode == 'wysiwyg' )
 	{
@@ -46,24 +52,30 @@ function InsertText() {
 	else
 		alert( 'You must be in WYSIWYG mode!' );
 }
+
 function SetContents() {
 	// Get the editor instance that we want to interact with.
 	var editor = CKEDITOR.instances.editor1;
 	var value = document.getElementById( 'htmlArea' ).value;
+
 	// Set editor contents (replace current contents).
 	// http://docs.ckeditor.com/#!/api/CKEDITOR.editor-method-setData
 	editor.setData( value );
 }
+
 function GetContents() {
 	// Get the editor instance that you want to interact with.
 	var editor = CKEDITOR.instances.editor1;
+
 	// Get editor contents
 	// http://docs.ckeditor.com/#!/api/CKEDITOR.editor-method-getData
 	alert( editor.getData() );
 }
+
 function ExecuteCommand( commandName ) {
 	// Get the editor instance that we want to interact with.
 	var editor = CKEDITOR.instances.editor1;
+
 	// Check the active editing mode.
 	if ( editor.mode == 'wysiwyg' )
 	{
@@ -74,6 +86,7 @@ function ExecuteCommand( commandName ) {
 	else
 		alert( 'You must be in WYSIWYG mode!' );
 }
+
 function CheckDirty() {
 	// Get the editor instance that we want to interact with.
 	var editor = CKEDITOR.instances.editor1;
@@ -82,6 +95,7 @@ function CheckDirty() {
 	// http://docs.ckeditor.com/#!/api/CKEDITOR.editor-method-checkDirty
 	alert( editor.checkDirty() );
 }
+
 function ResetDirty() {
 	// Get the editor instance that we want to interact with.
 	var editor = CKEDITOR.instances.editor1;
@@ -90,16 +104,21 @@ function ResetDirty() {
 	editor.resetDirty();
 	alert( 'The "IsDirty" status has been reset' );
 }
+
 function Focus() {
 	CKEDITOR.instances.editor1.focus();
 }
+
 function onFocus() {
 	document.getElementById( 'eMessage' ).innerHTML = '<b>' + this.name + ' is focused </b>';
 }
+
 function onBlur() {
 	document.getElementById( 'eMessage' ).innerHTML = this.name + ' lost focus';
 }
+
 	</script>
+
 </head>
 <body>
 	<h1 class="samples">
@@ -115,6 +134,7 @@ function onBlur() {
 		For details on how to create this setup check the source code of this sample page.
 	</p>
 	</div>
+
 	<!-- This <div> holds alert messages to be display in the sample page. -->
 	<div id="alerts">
 		<noscript>
@@ -127,12 +147,14 @@ function onBlur() {
 	</div>
 	<form action="../../../samples/sample_posteddata.php" method="post">
 		<textarea cols="100" id="editor1" name="editor1" rows="10">&lt;p&gt;This is some &lt;strong&gt;sample text&lt;/strong&gt;. You are using &lt;a href="http://ckeditor.com/"&gt;CKEditor&lt;/a&gt;.&lt;/p&gt;</textarea>
+
 		<script>
 			// Replace the <textarea id="editor1"> with an CKEditor instance.
 			CKEDITOR.replace( 'editor1', {
 				on: {
 					focus: onFocus,
 					blur: onBlur,
+
 					// Check for availability of corresponding plugins.
 					pluginsLoaded: function( evt ) {
 						var doc = CKEDITOR.document, ed = evt.editor;
@@ -144,8 +166,10 @@ function onBlur() {
 				}
 			});
 		</script>
+
 		<p id="eMessage">
 		</p>
+
 		<div id="eButtons" style="display: none">
 			<input id="exec-bold" onclick="ExecuteCommand('bold');" type="button" value="Execute &quot;bold&quot; Command">
 			<input id="exec-link" onclick="ExecuteCommand('link');" type="button" value="Execute &quot;link&quot; Command">
@@ -161,6 +185,7 @@ function onBlur() {
 			<input onclick="InsertText();" type="button" value="Insert Text">
 			<br>
 			<textarea cols="100" id="txtArea" rows="3">   First line with some leading whitespaces.
+
 Second line of text preceded by two line breaks.</textarea>
 			<br>
 			<br>

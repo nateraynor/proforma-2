@@ -97,6 +97,11 @@ h6.block {
   padding-top: 10px;
   padding-bottom: 10px;
 }
+
+.w100 {
+  width: 100%;
+}
+
 a {
   text-shadow: none !important;
   color: #0d638f;
@@ -151,6 +156,35 @@ General backgrounds. Can be applied to any block or panel
   background-color: #fafafa !important;
   border-color: #fafafa !important;
 }
+
+
+/***
+
+  Template Mails
+***/
+
+#settingsCss {
+  display: inline-block;
+  position: absolute;
+  top: 156px;
+  right: 80px;
+}
+
+#settingsCss .footerColor {
+  margin-left: 40px;
+  width: 180px;
+}
+
+#settingsCss .backgroundColor {
+  margin-left: 40px;
+width: 180px;
+}
+
+#settingsCss .headerColor {
+  margin-left: 40px;
+width: 180px;
+}
+
 /***
 Font Awesome Icons
 ***/
@@ -297,9 +331,7 @@ Header and header elements.
   padding-right: 0;
   width: 225px;
 }
-.header .navbar-brand img {
-  margin-left: 20px;
-}
+
 .header .navbar-brand.text-logo {
   padding-left: 20px;
   padding-top: 12px;
@@ -610,7 +642,7 @@ Page sidebar
   padding: 5px 0px;
   padding-left: 44px !important;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 300;
   background: none;
 }
@@ -732,8 +764,10 @@ Sidebar toggler(show/hide)
   opacity: 1;
 }
 .page-sidebar .sidebar-toggler {
-  margin-top: 15px;
-  margin-left: 175px;
+  margin-top: 5px; 
+  margin-left: 175px; 
+  margin-bottom: 5px;
+
 }
 .header .sidebar-toggler {
   display: inline-block;
@@ -1120,7 +1154,7 @@ Portlets
 }
 .portlet > .portlet-title > .actions > .btn-group > .btn {
   padding: 4px 10px;
-  margin-top: -1px;
+  margin-top: 2px;
 }
 .portlet > .portlet-title > .actions > .btn.btn-sm {
   padding: 3px 8px;
@@ -2233,6 +2267,16 @@ Dashboard container
 #dashboard {
   overflow: hidden;
 }
+
+#content .mask {
+width: 90%;
+height: 64%;
+position: absolute;
+top: 0px;
+left: 15px;
+opacity: 0;
+cursor: pointer;
+}
 /***
 Dashboard stats
 ***/
@@ -2317,6 +2361,8 @@ Dashboard stats
 .dashboard-stat.blue .more {
   background-color: #208dbe;
 }
+
+
 .dashboard-stat.green {
   background-color: #28b779;
 }

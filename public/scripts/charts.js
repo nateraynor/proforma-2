@@ -83,71 +83,8 @@ var Charts = function () {
                 function randValue() {
                     return (Math.floor(Math.random() * (1 + 40 - 20))) + 20;
                 }
-                var pageviews = [
-                    [1, randValue()],
-                    [2, randValue()],
-                    [3, 2 + randValue()],
-                    [4, 3 + randValue()],
-                    [5, 5 + randValue()],
-                    [6, 10 + randValue()],
-                    [7, 15 + randValue()],
-                    [8, 20 + randValue()],
-                    [9, 25 + randValue()],
-                    [10, 30 + randValue()],
-                    [11, 35 + randValue()],
-                    [12, 25 + randValue()],
-                    [13, 15 + randValue()],
-                    [14, 20 + randValue()],
-                    [15, 45 + randValue()],
-                    [16, 50 + randValue()],
-                    [17, 65 + randValue()],
-                    [18, 70 + randValue()],
-                    [19, 85 + randValue()],
-                    [20, 80 + randValue()],
-                    [21, 75 + randValue()],
-                    [22, 80 + randValue()],
-                    [23, 75 + randValue()],
-                    [24, 70 + randValue()],
-                    [25, 65 + randValue()],
-                    [26, 75 + randValue()],
-                    [27, 80 + randValue()],
-                    [28, 85 + randValue()],
-                    [29, 90 + randValue()],
-                    [30, 95 + randValue()]
-                ];
-                var visitors = [
-                    [1, randValue() - 5],
-                    [2, randValue() - 5],
-                    [3, randValue() - 5],
-                    [4, 6 + randValue()],
-                    [5, 5 + randValue()],
-                    [6, 20 + randValue()],
-                    [7, 25 + randValue()],
-                    [8, 36 + randValue()],
-                    [9, 26 + randValue()],
-                    [10, 38 + randValue()],
-                    [11, 39 + randValue()],
-                    [12, 50 + randValue()],
-                    [13, 51 + randValue()],
-                    [14, 12 + randValue()],
-                    [15, 13 + randValue()],
-                    [16, 14 + randValue()],
-                    [17, 15 + randValue()],
-                    [18, 15 + randValue()],
-                    [19, 16 + randValue()],
-                    [20, 17 + randValue()],
-                    [21, 18 + randValue()],
-                    [22, 19 + randValue()],
-                    [23, 20 + randValue()],
-                    [24, 21 + randValue()],
-                    [25, 14 + randValue()],
-                    [26, 24 + randValue()],
-                    [27, 25 + randValue()],
-                    [28, 26 + randValue()],
-                    [29, 27 + randValue()],
-                    [30, 31 + randValue()]
-                ];
-                var plot = $.plot($("#chart_2"), [{
+                var visitors = customer_data;
+                var plot = $.plot($("#site-statistics"), [{
                             data: pageviews,
                             label: "Unique Visits"
                         }, {
@@ -259,7 +196,6 @@ var Charts = function () {
                     });
                 var legends = $("#chart_3 .legendLabel");
                 legends.each(function () {
-                    // fix the widths so they don't jump around
                     $(this).css('width', $(this).width());
                 });
                 var updateLegendTimeout = null;
@@ -439,229 +375,83 @@ var Charts = function () {
             $.plot($("#chart_1_2"), [data1], options);
         },
         initPieCharts: function () {
-            var data = [];
-            var series = Math.floor(Math.random() * 10) + 1;
-            series = series < 5 ? 5 : series;
-
-            for (var i = 0; i < series; i++) {
-                data[i] = {
-                    label: "Series" + (i + 1),
-                    data: Math.floor(Math.random() * 100) + 1
-                }
+             if (!jQuery.plot) {
+                return;
             }
-            // DEFAULT
-            $.plot($("#pie_chart"), data, {
+            var data = [];
+            var datas = [];
+            var datasTotal = []
+            var series = 3;
+
+            $.ajax({
+                url: base_url + 'reports/getProposals',
+                async: false,
+            }).done(function(result){
+                result = $.parseJSON(result);
+
+                datas[0] = {
+                        label: "Taslaklar",
+                        data: result[0].total
+                    }
+                datas[1] = {
+                        label: "Reddedilenler",
+                        data: result[1].total
+                    }
+                datas[2] = {
+                        label: "Onaylanan",
+                        data: result[2].total
+                    }
+
+                 $.plot($("#pie_chart_1"), datas, {
+                    series: {
+                        pie: {
+                            show: true
+                        }
+                    },
+                    legend: {
+                        show: false
+                    }
+                });
+
+            });
+
+            $.ajax({
+                url: base_url + 'reports/getProposalsTotal',
+                async: false,
+            }).done(function(resultTotal){
+                resultTotal = $.parseJSON(resultTotal);
+                datasTotal[0] = {
+                        label: "Toplam taslak teklifler : " + resultTotal[0],
+                        data: resultTotal[0]
+                    }
+                datasTotal[1] = {
+                        label: "Toplam reddedilen teklifler : " + resultTotal[1],
+                        data: resultTotal[1]
+                    }
+                datasTotal[2] = {
+                        label: "Toplam onaylanan teklifler : " + resultTotal[2],
+                        data: resultTotal[2]
+                    }
+                datasTotal[3] = {
+                        label: "Toplam gönderilen teklifler : " + resultTotal[3],
+                        data: resultTotal[3]
+                    }
+
+                $.plot($("#pie_chart"), datasTotal, {
                     series: {
                         pie: {
                             show: true
                         }
                     }
                 });
-            // GRAPH 1
-            $.plot($("#pie_chart_1"), data, {
-                    series: {
-                        pie: {
-                            show: true
-                        }
-                    },
-                    legend: {
-                        show: false
-                    }
-                });
-            // GRAPH 2
-            $.plot($("#pie_chart_2"), data, {
-                    series: {
-                        pie: {
-                            show: true,
-                            radius: 1,
-                            label: {
-                                show: true,
-                                radius: 1,
-                                formatter: function (label, series) {
-                                    return '<div style="font-size:8pt;text-align:center;padding:2px;color:white;">' + label + '<br/>' + Math.round(series.percent) + '%</div>';
-                                },
-                                background: {
-                                    opacity: 0.8
-                                }
-                            }
-                        }
-                    },
-                    legend: {
-                        show: false
-                    }
-                });
-            // GRAPH 3
-            $.plot($("#pie_chart_3"), data, {
-                    series: {
-                        pie: {
-                            show: true,
-                            radius: 1,
-                            label: {
-                                show: true,
-                                radius: 3 / 4,
-                                formatter: function (label, series) {
-                                    return '<div style="font-size:8pt;text-align:center;padding:2px;color:white;">' + label + '<br/>' + Math.round(series.percent) + '%</div>';
-                                },
-                                background: {
-                                    opacity: 0.5
-                                }
-                            }
-                        }
-                    },
-                    legend: {
-                        show: false
-                    }
-                });
-            // GRAPH 4
-            $.plot($("#pie_chart_4"), data, {
-                    series: {
-                        pie: {
-                            show: true,
-                            radius: 1,
-                            label: {
-                                show: true,
-                                radius: 3 / 4,
-                                formatter: function (label, series) {
-                                    return '<div style="font-size:8pt;text-align:center;padding:2px;color:white;">' + label + '<br/>' + Math.round(series.percent) + '%</div>';
-                                },
-                                background: {
-                                    opacity: 0.5,
-                                    color: '#000'
-                                }
-                            }
-                        }
-                    },
-                    legend: {
-                        show: false
-                    }
-                });
-            // GRAPH 5
-            $.plot($("#pie_chart_5"), data, {
-                    series: {
-                        pie: {
-                            show: true,
-                            radius: 3 / 4,
-                            label: {
-                                show: true,
-                                radius: 3 / 4,
-                                formatter: function (label, series) {
-                                    return '<div style="font-size:8pt;text-align:center;padding:2px;color:white;">' + label + '<br/>' + Math.round(series.percent) + '%</div>';
-                                },
-                                background: {
-                                    opacity: 0.5,
-                                    color: '#000'
-                                }
-                            }
-                        }
-                    },
-                    legend: {
-                        show: false
-                    }
-                });
-            // GRAPH 6
-            $.plot($("#pie_chart_6"), data, {
-                    series: {
-                        pie: {
-                            show: true,
-                            radius: 1,
-                            label: {
-                                show: true,
-                                radius: 2 / 3,
-                                formatter: function (label, series) {
-                                    return '<div style="font-size:8pt;text-align:center;padding:2px;color:white;">' + label + '<br/>' + Math.round(series.percent) + '%</div>';
-                                },
-                                threshold: 0.1
-                            }
-                        }
-                    },
-                    legend: {
-                        show: false
-                    }
-                });
-            // GRAPH 7
-            $.plot($("#pie_chart_7"), data, {
-                    series: {
-                        pie: {
-                            show: true,
-                            combine: {
-                                color: '#999',
-                                threshold: 0.1
-                            }
-                        }
-                    },
-                    legend: {
-                        show: false
-                    }
-                });
-            // GRAPH 8
-            $.plot($("#pie_chart_8"), data, {
-                    series: {
-                        pie: {
-                            show: true,
-                            radius: 300,
-                            label: {
-                                show: true,
-                                formatter: function (label, series) {
-                                    return '<div style="font-size:8pt;text-align:center;padding:2px;color:white;">' + label + '<br/>' + Math.round(series.percent) + '%</div>';
-                                },
-                                threshold: 0.1
-                            }
-                        }
-                    },
-                    legend: {
-                        show: false
-                    }
-                });
-            // GRAPH 9
-            $.plot($("#pie_chart_9"), data, {
-                    series: {
-                        pie: {
-                            show: true,
-                            radius: 1,
-                            tilt: 0.5,
-                            label: {
-                                show: true,
-                                radius: 1,
-                                formatter: function (label, series) {
-                                    return '<div style="font-size:8pt;text-align:center;padding:2px;color:white;">' + label + '<br/>' + Math.round(series.percent) + '%</div>';
-                                },
-                                background: {
-                                    opacity: 0.8
-                                }
-                            },
-                            combine: {
-                                color: '#999',
-                                threshold: 0.1
-                            }
-                        }
-                    },
-                    legend: {
-                        show: false
-                    }
-                });
-            // DONUT
-            $.plot($("#donut"), data, {
-                    series: {
-                        pie: {
-                            innerRadius: 0.5,
-                            show: true
-                        }
-                    }
-                });
-            // INTERACTIVE
-            $.plot($("#interactive"), data, {
-                    series: {
-                        pie: {
-                            show: true
-                        }
-                    },
-                    grid: {
-                        hoverable: true,
-                        clickable: true
-                    }
-                });
-            $("#interactive").bind("plothover", pieHover);
-            $("#interactive").bind("plotclick", pieClick);
+
+            });
+
+
+
+
+           
+
             function pieHover(event, pos, obj) {
             if (!obj)
                     return;

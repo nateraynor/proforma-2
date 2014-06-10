@@ -3,6 +3,7 @@ Core script to handle the entire theme and core functions
 **/
 var App = function () {
     // IE mode
+
     var isRTL = false;
     var isIE8 = false;
     var isIE9 = false;
@@ -374,6 +375,7 @@ var App = function () {
     }
     // Handles the horizontal menu
     var handleHorizontalMenu = function () {
+
         //handle hor menu search form toggler click
         $('.header').on('click', '.hor-menu .hor-menu-search-form-toggler', function (e) {
             if ($(this).hasClass('off')) {
@@ -386,7 +388,8 @@ var App = function () {
             e.preventDefault();
         });
         //handle tab click
-        $('.header').on('click', '.hor-menu a[data-toggle="tab"]', function (e) {
+        $('.nav-tabs').on('click', '#toggle', function (e) {
+            console.log('click2');
             e.preventDefault();
             var nav = $(".hor-menu .nav");
             var active_link = nav.find('li.current');
@@ -970,3 +973,11 @@ var App = function () {
         }
     };
 }();
+
+$(document).ready(function() {
+    $('.currency').formatCurrency();
+
+    setTimeout(function() {
+        $('.alert').fadeOut(500);
+    }, 5000);
+});

@@ -13,6 +13,11 @@ class Setting_model extends CI_Model {
     	$result = $this->db->query("UPDATE template SET template_html = " . $this->db->escape($data['template_html']) . ", template_name = " . $this->db->escape($data['template_name']) . " WHERE template_id = '" . (int)$template_id . "'");
     	return $result;
     }
+    
+    public function updateColors($column,$color){
+        $result = $this->db->query("UPDATE template SET ".$column." = " . $this->db->escape($color));
+        return $result;
+    }
 
     public function setSetting($setting_type, $data) {
         $this->db->query("DELETE FROM setting WHERE setting_key = " . $this->db->escape($setting_type) . " LIMIT 1");

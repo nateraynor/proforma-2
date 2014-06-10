@@ -19,6 +19,7 @@ Timeline UI Base
 	margin-left: -10px;
 }
 .timeline > li {
+	padding-top: 10px;
 	position: relative;
 }
 /* The date/time */
@@ -36,12 +37,13 @@ Timeline UI Base
 	font-size: 12px;
 	color: #aaa;
 	display: block;
+	letter-spacing: 0.47px;
 	font-weight: 300;
 }
 .timeline > li .timeline-time span.time {
-	font-weight: 300;
-	font-size: 38px;
-	line-height: 38px;
+font-weight: 300;
+font-size: 22px;
+line-height: 18px;
 }
 /* Right content */
 .timeline > li .timeline-body {
@@ -56,18 +58,19 @@ Timeline UI Base
 	margin-top: 0px;
 	padding: 0 0 5px 0;
 	border-bottom: 1px solid rgba(255,255,255,0.3);
-	font-size: 24px;
+	font-size: 16px;
 }
 .timeline > li .timeline-content {
-	font-size: 14px;
+	font-size: 12px;
 }
 .ie8 .timeline > li .timeline-body h2 {
 	border-bottom: 1px solid #eee;
 }
 .timeline > li .timeline-body img.timeline-img {
-  width: 75px;
-  height: 75px;
-  margin: 5px 10px 0 0px;
+	width: 75px;
+	height: 75px;
+	margin: 5px 40px 40px 16px;
+	padding: 6px;
 }
 .timeline > li .timeline-body img.pull-right {
   margin-left: 10px;
@@ -102,6 +105,16 @@ Timeline UI Base
 	border-width: 10px;
 	top: 19px;
 }
+
+.timeline > li .timeline-content i {
+	font-size: 40px;
+	width: 75px;
+	height: 54px;
+	margin: 30px 40px 0px 16px;
+	padding: 6px;
+	float: left;
+}
+
 .timeline > li .timeline-content:after,
 .timeline > li .timeline-content:before {
 	display: table;
@@ -135,7 +148,7 @@ Timeline UI Base
 	position: absolute;
 	color: #fff;
 	background: #aaa;
-	border-radius: 50%;
+	border-radius: 50% !important;
 	box-shadow: 0 0 0 8px #ccc;
 	text-align: center;
 	left: 20%;
@@ -144,9 +157,9 @@ Timeline UI Base
 	padding-bottom: 3px;
 	padding-right: 1px;
 	padding-left: 2px;
-	-webkit-border-radius: 30px !important;
+	/*-webkit-border-radius: 30px !important;
 	   -moz-border-radius: 30px !important;
-			border-radius: 30px !important;
+			border-radius: 30px !important;*/
 }
 .timeline > li .timeline-icon > i {
 	font-size: 18px;

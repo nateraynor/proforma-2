@@ -5,7 +5,7 @@
 					<ul class="page-breadcrumb breadcrumb">
 						<li>
 							<i class="fa fa-home"></i>
-							<a href="#">Raporlar</a>
+							<a href="#">İstatistikler</a>
 						</li>
 					</ul>
 				</div>
@@ -21,12 +21,9 @@
 								<?php echo $total_products; ?>
 							</div>
 							<div class="desc">
-								Ürün
+								Ürün / Hizmet
 							</div>
 						</div>
-						<a class="more" href="<?php echo base_url() ?>products/product">
-						Ürün Ekle <i class="fa fa-plus"></i>
-						</a>
 					</div>
 				</div>
 				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
@@ -42,27 +39,22 @@
 								 Müşteri
 							</div>
 						</div>
-						<a class="more" href="<?php echo base_url() ?>customers">
-						Tüm müşteriler <i class="m-icon-swapright m-icon-white"></i>
-						</a>
+
 					</div>
 				</div>
 				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
 					<div class="dashboard-stat green">
 						<div class="visual">
-							<i class="fa fa-money"></i>
+							<i class="fa fa-edit"></i>
 						</div>
 						<div class="details">
 							<div class="number">
 								<?php echo $total_proposals; ?>
 							</div>
 							<div class="desc">
-								İşlem
+								Teklif
 							</div>
 						</div>
-						<a class="more" href="<?php echo base_url() ?>proposals">
-						Tüm Teklifler <i class="m-icon-swapright m-icon-white"></i>
-						</a>
 					</div>
 				</div>
 				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
@@ -78,33 +70,22 @@
 								Kullanıcı
 							</div>
 						</div>
-						<a class="more" href="<?php echo base_url() ?>users">
-						Tüm kullanıcılar <i class="m-icon-swapright m-icon-white"></i>
-						</a>
 					</div>
 				</div>
-				<!--<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-					<div class="dashboard-stat yellow">
-						<div class="visual">
-							<i class="fa fa-bar-chart-o"></i>
-						</div>
-						<div class="details">
-							<div class="number">
-								12,5M$
-							</div>
-							<div class="desc">
-								Total Profit
-							</div>
-						</div>
-						<a class="more" href="#">
-						View more <i class="m-icon-swapright m-icon-white"></i>
-						</a>
-					</div>
-				</div>-->
 			</div>
 			<div class="clearfix">
 			</div>
-				<div class="row">
+			<div class="row">
+				<div class="col-md-6">
+					<h4>Teklif Toplamları</h4>
+					<div id="pie_chart" class="chart"></div>
+				</div>
+				<div class="col-md-6">
+					<h4>Teklifler </h4>
+					<div id="pie_chart_1" class="chart"></div>
+				</div>
+			</div>
+			<div class="row"> <!-- chartlar -->
 				<div class="col-md-12">
 					<div class="portlet solid bordered light-grey">
 						<div class="portlet-title">
@@ -119,6 +100,7 @@
 							</div>
 							<div id="site_statistics_content" class="display-none">
 								<div id="site_statistics" class="chart">
+
 								</div>
 							</div>
 						</div>
@@ -151,7 +133,7 @@
 					<div class="portlet solid bordered light-grey">
 						<div class="portlet-title">
 							<div class="caption">
-								<i class="fa fa-bar-chart-o"></i>Ürün Kayıtları
+								<i class="fa fa-bar-chart-o"></i>Ürün / Hizmet Kayıtları
 								<small>bu ay içinde</small>
 							</div>
 						</div>
@@ -167,6 +149,7 @@
 					</div>
 				</div>
 			</div>
+			
 		</div>
 	</div>
 </div>

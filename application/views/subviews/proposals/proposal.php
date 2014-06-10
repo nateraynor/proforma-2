@@ -5,7 +5,7 @@
 				<ul class="page-breadcrumb breadcrumb">
 					<li><i class="fa fa-home"></i><a href="<?php echo base_url() ?>">Anasayfa</a><i class="fa fa-angle-right"></i></li>
 					<li><a href="<?php echo base_url() ?>proposals">Teklifler</a><i class="fa fa-angle-right"></i></li>
-					<li><a href="#">Teklif</a></li>
+					<li>Teklif Hazırla</li>
 				</ul>
 			</div>
 		</div>
@@ -35,22 +35,20 @@
 				<?php endif; ?>
 			 	<div class="portlet box grey">
 					<div class="portlet-title">
-						<div class="caption">
-							<i class="fa fa-reorder"></i> Teklif
-						</div>
+						<div class="caption"><i class="fa fa-reorder"></i> Teklif</div>
 					</div>
 					<div class="portlet-body form">
 						<form action="<?php echo base_url() . 'proposals/proposal/' . $proposal_id; ?>" class="horizontal-form" method="post">
 							<div class="form-body">
 								<div class="row">
-									<div class="col-md-6">
+									<div class="col-md-12">
 										<div class="form-group">
 											<label class="control-label">Teklif Adı</label>
 											<input type="hidden" value="<?php echo time() . rand(0, 100); ?>" name="proposal_temporary_id" id="proposal-temporary-id">
 											<input type="text" name="proposal_name" class="form-control" col-type="varchar" placeholder="Teklif Adı" value="<?php echo isset($proposal['proposal_name']) ? $proposal['proposal_name'] : ''; ?>" required>
 										</div>
 									</div>
-									<div class="col-md-6">
+									<div style="display: none;" class="col-md-6">
 										<div class="form-group">
 											<label class="control-label">Teklif Durumu</label>
 											<select class="form-control select2me" name="proposal_status" data-placeholder="Seçiniz...">
@@ -65,11 +63,11 @@
 									</div>
 									<div class="col-md-12">
 										<div class="form-group">
-											<label class="control-label">Müşteriler</label>
+											<label class="control-label">Müşteriler <a data-toggle="modal" href="#responsive" class="btn green btn-sm"><i class="fa fa-plus"></i> Yeni Müşteri Ekle</a></label>
 											<select name="proposal_customers[]" class="multi-select" multiple="" id="customers-select" style="position: absolute; left: -9999px;">
-												<?php foreach ($customers as $customer): ?>
-													<option value="<?php echo $customer['customer_id'] ?>"  <?php echo in_array($customer['customer_id'], $proposal_customer_ids) ? 'selected' : ''; ?> ><?php echo $customer['customer_name']; ?></option>
-												<?php endforeach ?>
+											<?php foreach ($customers as $customer): ?>
+												<option mail="<?php echo $customer['customer_email'] ?>" value="<?php echo $customer['customer_id'] ?>"  <?php echo in_array($customer['customer_id'], $proposal_customer_ids) ? 'selected' : ''; ?> ><?php echo $customer['customer_name']." - ". $customer['customer_company']; ?></option>
+											<?php endforeach ?>
 											</select>
 										</div>
 									</div>
@@ -78,26 +76,35 @@
 									<?php foreach ($proposal_products as $proposal_product): ?>
 									<div class="col-md-12" style="margin-top: 10px;">
 										<div class="row">
+											<div class="col-md-2"><h4>Ürün</h4></div>
+											<div class="col-md-1"><h4>Adet</h4></div>
+											<div class="col-md-2"><h4>Birim Fiyat</h4></div>
+											<div class="col-md-1"><h4>İndirim</h4></div>
+											<div class="col-md-2"><h4>İndirim Tipi</h4></div>
+											<div class="col-md-2"><h4>Vergi Oranı</h4></div>
+											<div class="col-md-2"><h4>Toplam</h4></div>
+										</div>
+										<div class="row">
 											<div class="form-group">
 												<div class="col-md-2">
 													<div class="input-group">
 														<input class="form-control autocomplete-input" autocomplete="off" onkeyup="product_autocomplete(this);" placeholder="Ürün" type="text" name="proposal_product[<?php echo $proposal_product_row ?>][name]" value="<?php echo $proposal_product['product_name']; ?>">
 														<div class="autocomplete-results"></div>
 														<input type="hidden" class="hidden-id" value="<?php echo $proposal_product['product_id'] ?>" name="proposal_product[<?php echo $proposal_product_row ?>][product_id]">
-														<span class="input-group-addon"><a onclick="removeRow(this); return false;"><i class="fa fa-times"></i></a></span>
+														<span class="input-group-addon"><a onclick="removeRowProduct(this); return false;"><i class="fa fa-times"></i></a></span>
 													</div>
 												</div>
-												<div class="col-md-1 quantity"><input class="product-quantity form-control" onchange="calculatePrice();" type="number" name="proposal_product[<?php echo $proposal_product_row ?>][product_quantity]" placeholder="Adet" value="<?php echo $proposal_product['product_quantity'] ?>"></div>
+												<div class="col-md-1 quantity"><input class="product-quantity form-control input-number-only" input-positive="true" onchange="calculatePrice();" type="number" name="proposal_product[<?php echo $proposal_product_row ?>][product_quantity]" placeholder="Adet" value="<?php echo $proposal_product['product_quantity'] ?>"></div>
 												<div class="col-md-2 price">
 													<div class="input-group">
-														<input class="product-price form-control eachPrice currency" id="currencyField" onchange="calculatePrice();" baseprice="<?php echo $proposal_product['product_price'] ?>" type="text" value="<?php echo $proposal_product['product_price'] ?>"name="proposal_product[<?php echo $proposal_product_row ?>][product_price]" placeholder="Birim Fiyat">
-															<span class="input-group-addon" style="padding: 0px; border: 1px;"></span>
+														<input class="product-price form-control eachPrice currency" input-decimal="2" id="currencyField" onchange="calculatePrice();" baseprice="<?php echo $proposal_product['product_price'] ?>" type="text" value="<?php echo $proposal_product['product_price'] ?>"name="proposal_product[<?php echo $proposal_product_row ?>][product_price]" placeholder="Birim Fiyat">
+															<span class="input-group-addon"><i class="fa fa-try"></i></span>
 													</div>
 												</div>
-												<div class="col-md-2 discount">
+												<div class="col-md-1 discount">
 													<input class="product-discount form-control" onchange="discountPrice(this);" type="text" name="proposal_product[<?php echo $proposal_product_row ?>][product_discount]" value="<?php echo $proposal_product['product_discount'] ?>" placeholder="İndirim">
 												</div>
-												<div class="col-md-1">
+												<div class="col-md-2">
 													<select class="product-discount-type form-control disc" onchange="calculatePrice();" name="proposal_product[<?php echo $proposal_product_row ?>][product_discount_type]">
 														<option disabled readonly selected="true">İndirim Tipi</option>
 														<option value="1" <?php echo isset($proposal_product['product_discount_type']) && $proposal_product['product_discount_type'] == '1' ? 'selected' : '' ;?>>%</option>
@@ -145,7 +152,7 @@
 										<div class="form-group">
 											<label class="control-label">Geçerlilik Tarihi</label>
 											<div class="input-group date date-picker" data-date="12-04-2014" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
-												<input type="text" name="proposal_date_expiration" value="<?php echo isset($proposal['proposal_date_expiration']) ? date('d-m-Y',strtotime($proposal['proposal_date_expiration'])) : '' ?>" class="form-control" readonly>
+												<input type="text" name="proposal_date_expiration" style='cursor:pointer' value="<?php echo isset($proposal['proposal_date_expiration']) ? date('d-m-Y',strtotime($proposal['proposal_date_expiration'])) : '' ?>" class="form-control" readonly>
 												<span class="input-group-btn">
 													<button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
 												</span>
@@ -157,7 +164,7 @@
 										<div class="form-group">
 										<label class="control-label">Teslim Tarihi</label>
 											<div class="input-group date date-picker" data-date="12-04-2014" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
-												<input type="text" name="proposal_date_delivery" value="<?php echo isset($proposal['proposal_date_delivery']) ? date('d-m-Y',strtotime($proposal['proposal_date_delivery'])): '' ?>" class="form-control" readonly>
+												<input type="text" name="proposal_date_delivery" style='cursor:pointer' value="<?php echo isset($proposal['proposal_date_delivery']) ? date('d-m-Y',strtotime($proposal['proposal_date_delivery'])): '' ?>" class="form-control" readonly>
 												<span class="input-group-btn">
 													<button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
 												</span>
@@ -167,14 +174,14 @@
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
-											<label class="control-label">Teklif Üst Açıklama</label>
-											<textarea id="proposal-content-top" name="proposal_statement_top" data-provide="markdown" rows="10"><?php echo isset($proposal['proposal_statement_top']) ? $proposal['proposal_statement_top'] : ''; ?></textarea>
+											<label class="control-label">Teklif Hakkında</label>
+											<textarea id="editor2" name="proposal_statement_top" ><?php echo isset($proposal['proposal_statement_top']) ? $proposal['proposal_statement_top'] : ''; ?></textarea>
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
-											<label class="control-label">Teklif Alt Açıklama</label>
-											<textarea id="proposal-content-bottom" name="proposal_statement_bottom" data-provide="markdown" rows="10"><?php echo isset($proposal['proposal_statement_bottom']) ? $proposal['proposal_statement_bottom'] : ''; ?></textarea>
+											<label class="control-label">Teklif Notları</label>
+											<textarea id="editor" name="proposal_statement_bottom"><?php echo isset($proposal['proposal_statement_bottom']) ? $proposal['proposal_statement_bottom'] : ''; ?></textarea>
 										</div>
 									</div>
 									<hr />
@@ -189,6 +196,49 @@
 				</div>
 			</div>
 		</div>
+	</div>
+</div>
+<div id="responsive" class="modal fade" tabindex="-1" data-width="760">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+		<h4 class="modal-title">Müşteri Ekle</h4>
+	</div>
+	<div class="modal-body">
+		<div class="row">
+			<div class="message" style="text-align: center;"></div>
+			<div class="col-md-3" >
+				<p>
+					<input class="form-control" value="Müşteri Adı" type="text" style="background:#D8D8D8">
+				</p>
+				<p>
+					<input class="form-control" value="Müşteri Soyad" type="text" style="background:#D8D8D8">
+				</p>
+				<p>
+					<input class="form-control" value="Müşteri E-posta"  type="text" style="background:#D8D8D8">
+				</p>
+				<p>
+					<input class="form-control" value="Müşteri Şirket" type="text" style="background:#D8D8D8">
+				</p>
+			</div>
+			<div class="col-md-9">
+				<p>
+					<input class="form-control customer_name" type="text" name="customer_name">
+				</p>
+				<p>
+					<input class="form-control customer_surname" type="text" name="customer_surname">
+				</p>
+				<p>
+					<input class="form-control customer_email" type="text" name="customer_email">
+				</p>
+				<p>
+					<input class="form-control customer_company" type="text" name="customer_company">
+				</p>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" data-dismiss="modal" class="btn btn-default">Kapat</button>
+		<button type="button" class="btn blue add-customer">Kaydet</button>
 	</div>
 </div>
 <script type="text/javascript">

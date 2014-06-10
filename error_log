@@ -1,0 +1,68 @@
+[28-May-2014 08:57:25 UTC] PHP Parse error:  syntax error, unexpected 'foreach' (T_FOREACH) in /home/planetz/public_html/test/application/helpers/mail_helper.php on line 110
+[28-May-2014 08:57:40 UTC] PHP Parse error:  syntax error, unexpected 'foreach' (T_FOREACH) in /home/planetz/public_html/test/application/helpers/mail_helper.php on line 110
+[28-May-2014 08:57:52 UTC] PHP Parse error:  syntax error, unexpected 'foreach' (T_FOREACH) in /home/planetz/public_html/test/application/helpers/mail_helper.php on line 110
+[28-May-2014 08:58:04 UTC] PHP Parse error:  syntax error, unexpected 'foreach' (T_FOREACH) in /home/planetz/public_html/test/application/helpers/mail_helper.php on line 110
+[28-May-2014 08:58:35 UTC] PHP Parse error:  syntax error, unexpected 'foreach' (T_FOREACH) in /home/planetz/public_html/test/application/helpers/mail_helper.php on line 110
+[28-May-2014 08:58:38 UTC] PHP Parse error:  syntax error, unexpected 'foreach' (T_FOREACH) in /home/planetz/public_html/test/application/helpers/mail_helper.php on line 110
+[28-May-2014 09:01:05 UTC] PHP Parse error:  syntax error, unexpected '"<td>"' (T_CONSTANT_ENCAPSED_STRING) in /home/planetz/public_html/test/application/helpers/mail_helper.php on line 113
+[28-May-2014 09:15:02 UTC] PHP Fatal error:  Call to undefined function send_mail() in /home/planetz/public_html/test/application/controllers/proposals.php on line 304
+[28-May-2014 09:30:15 UTC] PHP Parse error:  syntax error, unexpected 'return' (T_RETURN) in /home/planetz/public_html/test/application/helpers/mail_helper.php on line 121
+[28-May-2014 12:40:37 UTC] PHP Fatal error:  Call to undefined function getCustomerStatistics() in /home/planetz/public_html/test/application/controllers/reports.php on line 26
+[28-May-2014 12:41:15 UTC] PHP Fatal error:  Call to a member function result_array() on a non-object in /home/planetz/public_html/test/application/models/report_model.php on line 51
+[29-May-2014 06:35:15 UTC] PHP Parse error:  syntax error, unexpected '}', expecting ',' or ';' in /home/planetz/public_html/test/application/views/subviews/common/dashboard.php on line 149
+[29-May-2014 07:07:20 UTC] PHP Parse error:  syntax error, unexpected end of file, expecting ',' or ';' in /home/planetz/public_html/test/application/views/subviews/common/dashboard.php on line 144
+[29-May-2014 07:27:14 UTC] PHP Fatal error:  Call to a member function result_array() on a non-object in /home/planetz/public_html/test/application/models/timeline_model.php on line 13
+[29-May-2014 07:36:06 UTC] PHP Fatal error:  Class 'Timeline_model' not found in /home/planetz/public_html/test/system/core/Loader.php on line 268
+[29-May-2014 07:42:21 UTC] PHP Fatal error:  Class 'Timeline_model' not found in /home/planetz/public_html/test/system/core/Loader.php on line 268
+[29-May-2014 07:49:26 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/planetz/public_html/test/application/views/containers/footer.php on line 44
+[29-May-2014 07:56:27 UTC] PHP Parse error:  syntax error, unexpected '.' in /home/planetz/public_html/test/application/views/subviews/common/dashboard.php on line 143
+[29-May-2014 08:25:53 UTC] PHP Parse error:  syntax error, unexpected 'echo' (T_ECHO), expecting ',' or ';' in /home/planetz/public_html/test/application/views/subviews/common/dashboard.php on line 313
+[29-May-2014 15:37:56 UTC] PHP Fatal error:  Unsupported operand types in /home/planetz/public_html/test/application/controllers/proposals.php on line 267
+[29-May-2014 15:38:23 UTC] PHP Fatal error:  Unsupported operand types in /home/planetz/public_html/test/application/controllers/proposals.php on line 267
+[30-May-2014 13:26:55 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/planetz/public_html/test/application/views/containers/header.php on line 138
+[30-May-2014 15:17:12 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/planetz/public_html/test/application/views/containers/head.php on line 77
+[30-May-2014 15:17:14 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/planetz/public_html/test/application/views/containers/head.php on line 77
+[02-Jun-2014 11:09:55 UTC] PHP Parse error:  syntax error, unexpected ':' in /home/planetz/public_html/test/application/views/subviews/proposals/proposal_draft.php on line 105
+[02-Jun-2014 11:09:59 UTC] PHP Parse error:  syntax error, unexpected ':' in /home/planetz/public_html/test/application/views/subviews/proposals/proposal_draft.php on line 105
+[02-Jun-2014 12:55:16 UTC] PHP Fatal error:  Call to a member function addCustomerAjax() on a non-object in /home/planetz/public_html/test/application/controllers/customers.php on line 142
+[02-Jun-2014 14:09:48 UTC] PHP Parse error:  syntax error, unexpected 'if' (T_IF), expecting ',' or ';' in /home/planetz/public_html/test/application/views/subviews/common/dashboard.php on line 311
+[02-Jun-2014 14:09:51 UTC] PHP Parse error:  syntax error, unexpected 'if' (T_IF), expecting ',' or ';' in /home/planetz/public_html/test/application/views/subviews/common/dashboard.php on line 311
+[02-Jun-2014 14:10:16 UTC] PHP Parse error:  syntax error, unexpected 'if' (T_IF), expecting ',' or ';' in /home/planetz/public_html/test/application/views/subviews/common/dashboard.php on line 311
+[02-Jun-2014 14:10:44 UTC] PHP Parse error:  syntax error, unexpected 'if' (T_IF), expecting ',' or ';' in /home/planetz/public_html/test/application/views/subviews/common/dashboard.php on line 311
+[02-Jun-2014 14:10:45 UTC] PHP Parse error:  syntax error, unexpected 'if' (T_IF), expecting ',' or ';' in /home/planetz/public_html/test/application/views/subviews/common/dashboard.php on line 311
+[02-Jun-2014 14:10:47 UTC] PHP Parse error:  syntax error, unexpected 'if' (T_IF), expecting ',' or ';' in /home/planetz/public_html/test/application/views/subviews/common/dashboard.php on line 311
+[02-Jun-2014 14:13:59 UTC] PHP Parse error:  syntax error, unexpected 'if' (T_IF), expecting ',' or ';' in /home/planetz/public_html/test/application/views/subviews/common/dashboard.php on line 311
+[02-Jun-2014 14:14:02 UTC] PHP Parse error:  syntax error, unexpected 'if' (T_IF), expecting ',' or ';' in /home/planetz/public_html/test/application/views/subviews/common/dashboard.php on line 311
+[02-Jun-2014 14:33:49 UTC] PHP Parse error:  syntax error, unexpected 'if' (T_IF), expecting ',' or ';' in /home/planetz/public_html/test/application/views/subviews/common/dashboard.php on line 311
+[03-Jun-2014 08:31:46 UTC] PHP Parse error:  syntax error, unexpected '.' in /home/planetz/public_html/test/application/views/subviews/common/dashboard.php on line 317
+[03-Jun-2014 08:31:49 UTC] PHP Parse error:  syntax error, unexpected '.' in /home/planetz/public_html/test/application/views/subviews/common/dashboard.php on line 317
+[03-Jun-2014 08:33:12 UTC] PHP Parse error:  syntax error, unexpected '.' in /home/planetz/public_html/test/application/views/subviews/common/dashboard.php on line 317
+[03-Jun-2014 13:09:15 UTC] PHP Parse error:  syntax error, unexpected '}' in /home/planetz/public_html/test/application/models/proposal_model.php on line 251
+[03-Jun-2014 13:14:18 UTC] PHP Fatal error:  Cannot use [] for reading in /home/planetz/public_html/test/application/models/proposal_model.php on line 251
+[05-Jun-2014 08:33:45 UTC] PHP Parse error:  syntax error, unexpected 'die' (T_EXIT) in /home/planetz/public_html/test/application/views/subviews/proposals/preview.php on line 95
+[05-Jun-2014 08:33:46 UTC] PHP Parse error:  syntax error, unexpected 'die' (T_EXIT) in /home/planetz/public_html/test/application/views/subviews/proposals/preview.php on line 95
+[05-Jun-2014 08:52:35 UTC] PHP Parse error:  syntax error, unexpected 'fa' (T_STRING), expecting ',' or ';' in /home/planetz/public_html/test/application/views/subviews/proposals/preview.php on line 148
+[05-Jun-2014 08:52:35 UTC] PHP Parse error:  syntax error, unexpected 'fa' (T_STRING), expecting ',' or ';' in /home/planetz/public_html/test/application/views/subviews/proposals/preview.php on line 148
+[06-Jun-2014 07:47:58 UTC] PHP Parse error:  syntax error, unexpected '".<i class="' (T_CONSTANT_ENCAPSED_STRING) in /home/planetz/public_html/test/application/views/subviews/products/product.php on line 122
+[06-Jun-2014 07:47:58 UTC] PHP Parse error:  syntax error, unexpected '".<i class="' (T_CONSTANT_ENCAPSED_STRING) in /home/planetz/public_html/test/application/views/subviews/products/product.php on line 122
+[09-Jun-2014 08:11:31 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/planetz/public_html/test/application/views/containers/footer.php on line 80
+[09-Jun-2014 08:11:33 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/planetz/public_html/test/application/views/containers/footer.php on line 80
+[09-Jun-2014 09:06:37 UTC] PHP Parse error:  syntax error, unexpected ''product_disco' (T_ENCAPSED_AND_WHITESPACE), expecting ']' in /home/planetz/public_html/test/application/views/subviews/proposals/proposal.php on line 112
+[09-Jun-2014 12:10:05 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/planetz/public_html/test/application/views/containers/footer.php on line 56
+[09-Jun-2014 12:10:06 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/planetz/public_html/test/application/views/containers/footer.php on line 116
+[09-Jun-2014 12:10:06 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/planetz/public_html/test/application/views/containers/footer.php on line 130
+[09-Jun-2014 12:11:36 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/planetz/public_html/test/application/views/subviews/proposals/preview.php on line 149
+[09-Jun-2014 12:29:29 UTC] PHP Fatal error:  Call to a member function result_array() on a non-object in /home/planetz/public_html/test/application/models/report_model.php on line 84
+[09-Jun-2014 12:29:38 UTC] PHP Fatal error:  Call to a member function result_array() on a non-object in /home/planetz/public_html/test/application/models/report_model.php on line 84
+[09-Jun-2014 12:30:10 UTC] PHP Fatal error:  Call to a member function result_array() on a non-object in /home/planetz/public_html/test/application/models/report_model.php on line 84
+[09-Jun-2014 15:02:40 UTC] PHP Parse error:  syntax error, unexpected '/' in /home/planetz/public_html/test/application/views/containers/header.php on line 24
+[09-Jun-2014 15:12:11 UTC] PHP Parse error:  syntax error, unexpected 'class' (T_CLASS), expecting ',' or ';' in /home/planetz/public_html/test/application/views/subviews/common/dashboard.php on line 168
+[09-Jun-2014 15:13:26 UTC] PHP Parse error:  syntax error, unexpected 'class' (T_CLASS), expecting ',' or ';' in /home/planetz/public_html/test/application/views/subviews/common/dashboard.php on line 168
+[09-Jun-2014 15:13:52 UTC] PHP Parse error:  syntax error, unexpected 'class' (T_CLASS), expecting ',' or ';' in /home/planetz/public_html/test/application/views/subviews/common/dashboard.php on line 168
+[09-Jun-2014 15:22:18 UTC] PHP Fatal error:  Call to a member function result_array() on a non-object in /home/planetz/public_html/test/application/models/report_model.php on line 104
+[09-Jun-2014 15:29:14 UTC] PHP Fatal error:  Call to undefined method Setting_model::updateColors() in /home/planetz/public_html/test/application/controllers/settings.php on line 169
+[09-Jun-2014 15:29:14 UTC] PHP Fatal error:  Call to undefined method Setting_model::updateColors() in /home/planetz/public_html/test/application/controllers/settings.php on line 169
+[09-Jun-2014 15:29:16 UTC] PHP Fatal error:  Call to undefined method Setting_model::updateColors() in /home/planetz/public_html/test/application/controllers/settings.php on line 169
+[09-Jun-2014 15:30:40 UTC] PHP Fatal error:  Call to undefined method Setting_model::updateColors() in /home/planetz/public_html/test/application/controllers/settings.php on line 169
+[09-Jun-2014 15:30:41 UTC] PHP Fatal error:  Call to undefined method Setting_model::updateColors() in /home/planetz/public_html/test/application/controllers/settings.php on line 169
+[09-Jun-2014 15:30:41 UTC] PHP Fatal error:  Call to undefined method Setting_model::updateColors() in /home/planetz/public_html/test/application/controllers/settings.php on line 169

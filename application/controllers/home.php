@@ -8,6 +8,7 @@ class Home extends CI_Controller {
     }
 
 	public function index() {
+		$this->load->model('timeline_model');
 		$this->load->model('report_model');
 		$this->load->model('setting_model');
 
@@ -17,7 +18,7 @@ class Home extends CI_Controller {
 		$data['total_products'] = $this->report_model->getTotalProducts();
 		$data['total_proposals'] = $this->report_model->getTotalProposals();
 
-
+		$data['timeline'] = $this->timeline_model->getActivities();
 		$data['name'] = $this->session->userdata['name'];
 		$data['menu'] = 'dashboard';
 		$data['page'] = 'dashboard';

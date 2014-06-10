@@ -1077,8 +1077,9 @@
 	var dates = $.fn.datepicker.dates = {
 		en: {
 			days: ["Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi", "Pazar"],
-			daysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-			daysMin: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
+			daysShort: ["Pzr", "Pzt", "Sa", "Ça", "Per", "Cum", "Cmrts", "Pzr"],
+			daysMin: ["Pzr", "Pzt", "Sa", "Ça", "Pe", "Cu", "Cmt", "Pzr"],
+			
 			months: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
 			monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
 			today: "Bugün",

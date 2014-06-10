@@ -12,10 +12,10 @@ class Settings extends CI_Controller {
     	$this->load->model('setting_model');
 
         $allowed_pages = $this->session->userdata['allowed_pages'];
-        if(!empty($allowed_pages) && (!strstr($allowed_pages, 'settings/templates'))){
+        /*if(!empty($allowed_pages) && (!strstr($allowed_pages, 'settings/templates'))){
             $this->session->set_flashdata('error','Şablonlar sayfasına erişim izniniz yoktur!');
             redirect('home');
-        }
+        }*/
 
     	$data['templates'] = $this->setting_model->getTemplates();
         $data['menu'] = 'settings';
@@ -123,10 +123,10 @@ class Settings extends CI_Controller {
         $this->load->model('setting_model');
         
         $allowed_pages = $this->session->userdata['allowed_pages'];
-        if(!empty($allowed_pages) && (!strstr($allowed_pages, 'settings/exchangeRates'))){
+     /*   if(!empty($allowed_pages) && (!strstr($allowed_pages, 'settings/exchangeRates'))){
             $this->session->set_flashdata('error','Döviz kurları sayfasına erişim izniniz yoktur!');
             redirect('home');
-        }
+        }*/
 
 
         $data['exchange_rates'] = $this->setting_model->getSetting('exchange_rates');
@@ -162,6 +162,12 @@ class Settings extends CI_Controller {
         $this->load->model('setting_model');
         $result = $this->setting_model->saveTemplate($this->input->post(), $template_id);
         echo $result;
+    }
+
+    public function updateColors(){
+       $this->load->model('setting_model');
+        $result = $this->setting_model->updateColors($this->input->get('column', TRUE),  $this->input->get('color',TRUE ));
+        
     }
 
     public function validate($data) {

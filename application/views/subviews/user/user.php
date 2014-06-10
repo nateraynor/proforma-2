@@ -13,7 +13,13 @@
 						<i class="fa fa-angle-right"></i>
 					</li>
 					<li>
-						<a href="#">Kullanıcı</a>
+						<a href="#">
+						<?php if($user_id != -1): ?>
+							Güncelle
+						<?php else: ?>
+							Ekle
+						<?php endif; ?>
+						</a>
 					</li>
 				</ul>
 			</div>
@@ -96,6 +102,9 @@
 													<optgroup label="Teklifler">
 													<option value="proposalslist" <?php echo isset($user['user_allowed_pages']) && (strstr($user['user_allowed_pages'],'proposalslist')) ? 'selected' : '' ?>>Teklifler</option>
 													<option value="proposals/proposal" <?php echo isset($user['user_allowed_pages']) && (strstr($user['user_allowed_pages'],'proposals/proposal')) ? 'selected' : ''?>>Teklif İşlemleri</option>
+													<option value="proposals/proposalDraft" <?php echo isset($user['user_allowed_pages']) && (strstr($user['user_allowed_pages'],'proposals/proposalDraft')) ? 'selected' : ''?>>Taslak Teklifler</option>
+													<option value="proposals/preview" <?php echo isset($user['user_allowed_pages']) && (strstr($user['user_allowed_pages'],'proposals/preview')) ? 'selected' : ''?>>Önizleme</option>
+													
 													</optgroup>
 													<optgroup label="Müşteriler">
 													<option value="customerslist" <?php echo isset($user['user_allowed_pages']) && (strstr($user['user_allowed_pages'],'customerslist')) ? 'selected' : '' ;?>>Müşteriler</option>
@@ -123,7 +132,7 @@
 												</select>
 										</div>
 									</div>
-									<div class="col-md-6">
+									<div class="col-md-6" style="display: none;">
 										<div class="form-group">
 											<label class="control-label">Kullanıcı Durum</label>
 											<select name="user_status" class="form-control" placeholder="Kullanıcı Durum">

@@ -19,6 +19,9 @@
 <link href="<?php echo ASSETS ?>plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
 <link href="<?php echo ASSETS ?>plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 <link href="<?php echo ASSETS ?>plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+<link href="<?php echo ASSETS ?>plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css" rel="stylesheet" type="text/css"/>
+<link href="<?php echo ASSETS ?>plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" type="text/css"/>
+
 <!-- END GLOBAL MANDATORY STYLES -->
 <!-- BEGIN THEME STYLES -->
 <link href="<?php echo ASSETS ?>css/print.css" rel="stylesheet" type="text/css" media="print"/>
@@ -26,7 +29,10 @@
 <link href="<?php echo ASSETS ?>css/style.css" rel="stylesheet" type="text/css"/>
 <link href="<?php echo ASSETS ?>css/style-responsive.css" rel="stylesheet" type="text/css"/>
 <link href="<?php echo ASSETS ?>css/plugins.css" rel="stylesheet" type="text/css"/>
+
 <link href="<?php echo ASSETS ?>css/themes/default.css" rel="stylesheet" type="text/css" id="style_color"/>
+<link href="<?php echo ASSETS ?>css/pages/profile.css" rel="stylesheet" type="text/css"/>
+
 <link href="<?php echo ASSETS ?>css/pages/invoice.css" rel="stylesheet" type="text/css"/>
 
 <link href="<?php echo ASSETS ?>css/custom.css" rel="stylesheet" type="text/css"/>

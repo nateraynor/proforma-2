@@ -13,7 +13,13 @@
 						<i class="fa fa-angle-right"></i>
 					</li>
 					<li>
-						<a href="#">Müşteri</a>
+						<a href="#">
+							<?php if($customer_id != -1): ?>
+								Güncelle
+							<?php else: ?>
+								Ekle
+							<?php endif; ?>
+						</a>
 					</li>
 				</ul>
 			</div>
@@ -60,7 +66,7 @@
 						<div class="tab-content">
 							<div class="tab-pane fade active in" id="customer_info">
 								<div class="portlet-body form">
-									<form action="<?php echo base_url() . 'customers/customer/' . $customer_id; ?>" class="horizontal-form" method="post">
+									<form action="<?php echo base_url() . 'customers/customer/' . $customer_id; ?>" class="horizontal-form" method="post" enctype="multipart/form-data">
 										<div class="form-body">
 											<div class="row">
 													<div class="col-md-6">
@@ -87,6 +93,38 @@
 															<input type="text" name="customer_company" class="form-control" col-type="varchar" placeholder="Şirket Adı" value="<?php echo isset($customer['customer_company']) ? $customer['customer_company'] : '' ;?>" required>
 														</div>
 													</div>
+													<div class="form-group">
+														<label class="control-label col-md-2">Şirket Logosu Seçiniz</label>
+														<div class="col-md-4">
+															<div class="fileupload fileupload-new" data-provides="fileupload">
+																<div class="fileupload-new thumbnail" style="width: 200px; height: 150px;">
+																	<?php if(!isset($customer['customer_company_image']) || empty($customer['customer_company_image'])): ?>
+																		<img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=resim+yok" alt=""/>
+																	<?php else: ?>
+																		<img src="<?php echo base_url().'uploads/'.$customer['customer_company_image']; ?>">
+																	<?php endif; ?>
+																</div>
+																<div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;">
+																</div>
+																<div>
+																	<span class="btn default btn-file">
+																		<span class="fileupload-new">
+																			<i class="fa fa-paper-clip"></i> Dosya Seçiniz
+																		</span>
+																		<span class="fileupload-exists">
+																			<i class="fa fa-undo"></i> Değiştir
+																		</span>
+																		<?php if(isset($customer['customer_company_image'])): ?>
+																		<input type="file" name="customer_company_image" class="default"/>
+																		<?php else: ?>
+																		<input type="file" name="customer_company_image" class="default" required/>
+																		<?php endif; ?>
+																	</span>
+																	<a href="#" class="btn red fileupload-exists" data-dismiss="fileupload"><i class="fa fa-trash-o"></i> Kaldır</a>
+																</div>
+															</div>
+														</div>
+												
 													<div class="col-md-6">
 														<div class="form-group">
 															<label class="control-label">Vergi Dairesi </label>
@@ -102,16 +140,21 @@
 													<div class="col-md-6">
 														<div class="form-group">
 															<label class="control-label">Telefon</label>
-															<input type="text" name="customer_phone" class="form-control" col-type="varchar" placeholder="Telefon" value="<?php echo isset($customer['customer_phone']) ? $customer['customer_phone'] : '' ;?>">
+																<input class="form-control" id="mask_phone" type="text" name="customer_phone" value="<?php echo isset($customer['customer_phone']) ? $customer['customer_phone'] : '' ;?>"/>
+																<span class="help-block">
+																	(532) 000-0000
+																</span>
+															<!--input type="text" name="customer_phone" class="form-control" col-type="varchar" placeholder="Telefon" value="<?php echo isset($customer['customer_phone']) ? $customer['customer_phone'] : '' ;?>"-->
 														</div>
 													</div>
+													<div class="col-md-6"></div>
 													<div class="col-md-6">
 														<div class="form-group">
 															<label class="control-label">Adres</label>
 															<input type="text" name="customer_address" class="form-control" col-type="varchar" placeholder="Adres" value="<?php echo isset($customer['customer_address']) ? $customer['customer_address'] : '' ;?>">
 														</div>
 													</div>
-													<div class="col-md-6">
+													<div class="col-md-6" style="display: none;">
 														<div class="form-group">
 															<label class="control-label">Durumu</label>
 																<select class="form-control select2me" name="customer_status" data-placeholder="Seçiniz...">

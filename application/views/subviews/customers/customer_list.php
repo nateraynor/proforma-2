@@ -56,16 +56,15 @@
 					<div class="portlet-body">
 						<div class="table-toolbar">
 							<div class="btn-group">
-								<a class="btn red" href="<?php echo base_url() ?>customers/customer">Ekle <i class="fa fa-plus"></i></a>
+								<a class="btn red" href="<?php echo base_url() ?>customers/customer">Müşteri Ekle <i class="fa fa-plus"></i></a>
 							</div>
 							<div class="pull-right">
 								<label>Göster :</label>
-								<select class="input-xsmall" onchange="get_limit(this.options[this.selectedIndex].value);">
+								<select class="input-xsmall" onchange="get_limit(this.options[this.selectedIndex].value);" style = "height:30px;">
 									<option value="10" <?php echo $this->session->userdata['limit'] == '10' ? 'selected' : ''; ?>>10</option>
 									<option value="25" <?php echo $this->session->userdata['limit'] == '25' ? 'selected' : ''; ?>>25</option>
 									<option value="40" <?php echo $this->session->userdata['limit'] == '40' ? 'selected' : ''; ?>>40</option>
 								</select>
-								<label>kayıt</label>
 							</div>
 						</div>
 						<table class="table table-striped table-bordered table-hover table-full-width">
@@ -75,8 +74,7 @@
 							<th><a class="customer-sort" href="#" sort="c.customer_name">Müşteri Adı</a></th>
 							<th><a class="customer-sort" href="#" sort="c.customer_surname">Müşteri Soyadı</a></th>
 							<th><a class="customer-sort" href="#" sort="c.customer_email">Müşteri E-posta</a></th>
-							<th><a class="customer-sort" href="#" sort="c.customer_status">Müşteri Durumu</a></th>
-							<th>İşlemler</th>
+							<th style='width: 140px !important;'>İşlemler</th>
 						</tr>
 						</thead>
 						<tbody>
@@ -85,12 +83,8 @@
 								<td><input class="form-control input-inline" type="text" id="filter_customer_name" value="<?php echo $filters['filter_customer_name'] ?>"></td>
 								<td><input class="form-control input-inline" type="text" id="filter_customer_surname" value="<?php echo $filters['filter_customer_surname'] ?>"></td>
 								<td><input class="form-control input-inline" type="text" id="filter_customer_email" value="<?php echo $filters['filter_customer_email'] ?>"></td>
-								<td><select class="form-control input-inline" id="filter_customer_status">
-									<option value=""  <?php echo empty($filters['filter_customer_status']) ? 'selected' : '' ?>>Hepsi</option>
-									<option value="1" <?php echo $filters['filter_customer_status'] == '1' ? 'selected' : ''?>>Aktif</option>
-									<option value="0" <?php echo $filters['filter_customer_status'] == '0' ? 'selected' : ''?>>Pasif</option>
-								</select></td>
-								<td><a class="btn blue pull-right" href="#" id="filter_customer_button">Ara <i class="fa fa-search"></i></a></td>
+					
+								<td><a class="btn blue pull-right w100" href="#" id="filter_customer_button">Ara <i class="fa fa-search"></i></a></td>
 							</tr>
 
 							<?php foreach ($customers as $customer): ?>
@@ -100,15 +94,8 @@
 									<td><?php echo $customer['customer_surname']; ?></td>
 									<td><?php echo $customer['customer_email']; ?></td>
 									<td>
-										<?php if($customer['customer_status'] == 1 ): ?>
-											<?php echo 'Aktif'; ?>
-										<?php else :?>
-											<?php echo 'Pasif'; ?>
-										<?php endif ;?>
-									</td>
-									<td>
 										<a href="#" location="<?php echo base_url() . 'customers/deletecustomer/' . $customer['customer_id']; ?>" class="btn default btn-xs black validate-delete pull-right"><i class="fa fa-trash-o"></i> Sil</a>
-										<a href="<?php echo base_url() . 'customers/customer/' . $customer['customer_id']; ?>" class="btn default btn-xs yellow pull-right"><i class="fa fa-edit"></i> Güncelle</a>
+										<a style='margin-right: 8px;' href="<?php echo base_url() . 'customers/customer/' . $customer['customer_id']; ?>" class="btn default btn-xs yellow pull-right"><i class="fa fa-edit"></i> Güncelle</a>
 									</td>
 								</tr>
 							<?php endforeach ?>

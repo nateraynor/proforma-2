@@ -75,4 +75,45 @@ class Report_model extends CI_Model {
         return $result->result_array();
     }
 
+    public function getProposalsDraft(){
+
+        $result =  $this->db->query("SELECT COUNT(*) AS 'total' FROM proposal WHERE proposal_status = 1");
+
+        return $result->result_array();
+    }
+
+    public function getProposalsRejected(){
+
+        $result =  $this->db->query("SELECT COUNT(*) AS 'total' FROM proposal WHERE proposal_status = 5");
+
+        return $result->result_array();
+    }
+
+    
+    public function getProposalsApproval(){
+
+        $result =  $this->db->query("SELECT COUNT(*) AS 'total' FROM proposal WHERE proposal_status = 3");
+
+        return $result->result_array();
+    }
+
+    public function getProposalsDraftTotal(){
+        $result = $this->db->query("SELECT * FROM proposal WHERE proposal_status = 1");
+        return $result->result_array();
+    }
+
+    public function getProposalsRejectedTotal(){
+        $result =  $this->db->query("SELECT * FROM proposal WHERE proposal_status = 5");
+        return $result->result_array();
+    }
+
+    public function getProposalsApprovalTotal(){
+        $result =  $this->db->query("SELECT * FROM proposal WHERE proposal_status = 3");
+        return $result->result_array();
+    }
+
+    public function getProposalsSendTotal(){
+        $result =  $this->db->query("SELECT * FROM proposal WHERE proposal_status = 2");
+        return $result->result_array();
+    }
 }

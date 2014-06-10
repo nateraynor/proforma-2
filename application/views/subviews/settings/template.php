@@ -69,12 +69,56 @@
 										<div class="clearfix"></div>
 										<div class="template" style="margin-top: 20px;">
 											<?php echo $template['template_html']; ?>
+
+
+
 										</div>
+										<div id='settingsCss' class='col-md-3'>
+											<div class="form-group pull-right">
+												<label class="control-label col-md-2">Başlık</label>
+												<div class="col-md-4 headerColor">
+													<div class="input-group color colorpicker-default" data-color="#<?php echo $template['headerColor']; ?>" data-color-format="rgba">
+														<input type="text" class="form-control" value="#<?php echo $template['headerColor']; ?>" readonly="">
+														<span class="input-group-btn">
+														<button class="btn default" type="button"><i style="background-color: rgb(0, 73, 181);"></i>&nbsp;</button>
+														</span>
+													</div>
+												</div>
+											</div>
+											<div class="form-group pull-right">
+												<label class="control-label col-md-2">Orta</label>
+												<div class="col-md-4 backgroundColor">
+													<div class="input-group color colorpicker-default" data-color="#<?php echo $template['backgroundColor']; ?>" data-color-format="rgba">
+														<input type="text" class="form-control" value="#<?php echo $template['backgroundColor']; ?>" readonly="">
+														<span class="input-group-btn">
+														<button class="btn default" type="button"><i style="background-color: rgb(0, 73, 181);"></i>&nbsp;</button>
+														</span>
+													</div>
+												</div>
+											</div>
+											<div class="form-group pull-right">
+												<label class="control-label col-md-2">Alt</label>
+												<div class="col-md-4 footerColor">
+													<div class="input-group color colorpicker-default" data-color="#<?php echo $template['footerColor']; ?>" data-color-format="rgba">
+														<input type="text" class="form-control" value="#<?php echo $template['footerColor']; ?>" readonly="">
+														<span class="input-group-btn">
+														<button class="btn default" type="button"><i style="background-color: rgb(0, 73, 181);"></i>&nbsp;</button>
+														</span>
+													</div>
+												</div>
+											</div>
+										</div>	
 									</div>
+									<script>
+										var footerColor = "<?php echo $template['footerColor']; ?>";
+										var backgroundColor = "<?php echo $template['backgroundColor']; ?>";
+										var headerColor = "<?php echo $template['headerColor']; ?>";
+									</script>
 									<?php $i++; ?>
 								<?php endforeach ?>
 							</div>
 						</div>
+
 						<div class="form-actions right">
 							<a type="button" class="btn default" href="<?php echo base_url() ?>">İptal</a>
 							<button type="submit" class="btn green save-template"><i class="fa fa-check"></i> Kaydet</button>

@@ -46,13 +46,13 @@ class Brands extends CI_Controller {
 			if ($brand_id == -1) {
 				$result = $this->brand_model->addBrand($this->input->post());
 				if ($result) {
-					$this->session->set_flashdata('success', 'Ürün marka başarıyla eklendi.');
+					$this->session->set_flashdata('success', 'Ürün / Hizmet marka başarıyla eklendi.');
 					redirect('brands');
 				}
 			} else {
 				$result = $this->brand_model->updateBrand($this->input->post(), $brand_id);
 				if ($result) {
-					$this->session->set_flashdata('success', 'Ürün marka başarıyla güncellendi.');
+					$this->session->set_flashdata('success', 'Ürün / Hizmet marka başarıyla güncellendi.');
 					redirect('brands');
 				}
 			}
@@ -75,14 +75,14 @@ class Brands extends CI_Controller {
 		$products = $this->brand_model->getProducts($brand_id);
 
 		if(!empty($products)){
-			$this->session->set_flashdata('error', ' Markaya ait ürün var !');
+			$this->session->set_flashdata('error', ' Markaya ait ürün / hizmet var !');
 		}else{
 			$result = $this->brand_model->deleteBrand($brand_id);
 
 			if ($result)
-				$this->session->set_flashdata('success', 'Ürün marka başarıyla silindi.');
+				$this->session->set_flashdata('success', 'Ürün / Hizmet marka başarıyla silindi.');
 			else
-				$this->session->set_flashdata('error', 'Ürün marka silinemedi!');
+				$this->session->set_flashdata('error', 'Ürün / Hizmet marka silinemedi!');
 		}
 			
 

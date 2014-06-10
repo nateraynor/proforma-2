@@ -43,13 +43,13 @@ class Categories extends CI_Controller {
 			if ($category_id == -1) {
 				$result = $this->category_model->addCategory($this->input->post());
 				if ($result) {
-					$this->session->set_flashdata('success', 'Ürün kategorisi başarıyla eklendi.');
+					$this->session->set_flashdata('success', 'Ürün / Hizmet kategorisi başarıyla eklendi.');
 					redirect('categories');
 				}
 			} else {
 				$result = $this->category_model->updateCategory($this->input->post(), $category_id);
 				if ($result) {
-					$this->session->set_flashdata('success', 'Ürün kategorisi başarıyla güncellendi.');
+					$this->session->set_flashdata('success', 'Ürün / Hizmet kategorisi başarıyla güncellendi.');
 					redirect('categories');
 				}
 			}
@@ -70,6 +70,11 @@ class Categories extends CI_Controller {
 		$subcategory = $this->category_model->getSubCategory($category_id);
 		$products = $this->category_model->getProducts($category_id);
 		$categories_name = array();
+		
+		if(!empty($products)){
+
+			$this->session->set_flashdata('error', 'Kategoriye ait ürün / hizmet var !');
+		}elseif($subcategory){
 			foreach ($subcategory as $category) {
 				 $categories_name[] = $category['category_name'];
 			}
@@ -80,17 +85,13 @@ class Categories extends CI_Controller {
 					if($i != $countnames)
 						$names .= ', ';
 			}
-		
-		if(!empty($products)){
-			$this->session->set_flashdata('error', 'Kategoriye ait ürün var !');
-		}elseif($subcategory){
 			$this->session->set_flashdata('error', 'Kategoriye ait (' . $names . ') alt kategorileri var !');
 		}else{
 			$result = $this->category_model->deleteCategory($category_id);
 			if ($result)
-				$this->session->set_flashdata('success', 'Ürün kategorisi başarıyla silindi.');
+				$this->session->set_flashdata('success', 'Ürün / Hizmet kategorisi başarıyla silindi.');
 			else
-				$this->session->set_flashdata('error', 'Ürün kategorisi silinemedi!');
+				$this->session->set_flashdata('error', 'Ürün / Hizmet kategorisi silinemedi!');
 		}
 			
 		redirect('categories');

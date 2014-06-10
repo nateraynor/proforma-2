@@ -1,0 +1,7 @@
+c-panel : https://escalade.websitewelcome.com:2083/?locale=tr
+
+ftp: 192.185.28.253 
+
+user : enginpaz
+
+þifre : 1299mesut

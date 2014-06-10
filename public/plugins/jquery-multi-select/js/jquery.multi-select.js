@@ -272,6 +272,7 @@
         selectables.addClass('ms-selected').hide();
         selections.addClass('ms-selected').show();
         options.prop('selected', true);
+        selections.append(' - ' + options.attr('mail'));
         var selectableOptgroups = that.$selectableUl.children('.ms-optgroup-container');
         if (selectableOptgroups.length > 0){
           selectableOptgroups.each(function(){

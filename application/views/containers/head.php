@@ -19,6 +19,8 @@
 <link href="<?php echo ASSETS ?>plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
 <link href="<?php echo ASSETS ?>plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 <link href="<?php echo ASSETS ?>plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+<link href="<?php echo ASSETS ?>css/pages/timeline.css" rel="stylesheet" type="text/css"/>
+
 <!-- END GLOBAL MANDATORY STYLES -->
 <!-- BEGIN PAGE LEVEL STYLES -->
 <?php if ($page == 'advancedtables'): ?>
@@ -45,6 +47,9 @@
 <link rel="stylesheet" type="text/css" href="<?php echo ASSETS ?>plugins/bootstrap-markdown/css/bootstrap-markdown.min.css">
 <link href="<?php echo ASSETS ?>plugins/dropzone/css/dropzone.css" rel="stylesheet"/>
 <link href="<?php echo ASSETS ?>/css/pages/invoice.css" rel="stylesheet" type="text/css"/>
+<?php elseif ($page == 'preview'): ?>
+<link href="<?php echo ASSETS ?>plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css" rel="stylesheet" type="text/css"/>
+<link href="<?php echo ASSETS ?>plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" type="text/css"/>
 <?php endif; ?>
 <!-- END PAGE LEVEL SCRIPTS -->
 <!-- BEGIN THEME STYLES -->
@@ -55,6 +60,7 @@
 <link href="<?php echo ASSETS ?>css/themes/default.css" rel="stylesheet" type="text/css" id="style_color"/>
 <link href="<?php echo ASSETS ?>css/custom.css" rel="stylesheet" type="text/css"/>
 <link rel="shortcut icon" href="favicon.ico"/>
+
 
 <script type="text/javascript">
 	var base_url = '<?php echo base_url() ?>';

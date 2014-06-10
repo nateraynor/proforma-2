@@ -18,16 +18,12 @@
  * ========================================================= */
 
 !function( $ ) {
-
 	// Color object
-
+	var globalObject = null;
+	var globalParent = null;
 	var Color = function(val) {
-		this.value = {
-			h: 1,
-			s: 1,
-			b: 1,
-			a: 1
-		};
+		this.value = $(globalObject).attr('data-color');
+		console.log('>'+this.value);
 		this.setColor(val);
 	};
 
@@ -130,6 +126,7 @@
 	// Picker object
 
 	var Colorpicker = function(element, options){
+		globalObject = (element);
 		this.element = $(element);
 		var format = options.format||this.element.data('color-format')||'hex';
 		this.format = CPGlobal.translateFormats[format];
@@ -174,6 +171,7 @@
 		constructor: Colorpicker,
 
 		show: function(e) {
+			globalParent = e.currentTarget.parentNode.parentNode;
 			this.picker.show();
 			this.height = this.component ? this.component.outerHeight() : this.element.outerHeight();
 			this.place();
@@ -194,6 +192,7 @@
 		},
 
 		update: function(){
+
 			this.color = new Color(this.isInput ? this.element.prop('value') : this.element.data('color'));
 			this.picker.find('i')
 				.eq(0).css({left: this.color.value.s*100, top: 100 - this.color.value.b*100}).end()
@@ -203,6 +202,7 @@
 		},
 
 		setValue: function(newColor) {
+
 			this.color = new Color(newColor);
 			this.picker.find('i')
 				.eq(0).css({left: this.color.value.s*100, top: 100 - this.color.value.b*100}).end()
@@ -216,6 +216,7 @@
 		},
 
 		hide: function(){
+
 			this.picker.hide();
 			$(window).off('resize', this.place);
 			if (!this.isInput) {
@@ -245,9 +246,12 @@
 
 		//preview color change
 		previewColor: function(){
+			//$('.template').children(1).css('background-color',this.color.toHex());  
+				
 			try {
 				this.preview.backgroundColor = this.format.call(this);
 			} catch(e) {
+
 				this.preview.backgroundColor = this.color.toHex();
 			}
 			//set the color for brightness/saturation slider
@@ -256,6 +260,30 @@
 			if (this.alpha) {
 				this.alpha.backgroundColor = this.color.toHex();
 			}
+	
+			console.log($(globalObject).parents());
+			
+			if ($(globalParent).hasClass('footerColor')) {
+				 $('.template .template-footer').css('background-color',this.color.toHex());  
+				 	var color = this.color.toHex();
+				 	color = color.substring(1, 7);
+				 	$.post('updateColors?column=footerColor&color='+color,function(json){});
+			}
+			else if($(globalParent).hasClass('backgroundColor')){
+				$('.template .template-body').css('background-color',this.color.toHex()); 
+					var color = this.color.toHex();
+				 	color = color.substring(1, 7);
+				 	$.post('updateColors?column=backgroundColor&color='+color,function(json){});
+			}
+			else if($(globalParent).hasClass('headerColor')){
+				$('.template .template-header').css('background-color',this.color.toHex());  
+					var color = this.color.toHex();
+				 	color = color.substring(1, 7);
+				 	$.post('updateColors?column=headerColor&color='+color,function(json){});
+			}
+
+			$(globalObject).children('input').val(this.color.toHex());	
+			//console.log($(globalObject).children('input').val());
 		},
 
 		pointer: null,

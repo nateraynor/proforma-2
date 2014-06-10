@@ -29,10 +29,10 @@ class Users extends CI_Controller {
 		$this->load->model('setting_model');
 
 		$allowed_pages = $this->session->userdata['allowed_pages'];
-		if(!empty($allowed_pages) && (!strstr($allowed_pages,'users/user'))){
+		/*if(!empty($allowed_pages) && (!strstr($allowed_pages,'users/user'))){
 			$this->session->set_flashdata('error','Kullanıcı işlemleri sayfasına erişim izniniz yoktur!');
 			redirect('home');
-		}
+		}*/
 
 		$validate_data =  $this->input->post();
 		$validate_data['user_id'] = $user_id;
@@ -42,9 +42,8 @@ class Users extends CI_Controller {
 			$result = false;
 			if ($user_id == -1) {
 					$result = $this->user_model->addUser($this->input->post());
-					$this->session->set_flashdata('warning', 'Kullanıcı başarıyla eklendi.');
-					redirect('users');
 				if ($result) {
+					$this->session->set_flashdata('success', 'Kullanıcı başarıyla eklendi.');
 					redirect('users');
 				}
 			} else {

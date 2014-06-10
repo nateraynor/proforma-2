@@ -34,24 +34,30 @@ function calculatePrice(type) {
 
 
 		var temp_total = parseFloat(quantity * price);
-
+		var temp_net_total = parseFloat(quantity * price);
 		if (discount_type !== null) {
 			var discounted_price = 0;
 
 			if (discount_type == '1') {
 				discounted_price = temp_total - (temp_total * discount_amount / 100);
 			} else {
-				discounted_price = temp_total - (discount_amount * quantity);
+				discounted_price = temp_total - (discount_amount );
 			}
 
 			temp_total = parseFloat(discounted_price);
 		}
 
 		$(this).parents('.form-group').find('.product-price').formatCurrency();
-		$(this).siblings('span').html(temp_total);
-		$(this).siblings('span').formatCurrency();
-		$(this).siblings('span').prepend('Toplam: ');
-		$(this).siblings('span').append(' TRY');
+		console.log($(this).parents('.col-md-2').find('.form-control total-text'));
+		$(this).siblings('.total-text').html(temp_total);
+		$(this).siblings('.total-text').formatCurrency();
+		$(this).siblings('.total-text').prepend('İndirimli Toplam: ');
+		$(this).siblings('.total-text').append(' TRY');
+
+		$(this).siblings('.net-total').html(temp_net_total);
+		$(this).siblings('.net-total').formatCurrency();
+		$(this).siblings('.net-total').prepend('İndirimsiz Toplam: ');
+		$(this).siblings('.net-total').append(' TRY');
 		total += parseFloat(temp_total);
 	});
 
@@ -82,6 +88,11 @@ function autocompleteResult(element, product_id, price, tax_rate_id) {
 }
 
 function removeRow(element) {
+	$(element).parents('.row').first().remove();
+	$(element).parents('.row').find('.product-price').first().trigger('change');
+}
+
+function removeRowProduct(element) {
 	$(element).parents('.row').first().parent().remove();
 	$(element).parents('.row').find('.product-price').first().trigger('change');
 }
@@ -90,6 +101,7 @@ function product_autocomplete(element) {
 	var value = $(element).val();
 
 	if (element.keyCode != 13 && element.keyCode != 8 && element.keyCode != 37 && element.keyCode != 38 && element.keyCode != 39 && element.button != 1 && element.button != 2 && element.button != 3) {
+        
         $(element).siblings(".autocomplete-results").fadeOut(300);
         $(element).siblings(".autocomplete-results").empty();
 
@@ -98,7 +110,12 @@ function product_autocomplete(element) {
         e = setTimeout(function () {
             var e = value;
             $.ajax({
-                url: base_url + 'products/getProductsAjax/' + encodeURIComponent(value),
+            	type : "POST",
+                url: base_url + 'products/getProductsAjax/',
+                data: {value: value},
+	            beforeSend: function() {
+				    $(element).siblings('.autocomplete-results').html("<img src='"+ base_url +"public/img/input-spinner.gif'/>");
+				  },
                 success: function (e) {
                     $(element).siblings(".autocomplete-results").append(e);
                     $(element).siblings(".autocomplete-results").fadeIn(300)
@@ -120,6 +137,14 @@ $(document).ready(function(){
 	$('.currency').blur(function() {
 		$(this).formatCurrency();
 	});
+try{
+	$('.template .template-header').css('background-color','#'+headerColor);
+	$('.template .template-footer').css('background-color','#'+footerColor);
+	$('.template').children(1).css('background-color','#'+backgroundColor);
+}
+catch(err){
+
+}
 /*
 	console.log(typeof $('.total-text'));
 
@@ -204,10 +229,10 @@ $(document).ready(function(){
 		html +=	'	<div class="form-group">';
 		html +=	'		<div class="col-md-2">';
 		html +=	'			<div class="input-group">';
-		html +=	'				<input class="form-control autocomplete-input" autocomplete="off" onkeyup="product_autocomplete(this);" placeholder="Ürün" type="text" value="" name="proposal_product[' + proposal_product_row + '][name]">';
+		html +=	'				<input class="form-control autocomplete-input" autocomplete="off" onkeyup="product_autocomplete(this);" placeholder="Ürün / Hizmet" type="text" value="" name="proposal_product[' + proposal_product_row + '][name]">';
 		html +=	'				<div class="autocomplete-results"></div>';
 		html +=	'				<input type="hidden" class="hidden-id" value="-1" name="proposal_product[' + proposal_product_row + '][product_id]">';
-		html +=	'				<span class="input-group-addon"><a onclick="removeRow(this).parent().parent(); return false;"><i class="fa fa-times"></i></a></span>';
+		html +=	'				<span class="input-group-addon"><a onclick="removeRowProduct(this).parent().parent(); return false;"><i class="fa fa-times"></i></a></span>';
 		html +=	'			</div>';
 		html +=	'		</div>';
 		html +=	'		<div class="col-md-1 quantity"><input class="product-quantity form-control"  onchange="calculatePrice();" value="" type="number" name="proposal_product[' + proposal_product_row + '][product_quantity]" placeholder="Adet" value=""></div>';
@@ -217,8 +242,8 @@ $(document).ready(function(){
 		html +=	'				<span class="input-group-addon" style="padding: 0px; border: 1px;"></span>';
 		html +=	'			</div>';
 		html +=	'		</div>';
-		html +=	'		<div class="col-md-2 discount"><input class="product-discount form-control" onchange="calculatePrice(); "type="text" name="proposal_product[' + proposal_product_row + '][product_discount]" value="" placeholder="İndirim"></div>';
-		html +=	'		<div class="col-md-1">';
+		html +=	'		<div class="col-md-1 discount"><input class="product-discount form-control" onchange="calculatePrice(); "type="text" name="proposal_product[' + proposal_product_row + '][product_discount]" value="" placeholder="İndirim"></div>';
+		html +=	'		<div class="col-md-2">';
 		html +=	'			<select class="product-discount-type form-control disc" onChange="calculatePrice();" name="proposal_product[' + proposal_product_row + '][product_discount_type]">';
 		html +=	'				<option disabled readonly selected="true">İndirim Tipi</option>';
 		html +=	'				<option value="1">%</option>';
@@ -229,7 +254,8 @@ $(document).ready(function(){
 		html +=	'			<select class="product-tax-rate form-control" name="proposal_product[' + proposal_product_row + '][product_tax_rate]"><option disabled readonly selected="true">Vergi Oranı</option>' + tax_rates +'</select>';
 		html +=	'		</div>';
 		html += '		<div class="col-md-2">';
-		html += '			<span style="border: none;" class="form-control total-text">Toplam: 0 TRY</span>';
+		html += '			<span style="border: none;" class="form-control total-text">İndirimli Toplam: 0 TRY</span>';
+		html += '			<span style="border: none;" class="form-control net-total">İndirimsiz Toplam: 0 TRY</span>';
 		html += '			<input type="hidden" class="total-product-price" value="0">';
 		html += '		</div>';
 		html +=	'	</div>';
@@ -259,4 +285,43 @@ $(document).ready(function(){
 		});
 	});
 });
+
+$(".price").bind("change paste keyup", function() {
+ $(this).val($(this).val().replace(':','')); 
+ $(this).val($(this).val().replace('.','')); 
+ $(this).val($(this).val().replace('-',''));
+ $(this).val($(this).val().replace(',',''));
+ $(this).val($(this).val().replace(' ','')); 
+
+});
+$(".product-quantity").live( "change paste keyup", function(){ 
+  if($(this).val()<1){
+    $(this).val(1);
+  }   
+});
+
+var status = 0;
+$("body .page-content form input").keyup(function(){
+  status = 1;
+});
+
+$("body").on('click','.page-sidebar-menu li a',function(){
+  var thiz = $(this);
+  if(status == 1){
+    var flag = confirm("Değişiklik yaptınız, kaydetmek istermisiniz?");
+
+    status = 0;
+
+    if (flag) {
+      $.post($(".page-content form").attr('action'),$(".page-content form").serialize(),function(){ 
+          window.location.replace(thiz.attr('href'));
+      });
+    } else {
+      window.location.replace(thiz.attr('href'));
+    }
+
+    return false;
+  }
+});
+
 

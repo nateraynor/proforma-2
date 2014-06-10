@@ -485,7 +485,7 @@ var Index = function () {
                         $('#product_site_statistics_content').show();
                         var plot_statistics = $.plot($("#product_site_statistics"), [{
                                 data: pageviews,
-                                label: "Eklenen Ürün Sayısı"
+                                label: "Eklenen Ürün / Hizmet Sayısı"
                             }
                         ], {
                             series: {

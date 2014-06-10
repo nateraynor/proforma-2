@@ -62,25 +62,63 @@ class Customers extends CI_Controller {
 			$this->session->set_flashdata('error','Müşteri işlemleri sayfasına erişim izniniz yoktur!');
 			redirect('home');
 		}
+		if ($customer_id != -1)
+			$data['customer'] = $this->customer_model->getCustomer($customer_id);
 
 		if ($this->input->post() && $this->validate($this->input->post())) {
 			$result = false;
+		
+
+		
+		   $config['upload_path'] = './uploads/';
+		   $config['allowed_types'] = 'gif|jpg|png|jpeg';
+
+		   $this->load->library('upload', $config);
+
 			if ($customer_id == -1) {
-				$result = $this->customer_model->addCustomer($this->input->post());
+				if ($_FILES['customer_company_image']['name'] != '' && !$this->upload->do_upload('customer_company_image')){
+					$this->errors[] = $this->upload->display_errors();
+
+				} else {
+				
+					$insert_data = $this->input->post();
+					
+					if($_FILES['customer_company_image']['name'] != '')
+						$upload_data = $this->upload->data();
+					else
+						$upload_data['file_name'] = NULL;
+
+				$insert_data['customer_company_image'] = $upload_data['file_name'];
+				$result = $this->customer_model->addCustomer($insert_data);
+				}
 				if ($result) {
 					$this->session->set_flashdata('success', 'Müşteri başarıyla eklendi.');
 					redirect('customers');
 				}
+
 			} else {
-				$result = $this->customer_model->updateCustomer($this->input->post(), $customer_id);
+				if($_FILES['customer_company_image']['name'] != '' && !$this->upload->do_upload('customer_company_image')){
+					$this->errors[] = $this->upload->display_errors();
+				} else {
+					$update_data = $this->input->post();
+					
+					if ($_FILES['customer_company_image']['name'] != '')
+						$upload_data = $this->upload->data();
+					else
+						$upload_data['file_name'] = $data['customer']['customer_company_image'];
+
+				$update_data['customer_company_image'] = $upload_data['file_name'];
+
+				$result = $this->customer_model->updateCustomer($update_data, $customer_id);
+				}
 				if ($result) {
 					$this->session->set_flashdata('success', 'Müşteri başarıyla güncellendi.');
 					redirect('customers');
 				}
 			}
+
 		}
-		if ($customer_id != -1)
-			$data['customer'] = $this->customer_model->getCustomer($customer_id);
+	
 
 		$data['metaInfo'] = $this->setting_model->getSetting('meta');
 		$data['customer_id'] = $customer_id;
@@ -89,6 +127,31 @@ class Customers extends CI_Controller {
 		$data['subview'] = 'customers/customer';
 		$this->load->view('layouts/default', $data);
 	}
+
+	public function addCustomerAjax(){
+		$this->load->model('customer_model');
+		$customer_name = $this->input->post('customer_name');
+		$customer_surname = $this->input->post('customer_surname');
+		$customer_email = $this->input->post('customer_email');
+		$customer_company = $this->input->post('customer_company');
+
+		if (empty($customer_name) || empty($customer_surname) || empty($customer_email) || empty($customer_company))
+	      {
+	        $msg = 'Lütfen alanları doldurunuz';
+	      }
+         $data = array($customer_name,$customer_surname,$customer_email,$customer_company);
+         $customer_id = $this->customer_model->addCustomerAjax($data);
+        if ($customer_id)
+          {
+            $msg = 'Müşteri başarıyla eklendi. ';
+          }
+        else
+          {
+            $msg = 'Müşteri eklenemedi. ';
+          }
+	        echo preg_replace("/\\\\u([a-f0-9]{4})/e", "iconv('UCS-4LE','UTF-8',pack('V', hexdec('U$1')))", json_encode($customer_id));
+	}
+
 	public function deleteCustomer($customer_id) {
 		$this->load->model('customer_model');
 		$result = $this->customer_model->deleteCustomer($customer_id);

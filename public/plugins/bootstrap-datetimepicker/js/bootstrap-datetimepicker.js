@@ -1133,9 +1133,9 @@
 	$.fn.datetimepicker.Constructor = Datetimepicker;
 	var dates = $.fn.datetimepicker.dates = {
 		en: {
-			days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-			daysShort: ["Pzr", "Pzrtsi", "Sa", "Ça", "Per", "Cum", "Cmrts", "Pzr"],
-			daysMin: ["Pzr", "Pzsti", "Sa", "Ça", "Pe", "Cu", "Cmt", "Pzr"],
+			days: ["Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi", "Pazar"],
+			daysShort: ["Pzr", "Pzt", "Sa", "Ça", "Per", "Cum", "Cmrts", "Pzr"],
+			daysMin: ["Pzr", "Pzt", "Sa", "Ça", "Pe", "Cu", "Cmt", "Pzr"],
 			months: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
 			monthsShort: ["Oca", "Şub", "Mar", "Nis", "May", "Haz", "Tem", "Ağu", "Eyl", "Eki", "Kas", "Ara"],
 			meridiem: ["am", "pm"],

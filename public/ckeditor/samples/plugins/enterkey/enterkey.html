@@ -13,11 +13,14 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 	<meta name="ckeditor-sample-group" content="Advanced Samples">
 	<meta name="ckeditor-sample-description" content="Configuring the behavior of &lt;em&gt;Enter&lt;/em&gt; and &lt;em&gt;Shift+Enter&lt;/em&gt; keys.">
 	<script>
+
 		var editor;
+
 		function changeEnter() {
 			// If we already have an editor, let's destroy it first.
 			if ( editor )
 				editor.destroy( true );
+
 			// Create the editor again, with the appropriate settings.
 			editor = CKEDITOR.replace( 'editor1', {
 				extraPlugins: 'enterkey',
@@ -25,7 +28,9 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 				shiftEnterMode: Number( document.getElementById( 'xShiftEnter' ).value )
 			});
 		}
+
 		window.onload = changeEnter;
+
 	</script>
 </head>
 <body>

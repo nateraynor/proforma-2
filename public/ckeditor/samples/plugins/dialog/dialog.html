@@ -13,22 +13,28 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 	<meta name="ckeditor-sample-group" content="Advanced Samples">
 	<meta name="ckeditor-sample-description" content="Using the dialog windows API to customize dialog windows without changing the original editor code.">
 	<style>
+
 		.cke_button__mybutton_icon
 		{
 			display: none !important;
 		}
+
 		.cke_button__mybutton_label
 		{
 			display: inline !important;
 		}
+
 	</style>
 	<script>
+
 		CKEDITOR.on( 'instanceCreated', function( ev ){
 			var editor = ev.editor;
+
 			// Listen for the "pluginsLoaded" event, so we are sure that the
 			// "dialog" plugin has been loaded and we are able to do our
 			// customizations.
 			editor.on( 'pluginsLoaded', function() {
+
 				// If our custom dialog has not been registered, do that now.
 				if ( !CKEDITOR.dialog.exists( 'myDialog' ) ) {
 					// We need to do the following trick to find out the dialog
@@ -38,11 +44,14 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 					href.pop();
 					href.push( 'assets/my_dialog.js' );
 					href = href.join( '/' );
+
 					// Finally, register the dialog.
 					CKEDITOR.dialog.add( 'myDialog', href );
 				}
+
 				// Register the command used to open the dialog.
 				editor.addCommand( 'myDialogCmd', new CKEDITOR.dialogCommand( 'myDialog' ) );
+
 				// Add the a custom toolbar buttons, which fires the above
 				// command..
 				editor.ui.add( 'MyButton', CKEDITOR.UI_BUTTON, {
@@ -51,6 +60,7 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 				});
 			});
 		});
+
 		// When opening a dialog, its "definition" is created for it, for
 		// each editor instance. The "dialogDefinition" event is then
 		// fired. We should use this event to make customizations to the
@@ -59,11 +69,13 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 			// Take the dialog name and its definition from the event data.
 			var dialogName = ev.data.name;
 			var dialogDefinition = ev.data.definition;
+
 			// Check if the definition is from the dialog we're
 			// interested on (the "Link" dialog).
 			if ( dialogName == 'myDialog' && ev.editor.name == 'editor2' ) {
 				// Get a reference to the "Link Info" tab.
 				var infoTab = dialogDefinition.getContents( 'tab1' );
+
 				// Add a new text field to the "tab1" tab page.
 				infoTab.add( {
 					type: 'text',
@@ -75,13 +87,17 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 							return 'My Custom Field must not contain digits';
 					}
 				});
+
 				// Remove the "select1" field from the "tab1" tab.
 				infoTab.remove( 'select1' );
+
 				// Set the default value for "input1" field.
 				var input1 = infoTab.get( 'input1' );
 				input1[ 'default' ] = 'www.example.com';
+
 				// Remove the "tab2" tab page.
 				dialogDefinition.removeContents( 'tab2' );
+
 				// Add a new tab to the "Link" dialog.
 				dialogDefinition.addContents( {
 					id: 'customTab',
@@ -100,6 +116,7 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 						}
 					]
 				});
+
 				// Provide the focus handler to start initial focus in "customField" field.
 				dialogDefinition.onFocus = function() {
 					var urlField = this.getContentElement( 'tab1', 'customField' );
@@ -107,10 +124,12 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 				};
 			}
 		});
+
 		var config = {
 			extraPlugins: 'dialog',
 			toolbar: [ [ 'MyButton' ] ]
 		};
+
 	</script>
 </head>
 <body>
@@ -149,8 +168,10 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 	</ol>
 	<textarea cols="80" id="editor2" name="editor2" rows="10">&lt;p&gt;This is some &lt;strong&gt;sample text&lt;/strong&gt;. You are using &lt;a href="http://ckeditor.com/"&gt;CKEditor&lt;/a&gt;.&lt;/p&gt;</textarea>
 	<script>
+
 		// Replace the <textarea id="editor1"> with an CKEditor instance.
 		CKEDITOR.replace( 'editor2', config );
+
 	</script>
 	<div id="footer">
 		<hr>

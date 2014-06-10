@@ -38,7 +38,7 @@ html {
 </head>
 <body class="login" style="background: none !important;">
 <div class="logo">
-	<img src="<?php echo ASSETS; ?>img/ICM-Mars.png" alt="" style="width: 27%; min-width: 220px; max-width: 360px;";/>
+	<img src="<?php echo ASSETS; ?>img/ICM-Venus-login-Logo.png" alt="" style="width: 27%; min-width: 220px; max-width: 360px;";/>
 </div>
 <div class="content">
 	<form class="login-form" action="<?php echo base_url() ?>login" method="post">

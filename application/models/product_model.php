@@ -29,10 +29,6 @@ class Product_model extends CI_Model {
             $sql .= " AND p.product_price = " . (float)$filters['filter_product_price'];
         }
 			
-        if (!empty($filters['filter_product_status']) || $filters['filter_product_status'] === '0') 
-        {
-            $sql .= " AND p.product_status = '" . (int)$filters['filter_product_status'] . "'";
-        }
 
          if (!empty($filters['sort'])) {
             $sql .= " ORDER BY " . $filters['sort'] . " " . $filters['sort_order'];
@@ -67,10 +63,6 @@ class Product_model extends CI_Model {
             $sql .= " AND p.product_price = " . (float)$filters['filter_product_price'];
         }
             
-        if (!empty($filters['filter_product_status']) || $filters['filter_product_status'] === '0') 
-        {
-            $sql .= " AND p.product_status = '" . (int)$filters['filter_product_status'] . "'";
-        }
 
         $result = $this->db->query($sql);
 
@@ -126,13 +118,19 @@ class Product_model extends CI_Model {
 
  		$product_id = $this->db->insert_id();
  		$result = $this->db->query("INSERT INTO product_to_category SET product_id = '" .(int)$product_id ."' , category_id = '" .(int)$data['category_id'] ."'");
+
+        $this->db->query("INSERT INTO feed SET type='1' , dataID='". $product_id ."' , image_path=". $this->db->escape($data['product_image']) ." , added_date = now() ");
  		return $result;
  	}
 
  	public function updateProduct($data , $product_id){
  		 $this->db->query( "UPDATE product SET 	product_name = " .$this->db->escape($data['product_name']) . " , product_description = " . $this->db->escape($data['product_description']) . " , brand_id = '" . (int)$data['brand_id'] . "', product_price = '" .(double)$data['product_price'] ."' ,product_image = " . $this->db->escape($data['product_image']) . "  , product_link = " .$this->db->escape($data['product_link']) . "  , product_tax_rate = '" .(double)$data['product_tax_rate'] .  "' , product_status = '" . (int)$data['product_status'] ."' , product_date_updated = now() WHERE product_id = '" .(int)$product_id ."'");
  	
+         $this->db->query("INSERT INTO feed SET type='2' ,dataID='".$product_id."', image_path=". $this->db->escape($data['product_image']) ." , added_date = now() ");
+
            $query = $this->db->query("SELECT * FROM product_to_category WHERE product_id = '" . (int)$product_id ."'"); 
+
+
 
             if(isset($query->row(0)->category_id)){
                 $result = $this->db->query("UPDATE product_to_category SET category_id = '" . (int)$data['category_id'] ."' WHERE product_id = '" . (int)$product_id."' ");
@@ -145,6 +143,9 @@ class Product_model extends CI_Model {
  	}
 
  	public function deleteProduct($product_id) {
+
+        $this->db->query("DELETE FROM product_gallery WHERE product_id = '" . $product_id . "'");
+
  		$result = $this->db->query("DELETE FROM product WHERE product_id = '" . (int)$product_id . "' LIMIT 1");
  		return $result;
  	}
