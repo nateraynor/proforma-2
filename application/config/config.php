@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://planetz.co/test/';
+$config['base_url']	= 'http://planetz.co/Proforma/';
 
 /*
 |--------------------------------------------------------------------------
